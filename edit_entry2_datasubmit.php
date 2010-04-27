@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-include_once "libs/iCalcreator.class.php";
 require "libs/municipals_norway.php";
 
 $area_rooms = array();
