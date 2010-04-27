@@ -179,10 +179,6 @@ function reset_session(){
 	$_SESSION["db_entry_all_fields_set"]=false;
 }
 
-function star(){
-	return "<img width='16' height='16' src='img/star.gif' border=0 style=\"clear:none;\">";
-}
-
 function buildSelectFormat($start,$end,$step,$selection,$prefix,$suffix){
 	for($i=$start;$i<=$end;$i=$i+$step){
 		$iv = $prefix.((strlen($i)==1)?("0"):("")).$i.$suffix;
