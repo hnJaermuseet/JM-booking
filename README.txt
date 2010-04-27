@@ -37,4 +37,42 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-## LICENSES USED BY OTHERS ##
+## OTHER LICENSES IN USE ##
+Original licenses for libraries, etc:
+- ARBS, GPLv2 or later
+- MRBS, GPLv2 or later?
+
+Libs:
+- dompdf, LGPLv2.1 or later, or PHP License v3 or later
+- Excel writer, LGPL 2.1 or later
+- html2pdf, LGPL according to sourceforge page
+	- fpdf, "freeware" / public domain
+	- gif util, freeware under condition to leave copyrightmarks
+- Mail, PHP License v2.02
+- pChart, GPLv1, v2, v3 or later
+- cpdf, public domain
+- pear, PHP license v3, and some PHP license v2
+- php-gettext, GPLv2 or later
+- phpmailer, LGPL, see license
+- Smarty, LGPLv2.1 or later
+- iCalcreator, LGPLv2.1 or later
+
+Javascripts:
+- FamFamFam silk icons, CC-BY 2.5 or 3.0
+- Autosuggest, CC-BY-SA 2.5
+- browser detection, GPLv3 or later
+- Mediawiki (some JS-scripts), ?????
+- JQuery, MIT or GPL
+
+Other:
+
+Licenses used overall:
+- GPLv2 or later
+- GPLv3 or later
+- LGPLv2.1 or later
+- "LGPL"
+- PHP license v2, v3, v2.02
+- freeware
+- CC-BY-SA 2.5
+- CC-BY 2.5 or 3.0
+- "MIT or GPL"
