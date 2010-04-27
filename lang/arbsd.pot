@@ -1,0 +1,1825 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-02-18 17:47+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.php:17
+msgid "Please enter an description."
+msgstr ""
+
+#: admin.php:43 admin.php:64 admin.php:100
+msgid "Please enter a name."
+msgstr ""
+
+#: admin.php:121
+#, php-format
+msgid "Checking %s to %s:"
+msgstr ""
+
+#: admin.php:123
+#, php-format
+msgid "%d hits, %d slots free"
+msgstr ""
+
+#: admin.php:171
+msgid ""
+"The capacity was reduced. Please check the entries with the following IDs "
+"because they're causing conflicts with the reduced capacity."
+msgstr ""
+
+#: admin.php:177 checkrepeater.php:43 confirmpopup.php:91
+#, php-format
+msgid "%s to %s"
+msgstr ""
+
+#: admin.php:333
+msgid "Periods"
+msgstr ""
+
+#: admin.php:357 admin.php:453 admin.php:546 admin.php:696
+msgid "add"
+msgstr ""
+
+#: admin.php:365
+#, possible-php-format
+msgid "Period ID %s not found"
+msgstr ""
+
+#: admin.php:368 admin.php:464 admin.php:712 korb_kompl.php:125
+msgid "change"
+msgstr ""
+
+#: admin.php:385 admin.php:568 glob_inc.inc.php:82
+msgid "Error"
+msgstr ""
+
+#: admin.php:388
+msgid "Description of this period"
+msgstr ""
+
+#: admin.php:393
+msgid "Start-Date"
+msgstr ""
+
+#: admin.php:397
+msgid "End-Date"
+msgstr ""
+
+#: admin.php:411
+msgid "Create period"
+msgstr ""
+
+#: admin.php:413
+msgid "Delete this period"
+msgstr ""
+
+#: admin.php:420
+#, php-format
+msgid "Please select a period first or %screate%s a new one."
+msgstr ""
+
+#: admin.php:426 roomlist.php:63
+msgid "Areas"
+msgstr ""
+
+#: admin.php:461
+#, php-format
+msgid "Area ID %s not found"
+msgstr ""
+
+#: admin.php:493
+msgid "Create area"
+msgstr ""
+
+#: admin.php:495
+msgid "Delete this area"
+msgstr ""
+
+#: admin.php:503
+#, php-format
+msgid "Please select an area first or<br>%screate%s a new one."
+msgstr ""
+
+#: admin.php:522
+msgid "Category"
+msgstr ""
+
+#: admin.php:554
+#, php-format
+msgid "Cytegory ID %s not found"
+msgstr ""
+
+#: admin.php:557
+msgid "Submit changes"
+msgstr ""
+
+#: admin.php:571
+msgid "Name of the category"
+msgstr ""
+
+#: admin.php:581
+msgid "Change the rooms of this category"
+msgstr ""
+
+#: admin.php:586
+msgid "Rooms in this system"
+msgstr ""
+
+#: admin.php:587
+msgid "Rooms in this category"
+msgstr ""
+
+#: admin.php:597 admin.php:676 admin.php:682 admin.php:778
+msgid "hidden"
+msgstr ""
+
+#: admin.php:602
+msgid "Add to category"
+msgstr ""
+
+#: admin.php:616
+msgid "Remove from category"
+msgstr ""
+
+#: admin.php:618
+msgid "Move up"
+msgstr ""
+
+#: admin.php:620
+msgid "Move down"
+msgstr ""
+
+#: admin.php:622
+msgid "Mark as hightlighted"
+msgstr ""
+
+#: admin.php:624
+msgid ""
+"(Devices marked as highlighted appear in the overview page in an extra box)"
+msgstr ""
+
+#: admin.php:645
+msgid "Create category"
+msgstr ""
+
+#: admin.php:648
+msgid "Delete this category"
+msgstr ""
+
+#: admin.php:656
+#, php-format
+msgid "Please select a category first - or %screate%s a new one."
+msgstr ""
+
+#: admin.php:663 edit_entry2.php:54 entry.php:92 stats.php:171 stats.php:219
+#: view_entry.php:152
+msgid "Room"
+msgstr ""
+
+#: admin.php:709
+#, php-format
+msgid "Room ID %s not found."
+msgstr ""
+
+#: admin.php:729
+msgid "Name of this Room"
+msgstr ""
+
+#: admin.php:734
+msgid "Description"
+msgstr ""
+
+#: admin.php:738
+msgid "Capacity"
+msgstr ""
+
+#: admin.php:743
+msgid "Maximum number of hours"
+msgstr ""
+
+#: admin.php:748
+msgid "Maximum numbers of days"
+msgstr ""
+
+#: admin.php:753
+msgid "Maximum number of weeks"
+msgstr ""
+
+#: admin.php:758 edit_entry2.php:58
+msgid "Comment"
+msgstr ""
+
+#: admin.php:762
+msgid "URL to info page"
+msgstr ""
+
+#: admin.php:766
+msgid "Additional Information"
+msgstr ""
+
+#: admin.php:770
+msgid "Room-admin's eMail"
+msgstr ""
+
+#: admin.php:776
+msgid "visible"
+msgstr ""
+
+#: admin.php:789
+msgid "This room will be visible in the following categories:"
+msgstr ""
+
+#: admin.php:800
+msgid "Create a Room"
+msgstr ""
+
+#: admin.php:803
+msgid "Delete this room"
+msgstr ""
+
+#: admin.php:813
+#, php-format
+msgid "Please select a room or %screate%s a new one."
+msgstr ""
+
+#: admin.php:817
+#, php-format
+msgid ""
+"If you want to add more categories to this area then please click %shere%s."
+msgstr ""
+
+#: admin.php:845
+msgid "Filter rules"
+msgstr ""
+
+#: admin.php:851
+msgid "Status"
+msgstr ""
+
+#: admin.php:853
+msgid "All"
+msgstr ""
+
+#: admin.php:861
+msgid "Period"
+msgstr ""
+
+#: admin.php:864 blinde.php:41 edit_entry.php:689 functions.inc.php:837
+msgid "from"
+msgstr ""
+
+#: admin.php:869 blinde.php:42 edit_entry.php:689 functions.inc.php:837
+#: korb_kompl.php:120 korb_kompl.php:135
+msgid "till"
+msgstr ""
+
+#: admin.php:876
+msgid "Type of entries"
+msgstr ""
+
+#: admin.php:878
+msgid "Single entries"
+msgstr ""
+
+#: admin.php:879
+msgid "Multiple entries"
+msgstr ""
+
+#: admin.php:880
+msgid "Single and multiple entries"
+msgstr ""
+
+#: admin.php:885
+msgid "Create view"
+msgstr ""
+
+#: admin.php:893
+msgid "Standalone entries"
+msgstr ""
+
+#: admin.php:895 admin.php:991
+msgid "Series"
+msgstr ""
+
+#: admin.php:898
+msgid "Standalone and series"
+msgstr ""
+
+#: admin.php:902
+msgid "Standalone entries belonging to this series"
+msgstr ""
+
+#: admin.php:904
+#, php-format
+msgid "Viewing: %s"
+msgstr ""
+
+#: admin.php:907
+msgid "Type, Start-date"
+msgstr ""
+
+#: admin.php:908 blinde.php:36 blinde.php:55 stats.php:191
+msgid "Tutor"
+msgstr ""
+
+#: admin.php:909
+msgid "Title"
+msgstr ""
+
+#: admin.php:910 blinde.php:47 roomlist.php:138 search.php:153 search.php:193
+msgid "Device"
+msgstr ""
+
+#: admin.php:911
+msgid "Actions"
+msgstr ""
+
+#: admin.php:989
+msgid "Standalone entry"
+msgstr ""
+
+#: admin.php:1006 admin.php:1015
+msgid "Show entry"
+msgstr ""
+
+#: admin.php:1007 edit_entry.php:385 search.php:177 search.php:228
+#: view_entry.php:230
+msgid "Change entry"
+msgstr ""
+
+#: admin.php:1008 admin.php:1017
+msgid "Are you sure you want to delete this entry?"
+msgstr ""
+
+#: admin.php:1008 search.php:178 search.php:229 view_entry.php:237
+msgid "Delete entry"
+msgstr ""
+
+#: admin.php:1016 search.php:180 search.php:231 view_entry.php:233
+msgid "Change all entries"
+msgstr ""
+
+#: admin.php:1017 search.php:181 search.php:232 view_entry.php:240
+msgid "Delete all entries"
+msgstr ""
+
+#: admin.php:1018
+msgid "Show sub-entries"
+msgstr ""
+
+#: admin.php:1040
+msgid "Change status"
+msgstr ""
+
+#: admin.php:1048
+msgid "There are no entries matching the filter rules."
+msgstr ""
+
+#: admin_group.php:19
+msgid "Group not found"
+msgstr ""
+
+#: admin_group.php:53
+msgid "User does not exist"
+msgstr ""
+
+#: admin_group.php:74 admin_group.php:111
+msgid "Usergroups"
+msgstr ""
+
+#: admin_group.php:75 auth_web.inc.php:60 day.php:236 search.php:128
+msgid "Back"
+msgstr ""
+
+#: admin_group.php:76
+msgid "Viewing group"
+msgstr ""
+
+#: admin_group.php:77
+msgid "Group name"
+msgstr ""
+
+#: admin_group.php:78 admin_group.php:85 admin_user.php:83
+msgid "Users"
+msgstr ""
+
+#: admin_group.php:79
+msgid "Add user to group"
+msgstr ""
+
+#: admin_group.php:82 admin_group.php:116 admin_user.php:90
+msgid "Add"
+msgstr ""
+
+#: admin_group.php:83
+msgid "Enter userID"
+msgstr ""
+
+#: admin_group.php:91
+msgid "Remove user from group"
+msgstr ""
+
+#: admin_group.php:114
+msgid "Add group"
+msgstr ""
+
+#: admin_group.php:120
+msgid "List of usergroups"
+msgstr ""
+
+#: admin_group.php:123
+msgid "No groups found."
+msgstr ""
+
+#: admin_group.php:129
+msgid "users"
+msgstr ""
+
+#: admin_user.php:19
+msgid "user not found"
+msgstr ""
+
+#: admin_user.php:71
+msgid "That user already exists."
+msgstr ""
+
+#: admin_user.php:86
+msgid "Add user"
+msgstr ""
+
+#: admin_user.php:87 auth_sql.inc.php:60 auth_web.inc.php:53
+msgid "Username"
+msgstr ""
+
+#: admin_user.php:88
+msgid "Email"
+msgstr ""
+
+#: admin_user.php:89 auth_sql.inc.php:63 auth_web.inc.php:56
+msgid "Password"
+msgstr ""
+
+#: admin_user.php:94
+msgid "List of users"
+msgstr ""
+
+#: admin_user.php:95
+msgid "Click on a user to edit."
+msgstr ""
+
+#: admin_user.php:95
+msgid "In front of each user is a number. This corresponds to the userlevel."
+msgstr ""
+
+#: admin_user.php:98
+msgid "No users found."
+msgstr ""
+
+#: admin_user.php:104
+msgid "View profil"
+msgstr ""
+
+#: auth_sql.inc.php:43 auth_web.inc.php:39 functions.inc.php:252
+msgid "Reserving devices ONLINE"
+msgstr ""
+
+#: auth_sql.inc.php:45 auth_sql.inc.php:66 auth_web.inc.php:39
+msgid "Log in"
+msgstr ""
+
+#: auth_sql.inc.php:56 auth_web.inc.php:49
+msgid "Please log in"
+msgstr ""
+
+#: auth_sql.inc.php:58 auth_web.inc.php:51
+msgid "Username / Password wrong"
+msgstr ""
+
+#: auth_web.inc.php:59 blinde.php:62 edit_entry.php:686 search.php:142
+msgid "Continue"
+msgstr ""
+
+#: blinde.php:30
+msgid "Reserving devices for blind people"
+msgstr ""
+
+#: blinde.php:37 blinde.php:56
+msgid "Specials"
+msgstr ""
+
+#: blinde.php:38 blinde.php:57 search.php:152 search.php:192 stats.php:154
+#: stats.php:171 default/config.inc.php:138
+msgid "Name"
+msgstr ""
+
+#: blinde.php:39 blinde.php:58 default/config.inc.php:140
+msgid "eMail"
+msgstr ""
+
+#: blinde.php:40 blinde.php:59 default/config.inc.php:139
+msgid "Phone"
+msgstr ""
+
+#: blinde.php:43
+msgid "Blind people's reservation"
+msgstr ""
+
+#: blinde.php:44
+msgid "Your request was sent. We'll contact you via mail in a short time."
+msgstr ""
+
+#: blinde.php:60
+msgid "Date and time of pickup"
+msgstr ""
+
+#: blinde.php:61
+msgid "Date and time of return"
+msgstr ""
+
+#: checkrepeater.php:41
+#, php-format
+msgid ""
+"The device %s has also been reserved by %4$s in the time between %2$s and %3"
+"$s at the following times:"
+msgstr ""
+
+#: checkrepeater.php:48
+#, php-format
+msgid "This device <b>hasn't been reserved</b> between %2$s and %3$s by %1$s."
+msgstr ""
+
+#: checkrepeater.php:50
+msgid "Close this window"
+msgstr ""
+
+#: confirmdelete.php:46
+msgid "of the room"
+msgstr ""
+
+#: confirmdelete.php:48
+msgid "Booking entries of this room"
+msgstr ""
+
+#: confirmdelete.php:54
+msgid "of the period"
+msgstr ""
+
+#: confirmdelete.php:56
+msgid "Selection options of periods for entries"
+msgstr ""
+
+#: confirmdelete.php:63
+msgid "of the category"
+msgstr ""
+
+#: confirmdelete.php:65 confirmdelete.php:75
+msgid "subsidiary rooms"
+msgstr ""
+
+#: confirmdelete.php:66 confirmdelete.php:76
+msgid "Booking entries of the rooms"
+msgstr ""
+
+#: confirmdelete.php:72
+msgid "of the area"
+msgstr ""
+
+#: confirmdelete.php:74
+msgid "subsidiary categories"
+msgstr ""
+
+#: confirmdelete.php:86 functions.inc.php:317
+#: admin_include/admin_middel.php:17
+msgid "Administration"
+msgstr ""
+
+#: confirmdelete.php:92
+msgid "Really delete?"
+msgstr ""
+
+#: confirmdelete.php:93
+msgid "YES, delete"
+msgstr ""
+
+#: confirmdelete.php:94
+msgid "NO, cancel"
+msgstr ""
+
+#: confirmpopup.php:35
+msgid "You successfully booked this room:"
+msgstr ""
+
+#: confirmpopup.php:100
+msgid "Continue to"
+msgstr ""
+
+#: confirmpopup.php:102
+msgid "Continue to room"
+msgstr ""
+
+#: day.php:144
+msgid "The area / the category has no rooms"
+msgstr ""
+
+#: day.php:153 day.php:158
+msgid "Go to previous day"
+msgstr ""
+
+#: day.php:154 day.php:159
+msgid "Go to today"
+msgstr ""
+
+#: day.php:155 day.php:160
+msgid "Go to next day"
+msgstr ""
+
+#: day.php:221
+msgid "Make entry"
+msgstr ""
+
+#: day.php:234
+msgid "Print view"
+msgstr ""
+
+#: edit_entry.php:142
+#, php-format
+msgid "Entry ID %s not found"
+msgstr ""
+
+#: edit_entry.php:206
+#, php-format
+msgid "Repeat ID %s not found"
+msgstr ""
+
+#: edit_entry.php:303 edit_entry_handler.php:145
+#, php-format
+msgid "Room ID %s not found"
+msgstr ""
+
+#: edit_entry.php:332 edit_entry.php:355
+msgid "Today"
+msgstr ""
+
+#: edit_entry.php:385
+msgid "Create entry"
+msgstr ""
+
+#: edit_entry.php:389
+msgid "Personal data is saved"
+msgstr ""
+
+#: edit_entry.php:405
+msgid "Input error"
+msgstr ""
+
+#: edit_entry.php:421
+msgid "Pickup date"
+msgstr ""
+
+#: edit_entry.php:424 edit_entry.php:444
+msgid "Select a date"
+msgstr ""
+
+#: edit_entry.php:433
+#, php-format
+msgid "The reservation of this room is restricted to %d days."
+msgstr ""
+
+#: edit_entry.php:441 edit_entry.php:457
+msgid "Type:"
+msgstr ""
+
+#: edit_entry.php:483
+msgid "Whole day"
+msgstr ""
+
+#: edit_entry.php:501 edit_entry.php:525 edit_entry.php:554 edit_entry.php:592
+#: edit_entry.php:629 edit_entry.php:640 view_entry.php:163
+msgid "once"
+msgstr ""
+
+#: edit_entry.php:502 edit_entry.php:526 edit_entry.php:555 edit_entry.php:588
+#: view_entry.php:164
+msgid "daily repeating"
+msgstr ""
+
+#: edit_entry.php:503 edit_entry.php:527 edit_entry.php:556 edit_entry.php:589
+#: view_entry.php:165
+msgid "weekly repeating"
+msgstr ""
+
+#: edit_entry.php:504 edit_entry.php:528 edit_entry.php:557 edit_entry.php:590
+#: view_entry.php:166
+msgid "weekly while in the term"
+msgstr ""
+
+#: edit_entry.php:534 edit_entry.php:607
+msgid "Last day of this repetition"
+msgstr ""
+
+#: edit_entry.php:574
+msgid ""
+"<b>Notice:</b></br>The booking will only be within the term.<br>So we ask "
+"you to reserve the weeks till the start of the semester seperately.<br>If "
+"the semester has already started, only the remaining time will be reserved."
+msgstr ""
+
+#: edit_entry.php:586 view_entry.php:160
+msgid "Type of repetition"
+msgstr ""
+
+#: edit_entry.php:606
+msgid "Day of repetition:"
+msgstr ""
+
+#: edit_entry.php:619
+msgid "Duration and repetition"
+msgstr ""
+
+#: edit_entry.php:623
+msgid "The duration for booking this room is limited to the following options:"
+msgstr ""
+
+#: edit_entry.php:630 edit_entry.php:657 functions.inc.php:355 stats.php:154
+#: stats.php:171 stats.php:191 stats.php:219
+msgid "Hours"
+msgstr ""
+
+#: edit_entry.php:632
+msgid "Please select \"once\" if you just want to book a single event."
+msgstr ""
+
+#: edit_entry.php:641 edit_entry.php:664 functions.inc.php:352
+msgid "Days"
+msgstr ""
+
+#: edit_entry.php:654 view_entry.php:214
+msgid "Number of weeks"
+msgstr ""
+
+#: edit_entry.php:655 functions.inc.php:349
+msgid "Weeks"
+msgstr ""
+
+#: edit_entry.php:657 edit_entry.php:664
+msgid "Duration per:"
+msgstr ""
+
+#: edit_entry.php:671
+msgid "blubb"
+msgstr ""
+
+#: edit_entry.php:684
+#, php-format
+msgid "Notice: Fields marked with %s are mandatory."
+msgstr ""
+
+#: edit_entry.php:689
+msgid "The room"
+msgstr ""
+
+#: edit_entry.php:689
+msgid "book?"
+msgstr ""
+
+#: edit_entry.php:692
+msgid "Your booking is being checked. Please wait..."
+msgstr ""
+
+#: edit_entry2.php:47 entry.php:41
+msgid "Entry title"
+msgstr ""
+
+#: edit_entry2.php:47
+msgid ""
+"What this is. Can be empty. Entryname is generated from the title and some "
+"other values."
+msgstr ""
+
+#: edit_entry2.php:48 entry.php:47
+msgid "Entry type"
+msgstr ""
+
+#: edit_entry2.php:48
+msgid "What type of entry this is."
+msgstr ""
+
+#: edit_entry2.php:50 week.php:145
+msgid "Start time"
+msgstr ""
+
+#: edit_entry2.php:50
+msgid "When does this event start. Should be set in the calendar."
+msgstr ""
+
+#: edit_entry2.php:51
+msgid "End time"
+msgstr ""
+
+#: edit_entry2.php:51
+msgid "When is the event finished."
+msgstr ""
+
+#: edit_entry2.php:53 entry.php:91
+msgid "Area"
+msgstr ""
+
+#: edit_entry2.php:56
+msgid "Users assigned"
+msgstr ""
+
+#: edit_entry2.php:56
+msgid "Which users are assigned to this event. Event will appear in Groupwise."
+msgstr ""
+
+#: edit_entry2.php:60 entry.php:147 entry.php:148
+msgid "Invoice"
+msgstr ""
+
+#: edit_entry2.php:60
+msgid "Choose yes if invoice should be made after this event."
+msgstr ""
+
+#: edit_entry2.php:61
+msgid "Invoice info"
+msgstr ""
+
+#: edit_entry2.php:61
+msgid "Please specify what the invoice should contain."
+msgstr ""
+
+#: edit_entry2.php:96
+msgid "Non selected"
+msgstr ""
+
+#: edit_entry2.php:103
+msgid "Select one"
+msgstr ""
+
+#: edit_entry2.php:114 entry.php:94 entry.php:101 entry.php:127
+msgid "Whole area"
+msgstr ""
+
+#: edit_entry2.php:127
+msgid "Yes"
+msgstr ""
+
+#: edit_entry2.php:127
+msgid "No"
+msgstr ""
+
+#: edit_entry2.php:136 entry.php:26
+msgid "Can't find entry"
+msgstr ""
+
+#: edit_entry2.php:203 edit_entry2_form.php:7
+msgid "Add entry"
+msgstr ""
+
+#: edit_entry2.php:205 edit_entry2_form.php:9
+msgid "Edit entry"
+msgstr ""
+
+#: edit_entry2_datasubmit.php:15
+msgid "Entrytype is invalid."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:28
+msgid "Can't find entrytype in database"
+msgstr ""
+
+#: edit_entry2_datasubmit.php:41
+msgid "Invalid date. Please check the format."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:50
+msgid "Area is invalid."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:60
+msgid "Area must be selected."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:66
+msgid "Can't find area in database"
+msgstr ""
+
+#: edit_entry2_datasubmit.php:87 edit_entry2_datasubmit.php:93
+msgid "One of the rooms is not found."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:121
+msgid "One of the users you assigned is not found."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:127
+msgid "One of user you assigned is not found."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:180
+msgid "Start time must be before end time for the entry."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:184
+msgid "Start and end time must be set for all entries."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:293
+msgid "Can't log the new entry."
+msgstr ""
+
+#: edit_entry2_datasubmit.php:393
+msgid "Can't log the changes for the entry."
+msgstr ""
+
+#: edit_entry2_form.php:16
+msgid "One or more errors occured in the data submited"
+msgstr ""
+
+#: edit_entry2_form.php:49
+msgid "One or more warnings where generated."
+msgstr ""
+
+#: edit_entry2_form.php:56
+msgid ""
+"Changes are still not saved. Please fix warnings or ignore them to get the "
+"changes saved."
+msgstr ""
+
+#: edit_entry2_form.php:58
+msgid "I have seen the warnings and still want to proceed."
+msgstr ""
+
+#: edit_entry2_form.php:59
+msgid "Proceed"
+msgstr ""
+
+#: edit_entry2_form.php:148
+msgid "Error with inputfields for entry."
+msgstr ""
+
+#: edit_entry_handler.php:227
+msgid "You can't start a booking at a weekend."
+msgstr ""
+
+#: edit_entry_handler.php:336
+msgid "Coudln't gain exclusive database access"
+msgstr ""
+
+#: edit_entry_handler.php:442
+msgid "The new entry is conflicting with the following entries:"
+msgstr ""
+
+#: edit_entry_handler.php:450
+msgid "Book the free slots"
+msgstr ""
+
+#: edit_entry_handler.php:451
+#, php-format
+msgid "%d of %d slots are free"
+msgstr ""
+
+#: edit_entry_handler.php:456
+msgid "Back to calendar view"
+msgstr ""
+
+#: edit_entry_handler.php:464 edit_entry_handler.php:472
+msgid ""
+"The end time has to be after the start time; the end of a repeating entry "
+"has to be after the end time."
+msgstr ""
+
+#: edit_entry_handler.php:466
+msgid "You can't have daily repeating entries which are longer than 24 hours."
+msgstr ""
+
+#: edit_entry_handler.php:468
+msgid ""
+"You didn't fill all neccessary fields. Neccessary fields are marked with a *."
+msgstr ""
+
+#: entry.php:19
+msgid "Error: No entry spesified."
+msgstr ""
+
+#: entry.php:35
+msgid "Viewing entry"
+msgstr ""
+
+#: entry.php:36 new_entries.php:28
+msgid "Entry name"
+msgstr ""
+
+#: entry.php:38
+msgid "Edit this entry"
+msgstr ""
+
+#: entry.php:40
+msgid "Entry ID"
+msgstr ""
+
+#: entry.php:43 entry.php:49
+msgid "Non"
+msgstr ""
+
+#: entry.php:57
+msgid "Starts"
+msgstr ""
+
+#: entry.php:58
+msgid "Finished"
+msgstr ""
+
+#: entry.php:60
+msgid "Assigned to"
+msgstr ""
+
+#: entry.php:62 entry.php:68
+msgid "Nobody"
+msgstr ""
+
+#: entry.php:108
+msgid "Can't find room"
+msgstr ""
+
+#: entry.php:132
+msgid "Comfirmation email sent?"
+msgstr ""
+
+#: entry.php:134 entry.php:150
+msgid "yes"
+msgstr ""
+
+#: entry.php:137 entry.php:152
+msgid "no"
+msgstr ""
+
+#: entry.php:138
+msgid "Send booking comfirmation"
+msgstr ""
+
+#: entry.php:143
+msgid "Booking created by"
+msgstr ""
+
+#: entry.php:154
+msgid "Invoice status"
+msgstr ""
+
+#: entry.php:158
+msgid "not processed"
+msgstr ""
+
+#: entry.php:160
+msgid "payed"
+msgstr ""
+
+#: entry.php:162
+msgid "processed, but not payed"
+msgstr ""
+
+#: entry.php:165
+msgid "not to be made"
+msgstr ""
+
+#: entry.php:167
+msgid "Invoice information"
+msgstr ""
+
+#: entry.php:171
+msgid "Changelog"
+msgstr ""
+
+#: entry.php:172
+msgid "Number of changes"
+msgstr ""
+
+#: entry.php:175
+msgid "Last changed by"
+msgstr ""
+
+#: entry.php:176
+msgid "CHANGELOG TO BE MADE!!"
+msgstr ""
+
+#: functions.inc.php:102 functions.inc.php:106 functions.inc.php:110
+#, php-format
+msgid "%s can't be read."
+msgstr ""
+
+#: functions.inc.php:116
+#, php-format
+msgid "Couldn't find %d"
+msgstr ""
+
+#: functions.inc.php:287
+msgid "Start"
+msgstr ""
+
+#: functions.inc.php:291
+msgid "Language:"
+msgstr ""
+
+#: functions.inc.php:315
+msgid "Logged in as"
+msgstr ""
+
+#: functions.inc.php:316 login.php:22
+msgid "Log out"
+msgstr ""
+
+#: functions.inc.php:322
+msgid "Search:"
+msgstr ""
+
+#: functions.inc.php:326
+msgid "Make a new entry"
+msgstr ""
+
+#: functions.inc.php:327
+msgid "List with new entries"
+msgstr ""
+
+#: functions.inc.php:346
+msgid "Years"
+msgstr ""
+
+#: functions.inc.php:358
+msgid "Minutes"
+msgstr ""
+
+#: functions.inc.php:361
+msgid "Secounds"
+msgstr ""
+
+#: functions.inc.php:371
+msgid "Monday"
+msgstr ""
+
+#: functions.inc.php:372
+msgid "Tuedsay"
+msgstr ""
+
+#: functions.inc.php:373
+msgid "Wednesday"
+msgstr ""
+
+#: functions.inc.php:374
+msgid "Thursday"
+msgstr ""
+
+#: functions.inc.php:375
+msgid "Friday"
+msgstr ""
+
+#: functions.inc.php:376
+msgid "Saturday"
+msgstr ""
+
+#: functions.inc.php:377
+msgid "Sunday"
+msgstr ""
+
+#: functions.inc.php:379
+msgid "January"
+msgstr ""
+
+#: functions.inc.php:380
+msgid "February"
+msgstr ""
+
+#: functions.inc.php:381
+msgid "March"
+msgstr ""
+
+#: functions.inc.php:382
+msgid "April"
+msgstr ""
+
+#: functions.inc.php:383 functions.inc.php:396
+msgid "May"
+msgstr ""
+
+#: functions.inc.php:384
+msgid "June"
+msgstr ""
+
+#: functions.inc.php:385
+msgid "July"
+msgstr ""
+
+#: functions.inc.php:386
+msgid "August"
+msgstr ""
+
+#: functions.inc.php:387
+msgid "September"
+msgstr ""
+
+#: functions.inc.php:388
+msgid "October"
+msgstr ""
+
+#: functions.inc.php:389
+msgid "November"
+msgstr ""
+
+#: functions.inc.php:390
+msgid "December"
+msgstr ""
+
+#: functions.inc.php:392
+msgid "Jan"
+msgstr ""
+
+#: functions.inc.php:393
+msgid "Feb"
+msgstr ""
+
+#: functions.inc.php:394
+msgid "Mar"
+msgstr ""
+
+#: functions.inc.php:395
+msgid "Apr"
+msgstr ""
+
+#: functions.inc.php:397
+msgid "Jun"
+msgstr ""
+
+#: functions.inc.php:398
+msgid "Jul"
+msgstr ""
+
+#: functions.inc.php:399
+msgid "Aug"
+msgstr ""
+
+#: functions.inc.php:400
+msgid "Sep"
+msgstr ""
+
+#: functions.inc.php:401
+msgid "Oct"
+msgstr ""
+
+#: functions.inc.php:402
+msgid "Nov"
+msgstr ""
+
+#: functions.inc.php:403
+msgid "Dec"
+msgstr ""
+
+#: functions.inc.php:620
+msgid "Booked out"
+msgstr ""
+
+#: functions.inc.php:1073
+msgid "Unspesified title"
+msgstr ""
+
+#: functions.inc.php:1312
+msgid "New entry."
+msgstr ""
+
+#: functions.inc.php:1319
+msgid "Invoice is registered as sent."
+msgstr ""
+
+#: functions.inc.php:1321
+msgid "Invoice is registered as payed."
+msgstr ""
+
+#: functions.inc.php:1323
+msgid "Comfirmation email is sent to"
+msgstr ""
+
+#: functions.inc.php:1327
+msgid "Icalendar element is sent to"
+msgstr ""
+
+#: functions.inc.php:1331
+msgid "Entry was edited."
+msgstr ""
+
+#: glob_inc.inc.php:62
+msgid "Invalid instance-name"
+msgstr ""
+
+#: glob_inc.inc.php:82
+#, php-format
+msgid "Instance %s not found!"
+msgstr ""
+
+#: korb_kompl.php:101
+msgid "You're logged in as Mr/Mrs:"
+msgstr ""
+
+#: korb_kompl.php:103
+msgid "Please don't forget to confirm your order!"
+msgstr ""
+
+#: korb_kompl.php:108
+msgid "You didn't place a reservation."
+msgstr ""
+
+#: korb_kompl.php:123
+msgid "delete"
+msgstr ""
+
+#: korb_kompl.php:139
+msgid "Delete the series"
+msgstr ""
+
+#: korb_kompl.php:141
+msgid "Change the series"
+msgstr ""
+
+#: korb_kompl.php:162
+msgid "Add another reservation"
+msgstr ""
+
+#: korb_kompl.php:166
+msgid "Confirm reservation"
+msgstr ""
+
+#: login.php:21
+msgid "You're already logged in."
+msgstr ""
+
+#: mod_history.php:31
+msgid "History and database-recovery"
+msgstr ""
+
+#: mod_history.php:100
+msgid "Table"
+msgstr ""
+
+#: mod_history.php:100
+msgid "Marked rows:"
+msgstr ""
+
+#: mod_history.php:108
+msgid "Conditional:"
+msgstr ""
+
+#: mod_history.php:111
+msgid "Query:"
+msgstr ""
+
+#: mod_history.php:114
+msgid "(was executed)"
+msgstr ""
+
+#: mod_history.php:138
+#, php-format
+msgid ""
+"For security reasons, the file has to get reading permissions first (chmod "
+"666 %s).<br><b>Afterwards, don't forget chmod 222!</b>"
+msgstr ""
+
+#: mod_history.php:143 mod_history.php:148
+#, php-format
+msgid "XML Error: %s in line %d"
+msgstr ""
+
+#: mod_history.php:153
+msgid "The selected commands can be executed with thid commands:"
+msgstr ""
+
+#: mod_history.php:157
+msgid "CAUTION: AT FIRST RECOVER THE LAST BACKUP"
+msgstr ""
+
+#: mod_history.php:158
+msgid "Add the following entries into the database"
+msgstr ""
+
+#: mrbs_auth.inc.php:86
+msgid "Access denied"
+msgstr ""
+
+#: mrbs_auth.inc.php:88
+msgid "You don't have the neccessary rights to do this action."
+msgstr ""
+
+#: mrbs_auth.inc.php:91 view_entry.php:244
+msgid "Back to previous page"
+msgstr ""
+
+#: mrbs_sql.inc.php:83
+msgid "Show day"
+msgstr ""
+
+#: mrbs_sql.inc.php:84
+msgid "Show week"
+msgstr ""
+
+#: mrbs_sql.inc.php:85
+msgid "Show month"
+msgstr ""
+
+#: mysql.inc.php:233
+msgid "FATAL ERROR: Couldn't connect to database."
+msgstr ""
+
+#: new_entries.php:15
+msgid "50 newest entries"
+msgstr ""
+
+#: new_entries.php:17
+msgid "Colour explaination"
+msgstr ""
+
+#: new_entries.php:18
+msgid "Entry has not changes since last view"
+msgstr ""
+
+#: new_entries.php:19
+msgid "New entry"
+msgstr ""
+
+#: new_entries.php:20
+msgid "Changed entry"
+msgstr ""
+
+#: new_entries.php:27
+msgid "Entry id"
+msgstr ""
+
+#: new_entries.php:29 view_entry.php:198
+msgid "Last change"
+msgstr ""
+
+#: new_entries.php:30
+msgid "Changed by"
+msgstr ""
+
+#: new_entries.php:31
+msgid "Last action"
+msgstr ""
+
+#: new_entries.php:46
+msgid "Not found"
+msgstr ""
+
+#: new_entries.php:84
+msgid "Log not found"
+msgstr ""
+
+#: new_entries.php:92
+msgid "Mark all entries in this list as read"
+msgstr ""
+
+#: pre.php:77
+msgid "Please select a room"
+msgstr ""
+
+#: pre.php:81 pre.php:92 week.php:102
+msgid "Info"
+msgstr ""
+
+#: pre.php:89
+msgid "More rooms"
+msgstr ""
+
+#: print_all.php:55 print_single.php:65
+msgid "Print this page"
+msgstr ""
+
+#: print_all.php:56
+msgid "Mark all as printed"
+msgstr ""
+
+#: print_all.php:59
+#, php-format
+msgid "No reservations at %s"
+msgstr ""
+
+#: print_all.php:59
+msgid "back"
+msgstr ""
+
+#: print_single.php:37
+msgid "Input has been saved"
+msgstr ""
+
+#: print_single.php:65
+msgid "Form on/off"
+msgstr ""
+
+#: print_single.php:68
+msgid "Input infos for the borrower's ticket"
+msgstr ""
+
+#: print_single.php:75
+msgid "ID of the borrower's ticket:"
+msgstr ""
+
+#: print_single.php:76
+msgid "Receiver:"
+msgstr ""
+
+#: print_single.php:77
+msgid "Comment:"
+msgstr ""
+
+#: print_single.php:78
+msgid "Save"
+msgstr ""
+
+#: roomlist.php:178
+msgid "Please select a category"
+msgstr ""
+
+#: roomlist.php:184
+msgid "This area / category doesn't have a room"
+msgstr ""
+
+#: search.php:57
+msgid "Empty or invalid search string."
+msgstr ""
+
+#: search.php:63
+#, php-format
+msgid "Search results for \"%s\":"
+msgstr ""
+
+#: search.php:92
+msgid "No matching entries found"
+msgstr ""
+
+#: search.php:150 search.php:190
+msgid "Entry"
+msgstr ""
+
+#: search.php:151 search.php:191 view_entry.php:181
+msgid "Created by"
+msgstr ""
+
+#: search.php:154 search.php:194 view_entry.php:172
+msgid "Start date"
+msgstr ""
+
+#: search.php:155 search.php:195 view_entry.php:176
+msgid "End date"
+msgstr ""
+
+#: search.php:166 search.php:217 view_entry.php:185
+msgid "Customer"
+msgstr ""
+
+#: search.php:178 search.php:181 search.php:229 search.php:232
+#: view_entry.php:237 view_entry.php:240
+msgid ""
+"Sind Sie sicher,\n"
+"dass Sie diesen Eintrag\n"
+"l&ouml;schen wollen?\n"
+"\n"
+msgstr ""
+
+#: shownoconfirm.php:27
+msgid "No unconfirmed bookings."
+msgstr ""
+
+#: stats.php:35
+msgid "Statistics of lent devices"
+msgstr ""
+
+#: stats.php:97
+msgid "Of Month:"
+msgstr ""
+
+#: stats.php:106 stats.php:125
+msgid "Year:"
+msgstr ""
+
+#: stats.php:115
+msgid "Till:"
+msgstr ""
+
+#: stats.php:116
+msgid "Month:"
+msgstr ""
+
+#: stats.php:134
+msgid "Show"
+msgstr ""
+
+#: stats.php:137
+msgid "Download exported data"
+msgstr ""
+
+#: stats.php:139
+msgid "Export"
+msgstr ""
+
+#: stats.php:154
+#, php-format
+msgid "Details for %s and room %s"
+msgstr ""
+
+#: stats.php:154 stats.php:171 stats.php:191 stats.php:219
+msgid "Number of entries"
+msgstr ""
+
+#: stats.php:171
+#, php-format
+msgid "Details for faculty %s"
+msgstr ""
+
+#: stats.php:191
+#, php-format
+msgid "Details for room %s"
+msgstr ""
+
+#: stats.php:191
+msgid "Faculty"
+msgstr ""
+
+#: stats.php:200 stats.php:264 stats.php:266
+msgid "Other"
+msgstr ""
+
+#: stats.php:218
+#, php-format
+msgid "Details for tutor %s"
+msgstr ""
+
+#: stats.php:219
+msgid "Bookings"
+msgstr ""
+
+#: stats.php:248
+msgid "Overview"
+msgstr ""
+
+#: stats.php:248
+msgid "Last update:"
+msgstr ""
+
+#: stats.php:248
+msgid "Update"
+msgstr ""
+
+#: stats.php:287 stats.php:289 stats.php:336 stats.php:339
+msgid "Sum"
+msgstr ""
+
+#: style.inc.php:32
+msgid "iso-8859-1"
+msgstr ""
+
+#: trailer.inc.php:140
+#, php-format
+msgid ""
+"This page was created by ARBS Version %s, a free software under the GPL "
+"license."
+msgstr ""
+
+#: trailer.inc.php:141
+msgid "This page was created by ARBS, a free software under the GPL license."
+msgstr ""
+
+#: view_entry.php:144
+msgid "Event data"
+msgstr ""
+
+#: view_entry.php:148
+msgid "Type"
+msgstr ""
+
+#: view_entry.php:156
+msgid "Duration"
+msgstr ""
+
+#: view_entry.php:194
+msgid "Created on"
+msgstr ""
+
+#: view_entry.php:214
+msgid "(n-times per week)"
+msgstr ""
+
+#: view_entry.php:218
+msgid "Day of repetition"
+msgstr ""
+
+#: view_entry.php:220
+msgid "Last day of repetition:"
+msgstr ""
+
+#: view_entry.php:226
+msgid "Print view of booker's ticket"
+msgstr ""
+
+#: view_entry.php:228
+msgid "Print view of this page"
+msgstr ""
+
+#: week.php:93
+msgid "This room couldn't be found."
+msgstr ""
+
+#: week.php:99
+msgid "Week"
+msgstr ""
+
+#: week.php:129
+msgid "go to last week"
+msgstr ""
+
+#: week.php:131
+msgid "go to this week"
+msgstr ""
+
+#: week.php:133
+msgid "go to next week"
+msgstr ""
+
+#: admin_include/admin_middel.php:25
+msgid "WORKING STUFF:"
+msgstr ""
+
+#: admin_include/admin_middel.php:28
+msgid "Manage users"
+msgstr ""
+
+#: admin_include/admin_middel.php:32
+msgid "Manage usergroups"
+msgstr ""
+
+#: admin_include/admin_middel.php:38
+msgid "Manage devices"
+msgstr ""
+
+#: admin_include/admin_middel.php:42
+msgid "Manage terms"
+msgstr ""
+
+#: admin_include/admin_middel.php:46
+msgid "Event overview"
+msgstr ""
+
+#: admin_include/admin_middel.php:48
+msgid "Statistics"
+msgstr ""
+
+#: admin_include/admin_middel.php:49
+msgid "Show unconfirmed bookings"
+msgstr ""
+
+#: admin_include/admin_middel.php:52
+msgid "System recovery"
+msgstr ""
+
+#: admin_include/admin_middel.php:59
+msgid "Print an overview"
+msgstr ""
+
+#: default/config.inc.php:107
+msgid "General"
+msgstr ""
+
+#: default/config.inc.php:110
+msgid "Lector"
+msgstr ""
+
+#: default/config.inc.php:134
+msgid "Institute"
+msgstr ""
+
+#: default/config.inc.php:135
+msgid "Remarks"
+msgstr ""
+
+#: default/config.inc.php:135
+msgid "Here you may leave a message for special needs like cables, media etc."
+msgstr ""
+
+#: default/config.inc.php:137
+msgid "Advisor respective Collector"
+msgstr ""
+
+#: default/config.inc.php:281
+msgid "invalid language selected"
+msgstr ""
+
+#: default/config.inc.php:326
+msgid "Reserved"
+msgstr ""

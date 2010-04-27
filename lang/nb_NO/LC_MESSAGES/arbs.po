@@ -1,0 +1,3124 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: arbs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-09-22 15:01+0100\n"
+"PO-Revision-Date: 2008-09-22 15:04+0100\n"
+"Last-Translator: Hallvard <hn@jaermuseet.no>\n"
+"Language-Team: Hallvard Nygård <futti@warpcrew.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Norwegian Bokmal\n"
+"X-Poedit-Country: NORWAY\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: C:\\Users\\Hallvard\\Documents\\Web\\Helene\\web\\arbs\n"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:24
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:73
+msgid "New area"
+msgstr "Nytt bygg"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:25
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:25
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:97
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:144
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:25
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:39
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:107
+msgid "Add"
+msgstr "Legg til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:30
+msgid "Change area"
+msgstr "Endre bygg"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:31
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:31
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:31
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:45
+msgid "Change"
+msgstr "Endre"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:37
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:51
+msgid "Area name"
+msgstr "Byggnavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:69
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:78
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:83
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:97
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:43
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:51
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:128
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1795
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1797
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:159
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:149
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:31
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/admin_middel.php:27
+msgid "Area"
+msgstr "Bygg"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:77
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:78
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:81
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:95
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:425
+msgid "ID"
+msgstr "ID"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:80
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:82
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:85
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:99
+msgid "Options"
+msgstr "Valg"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:87
+msgid "Show rooms"
+msgstr "Vis rom"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_area.php:89
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:91
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:100
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:114
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:285
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_list.php:32
+msgid "Edit"
+msgstr "Endre"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:24
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:74
+msgid "New entrytype"
+msgstr "Ny type"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:30
+msgid "Change entrytype"
+msgstr "Endre type"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:37
+msgid "Entrytype name"
+msgstr "Typenavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:38
+msgid "Short entrytype name"
+msgstr "Kort typenavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:70
+msgid "Entrytypes"
+msgstr "Typer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:79
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/admin_middel.php:31
+msgid "Entrytype"
+msgstr "Type"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_entry_type.php:80
+msgid "Short name"
+msgstr "Kort navn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:19
+msgid "Group not found"
+msgstr "Gruppe ikke funnet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:59
+msgid "User does not exist"
+msgstr "Brukeren eksisterer ikke"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:86
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:137
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/admin_middel.php:19
+msgid "Usergroups"
+msgstr "Brukergrupper"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:87
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_web.inc.php:60
+msgid "Back"
+msgstr "Tilbake"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:88
+msgid "Viewing group"
+msgstr "Viser gruppe"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:89
+msgid "Group name"
+msgstr "Gruppenavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:90
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:103
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:96
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user_list.php:8
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/admin_middel.php:15
+msgid "Users"
+msgstr "Brukere"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:91
+msgid "Add user to group"
+msgstr "Legg bruker til gruppe"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:98
+msgid "Enter userID"
+msgstr "Tast inn brukerID"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:101
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:147
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:111
+msgid "You are not allowed to do this."
+msgstr "Du har ikke lov til å gjøre dette. Ingen tilgang."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:111
+msgid "Remove user from group"
+msgstr "Fjern bruker fra gruppe"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:140
+msgid "Add group"
+msgstr "Ny gruppe"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:151
+msgid "List of usergroups"
+msgstr "Liste med brukergrupper"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:154
+msgid "No groups found."
+msgstr "Ingen grupper funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_group.php:160
+msgid "users"
+msgstr "brukere"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:24
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:77
+msgid "New fixed program"
+msgstr "Nytt fast program"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:30
+msgid "Change fixed program"
+msgstr "Endre fast program"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:37
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:82
+msgid "Program name"
+msgstr "Programnavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:38
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:52
+msgid "Area belonging"
+msgstr "Byggtilhørighet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:73
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:86
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:47
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/admin_middel.php:23
+msgid "Fixed programs"
+msgstr "Faste program"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_programs.php:95
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:109
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:46
+msgid "Not found"
+msgstr "Ikke funnet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:38
+msgid "New room for"
+msgstr "Nytt rom for"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:44
+msgid "Change room"
+msgstr "Endre rom"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:87
+msgid "Rooms for"
+msgstr "Rom for"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:91
+msgid "New room"
+msgstr "Nytt rom"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_room.php:96
+msgid "Room name"
+msgstr "Romnavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:16
+msgid "E-mail confirmation"
+msgstr "E-post-bekreftelse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:20
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:536
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:43
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:57
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:107
+msgid "Entry ID"
+msgstr "Bookingid"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:21
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:52
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1772
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1774
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:28
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:106
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:26
+msgid "Entry name"
+msgstr "Bookingnavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:22
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:45
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:62
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1779
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1781
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:27
+msgid "Entry title"
+msgstr "Tittel"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:23
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:24
+msgid "E-mail confirmed"
+msgstr "E-post-bekreftelse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:23
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:30
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:65
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:69
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:77
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:117
+msgid "(no/yes)"
+msgstr "(nei/ja)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:24
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:29
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:64
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:68
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:116
+msgid "(0/1)"
+msgstr "(0/1)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:25
+msgid "Entry type ID"
+msgstr "Type (ID)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:26
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:46
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:72
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:77
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:160
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2053
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2058
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:108
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:28
+msgid "Entry type"
+msgstr "Type"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:27
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:79
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:211
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:60
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1909
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1911
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:42
+msgid "Number of children"
+msgstr "Antall barn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:28
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:80
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:216
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:65
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1916
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1918
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:43
+msgid "Number of adults"
+msgstr "Antall voksne"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:29
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:30
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:221
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:70
+msgid "Count in booking"
+msgstr "Tell i bookingsystem"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:31
+msgid "Fixed programs ID"
+msgstr "Faste program (ID)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:32
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:87
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:243
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:92
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1931
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1933
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:48
+msgid "Program description"
+msgstr "Programbeskrivelse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:33
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:84
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:263
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:112
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:46
+msgid "Serve alcohol?"
+msgstr "Alkoholservering"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:34
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:83
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:248
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:97
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1945
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1947
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:45
+msgid "Service description"
+msgstr "Serveringsbeskrivelse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:35
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:89
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:98
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:253
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:319
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:102
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:168
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:44
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1952
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1954
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1981
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1983
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2069
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:201
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:49
+msgid "Comment"
+msgstr "Kommentar"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:36
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:90
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:273
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:122
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1959
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1961
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:50
+msgid "Text on infoscreen"
+msgstr "Tekst på infoskjerm"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:37
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:103
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:86
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:74
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:32
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:32
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:53
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:118
+msgid "Starts"
+msgstr "Starter"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:37
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:38
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:58
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:62
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:93
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:105
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:110
+msgid "Unixtime*"
+msgstr "Unixtid*"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:38
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:99
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:119
+msgid "Finished"
+msgstr "Ferdig"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:39
+msgid "Room ID"
+msgstr "Rom (ID)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:40
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:41
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:337
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:52
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:135
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:79
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1803
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1818
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:35
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:35
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:159
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:170
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:150
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:32
+msgid "Room"
+msgstr "Rom"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:41
+msgid "array with the names"
+msgstr "tabell med navnene"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:42
+msgid "Area ID"
+msgstr "Bygg (ID)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:44
+msgid "User(s) assigned"
+msgstr "Vert(er) med bruker"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:45
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:55
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:34
+msgid "Manuel user assigned"
+msgstr "Annen vert"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:46
+msgid "User(s) and manual user assigned"
+msgstr "Vert(er) med bruker og andre verter"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:47
+msgid "User(s) and manual user assigned with links"
+msgstr "Vert(er) med bruker og andre verter med lenker på navn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:48
+msgid "Any users assigned?"
+msgstr "Noen verter satt opp?"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:48
+msgid "true/false"
+msgstr "sann/usann"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:49
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:105
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:193
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1866
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:190
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:36
+msgid "Customer ID"
+msgstr "KundeID"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:50
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:20
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:58
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:189
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1859
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1864
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:188
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:190
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:191
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:35
+msgid "Customer"
+msgstr "Kunde"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:51
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:106
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:73
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:196
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1888
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1890
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:192
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:39
+msgid "Contact person"
+msgstr "Kontaktperson"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:52
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:75
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:197
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:193
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:40
+msgid "Contact telephone"
+msgstr "Telefon"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:53
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:76
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:41
+msgid "Contact email"
+msgstr "E-post"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:54
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:38
+msgid "Municipal number"
+msgstr "Kommunenummer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:55
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:31
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:116
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:853
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:65
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:202
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:51
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:119
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1879
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1881
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1883
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:195
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:37
+msgid "Municipal"
+msgstr "Kommune"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:56
+msgid "Created by ID"
+msgstr "Oppettet av (ID)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:57
+msgid "Created by"
+msgstr "Opprettet av"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:58
+msgid "Time created"
+msgstr "Tid opprettet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:59
+msgid "Edited by IDs"
+msgstr "Endret av IDer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:60
+msgid "Edited by"
+msgstr "Endret av"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:61
+msgid "Last edited by"
+msgstr "Sist endret av"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:62
+msgid "Time of last edit"
+msgstr "Tid for sist endring"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:63
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:484
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:333
+msgid "Number of changes"
+msgstr "Antall endringer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:64
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:65
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:229
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:96
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:288
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:292
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:137
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:141
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:453
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1966
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1968
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1974
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1976
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1981
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1983
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1988
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1990
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1995
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1997
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2002
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2004
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2009
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2014
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2016
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2022
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2027
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:51
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_menu.php:11
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_top.php:13
+msgid "Invoice"
+msgstr "Faktura"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:66
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:59
+msgid "Status of invoice"
+msgstr "Status for faktura"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:67
+msgid "Status in text"
+msgstr "Status i tekst"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:68
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:69
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:57
+msgid "Electronic invoice"
+msgstr "Elektronisk faktura"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:70
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:58
+msgid "E-mail for electronic invoice"
+msgstr "E-post for elektronisk faktura"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:71
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:53
+msgid "Invoice comment - to customer"
+msgstr "Fakturakommentar - til kunde"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:72
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:54
+msgid "Invoice comment - internal"
+msgstr "Fakturakommentar - intern"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:73
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:368
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:217
+msgid "Your referance"
+msgstr "Deres referanse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:74
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:55
+msgid "Invoice address ID"
+msgstr "FakturaadresseID"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:75
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:900
+msgid "Invoice address"
+msgstr "Fakturaadresse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:76
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:375
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:224
+msgid "Product lines"
+msgstr "Produktlinjer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:76
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:112
+msgid "array"
+msgstr "tabell"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:87
+msgid "Address for the system"
+msgstr "Adresse til bookingsystemet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:88
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:103
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_sql.inc.php:61
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_web.inc.php:53
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:28
+msgid "Username"
+msgstr "Brukernavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:88
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:90
+msgid "For logged in user"
+msgstr "For innlogget bruker"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:89
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:29
+msgid "Short username"
+msgstr "Kort brukernavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:90
+msgid "Users email"
+msgstr "Brukers e-post"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:93
+msgid "Time of change"
+msgstr "Endringstidspunkt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:94
+msgid "Name of the action"
+msgstr "Navn på handlingen"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:95
+msgid "User that changed ID"
+msgstr "Endret av (ID)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:96
+msgid "User that changed"
+msgstr "Endret av"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:97
+msgid "Changes"
+msgstr "Endringer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:97
+msgid "Table*"
+msgstr "Tabell*"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:106
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:108
+msgid "YYYYDDMM*"
+msgstr "ÅÅÅÅDDMM*"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:107
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:109
+msgid "array-time*"
+msgstr "tabell-tid*"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:135
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:13
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:22
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:31
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:37
+msgid "Confirmation"
+msgstr "Bekreftelse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:136
+msgid "Unknown"
+msgstr "Ukjent"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:153
+msgid "New template"
+msgstr "Ny mal"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:171
+msgid "Mail - New entry"
+msgstr "Epost - Ny booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:182
+msgid "Mail - New user assigned"
+msgstr "Epost - Ny vert"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:194
+msgid "Mail - User not assigned anymore"
+msgstr "Epost - Vert tatt vekk"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:206
+msgid "Mail - Changes of entry"
+msgstr "Epost - Endring av booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:218
+msgid "Mail - Summary of entry"
+msgstr "Epost - Oppsummert booking (inkluderes i andre)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:257
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:307
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:335
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:346
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:359
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:404
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:413
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:458
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:515
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:523
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/admin_middel.php:35
+msgid "Templates"
+msgstr "Maler"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:293
+msgid "Delete"
+msgstr "Slett"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:309
+msgid "Error. Template not found."
+msgstr "Feil: Mal ikke funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:337
+msgid "Error: Template ID is not a number."
+msgstr "Feil: MalID er ikke et nummer."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:348
+msgid "Error: Template was not found."
+msgstr "Feil: Mal ikke funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:361
+msgid "Error: Template file do not exist."
+msgstr "Feil: Mal-filen eksisterer ikke."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:374
+msgid "Delete template"
+msgstr "Slett mal"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:375
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:524
+msgid "Back to template list"
+msgstr "Tilbake til liste med maler"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:377
+msgid "Are you sure you want to delete the template?"
+msgstr "Er du sikker på at du vil slette denne malen?"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:379
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:78
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_address_choose.php:101
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:256
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:257
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:258
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:259
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:223
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:266
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:336
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:72
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:115
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:185
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:87
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:90
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:219
+msgid "Yes"
+msgstr "Ja"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:381
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:80
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_address_choose.php:103
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:256
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:257
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:258
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:259
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:224
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:268
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:338
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:73
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:117
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:187
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:88
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:91
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:223
+msgid "No"
+msgstr "Nei"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:406
+msgid "Error: No template type is defined."
+msgstr "Feil: Ingen maltype er definert."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:415
+msgid "Error: No template name is made."
+msgstr "Feil: Intet malnavn er laget."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:460
+msgid "Error: Could not save template file."
+msgstr "Feil: Kunne ikke lagre malfil"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:498
+msgid "Error with getting the template. Try again."
+msgstr "Feil ved henting av malen. Prøv igjen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:517
+msgid "Error: Could not read template file."
+msgstr "Feil: Kunne ikke lese malfil"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:528
+msgid "The template in its original form:"
+msgstr "Malen i sin originale form:"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:532
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:537
+msgid "Preview"
+msgstr "Forhåndvis"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:532
+msgid "Test"
+msgstr "Test"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:532
+msgid "againts an entry"
+msgstr "mot en booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:536
+msgid "Must be valid"
+msgstr "Må være gyldig"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:549
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:554
+msgid "Template name"
+msgstr "Malnavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:550
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:564
+msgid "Template type"
+msgstr "Maltype"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:567
+msgid "Save"
+msgstr "Lagre"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:571
+msgid "How to make templates"
+msgstr "Hvordan lage maler"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:573
+msgid "The template system is using Smarty. Please se Smarty's own descriptions on how to make templates. Click on the variables to the right to insert them in the template you are writing on."
+msgstr "Malsystemet som er i bruk heter Smarty. "
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:578
+msgid "*Unixtime is a given second of time and can be converted to a readable format (like Monday 15:30 04.12.2000). To do this write |date_format:\"%A %H:%M %d.%m.%Y\" after the variabel (like {$log_time|date_format:\"%M\"}). Please see Smartys documentation about date_format for different datevalues."
+msgstr "*Unixtid er et gitt sekund/tidspunkt og kan bli konvertert til et lesbart format (som f.eks. mandag 15:30 04.12.2000). For å få dette til skriv f.eks. |date_format:\"%A %H:%M %d.%m.%Y\" etter variabelen (f.eks {$log_time|date_format:\"%M\"}). Se Smarty sin dokumentasjon om date_format for andre datoverdier."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:584
+msgid "*Table means that you can not just print it. Please see the Smartys documentation about foreach for how to print a table."
+msgstr "*Tabell betyr at du ikke bare kan skrive den ut i ren tekst. Se Smarty sin dokumentasjon om foreach for hvordan du kan skrive ut en tabell."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:587
+msgid "*Array-time means that the time is returned in an array with the day, month and year. Access by typing in {$something.year}, {$something.month} and {$something.day}."
+msgstr "*Tabell-tid betyr at tiden er returnert i en tabell med dag, måned og år. Kan bli hentet ut ved {$variabelnavn.year}, {$variabelnavn.month} og {$variabelnavn.day}."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:590
+msgid "*YYYYMMDD means that the time is in the format year month day, without spaces."
+msgstr "*ÅÅÅÅMMDD betyr at tiden er i formatet år måned dag, uten mellomrom."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_template.php:593
+msgid "Variables:"
+msgstr "Variabler:"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:24
+msgid "user not found"
+msgstr "bruker ikke funnet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:82
+msgid "That user already exists."
+msgstr "Den brukeren eksisterer allerede."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:100
+msgid "Add user"
+msgstr "Ny bruker"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:103
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:44
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:63
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:104
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_address_choose.php:83
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:107
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:841
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:874
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:78
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:34
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:34
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:54
+msgid "Name"
+msgstr "Navn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:104
+msgid "Login name"
+msgstr "Innloggingsnavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:104
+msgid "Username short"
+msgstr "Kort navn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:105
+msgid "Email"
+msgstr "E-post"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:106
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_sql.inc.php:64
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_web.inc.php:56
+msgid "Password"
+msgstr "Passord"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:114
+msgid "List of users"
+msgstr "Liste med brukere i systemet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:115
+msgid "Click on a user to edit."
+msgstr "Klikk på en bruker for å endre den."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:115
+msgid "In front of each user is a number. This corresponds to the userlevel."
+msgstr "Foran hver bruker står brukertilgangen (userlevel)."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:118
+msgid "No users found."
+msgstr "Ingen brukere funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/admin_user.php:124
+msgid "View profil"
+msgstr "Vis profil"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_sql.inc.php:43
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_web.inc.php:39
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:265
+msgid "Reserving devices ONLINE"
+msgstr "JM-booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_sql.inc.php:45
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_sql.inc.php:67
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_web.inc.php:39
+msgid "Log in"
+msgstr "Logg inn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_sql.inc.php:57
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_web.inc.php:49
+msgid "Please log in"
+msgstr "Vennligst logg inn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_sql.inc.php:59
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_web.inc.php:51
+msgid "Username / Password wrong"
+msgstr "Brukernavn / passord feil"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/auth_web.inc.php:59
+msgid "Continue"
+msgstr "Neste"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:7
+msgid "Error: Customer ID is invalid."
+msgstr "Feil: KundeID er ugyldig."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:14
+msgid "Error: Customer not found."
+msgstr "Feil: Kunde ikke funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:24
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:809
+msgid "Edit customer"
+msgstr "Endre kunde"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:26
+msgid "Customer name"
+msgstr "Kundenavn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:27
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:109
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:844
+msgid "Type of customer"
+msgstr "Kundetype"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:28
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:111
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:847
+msgid "Private person"
+msgstr "Privatperson"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:29
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:113
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:850
+msgid "School, company, organization, etc"
+msgstr "Skole, firma, organisasjon, osv"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:35
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:120
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:178
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:229
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:191
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:232
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:353
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:81
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:202
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:134
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:188
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:23
+msgid "Non selected"
+msgstr "Ingen valgt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:37
+msgid "Phone number(s)"
+msgstr "Telefonnumre"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:38
+msgid "See also any entries on this customer that might contain phone numbers."
+msgstr "Se også bookinger som er knyttet til kunden. Disse kan inneholde telefonnumre til kontaktpersoner."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:43
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:874
+msgid "Number"
+msgstr "Nummer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:56
+msgid "No phone numbers."
+msgstr "Ingen telefonnummer."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:58
+msgid "Address(es)"
+msgstr "Adresse(r)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:64
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_address_choose.php:84
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:902
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:104
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:350
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:199
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2009
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2014
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2016
+msgid "Address"
+msgstr "Adresse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:65
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_address_choose.php:85
+msgid "Invoice address?"
+msgstr "Fakturaadresse?"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:87
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_address_choose.php:110
+msgid "No addresses."
+msgstr "Ingen adresser."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:89
+msgid "Entries for"
+msgstr "Bookinger for"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:98
+msgid "No entries found for this customer"
+msgstr "Ingen bookinger funnet for denne kunden"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:105
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:55
+msgid "Where"
+msgstr "Hvor"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:107
+msgid "Phone"
+msgstr "Telefon"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:108
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:114
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:343
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:192
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2002
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2004
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:30
+msgid "E-mail"
+msgstr "E-post"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer.php:126
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:356
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:371
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:197
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:137
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:144
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:170
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:123
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:130
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:154
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1803
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1810
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:67
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:74
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:98
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:67
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:74
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:98
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:41
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:101
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:103
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:73
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:189
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:204
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:152
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:159
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:184
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:73
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:53
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:60
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:86
+msgid "Whole area"
+msgstr "Hele bygget"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_address_choose.php:73
+msgid "Choose address from"
+msgstr "Velg adresse fra"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:23
+msgid "Can't find the customer you are looking for."
+msgstr "Finner ikke kunden du leter etter."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:93
+msgid "Viewing"
+msgstr "Viser"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:99
+msgid "Customer has been created."
+msgstr "Kunde ble opprettet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:101
+msgid "Customer has been edited."
+msgstr "Kunden ble endret."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:123
+msgid "Choose this customer"
+msgstr "Velg denne kunden"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:140
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:143
+msgid "You must type in a name for the customer."
+msgstr "Du må skrive inn et navn for kunden."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:636
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:742
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:885
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:961
+msgid "Remove field"
+msgstr "Fjern felt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:807
+msgid "Create new customer"
+msgstr "Opprett ny kunde"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:815
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:839
+msgid "Generell"
+msgstr "Generell"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:816
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:873
+msgid "Phone numbers"
+msgstr "Telefonnumre"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:817
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:897
+msgid "Addresses"
+msgstr "Adresser"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:825
+msgid "There was one or more errors in your inputdata"
+msgstr "Det var en eller flere feil i inndataene dine"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:856
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:70
+msgid "Choose"
+msgstr "Velg"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:890
+msgid "Add one more phone fields"
+msgstr "Legg til telefonfelt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:901
+msgid "Address name/info"
+msgstr "Adressenavn/-info"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:903
+msgid "Postalnumber"
+msgstr "Postnummer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:904
+msgid "Country"
+msgstr "Land"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:968
+msgid "Add one more address field"
+msgstr "Legg til adressefelt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:970
+msgid "Max 5 lines in each address"
+msgstr "Maks 5 linjer i hver adresse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:971
+msgid "Place will be automaticlly found from the postalnumber. If the number is not valid, the field will just be empty."
+msgstr "Poststedet vil automatisk bli lagt inn fra postnummeret. Hvis nummeret er ugyldig, så vil feltet bli stående tomt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:971
+msgid "You can also type a postal place in the field below."
+msgstr "Du kan også taste inn et poststed i feltet under."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:972
+msgid "For Norway, please leave this field empty."
+msgstr "For Norge, la dette feltet være tomt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:980
+msgid "Create customer"
+msgstr "Opprett kunde"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_edit.php:982
+msgid "Save changes"
+msgstr "Lagre endringer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_list.php:9
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:449
+msgid "Customers"
+msgstr "Kunder"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/customer_list.php:35
+msgid "View entries"
+msgstr "Vis bookinger"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:67
+msgid "This area has no rooms"
+msgstr "Dette bygget har ingen rom"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:110
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:324
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/month.php:157
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:159
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week_old.php:178
+msgid "started"
+msgstr "startet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:205
+msgid "Go to previous day"
+msgstr "Gå til forrige dag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:206
+msgid "Go to today"
+msgstr "Gå til i dag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:207
+msgid "Go to next day"
+msgstr "Gå til neste dag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:213
+msgid "Go to other dayview"
+msgstr "Gå til annen dagsvisning"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:297
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week_old.php:373
+msgid "Make entry"
+msgstr "Opprett booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:337
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:527
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:376
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:170
+msgid "Time"
+msgstr "Tid"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:337
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:76
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:170
+msgid "C/A"
+msgstr "B/V"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:337
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:530
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:379
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:170
+msgid "What"
+msgstr "Hva"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:339
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/day.php:350
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:172
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:183
+msgid "Nothing"
+msgstr "Ingen"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:44
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:93
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:118
+msgid "Save entry"
+msgstr "Lagre booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:45
+msgid "What this is. Can be empty. Entryname is generated from the title and some other values."
+msgstr "Hva er dette for noe? Kan være tom. Navnet for bookingen blir generert fra tittel, type og noen andre verdier."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:46
+msgid "What type of entry this is."
+msgstr "Hvilken type booking er dette."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:48
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1785
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:29
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/invoice.class.php:842
+msgid "Start time"
+msgstr "Starttid"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:48
+msgid "When does this event start. Should be set in the calendar."
+msgstr "Starttidspunkt for bookingen. Letteste er å sette denne via kalenderen. Formater er tt:mm dd-mm-yyyy (t = time, m=minutt, osv)."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:49
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1789
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:30
+msgid "End time"
+msgstr "Slutt-tid"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:49
+msgid "When is the event finished."
+msgstr "Når det hele er slutt. Samme format som over."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:54
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1825
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1840
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:33
+msgid "Users assigned"
+msgstr "Verter"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:54
+msgid "Which users are assigned to this event. Event will appear in Groupwise."
+msgstr "Hvilke personer som skal være verter for gjennomføringen. Disse får opp bookingen i sin kalender i Groupwise."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:55
+msgid "If someone other than the normal users are assigned. Use this field to add his or her name."
+msgstr "Hvis noen andre enn de normale brukerne blir satt som vert, så brukes dette feltet til å taste inn navnet til vedkommende."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:58
+msgid "Type in parts for the customers name to search."
+msgstr "For å søke etter allerede inntastede kunder, så bare begynn å skriv i ruten. Hvis det er en ny kunde, så skriver du inn navnet og trykker på pluss-knappen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:65
+msgid "The municipal which the customer belong to."
+msgstr "Hvilken kommune kunden hører til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:73
+msgid "The contact person of the customer."
+msgstr "Kundens kontaktperson."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:75
+msgid "Telephone number where the contact person can be reached. Preferably a mobile number."
+msgstr "Telefonnummer hvor kontaktpersonen kan bli nådd. Helst et mobilnummer."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:76
+msgid "The contact persons email address. For more than one, please seperate by a space, comma or semicolon."
+msgstr "Kontaktpersonens epost. Ved flere enn en e-post, sett inn mellomrom, komma eller semikolon for å separere de. E-posten(e) blir brukt for å sende bekreftelse (hvis dette blir gjort)."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:81
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1924
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1926
+msgid "Count these numbers"
+msgstr "Tell med i statistikk"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:81
+msgid "If yes the number of children and adults will be counted from the booking system and not the counter."
+msgstr "Hvis ja, så vil antall barn og voksne bli telt med i statistikken fra bookingsystemet. Hvis ikke, så må de telles i kassen (ved betaling)."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:83
+msgid "Description of the services we should provide. Food can be one."
+msgstr "Beskrivelse av serveringen vi eller andre skal stille med. Mat er noe som kan spesifiseres."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:84
+msgid "Will there be served alcohol?"
+msgstr "Vil det bli servert alkohol?"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:90
+msgid "This text will be on the infoscreens in the reception if the booking is between 16:00 and 06:00. Please check that the playlist on the infosystem is running."
+msgstr "Denne teksten vil vise på infoskjermene i resepsjonen hvis bookingen er mellom 16:00 og 06:00 (dagen etter). Forutsetter at playlistene på infosystemet kjører korrekt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:96
+msgid "Choose yes if invoice should be made from this entry."
+msgstr "Velg ja hvis faktura skal lages fra denne bookingen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:97
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1988
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1990
+msgid "Your reference"
+msgstr "Kundens referanse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:97
+msgid "The customers internal reference."
+msgstr "Kundens interne referanse. Valgtfritt, men noen kunder ønsker en slik."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:98
+msgid "Comment that is displayed in the top of the invoice."
+msgstr "Kommentar som blir vist på toppen av fakturaen (over produktlinjene)."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:99
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:326
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:175
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:199
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1974
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1976
+msgid "Internal comment"
+msgstr "Intern kommentar"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:99
+msgid "Internal comment on the invoice (not shown to the customer)."
+msgstr "Intern kommentar til fakturaen (ikke synlig for kunden)."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:100
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:333
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:182
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1995
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1997
+msgid "E-delivery"
+msgstr "E-sending"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:100
+msgid "Choose yes if the customer want to have the invoice delivery by e-mail."
+msgstr "Velg ja hvis kunden vil ha fakturaen sendt på e-post."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:104
+msgid "Choose a address from the customer. This will be the address that the invoice will be sent to. To change the addresses please press the edit button for the customer."
+msgstr "Velg en adresse fra kunden. Denne vil være adressen som fakturaen blir sendt til. For å endre adressen(e), trykk på endre-knappen for kunden (+-tegnet)."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:109
+msgid "Choose address"
+msgstr "Velg adresse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:110
+msgid "Change customer/address"
+msgstr "Bytt kunde/adresse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:114
+msgid "E-mail that the customer wants the invoice delivery to."
+msgstr "E-postadressen som kunden ønsker fakturaen tilsendt på."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:115
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2022
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2027
+msgid "Content"
+msgstr "Innhold"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:185
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:66
+msgid "Select one"
+msgstr "Velg en"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:253
+msgid "No customer set."
+msgstr "Ingen kunde valgt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2.php:267
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:27
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:26
+msgid "Can't find entry"
+msgstr "Finner ikke bookingen"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:20
+msgid "Entrytype is invalid."
+msgstr "Type er ugyldig."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:33
+msgid "Can't find entrytype in database"
+msgstr "Finner ikke type i database"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:46
+msgid "Invalid date. Please check the format."
+msgstr "Ugyldig dato. Vennligst sjekk formatet på datoen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:55
+msgid "Area is invalid."
+msgstr "Bygningen er ugyldig."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:65
+msgid "Area must be selected."
+msgstr "Bygning må bli valgt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:72
+msgid "Can't find area in database"
+msgstr "Finner ikke bygningen i databasen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:93
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:99
+msgid "One of the rooms is not found."
+msgstr "Et av rommene ble ikke funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:130
+msgid "One of the users you assigned is not found."
+msgstr "En av personene du valgte ble ikke funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:136
+msgid "One of user you assigned is not found."
+msgstr "En av personene du valgte ble ikke funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:157
+msgid "Can't find the customer you tried to select"
+msgstr "Kan ikke finne kunden du prøvde å velge"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:213
+msgid "Fixed program is invalid."
+msgstr "Fast program er ugyldig."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:225
+msgid "Can't find the fixed program in database"
+msgstr "Finner ikke det faste programmet i databasen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:240
+msgid "Invoice address is invalid."
+msgstr "Fakturaadressen er ugyldig."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:250
+msgid "Can't find the invoice address in database"
+msgstr "Finner ikke fakturaadressen i databasen"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:305
+msgid "Number of children must be a number, if anything."
+msgstr "Antall barn må være et helt tall, hvis det skal være med (\"ca 20\" eller \"20-25\" går ikke an å skrive)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:307
+msgid "Number of adults must be a number, if anything."
+msgstr "Antall voksne må være et helt tall, hvis det skal være med (\"ca 20\" eller \"20-25\" går ikke an å skrive)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:375
+msgid "Start time must be before end time for the entry."
+msgstr "Start-tid må være før slutt-tid for bookingen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:379
+msgid "Start and end time must be set for all entries."
+msgstr "Start- og slutt-tid må være satt for alle bookinger."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:405
+msgid "No title for the entry was made. Please spesify either a title, a customer or a bookingtype."
+msgstr "Intet navn for bookingen ble laget. Vennligst spesifiser enten en tittel, en kunde eller en type (disse blir brukt for å lage navnet på bookingen)."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:411
+msgid "Please be advised: You have set a customer name but no customer in the database where selected. The result of this is that no customer is selected."
+msgstr "Obs: Du har tastet inn navnet på kunden, men ingen kunde ble opprettet eller valgt i databasen. Resultatet er at ingen kunde ble valgt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:436
+msgid "The whole area is booked for"
+msgstr "Hele bygningen er booket for"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:442
+msgid "One of the rooms you have selected is already booked for"
+msgstr "Et av rommene du valgte er allerede booked innenfor tidspunktet til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:444
+msgid " is already booked at the time you have selected for"
+msgstr " er allerede booked på tidspunktet du valgte til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:454
+msgid "Show"
+msgstr "Vis"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:456
+msgid "and for"
+msgstr "og for"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:486
+msgid "One of the users you have selected is already booked."
+msgstr "En av personene du valge er allerede booked innenfor tidspunktet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:488
+msgid " is already booked at the time you have selected."
+msgstr " er allerede booked på tidspunktet du valgte."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:494
+msgid "You have selected rooms from more than one area."
+msgstr "Du har valgt rom fra mer enn ett bygg."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:501
+msgid "You have selected a starttime in the past."
+msgstr "Du har valgt starttidspunkt i fortiden."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:503
+msgid "Are you sure you want to let the entry end over a year into the future?"
+msgstr "Er du sikker på at du vil la bookingen være ferdig over et år inn i framtiden?"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:505
+msgid "The entry goes over more than 7 days. I think this might be wrong."
+msgstr "Bookingen er for mer enn 7 dager. Jeg tror dette kan være feil."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:665
+msgid "Can't log the new entry."
+msgstr "Kan ikke loggføre den nye bookingen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_datasubmit.php:830
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:92
+msgid "Can't log the changes for the entry."
+msgstr "Kan ikke loggføre endringene for bookingen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:81
+msgid "No customer is set."
+msgstr "Ingen kunde valgt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:200
+msgid "Add entry"
+msgstr "Ny booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:203
+msgid "Edit entry"
+msgstr "Endre bookingen"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:204
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:127
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:38
+msgid "Back to entry"
+msgstr "Tilbake til booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:204
+msgid "Entry will not be saved!"
+msgstr "Booking vil ikke bli lagret!"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:212
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:391
+msgid "One or more errors occured in the data submited"
+msgstr "En eller flere feil oppsto i dataene du prøvde å legge inn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:241
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:407
+msgid "One or more warnings where generated."
+msgstr "En eller flere advarsler oppsto."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:248
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:414
+msgid "Changes are still not saved. Please fix warnings or ignore them to get the changes saved."
+msgstr "Endringene er enda ikke lagret. Vennligst fiks advarslene eller ignorer de for å få lagret det du har tastet inn."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:250
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:416
+msgid "I have seen the warnings and still want to proceed."
+msgstr "Jeg har sett advarslene og vil fremdeles fortsette."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:251
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:417
+msgid "Proceed"
+msgstr "Fortsett"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/edit_entry2_form.php:436
+msgid "Error with inputfields for entry."
+msgstr "Feil med inndata-felt for entry."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:20
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:19
+msgid "Error: No entry spesified."
+msgstr "Feil: Ingen booking spesifisert."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:43
+msgid "Viewing entry"
+msgstr "Viser booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:46
+msgid "Edit this entry"
+msgstr "Endre denne bookingen"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:65
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:75
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:382
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:231
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:134
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:175
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:110
+msgid "Non"
+msgstr "Ingen"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:108
+msgid "User(s) assigned to"
+msgstr "Vert(er)"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:121
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1825
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1832
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:123
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:129
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:83
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:125
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:126
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:159
+msgid "Nobody"
+msgstr "Ingen"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:151
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:137
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:81
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:81
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:166
+msgid "Can't find room"
+msgstr "Finner ikke room"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:177
+msgid "Confirmation email sent?"
+msgstr "Bekreftelses-epost sendt?"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:179
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:295
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:144
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:16
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:41
+msgid "yes"
+msgstr "ja"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:182
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:297
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:146
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:18
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/template.php:43
+msgid "no"
+msgstr "nei"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:184
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:125
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:269
+msgid "Send confirmation"
+msgstr "Send bekreftelse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:198
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1902
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1904
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:194
+msgid "Contact persons email"
+msgstr "Kontaktpersons epost"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:206
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:55
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:199
+msgid "Booking created by"
+msgstr "Opprettet av"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:229
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:78
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2040
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2045
+msgid "Fixed program"
+msgstr "Program"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:279
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:128
+msgid "Preview infoscreen"
+msgstr "Forhåndsvis infoskjerm"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:280
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:129
+msgid "Preview this evening for the current area"
+msgstr "Forhåndsvis kvelden for det nåværende bygget"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:284
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:133
+msgid "Will only show if the event is after 16.00."
+msgstr "Vil bare vise noe hvis bookingen er lagt til tidspunkt etter 16.00."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:302
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:151
+msgid "Invoice status"
+msgstr "Fakturastatus"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:307
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:156
+msgid "not processed"
+msgstr "ikke behandlet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:309
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:158
+msgid "payed"
+msgstr "betalt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:311
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:160
+msgid "processed, but not payed"
+msgstr "behandlet, men ikke betalt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:314
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:163
+msgid "not to be made"
+msgstr "skal ikke lages"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:362
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:211
+msgid "Address not found"
+msgstr "Adresse ikke funnet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:438
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:287
+msgid "Tax basis"
+msgstr "MVA-grunnlag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:483
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:332
+msgid "Changelog"
+msgstr "Endringlogg"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:487
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:336
+msgid "Last changed by"
+msgstr "Siste endret av"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:519
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:368
+msgid "show"
+msgstr "vis"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:520
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:550
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:369
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:399
+msgid "hide"
+msgstr "skjul"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:526
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:375
+msgid "Revision"
+msgstr "Revisjon"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:528
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:377
+msgid "Action"
+msgstr "Handling"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry.php:529
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry2.php:378
+msgid "Who"
+msgstr "Hvem"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:127
+msgid "Will not send a confirmation"
+msgstr "Vil ikke sende bekreftelese"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:129
+msgid "Use an other template"
+msgstr "Bruk en annen mal"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:143
+msgid "No template"
+msgstr "Ingen mal"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:194
+msgid "Template"
+msgstr "Mal"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:201
+msgid "Send to"
+msgstr "Send til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:203
+msgid "If no e-mails are checked, the entry will just be marked confirmation sent and no e-mails will go out."
+msgstr "Hvis ingen epost-adresser er avkrysset, så vil bookingen bare bli merkert med bekreftelse sendt, men ingen eposter sendes ut."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:219
+msgid "Add field"
+msgstr "Legg til felt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:263
+msgid "Save template"
+msgstr "Lagre mal"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:265
+msgid "If you want to keep the template made above, check the box below and write in a name."
+msgstr "Hvis du vil beholde malen du har endret/laget til over, kryss av under og skriv inn et navn på malen. Den vil da bli lagret og kan hentes opp senere. Hvis du ikke krysser av, så vil malen/endringene i malen bare bli lagret i bookingen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm.php:268
+msgid "Save template as"
+msgstr "Lagre mal som"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:14
+msgid "Can not find confirmation from the confirmation ID you gave."
+msgstr "Kunne ikke finne bekreftelsen fra bekreftelsesIDen du gav."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:23
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:32
+msgid "Error."
+msgstr "Feil."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:40
+msgid "Entry"
+msgstr "Booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:41
+msgid "Sent"
+msgstr "Sendt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:42
+msgid "Sent to"
+msgstr "Sendt til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:43
+msgid "Sent by"
+msgstr "Sendt av"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:47
+msgid "E-mail that was sent"
+msgstr "E-posten som ble sendt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_confirm_view.php:50
+msgid "Template that was sent"
+msgstr "Mal som ble brukt for å lage e-posten"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:51
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:246
+msgid "View / Edit filters"
+msgstr "Vis / Endre filtre"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:111
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:137
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:258
+msgid "Is exactly"
+msgstr "Er akkurat"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:114
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:140
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:263
+msgid "Bigger than"
+msgstr "Større enn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:117
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:143
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:268
+msgid "Bigger than or same as"
+msgstr "Større enn eller samme som"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:120
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:146
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:273
+msgid "Less than"
+msgstr "Mindre enn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:123
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:149
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:278
+msgid "Less than or same as"
+msgstr "Mindre enn eller samme som"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:167
+msgid "Return to"
+msgstr "Returner til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:171
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:45
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:249
+msgid "Entry list"
+msgstr "Bookingliste"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:176
+msgid "Entry stats"
+msgstr "Bookingstatistikk"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:179
+msgid "Choose filter"
+msgstr "Velg filter"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:182
+msgid "About filters"
+msgstr "Om filtre"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:183
+msgid "For text fields, % can be used to match any or zero characters. Type _ for one character. If \"Per\" and \"P&aring;l\" was in the database, P_r would match only Per and P__ whould match both. Per% or Pe% whould match Per. P% whould match everybody/everything that starts with P."
+msgstr "For tekstfelter; % kan bli brukt til å match flere eller ingen bokstaver. Å taste inn _ vil match en enkeltbokstav. Hvis \"Per\" og \"Pål\" er i databasen, så vil P_r matche par Per mens P__ vil mache begge. Per% eller Pe% vil mache Per. P% vil matche alle som starter med P."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_filters.php:185
+msgid "Dates are specified as YY-mm-dd hh:mm. 20 of june 2008 at 15:32 should be entered as 2008-06-20 15:32. Can also be 08-6-20 15.32 if you like. The current time is always specified by entering \"current\"."
+msgstr "Datoer er spesifisert som ÅÅ-MM-DD TT:MM. Hvis man vil sette inn 20. juni 2008 klokken 15:32 så bør dette tastes inn som 08-06-20 15:32. Det kan også bli tastet inn som 2008-6-20 15.32 hvis du heller vil det. Den nåværende tiden er alltid spesifisert ved å trykke inn \"current\"."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:15
+msgid "Entries without confirmation sent"
+msgstr "Bookinger uten bekreftelse sent"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:16
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:26
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:37
+msgid "Entries in the past is not shown."
+msgstr "Bookinger i fortiden blir ikke vist."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:25
+msgid "Entries without any assigned user"
+msgstr "Bookinger uten vert"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:36
+msgid "Next 100 entries"
+msgstr "Neste 100 bookinger"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:66
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:24
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:24
+msgid "No entries found."
+msgstr "Ingen bookinger funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:70
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:28
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:28
+msgid "entries found."
+msgstr "bookinger funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_list.php:75
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:33
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:33
+msgid "Ends"
+msgstr "Slutter"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:10
+msgid "Entry statistics"
+msgstr "Bookingstatistikk"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:122
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:163
+msgid "Children"
+msgstr "Barn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:125
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:166
+msgid "Adults"
+msgstr "Voksne"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:126
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:145
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:167
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:186
+msgid "Total"
+msgstr "Totalt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:129
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/entry_stat.php:170
+msgid "Entries"
+msgstr "Bookinger"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:110
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:114
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:118
+#, php-format
+msgid "%s can't be read."
+msgstr "%s kan ikke bli lest."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:124
+#, php-format
+msgid "Couldn't find %d"
+msgstr "Fant ikke %d"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:302
+msgid "View day"
+msgstr "Vis dag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:330
+msgid "View week"
+msgstr "Vis uke"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:359
+msgid "View month"
+msgstr "Vis måned"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:367
+msgid "Enter entry ID"
+msgstr "Tast inn bookingid"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:368
+msgid "Find"
+msgstr "Finn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:402
+msgid "Logged in as"
+msgstr "Logget inn som"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:405
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/login.php:22
+msgid "Log out"
+msgstr "Logg ut"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:408
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/admin_middel.php:11
+msgid "Administration"
+msgstr "Administrasjon"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:425
+msgid "Make a new entry"
+msgstr "Opprett ny booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:429
+msgid "List with new entries"
+msgstr "Liste med nye endringer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:433
+msgid "Userlist"
+msgstr "Brukerliste"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:437
+msgid "Not confirmed"
+msgstr "Ikke bekreftet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:441
+msgid "No users assigned"
+msgstr "Ingen vert"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:445
+msgid "Next 100"
+msgstr "Neste 100"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:457
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_search.php:8
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_menu.php:39
+msgid "Search"
+msgstr "Søk"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:478
+msgid "Years"
+msgstr "År"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:481
+msgid "Weeks"
+msgstr "Uker"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:484
+msgid "Days"
+msgstr "Dayer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:487
+msgid "Hours"
+msgstr "Timer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:490
+msgid "Minutes"
+msgstr "Minutter"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:493
+msgid "Secounds"
+msgstr "Sekunder"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:503
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/month.php:65
+msgid "Monday"
+msgstr "Mandag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:504
+msgid "Tuedsay"
+msgstr "Tirsdag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:505
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/month.php:67
+msgid "Wednesday"
+msgstr "Onsdag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:506
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/month.php:68
+msgid "Thursday"
+msgstr "Torsdag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:507
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/month.php:69
+msgid "Friday"
+msgstr "Fredag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:508
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/month.php:70
+msgid "Saturday"
+msgstr "Lørdag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:509
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/month.php:71
+msgid "Sunday"
+msgstr "Søndag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:511
+msgid "Mon"
+msgstr "Man"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:512
+msgid "Tue"
+msgstr "Tirs"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:513
+msgid "Wed"
+msgstr "Ons"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:514
+msgid "Thu"
+msgstr "Tors"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:515
+msgid "Fri"
+msgstr "Fre"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:516
+msgid "Sat"
+msgstr "Lør"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:517
+msgid "Sun"
+msgstr "Søn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:519
+msgid "January"
+msgstr "Januar"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:520
+msgid "February"
+msgstr "Februar"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:521
+msgid "March"
+msgstr "Mars"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:522
+msgid "April"
+msgstr "April"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:523
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:536
+msgid "May"
+msgstr "Mai"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:524
+msgid "June"
+msgstr "Juni"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:525
+msgid "July"
+msgstr "Juli"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:526
+msgid "August"
+msgstr "August"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:527
+msgid "September"
+msgstr "September"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:528
+msgid "October"
+msgstr "Oktober"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:529
+msgid "November"
+msgstr "November"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:530
+msgid "December"
+msgstr "Desember"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:532
+msgid "Jan"
+msgstr "Jan"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:533
+msgid "Feb"
+msgstr "Feb"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:534
+msgid "Mar"
+msgstr "Mar"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:535
+msgid "Apr"
+msgstr "Apr"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:537
+msgid "Jun"
+msgstr "Jun"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:538
+msgid "Jul"
+msgstr "Jul"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:539
+msgid "Aug"
+msgstr "Aug"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:540
+msgid "Sep"
+msgstr "Sep"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:541
+msgid "Oct"
+msgstr "Okt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:542
+msgid "Nov"
+msgstr "Nov"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:543
+msgid "Dec"
+msgstr "Des"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:760
+msgid "Booked out"
+msgstr ""
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1328
+msgid "Unspesified title"
+msgstr "Uspesifisert tittel"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1694
+msgid "New entry."
+msgstr "Opprett booking."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1701
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/invoice.class.php:869
+msgid "Invoice is registered as sent."
+msgstr "Faktura er registert som behandlet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1703
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/invoice.class.php:871
+msgid "Invoice is registered as payed."
+msgstr "Faktura er registert som betalt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1706
+msgid "Confirmation was sent."
+msgstr "Bekreftelse ble sendt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1709
+msgid "Confirmation email is sent to"
+msgstr "Bekreftelses-epost er sendt til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1713
+msgid "Icalendar element is sent to"
+msgstr "Kalenderelement er sendt til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1717
+msgid "Entry was edited."
+msgstr "Bookingen ble endret."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1759
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/invoice.class.php:821
+msgid "set to"
+msgstr "satt til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1761
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/invoice.class.php:823
+msgid "changed to"
+msgstr "endret til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1772
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1779
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1846
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1859
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1881
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1888
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1895
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1902
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1909
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1916
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1931
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1945
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1952
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1959
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1974
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1981
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1988
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2002
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2009
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2040
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2053
+msgid "not set"
+msgstr "ikke satt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1797
+msgid "Name not found"
+msgstr "Navn ikke funnet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1846
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1848
+msgid "Manual user assigned"
+msgstr "Annen vert"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1895
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1897
+msgid "Contact persons phone number"
+msgstr "Kontaktperson-tlf"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1924
+msgid "not count in booking system / Datanova / cash register"
+msgstr "ikke tell i bookingsystemet, men i Datanova/kasseapparat"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1926
+msgid "count in booking system"
+msgstr "tell i bookingsystemet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1938
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1940
+msgid "Alcohol"
+msgstr "Alkohol"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1938
+msgid "is to be served"
+msgstr "skal serveres"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1940
+msgid "is not to be served"
+msgstr "skal ikke serveres"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1966
+msgid "should be made"
+msgstr "skal lages"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1968
+msgid "should not be made"
+msgstr "skal ikke lages"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1995
+msgid "is to be sendt by e-mail"
+msgstr "ønskes sendt via e-post"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1997
+msgid "is to be sendt by regular mail"
+msgstr "ønskes sendt via vanlig post"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:1997
+msgid "Not"
+msgstr "Ikke"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2028
+msgid "line"
+msgstr "linje"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2029
+msgid "name"
+msgstr "navn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2031
+msgid "amount"
+msgstr "antall"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2032
+msgid "tax"
+msgstr "MVA"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2047
+msgid "ID of fixed program"
+msgstr "ID til fast program"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2060
+msgid "ID of entry type"
+msgstr "ID til type"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2065
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:60
+msgid "Confirmation sent"
+msgstr "Bekreftelse sendt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2074
+msgid "Confirmation was <b>not sent</b> to"
+msgstr "Bekreftelses-epost ble <b>ikke sendt</b> til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2077
+msgid "Confirmation was sent to"
+msgstr "Bekreftelses-epost ble sendt til"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions.inc.php:2447
+msgid "Icon"
+msgstr "Ikon"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/glob_inc.inc.php:66
+msgid "Invalid instance-name"
+msgstr "Ugyldig instance-navn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_main.php:8
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_menu.php:15
+msgid "Main page"
+msgstr "Hovedside"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_payed.php:8
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:93
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_menu.php:35
+msgid "Payed"
+msgstr "Betalt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_payed.php:13
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_payed_not.php:22
+msgid "There are no invoices that are registered as not payed."
+msgstr "Det er ingen fakturaer som er registert som ikke betalt."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_payed_not.php:17
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_menu.php:31
+msgid "Not payed"
+msgstr "Ikke betalt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade.php:8
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:90
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_menu.php:23
+msgid "To be made"
+msgstr "Skal lages"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_tobemade_ready.php:8
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:91
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_menu.php:27
+msgid "Ready to be made"
+msgstr "Klar til å lages"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_view.php:7
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/invoice_view.php:14
+msgid "Can't find invoice."
+msgstr "Finner ikke faktura."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/login.php:21
+msgid "You're already logged in."
+msgstr "Du er allerede logget inn."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/month.php:64
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:127
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:172
+msgid "Week"
+msgstr "Uke"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/month.php:66
+msgid "Tuesday"
+msgstr "Tirsdag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/mrbs_auth.inc.php:93
+msgid "Access denied"
+msgstr "Ingen tilgang"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/mrbs_auth.inc.php:95
+msgid "You don't have the neccessary rights to do this action."
+msgstr "Du har ikke tilstrekkelige rettigheter for å gjøre denne handlingen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/mrbs_sql.inc.php:83
+msgid "Show day"
+msgstr "Vis dag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/mrbs_sql.inc.php:84
+msgid "Show week"
+msgstr "Vis uke"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/mrbs_sql.inc.php:85
+msgid "Show month"
+msgstr "Vis måned"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/municipal_choose.php:72
+msgid "Choose municipal"
+msgstr "Velg kommune"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/municipal_choose.php:73
+msgid "Choose one or search at the bottom."
+msgstr "Velg en eller søk på bunnen."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/municipal_choose.php:105
+msgid "Search for others"
+msgstr "Søk etter andre"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/municipal_choose.php:106
+msgid "Select none"
+msgstr "Velg en"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/mysql.inc.php:233
+msgid "FATAL ERROR: Couldn't connect to database."
+msgstr "FATAL FEIL: Kunne ikke koble til database."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:15
+msgid "50 newest entries"
+msgstr "50 endringer i bookinger"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:17
+msgid "Colour explaination"
+msgstr "Fargekoder"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:18
+msgid "Entry has not changes since last view"
+msgstr "Booking ble ikke endret siden sist visning"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:19
+msgid "New entry"
+msgstr "Opprett booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:20
+msgid "Changed entry"
+msgstr "Endret booking"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:27
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:25
+msgid "Entry id"
+msgstr "Bookingid"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:29
+msgid "Last change"
+msgstr "Sist endret"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:30
+msgid "Changed by"
+msgstr "Endret av"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:31
+msgid "Last action"
+msgstr "Siste handling"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:84
+msgid "Log not found"
+msgstr "Logg ble ikke funnet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/new_entries.php:92
+msgid "Mark all entries in this list as read"
+msgstr "Marker alle endringer i denne listen som lest"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/pre.php:77
+msgid "Please select a room"
+msgstr "Vennligst velg et rom"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/pre.php:81
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/pre.php:92
+msgid "Info"
+msgstr "Info"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/pre.php:89
+msgid "More rooms"
+msgstr "Flere rom"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:65
+msgid "Areas"
+msgstr "Bygg"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:97
+msgid "Device"
+msgstr "Rom"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:160
+msgid "Data collected/printed"
+msgstr "Data hentet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:160
+msgid "by"
+msgstr "av"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:162
+msgid "Type of view"
+msgstr "Visningstype"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:163
+msgid "day"
+msgstr "dag"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:164
+msgid "week"
+msgstr "uke"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:165
+msgid "month"
+msgstr "måned"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/roomlist.php:166
+msgid "unknown"
+msgstr "ukjent"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/style.inc.php:32
+msgid "iso-8859-1"
+msgstr "iso-8859-1"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:12
+msgid "Error: No user spesified."
+msgstr "Feil: Ingen bruker spesifisert."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:19
+msgid "Can't find user"
+msgstr "Finner ikke brukeren"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:26
+msgid "Viewing user details"
+msgstr "Viser brukerdetaljer"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:27
+msgid "UserID"
+msgstr "BrukerID"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:32
+msgid "Upcoming entries for "
+msgstr "Kommende bookinger for "
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/user.php:48
+msgid "No upcoming entries found"
+msgstr "Ingen kommende bookinger funnet"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:110
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week_old.php:122
+msgid "go to last week"
+msgstr "gå til sist uke"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:112
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week_old.php:124
+msgid "go to this week"
+msgstr "gå til denne uken"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week.php:114
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week_old.php:126
+msgid "go to next week"
+msgstr "gå til neste uke"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/week_old.php:95
+msgid "This room couldn't be found."
+msgstr "Dette rommet ble ikke funnet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/default/config.inc.php:168
+msgid "invalid language selected"
+msgstr "ugyldig språk valgt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/email.php:121
+msgid "Assigned to"
+msgstr "Vert"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:52
+msgid "Invoice - Your referance"
+msgstr "Faktura - Deres referanse"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:89
+msgid "Not to be made"
+msgstr "Skal ikke lages"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:92
+msgid "Sendt out"
+msgstr "Sendt ut"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:252
+msgid "Statistics"
+msgstr "Statistikk"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:260
+msgid "Getting entries where "
+msgstr "Henter bookinger hvor "
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:270
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:281
+msgid "is"
+msgstr "er"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:273
+msgid "contains"
+msgstr "inneholder"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:276
+msgid "matches"
+msgstr "matcher"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:282
+msgid "is bigger than"
+msgstr "er større enn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:283
+msgid "is bigger than or same as"
+msgstr "er større enn eller samme som"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:284
+msgid "is less than"
+msgstr "er mindre enn"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:285
+msgid "is less than or same as"
+msgstr "er mindre enn eller samme som"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:290
+msgid "current time"
+msgstr "nåværende tid"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:297
+msgid "true"
+msgstr "sann"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:299
+msgid "false"
+msgstr "usann"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/functions/filter.php:313
+msgid "and"
+msgstr "og"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_menu.php:19
+msgid "Create blank"
+msgstr "Opprett blank"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/include/invoice_top.php:14
+msgid "No access"
+msgstr "Ingen tilgang"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:317
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:338
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:353
+msgid "A required field"
+msgstr "Et obligatorisk felt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:317
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:338
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/editor.class.php:353
+msgid "is empty"
+msgstr "er tomt"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/invoice.class.php:834
+msgid "Invoice time"
+msgstr "Fakturadato"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/invoice.class.php:838
+msgid "Invoice time due"
+msgstr "Forfallsdato"
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/invoice.class.php:863
+msgid "Invoice was created."
+msgstr "Faktura ble opprettet."
+
+#: C:\Users\Hallvard\Documents\Web\Helene\web\arbs/libs/invoice.class.php:873
+msgid "Invoice was edited."
+msgstr "Faktura ble endret."
+
+#~ msgid "Invoice info"
+#~ msgstr "Fakturainformasjon"
+#~ msgid "Ja"
+#~ msgstr "Ja"
+#~ msgid ""
+#~ "You have selected that you want an invoice to be sent, but you havn't "
+#~ "specified what it should contain."
+#~ msgstr ""
+#~ "Du har valgt at faktura skal sendes ut, men du har ikke spesifisert hva "
+#~ "den skal inneholde."
+#~ msgid "Invoice information"
+#~ msgstr "Fakturainformasjon"
+#~ msgid "Please specify what the invoice should contain."
+#~ msgstr ""
+#~ "Vennligst spesifiser hva fakturaen skal inneholde (hvis faktura skal "
+#~ "sendes)."
+#~ msgid "Back to previous page"
+#~ msgstr "Tilbake til forrige side"
+#~ msgid "The contact persons email address."
+#~ msgstr "Kontaktpersonens epostadresse."
+#~ msgid "Default invoice address"
+#~ msgstr "Standard fakturaadresse"
+#~ msgid "Switch to yes"
+#~ msgstr "Endre til ja"
+#~ msgid "Print this page"
+#~ msgstr "Skriv ut denne siden"
+#~ msgid "Mark all as printed"
+#~ msgstr "Marker alle som utskrevet"
+#~ msgid "back"
+#~ msgstr "tilbake"
+#~ msgid "Form on/off"
+#~ msgstr "Skjema på/av"
+#~ msgid "Receiver:"
+#~ msgstr "Mottaker:"
+#~ msgid "Comment:"
+#~ msgstr "Kommentar:"
+#~ msgid "On this day, the following entries are booked for this day:"
+#~ msgstr "På denne dagen, er følgende booket inn:"
+#~ msgid "Nothing is booked for this day."
+#~ msgstr "Ingenting er booket på denne dagen."
+#~ msgid ""
+#~ "This page was created by ARBS Version %s, a free software under the GPL "
+#~ "license."
+#~ msgstr ""
+#~ "Denne siden er laget av JM-booking. Basert på ARBS versjon %s. ARBS har "
+#~ "GPL-lisens. JM-booking er ikke dekket av GPL-lisensen siden det er "
+#~ "internt og ikke utgitt."
+#~ msgid ""
+#~ "This page was created by ARBS, a free software under the GPL license."
+#~ msgstr ""
+#~ "Denne siden er laget av JM-booking. Basert på ARBS. ARBS har GPL-lisens, "
+#~ "men JM-booking er ikke dekket av GPL-lisensen siden det er internt og "
+#~ "ikke utgitt."
+#~ msgid "Please enter an description."
+#~ msgstr "Vennligst sett inn en beskrivelse."
+#~ msgid "Please enter a name."
+#~ msgstr "Vennligst tast inn et navn."
+#~ msgid "Checking %s to %s:"
+#~ msgstr "Sjekker %s til %s:"
+#~ msgid "%d hits, %d slots free"
+#~ msgstr "%d treff, %d plasser ledig"
+#~ msgid "%s to %s"
+#~ msgstr "%s til %s"
+#~ msgid "Periods"
+#~ msgstr "Perioder"
+#~ msgid "add"
+#~ msgstr "legg til"
+#~ msgid "Period ID %s not found"
+#~ msgstr "Periode-ID %s ikke funnet"
+#~ msgid "change"
+#~ msgstr "endre"
+#~ msgid "Description of this period"
+#~ msgstr "Beskrivelse for perioden"
+#~ msgid "Start-Date"
+#~ msgstr "Start-dato"
+#~ msgid "End-Date"
+#~ msgstr "Slutt-dato"
+#~ msgid "Create period"
+#~ msgstr "Opprett periode"
+#~ msgid "Delete this period"
+#~ msgstr "Slett denne perioden"
+#~ msgid "Please select a period first or %screate%s a new one."
+#~ msgstr "Vennligst velg en periode først eller %screate%s a new one."
+#~ msgid "Create area"
+#~ msgstr "Opprett bygg"
+#~ msgid "Delete this area"
+#~ msgstr "Slett dette bygget"
+#~ msgid "Please select an area first or<br>%screate%s a new one."
+#~ msgstr "Vennligst velg ett bygg først eller<br>%screate%s ett nytt ett."
+#~ msgid "Category"
+#~ msgstr "Arrangementtype"
+#~ msgid "Cytegory ID %s not found"
+#~ msgstr "Arrangementtype-ID %s ikke funnet"
+#~ msgid "Submit changes"
+#~ msgstr "Lagre endringer"
+#~ msgid "Rooms in this system"
+#~ msgstr "Room i systemet"
+#~ msgid "Move up"
+#~ msgstr "Flytt opp"
+#~ msgid "Move down"
+#~ msgstr "Flytt ned"
+#~ msgid "Mark as hightlighted"
+#~ msgstr "Merk som fremhevet"
+#~ msgid ""
+#~ "(Devices marked as highlighted appear in the overview page in an extra "
+#~ "box)"
+#~ msgstr ""
+#~ "(Arrangementstyper markert som fremhevet kommer opp i oversiktssiden i en "
+#~ "ekstra boks)"
+#~ msgid "Room ID %s not found."
+#~ msgstr "Rom-ID %s ikke funnet."
+#~ msgid "Description"
+#~ msgstr "Beskrivelse"
+#~ msgid "Capacity"
+#~ msgstr "Kapasitet"
+#~ msgid "URL to info page"
+#~ msgstr "URL til informasjonsside"
+#~ msgid "Additional Information"
+#~ msgstr "Tilleggsinformasjon"
+#~ msgid "Room-admin's eMail"
+#~ msgstr "Rom-admin sin epost"
+#~ msgid "visible"
+#~ msgstr "synlig"
+#~ msgid "Create a Room"
+#~ msgstr "Opprett rom"
+#~ msgid "Delete this room"
+#~ msgstr "Slett rom"
+#~ msgid "Please select a room or %screate%s a new one."
+#~ msgstr "Vennligst velg ett rom eller %screate%s ett nytt ett."
+#~ msgid "Period"
+#~ msgstr "Periode"
+#~ msgid "from"
+#~ msgstr "fra"
+#~ msgid "till"
+#~ msgstr "til"
+#~ msgid "Viewing: %s"
+#~ msgstr "Viser: %s"
+#~ msgid "Show entry"
+#~ msgstr "Vis booking"
+#~ msgid "Change status"
+#~ msgstr "Endre status"
+#~ msgid "Manage devices"
+#~ msgstr "Administrer rom"
+#~ msgid "Manage terms"
+#~ msgstr "Administrer perioder"
+#~ msgid "Event overview"
+#~ msgstr "Bookingoversikt"
+#~ msgid "Show unconfirmed bookings"
+#~ msgstr "Vis ubekreftede bookinger"
+#~ msgid "Print an overview"
+#~ msgstr "Skriv ut en oversikt"
+#~ msgid "WORKING STUFF:"
+#~ msgstr "Fungerende greier:"
+#~ msgid "Manage users"
+#~ msgstr "Administrer brukere"
+#~ msgid "Manage usergroups"
+#~ msgstr "Administrer brukergrupper"
+#~ msgid "Marked rows:"
+#~ msgstr "Markerte rader:"
+#~ msgid "No matching entries found"
+#~ msgstr "Ingen treff på bookinger funnet"
+#~ msgid "Start date"
+#~ msgstr "Start-dato"
+#~ msgid "End date"
+#~ msgstr "Slutt-dato"
+#~ msgid "Instance %s not found!"
+#~ msgstr "Instance %s ble ikke funnet!"
+#~ msgid "Year:"
+#~ msgstr "År:"
+#~ msgid "Till:"
+#~ msgstr "Til:"
+#~ msgid "Export"
+#~ msgstr "Eksporter"
+#~ msgid "Details for room %s"
+#~ msgstr "Detaljer for rom %s"
+#~ msgid "Faculty"
+#~ msgstr "Fakultet"
+#~ msgid "Other"
+#~ msgstr "Andre"
+#~ msgid "Bookings"
+#~ msgstr "Bookinger"
+#~ msgid "Overview"
+#~ msgstr "Oversikt"
+#~ msgid "Last update:"
+#~ msgstr "Sist oppdatert:"
+#~ msgid "Update"
+#~ msgstr "Oppdater"
+#~ msgid "Sum"
+#~ msgstr "Sum"
+#~ msgid "eMail"
+#~ msgstr "E-post"
+#~ msgid "Persons title"
+#~ msgstr "Tittel"
+#~ msgid ""
+#~ "The title of the contactperson. Optional and may not suite all bookings"
+#~ msgstr ""
+#~ "Personens tittel innefor firmaet/skolen. Passer ikke for alle bookinger."
+#~ msgid "Language:"
+#~ msgstr "Språk:"
+#~ msgid "Close this window"
+#~ msgstr "Lukk dette vinduet"
+#~ msgid "Really delete?"
+#~ msgstr "Virkelig slette?"
+#~ msgid "YES, delete"
+#~ msgstr "JA, slett"
+#~ msgid "NO, cancel"
+#~ msgstr "Nei, avbryt"
+#~ msgid "You successfully booked this room:"
+#~ msgstr "Du har vellykket booket dette rommet:"
+#~ msgid "Continue to"
+#~ msgstr "Videre til"
+#~ msgid "Continue to room"
+#~ msgstr "Videre til rom"
+#~ msgid "CHANGELOG TO BE MADE!!"
+#~ msgstr "ENDRINGSLOGG IKKE LAGET ENDA!!"
+#~ msgid "Entry ID %s not found"
+#~ msgstr "Booking med ID %s ble ikke funnet"
+#~ msgid "Room ID %s not found"
+#~ msgstr "Rom-ID %s ble ikke funnet"
+#~ msgid "Personal data is saved"
+#~ msgstr "Personlig info er lagret"
+#~ msgid "Input error"
+#~ msgstr "Feil med input"
+#~ msgid "Select a date"
+#~ msgstr "Velg en dato"
+#~ msgid "Type:"
+#~ msgstr "Type:"
+#~ msgid "Whole day"
+#~ msgstr "Hele dagen"
+#~ msgid "once"
+#~ msgstr "engangs"
+#~ msgid "daily repeating"
+#~ msgstr "gjentas daglig"
+#~ msgid "weekly repeating"
+#~ msgstr "gjentas ukentlig"
+#~ msgid "weekly while in the term"
+#~ msgstr "gjentas ukentlig innenfor semester"
+#~ msgid "Last day of this repetition"
+#~ msgstr "Siste dag for gjentakelse"
+#~ msgid "Number of weeks"
+#~ msgstr "Antall uker"
+#~ msgid "Your booking is being checked. Please wait..."
+#~ msgstr "Din booking blir sjekket. Vennligst vent..."
+#~ msgid "You can't start a booking at a weekend."
+#~ msgstr "Du kan ikke starte en booking i helgen."
+#~ msgid "Back to calendar view"
+#~ msgstr "Tilbake til kalendervisning"
+#~ msgid "You're logged in as Mr/Mrs:"
+#~ msgstr "Du er logget inn som:"
+#~ msgid "Event data"
+#~ msgstr "Bookingdata"
+#~ msgid "Type"
+#~ msgstr "Type"
+#~ msgid "Duration"
+#~ msgstr "Lengde"
+#~ msgid "Created on"
+#~ msgstr "Laget"
+#~ msgid "(n-times per week)"
+#~ msgstr "(n-ganger per uke)"
+
