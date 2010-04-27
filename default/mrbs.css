@@ -1,0 +1,487 @@
+
+
+/*
+JM-booking
+Copyright (C) 2007-2010  Jaermuseet <http://www.jaermuseet.no>
+Contact: <hn@jaermuseet.no> 
+Project: <http://github.com/hnJaermuseet/JM-booking>
+
+Based on ARBS, Advanced Resource Booking System, copyright (C) 2005-2007 
+ITMC der TU Dortmund <http://sourceforge.net/projects/arbs/>. ARBS is based 
+on MRBS by Daniel Gardner <http://mrbs.sourceforge.net/>.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+ 
+
+BODY {
+	color:black;
+	font-size: 10pt;
+	font-family:arial,sans-serif;
+}
+
+A:link {color:#003399; text-decoration: none}
+A:visited {color:#003399; text-decoration: none}
+A:hover {color:blue; text-decoration:underline}
+H1 {color:black; font-family:verdana,sans-serif; font-size:16pt}
+H2 {color:black; font-family:verdana,sans-serif; font-size:14pt}
+H3 {font-family:verdana,sans-serif}
+
+TD {font-size:10pt; font-family:arial,sans-serif; vertical-align:top}
+TD.header {color:black; font-family:verdana,sans-serif; border-width:0;
+background-color:#ffffdd; font-size:26pt}
+TD.CR { vertical-align: middle; text-align: right}
+TD.CL { vertical-align: middle; text-align: left}
+TD.BR { vertical-align: baseline; text-align: right}
+TD.BL { vertical-align: baseline; text-align: left}
+TD.TR { vertical-align: top; text-align: right}
+TD.TL { vertical-align: top; text-align: left}
+
+TD.unallocated {color:gray}
+TD.allocated {color:black}
+A:link.unallocated {color:#9BA9E6}
+A:link.allocated {color:#5B69A6}
+
+A:hover.unallocated {color:red}
+A:hover.allocated {color:red}
+
+A.blue {color:blue}
+A:visited.blue {color:blue}
+A:hover.blue {color:red}
+
+TH {color:#eeeeee; font-size:10pt; font-family:verdana,sans-serif;
+background-color:#333333;
+border-width:1px; border-color:black; vertical-align:top}
+TD.banner {vertical-align:middle; background-color:pink}
+
+TD.blue {background-color:#F0F0FF}
+TD.red  {background-color:#CCCCCC}
+TD.green {background-color:#DDFFDD}
+TD.A {background-color:#FFCCFF}
+TD.B {background-color:#99CCCC}
+TD.C {background-color:#CCCCCC}
+TD.D {background-color:#FFFF99}
+TD.E {background-color:#C0E0FF}
+TD.F {background-color:#ffff00}
+TD.G {background-color:#ff3300}
+TD.H {background-color:#66FFFF}
+TD.I {background-color:#DDFFDD}
+TD.J {background-color:#CCCCCC}
+TD.nofreeslots {background-color:#99ccff}
+TD.white {background-color:#FFFFFF}
+
+TD.weeknum {background-color:#CCCCCC; padding: 1px 1px 1px 1px;}
+
+TD.calendar {border:0px; font-size: 6pt}
+TD.calendarHeader {border:0px; font-size: 10pt}
+
+.sitename
+{font-size: 18px;
+font-style: normal;
+font-weight: bold;
+text-transform: none;
+color:#ffffff;
+position: absolute;
+left:30px;
+top:12px}
+
+TD.month {font-size: 8pt}
+.monthday {font-size: 12pt}
+
+
+a.menubar:link { color: white; text-decoration: none; }
+a.menubar:visited { color: white; text-decoration: none; }
+a.menubar:active { color: white; text-decoration: none; }
+a.menubar:hover { color: #C0E0FF; text-decoration: none; }
+
+a.lightbluebg:link { color: #5B69A6; text-decoration: none; }
+a.lightbluebg:visited { color: #5B69A6; text-decoration: none; }
+a.lightbluebg:active { color: #5B69A6; text-decoration: none; }
+a.lightbluebg:hover { color: black; text-decoration: none; }
+
+a.graybg:link { color: black; text-decoration: none; }
+a.graybg:visited { color: black; text-decoration: none; }
+a.graybg:active { color: black; text-decoration: none; }
+a.graybg:hover { color: #5B69A6; text-decoration: none; }
+
+
+table.timetable	{	border-collapse: collapse; border: 0; padding: 0;}
+.time {			border-top: 1px solid #A1A5A9; }
+.timeweak {		border-top: 1px dashed #ccc; }
+.time3 {		border: 1px solid black; }
+.time2 {		border-top: 1px solid #A1A5A9; border-right: 1px solid black; }
+.timeweak2 {	border-top: 1px dashed #ccc; border-right: 1px solid black; }
+.event {		border: 1px solid black; }
+A:link.eventlink {color:black; text-decoration: none}
+A:visited.eventlink {color:black; text-decoration: none}
+A:hover.eventlink {color:black; text-decoration:underline}
+
+
+
+
+/* 
+================================================
+autosuggest, inquisitor style
+================================================
+*/
+
+body
+{
+	position: relative;
+}
+
+
+div.autosuggest
+{
+	position: absolute;
+	background-image: url('img/autosuggest/as_pointer.gif');
+	background-position: top;
+	background-repeat: no-repeat;
+	padding: 10px 0 0 0;
+}
+
+div.autosuggest div.as_header,
+div.autosuggest div.as_footer
+{
+	position: relative;
+	height: 6px;
+	padding: 0 6px;
+	background-image: url('img/autosuggest/ul_corner_tr.gif');
+	background-position: top right;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+div.autosuggest div.as_footer
+{
+	background-image: url('img/autosuggest/ul_corner_br.gif');
+}
+
+div.autosuggest div.as_header div.as_corner,
+div.autosuggest div.as_footer div.as_corner
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 6px;
+	width: 6px;
+	background-image: url('img/autosuggest/ul_corner_tl.gif');
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+div.autosuggest div.as_footer div.as_corner
+{
+	background-image: url('img/autosuggest/ul_corner_bl.gif');
+}
+div.autosuggest div.as_header div.as_bar,
+div.autosuggest div.as_footer div.as_bar
+{
+	height: 6px;
+	overflow: hidden;
+	background-color: #333;
+}
+
+
+div.autosuggest ul
+{
+	list-style: none;
+	margin: 0 0 -4px 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+div.autosuggest ul li
+{
+	color: #ccc;
+	padding: 0;
+	margin: 0 4px 4px;
+	text-align: left;
+}
+
+div.autosuggest ul li a
+{
+	color: #ccc;
+	display: block;
+	text-decoration: none;
+	background-color: transparent;
+	text-shadow: #000 0px 0px 5px;
+	position: relative;
+	padding: 0;
+	width: 100%;
+}
+div.autosuggest ul li a:hover
+{
+	background-color: #444;
+}
+div.autosuggest ul li.as_highlight a:hover
+{
+	background-color: #1B5CCD;
+}
+
+div.autosuggest ul li a span
+{
+	display: block;
+	padding: 3px 6px;
+	font-weight: bold;
+}
+
+div.autosuggest ul li a span small
+{
+	font-weight: normal;
+	color: #999;
+}
+
+div.autosuggest ul li.as_highlight a span small
+{
+	color: #ccc;
+}
+
+div.autosuggest ul li.as_highlight a
+{
+	color: #fff;
+	background-color: #1B5CCD;
+	background-image: url('img/autosuggest/hl_corner_br.gif');
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+div.autosuggest ul li.as_highlight a span
+{
+	background-image: url('img/autosuggest/hl_corner_bl.gif');
+	background-position: bottom left;
+	background-repeat: no-repeat;
+}
+
+div.autosuggest ul li a .tl,
+div.autosuggest ul li a .tr
+{
+	background-repeat: no-repeat;
+	width: 6px;
+	height: 6px;
+	position: absolute;
+	top: 0;
+	padding: 0;
+	margin: 0;
+}
+div.autosuggest ul li a .tr
+{
+	right: 0;
+}
+
+div.autosuggest ul li.as_highlight a .tl
+{
+	left: 0;
+	background-image: url('img/autosuggest/hl_corner_tl.gif');
+	background-position: bottom left;
+}
+
+div.autosuggest ul li.as_highlight a .tr
+{
+	right: 0;
+	background-image: url('img/autosuggest/hl_corner_tr.gif');
+	background-position: bottom right;
+}
+
+
+
+div.autosuggest ul li.as_warning
+{
+	font-weight: bold;
+	text-align: center;
+}
+
+div.autosuggest ul em
+{
+	font-style: normal;
+	color: #6EADE7;
+}
+
+.dayplan {
+	border: 1px dotted gray;
+	padding: 2px 5px 2px 5px;
+}
+
+@media all {
+	.print {
+		display: none;
+	}
+}
+@media print {
+	.hiddenprint,
+	div.chartplaceholder {
+		display: none;
+	}
+	
+	.print {
+		display: block;
+	}
+}
+
+div.chartplaceholder {
+	font-size: 18px;
+	color: #5B69A6;
+	padding: 10px;
+	margin: 2px;
+	border: 1px solid black;
+	text-align: center;
+}
+
+td.border {
+	padding: 1px 5px 1px 5px;
+	border: 1px solid black;
+}
+th.border {
+	color: black;
+	background-color: transparent;
+	padding: 1px 5px 1px 5px;
+	border: 1px solid black;
+}
+
+input[disabled], 
+select[disabled],
+textarea[disabled],
+option[disabled]
+{
+	background-color: lightgray;
+	color: black;
+}
+
+input {
+	vertical-align: middle;
+	margin-top: 0px;
+}
+
+
+ 
+/* Wikitable (Prettytable) class for skinning normal tables */
+table.wikitable,
+table.prettytable {
+	margin: 1em 1em 1em 0;
+	background: #f9f9f9;
+	border: 1px #aaaaaa solid;
+	border-collapse: collapse;
+	empty-cells: show;
+}
+table.wikitable th, table.wikitable td,
+table.prettytable th, table.prettytable td {
+	border: 1px #aaaaaa solid;
+	padding: 0.2em 0.4em;
+}
+table.wikitable th, table.wikitable td.hl3, table.wikitable th.hl3,
+table.prettytable th, table.prettytable td.hl3, table.wikitable th.hl3 {
+	background: #8da7d6;
+	text-align: center;
+}
+table.wikitable td.hl1, table.wikitable th.hl1,
+table.prettytable td.hl1, table.wikitable th.hl1 {
+	background: #c5d8fc;
+	text-align: center;
+}
+table.wikitable td.hl2, table.wikitable th.hl2,
+table.prettytable td.hl2, table.wikitable th.hl2 {
+	background: #a7c1f2;
+	text-align: center;
+}
+table.wikitable caption,
+table.prettytable caption {
+	margin-left: inherit;
+	margin-right: inherit;
+	font-weight: bold;
+}
+
+/* FROM CSS BLUEPRINT: */
+.error {
+	background:#FBE3E4 none repeat scroll 0 0;
+	border-color:#FBC2C4;
+	color:#8A1F11;
+}
+.error, .notice, .success {
+	border:2px solid #DDDDDD;
+	margin-bottom:1em;
+	padding:0.8em;
+}
+.notice {
+	background:#FFF6BF none repeat scroll 0 0;
+	border-color:#FFD324;
+	color:#514721;
+}
+.success {
+	background:#E6EFC2 none repeat scroll 0 0;
+	border-color:#C6D880;
+	color:#264409;
+}
+.success a {
+	//color:#264409;
+}
+.notice a {
+	//color:#514721;
+}
+.error a {
+	//color:#8A1F11;
+}
+.notice h2 {
+	color: red;
+}
+
+
+
+
+
+
+input.title   { font-size:1.5em; width: 300px; padding:5px; }
+input.right {
+	text-align: right;
+}
+
+tr.invoiceGray td {
+	color: gray;
+}
+
+
+
+
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 1px solid #111;
+	background-color: #eee;
+	padding: 5px;
+	opacity: 0.85;
+}
+#tooltip h3, #tooltip div { margin: 0; }
+
+
+
+
+
+
+
+
+
+
+
+.ui-button {
+	outline: 0;
+	margin:0;
+	padding: .4em 1em .5em;
+	text-decoration:none;
+	!important;
+	cursor:pointer;
+	position: relative;
+	text-align: center;
+}
+.ui-dialog .ui-state-highlight, .ui-dialog .ui-state-error {
+	padding: .3em;
+}
