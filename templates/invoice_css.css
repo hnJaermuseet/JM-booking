@@ -1,0 +1,28 @@
+
+.box1 {
+	position:relative;
+	right:10px;
+	top:130px;
+	font-size: xx-large;
+}
+
+.box2 {
+	position:relative;
+	right:10px;
+	top:170px;
+}
+
+.box3 {
+	display:none;
+}
+
+.box4 {
+	display:none;
+}
+
+.box5 {
+	display:none;
+}
+.box6 {
+	display:none;
+}

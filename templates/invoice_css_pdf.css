@@ -1,0 +1,101 @@
+
+.box1 {
+	position:fixed;
+	right:10px;
+	top:150px;
+	font-size: xx-large;
+}
+
+.box2 {
+	position:fixed;
+	right:10px;
+	top:190px;
+}
+
+.box3 {
+	font-size: x-small;
+	position:fixed;
+	top:65px;
+	left:570px;
+}
+
+.box4 {
+	font-size: xx-small;
+	position:fixed;
+	top:55px;
+	left:380px;
+}
+
+.box5 {
+	font-size: xx-small;
+	position:fixed;
+	top:55px;
+	left:430px;
+}
+.box6 {
+}
+
+
+.giro1 {
+	font-size: xx-small;
+	position:fixed;
+	bottom:110mm;
+	left:20mm;
+}
+
+.giro2 {
+	font-size: xx-small;
+	position:fixed;
+	bottom:109mm;
+	left:-75mm;
+}
+
+.giro3 {
+	font-size: xx-small;
+	position:fixed;
+	bottom:98mm;
+	left:174mm;
+}
+
+.giro4 {
+	font-size: xx-small;
+	position:fixed;
+	bottom:93mm;
+	left:18mm;
+}
+
+.giro5 {
+	font-size: xx-small;
+	position:fixed;
+	bottom:63mm;
+	left:18mm;
+}
+
+.giro6 {
+	font-size: xx-small;
+	position:fixed;
+	bottom:62mm;
+	left:115mm;
+}
+
+.giro7 {
+	font-size: xx-small;
+	position:fixed;
+	bottom:25mm;
+	left:11mm;
+	width:60mm;
+}
+
+.giro8 {
+	font-size: xx-small;
+	position:fixed;
+	bottom:25mm;
+	left:-80mm;
+}
+
+.giro9 {
+	font-size: xx-small;
+	position:fixed;
+	bottom:25mm;
+	left:-30mm;
+}
