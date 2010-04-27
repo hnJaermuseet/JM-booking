@@ -80,8 +80,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ###################
 # Database settings
 ###################
-# Which database system: "mysql"=MySQL
-$dbsys = "mysql";
 # Hostname of database server. For pgsql, can use "" instead of localhost
 # to use Unix Domain Sockets instead of TCP/IP.
 $db_host = "localhost";

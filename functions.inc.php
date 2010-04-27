@@ -99,73 +99,6 @@ function drawInputParams($param){
 		echo " $key=\"",$val,"\"";
 }
 
-#########
-#drawTicket() gets all data for the requested id.
-#if singleEntry==true, no further information will be collecte. otherwise, the functions tries to find more matcing entrys for the id
-#the template parameter is optional and allow to use other template files from the ./<instance>/print-templates/ directory
-#basic principle is, to simply include the template files after setting the variables to the desired values. 
-#thus, the included termplates perform all the output on its own
-#if the template was suchessfully printed, an arry of all printed entrys is returned
-#########
-function drawTicket($id,$singleEntry=true,$template="default"){
-	global $instance;
-	#check if all files are accesable
-	if(!is_readable($instance."/print-templates/".$template."_head.inc")){
-		printf(_("%s can't be read."), $instance."/print-templates/".$template."_head.inc");
-		exit;
-	}
-	if(!is_readable($instance."/print-templates/".$template."_middle.inc")){
-		printf(_("%s can't be read."), $instance."/print-templates/".$template."_middle.inc");
-		exit;
-	}
-	if(!is_readable($instance."/print-templates/".$template."_foot.inc")){
-		printf(_("%s can't be read."), $instance."/print-templates/".$template."_foot.inc");
-		exit;
-	}	
-				
-	$res=sql_query("SELECT * FROM mrbs_entry WHERE id='".$id."'");
-	if(mysql_affected_rows()==0){
-		printf(_("Couldn't find %d"), $id);
-		exit;
-	}
-	#define all necessary variables
-	$template_dbfield=mysql_fetch_array($res);
-	
-	$template_entry_starttime = strftime("%R" ,$template_dbfield['start_time']);
-	$template_entry_startdate = strftime("%d.%m.%Y",$template_dbfield['start_time']);
-	$template_entry_enddate = strftime("%d.%m.%Y" ,$template_dbfield['end_time']);
-	$template_entry_endtime = strftime("%R",$template_dbfield['end_time']);
-	$template_currentdate=date("d.m.Y");
-	include $instance."/print-templates/".$template."_head.inc";
-
-	$out_ids=array();
-	#either get the very entry or look for all matching entrys
-	if($singleEntry){	
-		$res1 = sql_query("SELECT room_name FROM mrbs_room WHERE id='".$template_dbfield['room_id']."'");
-		$zeile=mysql_fetch_row($res1);
-		$booking['roomname']=$zeile[0];
-		$booking['extras']=nl2br($template_dbfield['description']);
-		include $instance."/print-templates/".$template."_middle.inc";	
-		array_push($out_ids,$id);
-	}
-	else{
-		$res1 = sql_query("SELECT r.room_name,e.description,e.id FROM mrbs_entry AS e LEFT JOIN mrbs_room AS r ON e.room_id=r.id
-		WHERE e.start_time = '".$template_dbfield['start_time']."'
-		AND e.end_time = '".$template_dbfield['end_time']."'
-		AND e.name = '".addslashes($template_dbfield['name'])."'
-		AND e.advisor_name='".addslashes($template_dbfield['advisor_name'])."'");
-		while($zeile=mysql_fetch_row($res1)){
-			$booking['roomname']=$zeile[0];
-			$booking['extras']=nl2br(addslashes($zeile[1]));
-			include $instance."/print-templates/".$template."_middle.inc";
-			array_push($out_ids,$zeile[2]);
-		}
-	}	
-	include $instance."/print-templates/".$template."_foot.inc";
-	return $out_ids;
-}
-
-
 #this function kills all booking relevant informations from the session, but retaines instance and language information
 function reset_session(){
 	global $db_entry_fields;
@@ -187,13 +120,6 @@ function buildSelectFormat($start,$end,$step,$selection,$prefix,$suffix){
 		else
 			echo "<option value='$i'>$iv</option>";
 	}
-}
-
-function mrbsGetRoomName($id){
-	$res = sql_query("SELECT room_name FROM mrbs_room WHERE (id = $id)");
-	$row = sql_row($res, 0);
-	$room=$row[0];
-	return $room;
 }
 
 function buildSelect($start,$end,$step,$selection){
@@ -714,19 +640,6 @@ function unslashes($s){
 	else
 		return $s;
 }
-
-# Return a default area; used if no area is already known. This returns the
-# lowest area ID in the database (no guaranty there is an area 1).
-# This could be changed to implement something like per-user defaults.
-function get_default_area(){
-	$area = sql_query1("SELECT MIN(id) FROM mrbs_area");
-	return ($area < 0 ? 0 : $area);
-}
-function get_default_category($area){
-	$cat = sql_query1("SELECT MIN(id) FROM mrbs_category where area_id=$area");
-	return ($cat < 0 ? 0 : $cat);
-}
-
 
 # Get the local day name based on language. Note 2000-01-02 is a Sunday.
 function day_name($daynumber){
@@ -2662,5 +2575,14 @@ function invoiceContentNumbers ($content) {
 		}
 	}
 	return $return;
+}
+
+# Return a default area; used if no area is already known. This returns the
+# lowest area ID in the database (no guaranty there is an area 1).
+# This could be changed to implement something like per-user defaults.
+function get_default_area(){
+	$Q_area = mysql_query("SELECT MIN(id) as thisid FROM mrbs_area");
+	$area = mysql_result($Q_area,0, 'thisid');
+	return ($area < 0 ? 0 : $area);
 }
 ?>

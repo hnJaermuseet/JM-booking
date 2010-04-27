@@ -77,13 +77,26 @@ include_once("./language.inc.php");
 
 include "default/config.inc.php";
 
+// Establish a database connection.
+// On connection error, the message will be output without a proper HTML
+// header. There is no way I can see around this; if track_errors isn't on
+// there seems to be no way to supress the automatic error message output and
+// still be able to access the error text.
+if (empty($db_nopersist))
+	$db_c = mysql_pconnect($db_host, $db_login, $db_password);
+else
+	$db_c = mysql_connect($db_host, $db_login, $db_password);
+
+if (!$db_c || !mysql_select_db ($db_database)){
+	echo "\n<p>\n", _("FATAL ERROR: Couldn't connect to database."), "\n";
+	exit;
+}
+
 #lang.inc is included in config.inc.php
 #also, all changeing code for language selection is at config.inc.php
 #sometimes, script include other stand-alone scripts -> include_once
 include_once "functions.inc.php";
-include_once "$dbsys.inc.php";
 include_once "mrbs_auth.inc.php";
-include_once "mrbs_sql.inc.php";
 
 if (isset($session_must_be_reset))
 	reset_session();

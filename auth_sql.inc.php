@@ -240,7 +240,7 @@ function isLoggedIn ()
 	}
 	else
 	{
-		$Q_login = sql_query("select user_id from `users` where user_id = '".$login['user_id']."' and user_password = '".$login['user_password']."' limit 1");
+		$Q_login = mysql_query("select user_id from `users` where user_id = '".$login['user_id']."' and user_password = '".$login['user_password']."' limit 1");
 		if(mysql_num_rows($Q_login) > '0')
 		{
 			return TRUE;
@@ -267,7 +267,7 @@ function checkUser ($user_id = '0')
 		return FALSE;
 	else
 	{
-		$Q_user = sql_query("select * from `users` where user_id = '".$user_id."'");
+		$Q_user = mysql_query("select * from `users` where user_id = '".$user_id."'");
 		
 		if(!mysql_num_rows($Q_user))
 			return FALSE;
@@ -285,7 +285,7 @@ function getUserinfo ($user_id = '0')
 	}
 	else
 	{
-		$Q_userinfo = sql_query("select * from `users` where user_id = '".$user_id."'");
+		$Q_userinfo = mysql_query("select * from `users` where user_id = '".$user_id."'");
 		
 		if(!mysql_num_rows($Q_userinfo))
 			return array();

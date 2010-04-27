@@ -70,19 +70,26 @@ if ( $pview != 1 )
 	"<u>" . _("Areas") . "</u><br>";
 }
 
-$sql = "select id, area_name from mrbs_area order by area_name";
-$res = sql_query($sql);
-if ($res) {
-	for ($i = 0; ($row = sql_row($res, $i)); $i++) {
+$sql = "select id as area_id, area_name from mrbs_area order by area_name";
+$res = mysql_query($sql);
+if (mysql_num_rows($res)) {
+	while($row = mysql_fetch_assoc($res))
+	{
 		if ( $pview != 1 )
-		echo "<a href=\"".$thisFile."?year=$year&month=$month&day=$day&area=$row[0]\">";
-		if ($row[0] == $area) {
-			$this_area_name = htmlspecialchars($row[1]);
+		{
+			echo '<a href="'.$thisFile.'?year='.$year.'&month='.$month.'&day='.$day.'&area='.$row['area_id'].'">';
+		}
+		if ($row['area_id'] == $area) {
+			$this_area_name = htmlspecialchars($row['area_name']);
 			if ( $pview != 1 )
+			{
 				echo "<font color=\"red\">$this_area_name</font></a><br>\n";
+			}
 		}
 		elseif ( $pview != 1 )
-			echo htmlspecialchars($row[1]) . "</a><br>\n";
+		{
+			echo htmlspecialchars($row['area_name']) . "</a><br>\n";
+		}
 	}
 }
 
