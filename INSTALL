@@ -1,0 +1,59 @@
+ARBS - Advanced Resource Booking System
+Copyright (C) 2005-2007 ITMC der TU Dortmund
+Based on MRBS by Daniel Gardner <http://mrbs.sourceforge.net/>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA 02110-1301, USA.
+
+##########################################
+##########################################
+####                                  ####
+####   THIS FILE IS NOT UP TO DATE!   ####
+####                                  ####
+##########################################
+##########################################
+
+INSTALLATION
+============
+1. copy this file to a directory which can be read by the webserver
+
+2. THIS STEP SHOULDN'T BE NECESSARY ANYMORE!
+    set webserver to treat .inc files as php:
+	add "AddType application/x-httpd-php .inc" to /etc/apache2/conf.d/phpXY.conf 
+	if the file cannot be found you can alternatively put it to the end of /etc/apache2/httpd.conf
+
+3. create the database
+	
+	> mysql -u root -p
+	> [input database root password]
+	> create database [desired_arbs_databasename];
+	> use [desired_arbs_databasename];
+	> source [path_to_arbs]/INSTALL_DB.sql
+	> grant all privileges on [desired_arbs_databasename].* to '[arbsuser]'@'[host_of_webserver]' identified by '[password]';
+	> exit;	
+	
+4. edit the configuration
+	edit [path_to_arbs]/default/config.inc.php 
+	set at least the database connection variables in the first paragraph
+	detailed configuration is explained in the Manual
+5. set access rights
+	chown -R [webserver username] [path_to_arbs]
+	chmod +w [path_to_arbs]/default/cache.tmp  [path_to_arbs]/default/export.csv
+	chmod -r [path_to_arbs]/default/history.xml   # this is to disallow users to read the history backup for it holds personal data of the users
+
+7. another great feature of this tool is the ability to have lots of different instances of this script. To create another instance, 
+   just copy the default instance (the folder named "default"), give the copy another name (for example "something") and change the config.inc.php 
+   in this folder. After that, the new instance can be accessed by using "week.php?inctance=something" as URL. The used instance is then saved
+   inside the session, so you just have to call such a link once.
