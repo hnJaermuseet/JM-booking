@@ -776,48 +776,7 @@ function round_t_up($t, $resolution){
                return $t;
        }
 }
-function mailto($to,$from,$title,$text){
-	if (strlen($text)>0)
-		mail($to,$title,$text,"From: ".$from."\n\r");
-}
 
-function getMailTemplate($templateName,$status=""){
-	global $instance;
-	$ret ="";
-	switch($templateName){
-		case "new":
-			if($status==0)
-				$fn = "new_single_entry.inc";
-			else
-				$fn = "new_repeat_entry.inc";
-		break;
-		case "adminnew":
-			if($status==0)
-				$fn = "new_single_admininfo.inc";
-			else
-				$fn = "new_repeat_admininfo.inc";			
-		break;
-		case "type":
-			$fn="edit_type_".$status.".inc";
-			break;
-        case "repeattype":
-            $fn="edit_repeat_".$status.".inc";
-            break;
-
-		case "edit_single":
-		$fn = "edit_single_".$status.".inc";
-		break;
-		case "edit_repeat":
-                $fn = "edit_repeat_".$status.".inc";
-                break;
-		default:
-		$fn = "";
-	}
-	if(strlen($fn)>0){
-		$ret = fileContent($instance."/mail-templates/".$fn);
-	}
-	return $ret;
-}
 function fileContent($fn){
 	if (file_exists($fn)){
 		$f = fopen($fn,"r");
@@ -826,78 +785,6 @@ function fileContent($fn){
 		return $contents;
 	}
 	return "";
-}
-function mailParseText($text,$entryID){
-	// Daten ermitteln
-	// die Funktionen geben einen Assoziativen Array
-	// $data["room"] -> RaumFelder
-	// $data["entry"] -> Eintrags-Felder, 
-	// falls Repeat eintrag existiert, wird dieser genommen
-	$rep=false;
-	$data ="";
-	$sql = "SELECT * FROM mrbs_entry WHERE id=$entryID";
-	$ret = sql_query($sql);
-	if (sql_count($ret)>0){
-		$data["entry"] = sql_row_keyed($ret,0);
-		if ($data["entry"]["repeat_id"]>0){
-			$entryID=$data["entry"]["repeat_id"];
-			$sql = "SELECT * FROM mrbs_repeat WHERE id=$entryID";
-			$ret = sql_query($sql);
-			$data["repeat"] = sql_row_keyed($ret,0);
-			$rep=true;
-		}
-		$room_id = $data["entry"]["room_id"];
-		$sql = "SELECT * FROM mrbs_room WHERE id=$room_id";
-		$ret = sql_query($sql);
-		$data["room"] = sql_row_keyed($ret,0);
-		
-		// Text Parsen:
-		$ret="";
-		$posEnd=0;
-		$len =strlen($text);
-		while (!(($pos = strpos($text,"[",$posEnd))===false)){
-			$ret.=substr($text,$posEnd,$pos-$posEnd);
-			$posEnd = strpos($text,"]",$pos)+1;
-			$rplStr = substr($text,$pos+1,$posEnd-$len-1);
-			$pPos =strpos($rplStr,".");
-			if(!($pPos===false)){
-				$sect = substr($rplStr,0,$pPos);
-				$field = substr($rplStr,$pPos+1);
-				if (strpos($field,"{")>0 && strpos($rplStr,".")>0){
-					$dbfield = substr($field,0,strpos($field,"{"));
-					$typeStr = substr($field,strpos($field,"{")+1);
-					$typeStr = substr($typeStr,0,strlen($typeStr)-1);
-					$type = substr($typeStr,0,strpos($typeStr,":"));
-					$opt = substr($typeStr,strpos($typeStr,":")+1);
-					if(isset($data[$sect][$dbfield])){
-						if ($type=="date"){
-							$ret .= parseDate(strftime($opt,$data[$sect][$dbfield]));
-						}
-						else{
-							$ret .= $data[$sect][$dbfield];	
-						}
-					}
-					else{
-						//$ret .= "[".$rplStr."]";
-					}
-				}
-				else{
-					if(isset($data[$sect][$field]))
-						$ret .= $data[$sect][$field];
-					else
-						$ret .= "[".$rplStr."]";
-				}
-			}
-			else{
-				$ret .= "[".$rplStr."]";
-			}
-		}		
-		$ret.=substr($text,$posEnd);
-		return $ret;
-	}
-	else{
-		return "";
-	}
 }
 function getSubject($text){
 	return trim(substr($text,0,strpos($text,"\n")));

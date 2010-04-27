@@ -161,9 +161,6 @@ $dateformat = 1;
 #enable print page ('leihschein') ?
 $entryPrintEnabled=true;
 
-# Maximum repeating entrys (max needed +1):
-$max_rep_entrys = 365 + 1;
-
 # Default report span in days:
 $default_report_days = 60;
 
