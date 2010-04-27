@@ -1,0 +1,10 @@
+files/charts/*
+files/entry-confirm/*
+files/entry-attachment/*
+.project
+.settings*
+.cache*
+templates_c/*
+import/datanova-vitenfabrikken/*
+import/datanova-vitengarden/*
+invoice/*
