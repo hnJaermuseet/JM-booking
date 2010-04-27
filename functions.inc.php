@@ -206,18 +206,6 @@ function buildSelect($start,$end,$step,$selection){
 	}
 }
 
-function print_company_image(){
-	global $mrbs_url,$mrbs_logoimage,$instance;
-	if (strlen($mrbs_logoimage)>0){
-			$path = $instance."/";
-			echo "<a href='".$mrbs_url."'>";
-			echo "<img src='".$path.$mrbs_logoimage."' border='0'></img>";
-			echo "</a>";
-	}
-		
-}
-
-
 function formHiddenFields(){
 	#certain fields should not be passed again: instance and select_language
 	#passing them in every form is unnecessary and prevents further changing of these values

@@ -100,7 +100,6 @@ $DB_nopersist = 1;
 $mrbs_company		= "<a href=\"./\" class=\"lightbluebg\">Booking for<br>J&aelig;rmuseet</a>";
 $mrbs_url			="./";
 $startpage			= "<a href=\"./\">Startside for booking</a>";
-$mrbs_logoimage		= "logo.gif"; #URL to dislpay a logo, set ="" to disable
 $mrbs_pageheader	= ""; #Page-Titel
 
 
