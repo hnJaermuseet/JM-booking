@@ -33,9 +33,8 @@ else{
 	$cssfile="mrbs.css";
 }  
 ?>
-<LINK REL="stylesheet" href="<?php echo(($cssfile)); ?>" type="text/css">
-<META HTTP-EQUIV="Content-Type" content="text/html; charset=<?php echo(_("iso-8859-1")); ?>">
-
+	<link rel="stylesheet" href="<?php echo(($cssfile)); ?>" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo(_("iso-8859-1")); ?>">
 <?php
 if (isset($refresh_rate)) {
 	echo "  <META HTTP-EQUIV=\"Refresh\" CONTENT=\"$refresh_rate\">\n";

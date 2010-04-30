@@ -174,219 +174,196 @@ function print_header($day, $month, $year, $area){
 	
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">'.chr(10);
-	echo '<HTML>'.chr(10);
-	echo '<HEAD>'.chr(10);
-	echo '<TITLE>'._("Reserving devices ONLINE").'</TITLE>';
+	echo '<html>'.chr(10);
+	echo '<head>'.chr(10);
+	echo '	<title>JM-booking</title>'.chr(10);
 	
 	include("style.inc.php");
 	
-	echo '<link type="text/css" href="css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />';
-	echo '<script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3_comp.js"></script>'.chr(10);
-	echo '</HEAD>'.chr(10).chr(10);
-	#overlib javascript for hovering over entries
-	//echo '<script type="text/javascript" src="js/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>'.chr(10);
-	//echo '<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
-	//<BODY BGCOLOR="#ffffed" TEXT=black LINK="#5B69A6" VLINK="#5B69A6" ALINK=red>'.chr(10);
+	echo '	<link type="text/css" href="css/ui-lightness/jquery-ui-1.7.2.custom.css" '.
+		'rel="stylesheet" />'.chr(10);
+	echo '	<script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3_comp.js">'.
+		'</script>'.chr(10);
+	echo '</head>'.chr(10).chr(10);
 	
 	echo '<body'.$testSystem['bodyAttrib'].'>'.chr(10);
 	
-	if (!isset($GLOBALS["pview"]) || $GLOBALS["pview"] != 1 ) { 
-		echo '<TABLE WIDTH="100%" class="hiddenprint">'.chr(10);
-		if (strlen($nrbs_pageheader)>0){
+	if (!isset($GLOBALS["pview"]) || $GLOBALS["pview"] != 1 )
+	{
+		echo '<table width="100%" class="hiddenprint">'.chr(10);
+		if (strlen($nrbs_pageheader)>0)
+		{
 			echo '<tr><td style="text-align:center;">'.$nrbs_pageheader.'</td></tr>'.chr(10);
 		}
 		
-		echo '
-		<TR>
-		<TD BGCOLOR="#5B69A6">
-		<TABLE WIDTH="100%" BORDER=0>
-	        <TR>
-		<TD CLASS="banner" BGCOLOR="#C0E0FF" style="text-align:center">
-		<FONT SIZE=4><B>'.$mrbs_company.'</B>
-		</FONT>
-		</TD>
-		<TD CLASS="banner" BGCOLOR="#C0E0FF">
+		echo '	<tr>'.chr(10).
+			'	<td bgcolor="#5B69A6">'.chr(10).
+			'		<table width="100%" border=0>'.chr(10).
+			'			<tr>'.chr(10).
+			'				<td class="banner" '.
+				'style="text-align:center; font-size: 18px; font-weight: bold;">'.
+				$mrbs_company.
+			'				</td>'.chr(10).
+			'				<td class="banner">'.chr(10).
+				
+			'					<table>'.chr(10).
+			'						<tr>'.chr(10).
+			'							<td align="right">'.
+			'<form action="day.php" method="get">';
 		
-		<table><tr><td align="right">
-		<form action="day.php" METHOD="GET" STYLE="margin: 0px; padding: 0px;">
-';
 		//formHiddenFields(); 
 		genDateSelector("", $day, $month, $year);
 		if (!empty($area))
-			echo "<INPUT TYPE=HIDDEN NAME=area VALUE=$area>"; 
+			echo '<input type="hidden" name="area" value='.$area.'>'; 
 		echo '<input type="submit" value="'._('View day').'">'.
 		iconHTML('calendar_view_day').
-		'</form>'.chr(10);
+		'</form>';
+		echo '</td>'.chr(10);
 		
 		// Week
-		echo '</td><td><form action="week.php" method="get" STYLE="margin: 0px; padding: 0px;">'.chr(10);
+		echo '							<td align="right">'.
+			'<form action="week.php" method="get">';
 		
 		if (!empty($area))
-			echo '<input type="hidden" name="area" value="'.$area.'">'.chr(10);
+			echo '<input type="hidden" name="area" value="'.$area.'">';
 		$thistime = mktime(0, 0, 0, $month, $day, $year);
 		$thisweek = date('W', $thistime);
 		$thisyear = date('Y', $thistime);
-		echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="week">'.chr(10);
+		echo '<select name="week">';
 		for ($i = 1; $i <= 52; $i++)
 		{
-			echo '	<option value="'.$i.'"';
+			echo '<option value="'.$i.'"';
 			if($i == $thisweek) echo ' selected="selected"';
-			echo '>'.$i.'</option>'.chr(10);
+			echo '>'.$i.'</option>';
 		}
-		echo '</select>'.chr(10);
-		echo '<select name="year">'.chr(10);
+		echo '</select>';
+		echo '<select name="year">';
 		for ($i = ($thisyear-1); $i <= ($thisyear+10); $i++)
 		{
-			echo '	<option value="'.$i.'"';
+			echo '<option value="'.$i.'"';
 			if($i == $thisyear) echo ' selected="selected"';
-			echo '>'.$i.'</option>'.chr(10);
+			echo '>'.$i.'</option>';
 		}
-		echo '</select>'.chr(10);
+		echo '</select>';
 		echo '<input type="submit" value="'._('View week').'">'.
-		iconHTML('calendar_view_week').chr(10);
-		echo '</form>'.chr(10);
+		iconHTML('calendar_view_week');
+		echo '</form>';
+		echo '</td>'.chr(10).
+		'						</tr>'.chr(10);
 		
 		// Month
-		echo '</td></tr><tr><td align="right">
-		<form action="month.php" method="get" STYLE="margin: 0px; padding: 0px;">'.chr(10);
-		echo '<input type="hidden" name="area" value="'.$area.'">'.chr(10);
-		echo '<input type="hidden" name="day" value="1">'.chr(10);
+		echo '						<tr>'.chr(10).
+			'							<td align="right">'.
+			'<form action="month.php" method="get">';
+		echo '<input type="hidden" name="area" value="'.$area.'">';
+		echo '<input type="hidden" name="day" value="1">';
 		$thistime = mktime(0, 0, 0, $month, $day, $year);
 		$thismonth = date('n', $thistime);
 		$thisyear = date('Y', $thistime);
-		echo '<select name="month">'.chr(10);
+		echo '<select name="month">';
 		for ($i = 1; $i <= 12; $i++)
 		{
 			$thismonthtime = mktime (0, 0, 0, $i, 1, $year);
-			echo '	<option value="'.$i.'"';
+			echo '<option value="'.$i.'"';
 			if($i == $thismonth) echo ' selected="selected"';
-			echo '>'._(date("M", $thismonthtime)).'</option>'.chr(10);
+			echo '>'._(date("M", $thismonthtime)).'</option>';
 		}
-		echo '</select>'.chr(10);
-		echo '<select name="year">'.chr(10);
+		echo '</select>';
+		echo '<select name="year">';
 		for ($i = ($thisyear-1); $i <= ($thisyear+10); $i++)
 		{
-			echo '	<option value="'.$i.'"';
+			echo '<option value="'.$i.'"';
 			if($i == $thisyear) echo ' selected="selected"';
-			echo '>'.$i.'</option>'.chr(10);
+			echo '>'.$i.'</option>';
 		}
-		echo '</select>'.chr(10);
+		echo '</select>';
 		echo '<input type="submit" value="'._('View month').'">'.
-		iconHTML('calendar_view_month').
-		chr(10);
-		echo '</form></td>';
+		iconHTML('calendar_view_month');
+		echo '</form></td>'.chr(10);
 		
 		// Find using entry_id
-		echo '<td align="right">';
-		echo '<form action="entry.php" method="get" STYLE="margin: 0px; padding: 0px;">'.chr(10);
-		echo '<input type="text" id="entry_id_finder" name="entry_id" value="'._('Enter entry ID').'" onclick="document.getElementById(\'entry_id_finder\').value=\'\';">';
+		echo '							<td align="right">';
+		echo '<form action="entry.php" method="get">';
+		echo '<input type="text" id="entry_id_finder" name="entry_id" '.
+			'value="'._('Enter entry ID').'" '.
+			'onclick="document.getElementById(\'entry_id_finder\').value=\'\';">';
 		echo '<input type="submit" value="'._('Find').'">';
 		echo '</form>';
-		echo '</td>';
+		echo '</td>'.chr(10);
 		
-		echo '</tr></table>
+		echo '						</tr>'.chr(10).
+			'					</table>'.chr(10);
 		
-		</td>'.chr(10);
-	/*
-	if(count($language_available)>1)
-	{
-		echo "<td CLASS=banner BGCOLOR=#C0E0FF><FORM ACTION=",$_SERVER['PHP_SELF']," METHOD=GET>",_("Language:");
-		formHiddenFields();
-		echo "<select name=select_language>";
-		foreach($language_available as $key=>$val){
-			echo "<option value=$val",($val==$session_selected_language?" selected":""),">",$key,"</option>";
-		}
-		echo "</select> <input type=submit value=\"-&gt;\"></form> </TD> ";
-	}*/
-		for($i=0;isset($header_links[$i]);$i++){
-			$ary = explode(";",$header_links[$i]);
-			echo chr(10).'<TD CLASS="banner" BGCOLOR="#33FF33" ALIGN=CENTER>'.chr(10);
-			echo  '<A HREF="';
-			echo $ary[1];
-			
-	 		if ($ary[2]==1)
-	 			echo("?day=".$day."&month=".$month."&year=".$year);
-	 		echo "\"";
-	 		if($ary[3]==1)
-	 			echo(" target='_blank'");
-			echo ">";
-			echo($ary[0]);
-			echo '</A></TD>';
-		}
-		echo '		<td class="banner" bgcolor="#FF9933" align="center">';
-		echo _("Logged in as").' <a href="user.php?user_id='.$userinfo['user_id'].'">'.$userinfo['user_name'].'</a><br>';
-		echo '<a href="logout.php">'.
-		iconHTML('bullet_delete').' '.
-		_("Log out").'</a><br>';
-		echo '<a href="admin.php">'.
-		iconHTML('bullet_wrench').' '.
-		_("Administration").'</a>';
-		echo '</TD>'.chr(10);
+		echo '				</td>'.chr(10);
 		
-		/*
-		echo '
-		<TD CLASS="banner" BGCOLOR="#C0E0FF" ALIGN=\"CENTER\">
-		<FORM METHOD=GET ACTION="search.php">';
-		formHiddenFields();
-		echo '<FONT SIZE=2>'._("Search:").'</FONT> <INPUT TYPE=TEXT   NAME="search_str" VALUE="'. $search_str .'" SIZE=10>
+		echo '				<td class="banner" align="center">'.chr(10);
+		echo '					'._("Logged in as").' <a href="user.php?user_id='.$userinfo['user_id'].'">'.$userinfo['user_name'].'</a><br>'.chr(10);
+		echo '					<a href="logout.php">'.
+			iconHTML('bullet_delete').' '.
+			_("Log out").'</a><br>'.chr(10);
+		echo '					<a href="admin.php">'.
+			iconHTML('bullet_wrench').' '.
+			_("Administration").'</a>'.chr(10);
+		echo '				</td>'.chr(10);
 		
-		</FORM> 
-		</TD> ';*/
-		echo '</TR> </TABLE>';
+		echo '			</tr>'.chr(10).
+			'		</table>'.chr(10);
 		
 		
-		echo ' -:- <a class="menubar" href="./edit_entry2.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$selected_room.'">'.
+		echo '		 -:- <a class="menubar" href="./edit_entry2.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$selected_room.'">'.
 		iconHTML('page_white_add').' '.
-		_('Make a new entry').'</a>';
+		_('Make a new entry').'</a>'.chr(10);
 		
-		//echo ' -:- <a class="menubar" href="./new_entries.php">'.
+		//echo '		 -:- <a class="menubar" href="./new_entries.php">'.
 		//iconHTML('table').' '.
-		//_('List with new entries').'</a>';
+		//_('List with new entries').'</a>'.chr(10);
 		
-		echo ' -:- <a class="menubar" href="./entry_list.php?listtype=not_confirmed">'.
+		echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=not_confirmed">'.
 		iconHTML('email_delete').' '.
-		_('Not confirmed').'</a>';
+		_('Not confirmed').'</a>'.chr(10);
 		
-		echo ' -:- <a class="menubar" href="./entry_list.php?listtype=no_user_assigned">'.
+		echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=no_user_assigned">'.
 		iconHTML('user_delete').' '.
-		_('No users assigned').'</a>';
+		_('No users assigned').'</a>'.chr(10);
 		
-		echo ' -:- <a class="menubar" href="./entry_list.php?listtype=servering">'.
+		echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=servering">'.
 		iconHTML('drink').' '.
-		'Servering</a>';
+		'Servering</a>'.chr(10);
 		
-		#echo ' -:- <a class="menubar" href="./entry_list.php?listtype=next_100">'.
+		#echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=next_100">'.
 		#iconHTML('page_white_go').' '.
-		#_('Next 100').'</a>';
+		#_('Next 100').'</a>'.chr(10);
 		
-		echo ' -:- <a class="menubar" href="./statistikk.php">'.
+		echo '		 -:- <a class="menubar" href="./statistikk.php">'.
 		iconHTML('chart_bar').' '.
-		'Statistikk</a>';
+		'Statistikk</a>'.chr(10);
 		
-		echo ' -:- <a class="menubar" href="./customer_list.php">'.
+		echo '		 -:- <a class="menubar" href="./customer_list.php">'.
 		iconHTML('group').' '.
-		_('Customers').'</a>';
+		_('Customers').'</a>'.chr(10);
 		
-		echo ' -:- <a class="menubar" href="./invoice_main.php">'.
+		echo '		 -:- <a class="menubar" href="./invoice_main.php">'.
 		iconHTML('coins').' '.
-		_('Invoice').'</a>';
+		_('Invoice').'</a>'.chr(10);
 		
-		echo ' -:- <a class="menubar" href="./user_list.php">'.
+		echo '		 -:- <a class="menubar" href="./user_list.php">'.
 		iconHTML('user').' '.
-		_('Userlist').'</a>';
+		_('Userlist').'</a>'.chr(10);
 		
-		echo ' -:- <a class="menubar" href="./entry_filters.php?filters=a:1:{i:0;a:3:{i:0;s:10:%22entry_name%22;i:1;s:0:%22%22;i:2;s:0:%22%22;}}&amp;return_to=entry_list">'.
+		echo '		 -:- <a class="menubar" href="./entry_filters.php?filters=a:1:{i:0;a:3:{i:0;s:10:%22entry_name%22;i:1;s:0:%22%22;i:2;s:0:%22%22;}}&amp;return_to=entry_list">'.
 		iconHTML('find').' '.
-		'Bookings&oslash;k'.'</a>';
+		'Bookings&oslash;k'.'</a>'.chr(10);
 		
-		echo ' -:- <a class="menubar" href="http://booking.jaermuseet.local/wiki/">'.
+		echo '		 -:- <a class="menubar" href="http://booking.jaermuseet.local/wiki/">'.
 		iconHTML('wiki_icon', '.gif', 'height: 16px;').' '.
-		'Wiki'.'</a>';
+		'Wiki'.'</a>'.chr(10);
 		
 		
-		echo ' -:-';
+		echo '		 -:-'.chr(10);
 		
-		echo '</TD> </TR> </TABLE> ';
+		echo '		</td>'.chr(10).
+			'	</tr>'.chr(10).
+			'</table>'.chr(10);
 	} 
 }
 
@@ -510,60 +487,67 @@ function genDateSelector($prefix, $day, $nonth, $year,$history=0,$id_prefix=""){
 	if($year  == 0)
 		$year = date("Y");
 	
-	echo "<SELECT id=\"${id_prefix}day\" NAME=\"${prefix}day\">\n";
+	echo '<select id="'.$id_prefix.'day" NAME="'.$prefix.'day">';
 	
 	for($i = 1; $i <= 31; $i++)
-		echo "<OPTION" . ($i == $day ? " SELECTED" : "") . " value=\"$i\">$i</option>\n";
+	{
+		echo '<option' . ($i == $day ? ' selected' : '') . ' value="'.$i.'">'.$i.'</option>';
+	}
 	
-	echo "</SELECT>";
-	echo "<SELECT id=\"${id_prefix}month\" NAME=\"${prefix}month\">\n";
+	echo '</select>';
+	echo '<select id="'.$id_prefix.'month" name="'.$prefix.'month">';
 	
 	for($i = 1; $i <= 12; $i++){
 		$n = parseDate(strftime("%b", mktime(0, 0, 0, $i, 1, $year)));
 		
-		print "<OPTION VALUE=\"$i\"" . ($i == $nonth ? " SELECTED" : "") . ">$n</option>\n";
+		echo '<option value="'.$i.'" '. ($i == $nonth ? ' selected' : '') . '>'.$n.'</option>';
 	}
 	
-	echo "</SELECT>";
-	echo "<SELECT id=\"${id_prefix}year\" NAME=\"${prefix}year\">\n";
+	echo "</select>";
+	echo '<select id="'.$id_prefix.'year" name="'.$prefix.'year">';
 	
 	$nin = min($year, date("Y")) -$history;
 	$nax = max($year, date("Y")) + 1;
 	
 	for($i = $nin; $i <= $nax; $i++)
-		print "<OPTION" . ($i == $year ? " SELECTED" : "") . " value=\"$i\">$i</option>\n";
+	{
+		echo '<option' . ($i == $year ? ' selected' : '') . ' value="'.$i.'">'.$i.'</option>';
+	}
 	
-	echo "</SELECT>";
+	echo "</select>";
 }
 #--------------------------
 
 function genDateSelector1($prefix, $end_day, $end_month, $end_year){
-        if($end_day   == 0) $end_day = date("d");
-        if($end_month == 0) $end_month = date("m");
-        if($end_year  == 0) $end_year = date("Y");
-
-        echo "<SELECT NAME=\"${prefix}end_day\">\n";
-
-        for($i = 1; $i <= 31; $i++)
-                echo "<OPTION" . ($i == $end_day ? " SELECTED" : "") . ">$i\n";
-
-        echo "</SELECT>";
-        echo "<SELECT NAME=\"${prefix}end_month\">\n";
-
-        for($i = 1; $i <= 12; $i++){
-                $j = parseDate(strftime("%b", mktime(0, 0, 0, $i, 1, $end_year)));
-
-                print "<OPTION VALUE=\"$i\"" . ($i == $end_month ? " SELECTED" : "") . ">$j\n";
-        }
-
-        echo "</SELECT>";
-        echo "<SELECT NAME=\"${prefix}end_year\">\n";
-
-        $nin = min($end_year, date("Y")) - 0;
-        $nax = max($end_year, date("Y")) + 1;
-        for($i = $nin; $i <= $nax; $i++)
-                print "<OPTION" . ($i == $end_year ? " SELECTED" : "") . ">$i\n";
-        echo "</select>";
+	if($end_day   == 0) $end_day = date("d");
+	if($end_month == 0) $end_month = date("m");
+	if($end_year  == 0) $end_year = date("Y");
+	
+	echo '<select NAME="'.$prefix.'end_day">';
+	
+	for($i = 1; $i <= 31; $i++)
+	echo '<option' . ($i == $end_day ? ' selected' : '') . '>'.$i;
+	
+	echo "</select>";
+	echo '<select name="'.$prefix.'end_month">';
+	
+	for($i = 1; $i <= 12; $i++)
+	{
+		$j = parseDate(strftime("%b", mktime(0, 0, 0, $i, 1, $end_year)));
+		
+		echo '<option value="'.$i.'"'. ($i == $end_month ? ' selected' : '') . '>'.$j;
+	}
+	
+	echo '</select>';
+	echo '<select name="'.$prefix.'end_year">';
+	
+	$nin = min($end_year, date("Y")) - 0;
+	$nax = max($end_year, date("Y")) + 1;
+	for($i = $nin; $i <= $nax; $i++)
+	{
+		echo '<option' . ($i == $end_year ? ' selected' : '') . '>'.$i;
+	}
+	echo '</select>';
 
 }
 
@@ -571,32 +555,35 @@ function genDateSelector1($prefix, $end_day, $end_month, $end_year){
 #--------------------------
 
 function genDateSelector2($prefix, $end_day, $end_month, $end_year,$history=0){
-        if($end_day   == 0) $end_day = date("d");
-        if($end_month == 0) $end_month = date("m");
-        if($end_year  == 0) $end_year = date("Y");
- 
- 
-        echo "<SELECT id=\"CP_endday\" NAME=\"${prefix}end_day\" onChange=\"document.main.reload()\">\n";
-
-
-        for($i = 1; $i <= 31; $i++)
-                echo "<OPTION" . ($i == $end_day ? " SELECTED" : "") . " value=\"$i\">$i</option>\n";
-
-        echo "</SELECT>";
-        echo "<SELECT id=\"CP_endmonth\" NAME=\"${prefix}end_month\">\n";
-
-        for($i = 1; $i <= 12; $i++){
-                $j = parseDate(strftime("%b", mktime(0, 0, 0, $i, 1, $end_year)));
-                print "<OPTION VALUE=\"$i\"" . ($i == $end_month ? " SELECTED" : "") . ">$j</option>\n";
-        }
-
-        echo "</SELECT>";
-        echo "<SELECT id=\"CP_endyear\" NAME=\"${prefix}end_year\">\n";
-
-        $nin = min($end_year, date("Y")) - $history;
-        $nax = max($end_year, date("Y")) + 1;
+	if($end_day   == 0) $end_day = date("d");
+	if($end_month == 0) $end_month = date("m");
+	if($end_year  == 0) $end_year = date("Y");
+	
+	echo '<select id="CP_endday" name="'.$prefix.'end_day" '.
+		'onChange="document.main.reload()">';
+	
+	for($i = 1; $i <= 31; $i++)
+	{
+		echo '<option' . ($i == $end_day ? ' selected' : '') . ' value="'.$i.'">'.$i.'</option>';
+	}
+	
+	echo '</select>';
+	echo '<select id="CP_endmonth" NAME="'.$prefix.'end_month">';
+	
+	for($i = 1; $i <= 12; $i++)
+	{
+		$j = parseDate(strftime("%b", mktime(0, 0, 0, $i, 1, $end_year)));
+		echo '<option value="'.$i.'"' . ($i == $end_month ? ' selected' : '') . '>'.$j.'</option>';
+	}
+	
+	echo '</select>';
+	echo '<select id="'.CP_endyear.'" name="'.$prefix.'end_year">';
+	$nin = min($end_year, date("Y")) - $history;
+	$nax = max($end_year, date("Y")) + 1;
 	for($i = $nin; $i <= $nax; $i++)
-                print "<OPTION" . ($i == $end_year ? " SELECTED" : "") . " value=\"$i\">$i</option>\n";
+	{
+		echo '<option' . ($i == $end_year ? ' selected' : '') . ' value="'.$i.'">'.$i.'</option>';
+	}
 	echo "</select>";
 }
 
