@@ -203,13 +203,13 @@ function print_header($day, $month, $year, $area){
 			'				<td class="banner" '.
 				'style="text-align:center; font-size: 18px; font-weight: bold;">'.
 				$mrbs_company.
-			'				</td>'.chr(10).
+			'</td>'.chr(10).
 			'				<td class="banner">'.chr(10).
 				
 			'					<table>'.chr(10).
 			'						<tr>'.chr(10).
 			'							<td align="right">'.
-			'<form action="day.php" method="get">';
+			'<form action="day.php" method="get" style="margin: 0px; padding: 0px;">';
 		
 		//formHiddenFields(); 
 		genDateSelector("", $day, $month, $year);
@@ -222,7 +222,7 @@ function print_header($day, $month, $year, $area){
 		
 		// Week
 		echo '							<td align="right">'.
-			'<form action="week.php" method="get">';
+			'<form action="week.php" method="get" style="margin: 0px; padding: 0px;">';
 		
 		if (!empty($area))
 			echo '<input type="hidden" name="area" value="'.$area.'">';
@@ -245,16 +245,16 @@ function print_header($day, $month, $year, $area){
 			echo '>'.$i.'</option>';
 		}
 		echo '</select>';
-		echo '<input type="submit" value="'._('View week').'">'.
-		iconHTML('calendar_view_week');
-		echo '</form>';
-		echo '</td>'.chr(10).
+		echo '<input type="submit" value="'._('View week').'">';
+		echo iconHTML('calendar_view_week');
+		echo '</form>'.
+		'</td>'.chr(10).
 		'						</tr>'.chr(10);
 		
 		// Month
 		echo '						<tr>'.chr(10).
 			'							<td align="right">'.
-			'<form action="month.php" method="get">';
+			'<form action="month.php" method="get" style="margin: 0px; padding: 0px;">';
 		echo '<input type="hidden" name="area" value="'.$area.'">';
 		echo '<input type="hidden" name="day" value="1">';
 		$thistime = mktime(0, 0, 0, $month, $day, $year);
@@ -283,7 +283,7 @@ function print_header($day, $month, $year, $area){
 		
 		// Find using entry_id
 		echo '							<td align="right">';
-		echo '<form action="entry.php" method="get">';
+		echo '<form action="entry.php" method="get" style="margin: 0px; padding: 0px;">';
 		echo '<input type="text" id="entry_id_finder" name="entry_id" '.
 			'value="'._('Enter entry ID').'" '.
 			'onclick="document.getElementById(\'entry_id_finder\').value=\'\';">';
