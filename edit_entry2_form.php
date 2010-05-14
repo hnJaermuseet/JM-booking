@@ -85,7 +85,7 @@ echo
 echo 'Trykk p&aring; ett produkt for &aring; legge til kun det produktet. '.
 	'Bruk plusstegnet for &aring; legge til flere p&aring; likt.<br /><br />';
 $Q_prod = mysql_query("select * from `products` order by area_id, product_name");
-$last_area_id = 0;
+$last_area_id = -1;
 $open = false;
 while($R_prod = mysql_fetch_assoc($Q_prod))
 {
@@ -93,8 +93,12 @@ while($R_prod = mysql_fetch_assoc($Q_prod))
 	{
 		if($open)
 			echo '</table></div>';
-		echo '<div class="area_products" id="area_products'.$R_prod['area_id'].'">'.
-		iconHTML('house').' Produkter for <b>'.$area2[$R_prod['area_id']].'</b>';
+		echo '<div class="area_products" id="area_products'.$R_prod['area_id'].'">';
+		
+		if($R_prod['area_id'] != 0)
+			echo iconHTML('house').' Produkter for <b>'.$area2[$R_prod['area_id']].'</b>';
+		else
+			echo iconHTML('chart_organisation').' Produkter for <b>Alle anlegg</b>';
 		$last_area_id = $R_prod['area_id'];
 		$open = true;
 		
@@ -157,11 +161,13 @@ $(\'#products\').dialog({
     }
 });
 $(\'#products\').bind( "dialogopen", function(event, ui) {
-  // Updating productlist according to selected area
-  $(\'#products .area_products\').hide();
-  
-  selected_area_id = $(\'#selected_area_id\').val();
-  $(\'#area_products\'+selected_area_id).show(); 
+	// Updating productlist according to selected area
+	$(\'#products .area_products\').hide();
+	
+	selected_area_id = $(\'#selected_area_id\').val();
+	$(\'#area_products\'+selected_area_id).show();
+	
+	$(\'#area_products0\').show();
 });
 
 function addFromProducts(denne, description, topay_each, tax)

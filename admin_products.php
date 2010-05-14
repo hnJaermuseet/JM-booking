@@ -66,6 +66,7 @@ if(isset($_GET['editor']))
 	$editor->makeNewField('area_id', _('Area belonging'), 'select',
 		array('defaultValue' => $area));
 	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
+	$editor->addChoice('area_id', 0, 'Alle anlegg');
 	while($R_area = mysql_fetch_assoc($Q_area))
 		$editor->addChoice('area_id', $R_area['area_id'], $R_area['area_name']);
 	
@@ -128,12 +129,19 @@ else
 		echo '	<tr>'.chr(10);
 		
 		echo '		<td>';
-		$Q_area = mysql_query("select * from `mrbs_area` where id = '".$R_product['area_id']."'");
-		if(!mysql_num_rows($Q_area))
-			echo '<i>'._('Not found').'</i>';
+		if($R_product['area_id'] == 0)
+		{
+				echo iconHTML('chart_organisation').' Alle anlegg';
+		}
 		else
-			echo iconHTML('house').' '.mysql_result($Q_area, 0, 'area_name');
-		echo '</td>'.chr(10);
+		{
+			$Q_area = mysql_query("select * from `mrbs_area` where id = '".$R_product['area_id']."'");
+			if(!mysql_num_rows($Q_area))
+				echo '<i>'._('Not found').'</i>';
+			else
+				echo iconHTML('house').' '.mysql_result($Q_area, 0, 'area_name');
+			echo '</td>'.chr(10);
+		}
 		
 		echo '		<td><b>'.$R_product['product_id'].'</b></td>'.chr(10);
 		
