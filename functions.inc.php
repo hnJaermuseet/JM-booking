@@ -182,6 +182,9 @@ function print_header($day, $month, $year, $area){
 	
 	echo '	<link type="text/css" href="css/ui-lightness/jquery-ui-1.7.2.custom.css" '.
 		'rel="stylesheet" />'.chr(10);
+	
+	echo '	<script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>'.chr(10).chr(10);
+	echo '	<script src="js/jquery-ui-1.8.1.custom.min.js" type="text/javascript"></script>'.chr(10).chr(10);
 	echo '	<script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3_comp.js">'.
 		'</script>'.chr(10);
 	echo '</head>'.chr(10).chr(10);
