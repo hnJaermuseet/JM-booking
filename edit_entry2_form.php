@@ -104,7 +104,7 @@ while($R_prod = mysql_fetch_assoc($Q_prod))
 		
 		echo '<table class="prettytable" style="margin: 5px; width: 650px;">'.
 			'<tr>'.
-				'<th style="width: 350px;">Produktnavn</th>'.
+				'<th style="width: 350px;">Produkt</th>'.
 				'<th style="width: 100px;">Pris u/MVA</th>'.
 				'<th style="width: 100px;">MVA</th>'.
 				'<th style="width: 100px;">Pris m/MVA</th>'.
@@ -120,8 +120,10 @@ while($R_prod = mysql_fetch_assoc($Q_prod))
 			'onclick="addFromProducts (this, \''.$R_prod['product_name'].'\', \''.$R_prod['product_price'].'\', \''.$R_prod['product_tax'].'\'); '.
 				'$(\'#products\').dialog(\'close\');"'.
 		'>'.
-			$R_prod['product_name'].
-		'</td>'.
+			$R_prod['product_name'];
+		if($R_prod['product_desc'] != '')
+			echo '<br /><span style="font-size: 0.8em;"><i>'.$R_prod['product_desc'].'</i></span>';
+		echo '</td>'.
 		
 		'<td class="rightalign" style="font-size: 1.1em; vertical-align: middle;">'.
 			smarty_modifier_commify($R_prod['product_price'],2,",","&nbsp;").
