@@ -61,7 +61,8 @@ if(isset($_GET['editor']))
 	
 	$editor->makeNewField('program_name', _('Program name'), 'text');
 	$editor->makeNewField('program_desc', 'Beskrivelse', 'textarea');
-	$editor->makeNewField('area_id', _('Area belonging'), 'select');
+	$editor->makeNewField('area_id', _('Area belonging'), 'select',
+		array('defaultValue' => $area));
 	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
 	while($R_area = mysql_fetch_assoc($Q_area))
 		$editor->addChoice('area_id', $R_area['area_id'], $R_area['area_name']);
