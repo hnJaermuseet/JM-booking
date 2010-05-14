@@ -43,6 +43,10 @@ echo '<a href="admin_group.php"';
 if($section=="groups") echo "style='color:red'";
 echo '>'._('Usergroups').'</a> -:- ';
 
+echo '<a href="admin_products.php"';
+if($section=="products") echo "style='color:red'";
+echo '>Produktregister</a> -:- ';
+
 echo '<a href="admin_programs.php"';
 if($section=="programs") echo "style='color:red'";
 echo '>'._('Fixed programs').'</a> -:- ';

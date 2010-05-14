@@ -76,6 +76,7 @@ addField ('time_end',				'date',			_('End time'),				_('When is the event finish
 	addID ('time_end', 'time_end');
 addField ('empty',					'',				'');
 addField ('area_id',				'select',		_('Area'));
+addID ('area_id', 'selected_area_id');
 addField ('room_id',				'checkbox',		_('Room'));
 addField ('empty',					'',				'');
 addField ('user_assigned',			'checkbox',		_('Users assigned'),		_('Which users are assigned to this event. Event will appear in Groupwise.'));

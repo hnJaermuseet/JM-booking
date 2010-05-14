@@ -109,7 +109,7 @@ function updateMvaSum ()
 	sum.value = mva_sum;
 }
 
-function addFieldInvoice ()
+function addFieldInvoiceWithValues (description, topay_each, tax)
 {
 	form = document.forms['entry'];
 	formelements = form.elements;
@@ -149,7 +149,7 @@ function addFieldInvoice ()
 	
 	
 	var td2 = '<td>' +
-		'<textarea name="name'+thisvalue+'" cols="50" style="height: 40px;"></textarea>' +
+		'<textarea name="name'+thisvalue+'" cols="50" style="height: 40px;">' + description + '</textarea>' +
 		'</td>';
 	
 	
@@ -158,7 +158,7 @@ function addFieldInvoice ()
 				'type="text" '+
 				'id="belop_hver'+thisvalue+'" '+
 				'name="belop_hver'+thisvalue+'" '+
-				'value="0" '+
+				'value="'+topay_each+'" '+
 				'size="6" '+
 				'onchange="updateMva(\''+thisvalue+'\');"'+
 			'>'+
@@ -182,7 +182,7 @@ function addFieldInvoice ()
 				'type="text" '+
 				'id="mva'+thisvalue+'" '+
 				'name="mva'+thisvalue+'" '+
-				'value="0" '+
+				'value="'+tax+'" '+
 				'size="3" '+
 				'onchange="updateMva(\''+thisvalue+'\');"'+
 			'>'+
@@ -269,4 +269,72 @@ function removeInvoiceField (id)
 	updateMvaSum ();
 	
 	return true;
+}
+
+function addFieldInvoice()
+{
+	// Default values for a new line
+	addFieldInvoiceWithValues("", 0, 0);
+}
+
+function addFieldInvoiceWithProducts(description, topay_each, tax)
+{
+	// Check if a invoice line with the same values already exists
+	// => If it does exist, we just add one more of it
+	
+	found_match = false;
+	$('#invoicerows tr').each(function () {
+		
+		if(!found_match)
+		{
+			this_description  = "";
+			this_topay_each   = 0;
+			this_tax          = 0;
+			this_id           = 0;
+			
+			// Checking each row
+			$(this).find('input').each(function() {
+				if($(this).attr('name').substr(0,10) == 'belop_hver')
+				{
+					this_topay_each   = $(this).val();
+				}
+				
+				else if(
+						$(this).attr('name').substr(0,3) == 'mva' &&
+						$(this).attr('name').substr(3,1) != '_'
+					)
+				{
+					this_tax          = $(this).val();
+				}
+				
+				else if ($(this).attr('name') == 'rows[]')
+				{
+					this_id = $(this).val();
+				}
+			});
+			$(this).find('textarea').each(function() {
+				if($(this).attr('name').substr(0,4) == 'name')
+				{
+					this_description  = $(this).val();
+				}
+			});
+			
+			if (
+				description == this_description &&
+				topay_each == this_topay_each &&
+				tax == this_tax
+			) {
+				// Have found a match
+				found_match = true;
+				
+				// Adding one to amount on this line
+				new_amount = parseInt($('#antall'+this_id).val())+1;
+				$('#antall'+this_id).val(new_amount);
+				updateMva(this_id);
+			}
+		}
+	});
+	
+	if(!found_match)
+		addFieldInvoiceWithValues(description, topay_each, tax);
 }

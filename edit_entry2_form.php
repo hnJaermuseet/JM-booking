@@ -75,6 +75,102 @@ foreach ($area_group as $area_id => $users) {
 }
 echo '</script>';
 
+/* ## Products ## */
+echo 
+'<div
+	class="ui-dialog-content ui-widget-content"
+	id="products"
+	title="Produktregister">';
+// Print all products
+echo 'Trykk p&aring; ett produkt for &aring; legge til kun det produktet. '.
+	'Bruk plusstegnet for &aring; legge til flere p&aring; likt.<br /><br />';
+$Q_prod = mysql_query("select * from `products` order by area_id, product_name");
+$last_area_id = 0;
+$open = false;
+while($R_prod = mysql_fetch_assoc($Q_prod))
+{
+	if($last_area_id != $R_prod['area_id'])
+	{
+		if($open)
+			echo '</table></div>';
+		echo '<div class="area_products" id="area_products'.$R_prod['area_id'].'">'.
+		iconHTML('house').' Produkter for <b>'.$area2[$R_prod['area_id']].'</b>';
+		$last_area_id = $R_prod['area_id'];
+		$open = true;
+		
+		echo '<table class="prettytable" style="margin: 5px; width: 650px;">'.
+			'<tr>'.
+				'<th style="width: 350px;">Produktnavn</th>'.
+				'<th style="width: 100px;">Pris u/MVA</th>'.
+				'<th style="width: 100px;">MVA</th>'.
+				'<th style="width: 100px;">Pris m/MVA</th>'.
+				'<th style="width: 40px;">&nbsp;</th>'.
+			'</tr>'
+		;
+	}
+	echo
+	'<tr id="product'.$R_prod['product_id'].'">'.
+		
+		'<td '.
+			'style="font-size: 1.1em; vertical-align: middle;"'.
+			'onclick="addFromProducts (this, \''.$R_prod['product_name'].'\', \''.$R_prod['product_price'].'\', \''.$R_prod['product_tax'].'\'); '.
+				'$(\'#products\').dialog(\'close\');"'.
+		'>'.
+			$R_prod['product_name'].
+		'</td>'.
+		
+		'<td class="rightalign" style="font-size: 1.1em; vertical-align: middle;">'.
+			smarty_modifier_commify($R_prod['product_price'],2,",","&nbsp;").
+		'</td>'.
+		
+		'<td class="rightalign" style="font-size: 1.1em; vertical-align: middle;">'.
+			$R_prod['product_tax'].' %'.
+		'</td>'.
+		
+		'<td class="rightalign" style="font-size: 1.1em; vertical-align: middle;">'.
+			smarty_modifier_commify(round($R_prod['product_price']*(100+$R_prod['product_tax'])/100,2),2,",","&nbsp;").
+		'</td>'.
+		
+		'<td style="text-align: center;">'.
+			'<input type="button" value="+" '.
+				'onclick="addFromProducts (this, \''.$R_prod['product_name'].'\', \''.$R_prod['product_price'].'\', \''.$R_prod['product_tax'].'\'); '.
+				'return false;">'.
+		'</td>'.
+	'</tr>';
+}
+if($open)
+	echo '</table></div>';
+echo '</div>';
+echo '<script type="text/javascript">
+$(\'#products\').dialog({ 
+	autoOpen: false,
+	minHeight: 200,
+	height: 400,
+	minWidth: 700,
+	width: 800,
+//	show: \'blind\',
+	open: function(event, ui) {
+		$(this).closest(\'.ui-dialog\').css({
+			position: \'absolute\',
+			top: $(this).closest(\'.ui-dialog\').offset().top
+		});
+    }
+});
+$(\'#products\').bind( "dialogopen", function(event, ui) {
+  // Updating productlist according to selected area
+  $(\'#products .area_products\').hide();
+  
+  selected_area_id = $(\'#selected_area_id\').val();
+  $(\'#area_products\'+selected_area_id).show(); 
+});
+
+function addFromProducts(denne, description, topay_each, tax)
+{
+	addFieldInvoiceWithProducts(description, topay_each, tax);
+}
+</script>'.chr(10);
+
+
 echo '<br>'.chr(10);
 
 echo '<form action="'.$_SERVER['PHP_SELF'].'?view='.$view.'" method="POST" name="entry">'.chr(10);
@@ -304,7 +400,15 @@ foreach ($entry_fields as $field)
 						echo '<input type="text" size="3" value="'.$id.'" disabled></td>'.chr(10);
 						
 						// Beskrivelse
-						echo ' <td><textarea rows="1" cols="50" name="name'.$id.'"'.$disabled.'>'.$invoice_content['name'].'</textarea></td>'.chr(10);
+						echo ' <td>'.
+							'<textarea '.
+								'rows="1" cols="50" '.
+								'name="name'.$id.'"'.
+								$disabled.
+							'>'.
+								$invoice_content['name'].
+							'</textarea>'.
+							'</td>'.chr(10);
 						
 						// Belop_hver
 						echo ' <td><input type="text" size="6" id="belop_hver'.$id.'" name="belop_hver'.$id.'" value="'.$invoice_content['belop_hver'].'" onchange="updateMva('.$id.');"'.$disabled.'></td>'.chr(10);
@@ -340,6 +444,7 @@ foreach ($entry_fields as $field)
 						$after_run .= 'addFieldInvoice();'.chr(10);
 					
 					echo '</table>'.chr(10);
+					echo '<input type="button" onclick="$(\'#products\').dialog(\'open\');" value="&Aring;pne produktregister"> ';
 					echo '<input type="button" value="Legg til ny linje" onclick="addFieldInvoice();"'.$disabled.'><br>'.chr(10);
 					
 					echo '<br>'.chr(10);
