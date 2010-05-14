@@ -400,6 +400,11 @@ table.prettytable caption {
 	margin-right: inherit;
 	font-weight: bold;
 }
+table.prettytable td.rightalign,
+table.prettytable th.rightalign
+{
+	text-align: right;
+}
 
 /* FROM CSS BLUEPRINT: */
 .error {
