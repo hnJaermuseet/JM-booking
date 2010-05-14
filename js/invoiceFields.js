@@ -35,12 +35,12 @@ function updateMva (id)
 		antall.value = 0;
 	
 	belop_hver			= document.getElementById("belop_hver" + id);
-	belop_hver.value	= parseFloat(belop_hver.value.replace(",", "."));
+	belop_hver.value	= Math.round(parseFloat(belop_hver.value.replace(",", "."))*100)/100;
 	if(isNaN(belop_hver.value))
 		belop_hver.value = 0;
 	
 	belop_delsum		= document.getElementById("belop_delsum" + id);
-	belop_delsum.value	= parseFloat(belop_delsum.value.replace(",", "."));
+	belop_delsum.value	= Math.round(parseFloat(belop_delsum.value.replace(",", "."))*100)/100;
 	if(isNaN(belop_delsum.value))
 		belop_delsum.value = 0;
 	
@@ -50,30 +50,30 @@ function updateMva (id)
 		mva.value = 0;
 	
 	mva_hver	= document.getElementById("mva_hver" + id);
-	mva_hver.value	= parseFloat(mva_hver.value.replace(",", "."));
+	mva_hver.value	= Math.round(parseFloat(mva_hver.value.replace(",", "."))*100)/100;
 	if(isNaN(mva_hver.value))
 		mva_hver.value = 0;
 	
 	mva_sum_hver		= document.getElementById("mva_sum_hver" + id);
-	mva_sum_hver.value	= parseFloat(mva_sum_hver.value.replace(",", "."));
+	mva_sum_hver.value	= Math.round(parseFloat(mva_sum_hver.value.replace(",", "."))*100)/100;
 	if(isNaN(mva_sum_hver.value))
 		mva_sum_hver.value = 0;
 	
 	belop_hver_real			= document.getElementById("belop_hver_real" + id);
-	belop_hver_real.value	= parseFloat(belop_hver_real.value.replace(",", "."));
+	belop_hver_real.value	= Math.round(parseFloat(belop_hver_real.value.replace(",", "."))*100)/100;
 	if(isNaN(belop_hver_real.value))
 		belop_hver_real.value = 0;
 	
 	if(eks_mva.checked) {
-		mva_hver.value			= parseFloat(belop_hver.value) * (parseFloat(mva.value) / 100);
-		belop_hver_real.value	= parseFloat(belop_hver.value);
-		mva_sum_hver.value		= parseFloat(mva_hver.value) * parseFloat(antall.value);
-		belop_delsum.value		= (parseFloat(belop_hver_real.value) + parseFloat(mva_hver.value)) * parseFloat(antall.value);
+		mva_hver.value			= Math.round(parseFloat(belop_hver.value) * (parseFloat(mva.value) / 100)*100)/100;
+		belop_hver_real.value	= Math.round(parseFloat(belop_hver.value)*100)/100;
+		mva_sum_hver.value		= Math.round(parseFloat(mva_hver.value) * parseFloat(antall.value)*100)/100;
+		belop_delsum.value		= Math.round((parseFloat(belop_hver_real.value) + parseFloat(mva_hver.value)) * parseFloat(antall.value)*100)/100;
 	} else {
-		belop_delsum.value		= parseFloat(belop_hver.value) * parseFloat(antall.value);
-		mva_hver.value			= parseFloat(belop_hver.value) * (parseFloat(mva.value) / (parseFloat(mva.value) + 100));
-		belop_hver_real.value	= parseFloat(belop_hver.value) - parseFloat(mva_hver.value);
-		mva_sum_hver.value		= parseFloat(mva_hver.value) * parseFloat(antall.value);
+		belop_delsum.value		= Math.round(parseFloat(belop_hver.value) * parseFloat(antall.value)*100)/100;
+		mva_hver.value			= Math.round(parseFloat(belop_hver.value) * (parseFloat(mva.value) / (parseFloat(mva.value) + 100))*100)/100;
+		belop_hver_real.value	= Math.round(parseFloat(belop_hver.value) - parseFloat(mva_hver.value)*100)/100;
+		mva_sum_hver.value		= Math.round(parseFloat(mva_hver.value) * parseFloat(antall.value)*100)/100;
 	}
 	
 	updateMvaSum();
@@ -104,9 +104,9 @@ function updateMvaSum ()
 		}
 	}
 	sum = document.getElementById('belop_sum');
-	sum.value = belop_sum;
+	sum.value = Math.round(belop_sum*100)/100;
 	sum = document.getElementById('mva_sum');
-	sum.value = mva_sum;
+	sum.value = Math.round(mva_sum*100)/100;
 }
 
 function addFieldInvoiceWithValues (description, topay_each, tax)
