@@ -30,7 +30,7 @@ CREATE TABLE `contact_firm_temp` (
   `firm_name` varchar(255) NOT NULL,
   `firm_info` varchar(255) NOT NULL,
   PRIMARY KEY  (`firm_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE `customer` (
   `customer_address_id_invoice` int(11) NOT NULL,
   `slettet` enum('0','1') NOT NULL default '0',
   PRIMARY KEY  (`customer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=726 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE `customer_address` (
   `address_postalnum` varchar(20) NOT NULL,
   `address_full` text NOT NULL,
   PRIMARY KEY  (`address_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=486 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE `customer_phone` (
   `phone_num` varchar(25) NOT NULL,
   `phone_name` varchar(100) NOT NULL,
   PRIMARY KEY  (`phone_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -140,7 +140,7 @@ CREATE TABLE `entry` (
   `invoice_electronic` tinyint(1) NOT NULL default '0',
   `invoice_email` varchar(255) NOT NULL,
   PRIMARY KEY  (`entry_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2106 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -163,7 +163,7 @@ CREATE TABLE `entry_confirm` (
   `confirm_pdffile` varchar(255) NOT NULL,
   `confirm_comment` text NOT NULL,
   PRIMARY KEY  (`confirm_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=730 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -181,7 +181,7 @@ CREATE TABLE `entry_confirm_attachment` (
   `att_filesize` varchar(50) NOT NULL,
   `slettet` enum('0','1') NOT NULL,
   PRIMARY KEY  (`att_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -212,7 +212,7 @@ CREATE TABLE `entry_log` (
   `rev_num` int(11) NOT NULL,
   `log_data` text NOT NULL,
   PRIMARY KEY  (`log_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7534 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -227,7 +227,7 @@ CREATE TABLE `entry_read` (
   `rev_num` int(11) NOT NULL,
   `time_read` int(11) NOT NULL,
   PRIMARY KEY  (`read_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28774 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -243,7 +243,7 @@ CREATE TABLE `entry_type` (
   `day_start` varchar(4) NOT NULL,
   `day_end` varchar(4) NOT NULL,
   PRIMARY KEY  (`entry_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -269,7 +269,7 @@ CREATE TABLE `groups` (
   `user_ids` text NOT NULL,
   `group_name` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`group_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -282,7 +282,7 @@ CREATE TABLE `import_dn_kategori` (
   `area_id` int(11) NOT NULL,
   `kat_navn` varchar(255) NOT NULL,
   PRIMARY KEY  (`kat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -350,7 +350,7 @@ CREATE TABLE `invoice` (
   `invoice_ref_your` varchar(255) NOT NULL,
   `invoice_created_by_id` int(11) NOT NULL,
   PRIMARY KEY  (`invoice_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -368,7 +368,7 @@ CREATE TABLE `invoice_log` (
   `rev_num` int(11) NOT NULL,
   `log_data` text NOT NULL,
   PRIMARY KEY  (`log_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -382,7 +382,7 @@ CREATE TABLE `mrbs_area` (
   `area_group` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -395,7 +395,7 @@ CREATE TABLE `mrbs_category` (
   `area_id` int(11) NOT NULL default '0',
   `name` varchar(30) NOT NULL default '',
   KEY `id` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -426,7 +426,7 @@ CREATE TABLE `mrbs_entry` (
   PRIMARY KEY  (`id`),
   KEY `idxStartTime` (`start_time`),
   KEY `idxEndTime` (`end_time`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -454,7 +454,7 @@ CREATE TABLE `mrbs_periods` (
   `enddate` int(128) NOT NULL default '0',
   `title` varchar(100) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -474,7 +474,7 @@ CREATE TABLE `mrbs_repeat` (
   `type` char(1) NOT NULL default 'E',
   `rep_num_weeks` tinyint(4) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -498,7 +498,7 @@ CREATE TABLE `mrbs_room` (
   `infotext` varchar(128) NOT NULL default '',
   `hidden` enum('false','true') NOT NULL default 'false',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -514,7 +514,7 @@ CREATE TABLE `products` (
   `product_price` double NOT NULL,
   `product_tax` double NOT NULL,
   PRIMARY KEY  (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -528,7 +528,7 @@ CREATE TABLE `programs` (
   `program_desc` text NOT NULL,
   `area_id` int(11) NOT NULL,
   PRIMARY KEY  (`program_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -555,7 +555,7 @@ CREATE TABLE `template` (
   `template_type` enum('confirm') NOT NULL,
   `template_time_last_edit` int(11) NOT NULL,
   PRIMARY KEY  (`template_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -577,4 +577,4 @@ CREATE TABLE `users` (
   `user_area_default` int(11) NOT NULL,
   `user_areas` varchar(255) NOT NULL,
   PRIMARY KEY  (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
