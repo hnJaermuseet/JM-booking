@@ -19,6 +19,11 @@ The system has been in use from the new opening of Vitenfabrikken ("The Science 
 
 ## LICENSE ##
 
+JM-booking
+Copyright (C) 2007-2010  Jaermuseet <http://www.jaermuseet.no>
+Contact: <hn@jaermuseet.no> 
+Project: <http://github.com/hnJaermuseet/JM-booking>
+
 Based on ARBS, Advanced Resource Booking System, copyright (C) 2005-2007 
 ITMC der TU Dortmund <http://sourceforge.net/projects/arbs/>. ARBS is based 
 on MRBS by Daniel Gardner <http://mrbs.sourceforge.net/>.
