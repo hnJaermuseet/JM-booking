@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<td>{$invoice_status2}
 		{if $linkview}
 			{if $invoice_status == 1 && $user_invoice_setready} (<a href="invoice_setready.php?entry_id={$entry_id}">sett til faktureringsklar</a>){/if}
-			{if $invoice_status == 2 && $user_invoice} (<a href="invoice_create.php?entry_ids=;{$entry_id};">opprett faktura</a>){/if}
+			{if $invoice_status == 2 && $user_invoice} (<a href="invoice_tobemade_ready.php">opprett faktura</a>){/if}
 		{/if}
 	</td>
 </tr>

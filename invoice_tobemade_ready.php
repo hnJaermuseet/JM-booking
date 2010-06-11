@@ -30,7 +30,7 @@ require "include/invoice_top.php";
 $section = 'tobemade_ready';
 require "include/invoice_menu.php";
 
-echo '<h1>'._('Ready to be made');
+echo '<h1>Klar til &aring; eksporteres til Komfakt';
 
 if(isset($_GET['filters']))
 {

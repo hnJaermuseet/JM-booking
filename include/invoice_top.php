@@ -111,9 +111,9 @@ function entrylist_invoice_tobemade_ready ($SQL)
 			echo '  <td style="border: 1px solid black;">kr '.smarty_modifier_commify($entry['faktura_belop_sum'],2,","," ").'</td>'.chr(10);
 			
 			echo '  <td style="border: 1px solid black;">';
-			echo '<a href="invoice_create.php?entry_ids=;'.$entry['entry_id'].';">';
+			echo '<a href="entry_invoice.php?entry_id='.$entry['entry_id'].'">';
 			echo iconHTML('coins').' ';
-			echo 'Opprett faktura</a>';
+			echo 'Vis fakturagrunnlag</a>';
 			echo '</td>'.chr(10); 
 			
 			// Searching for who did set the entry ready for invoice
@@ -151,6 +151,7 @@ function entrylist_invoice_tobemade ($SQL)
 		echo '  <td style="border: 1px solid black;"><b>Arrangementsdato</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>'._('Name').'</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>'._('Area').'</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>&nbsp;</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
 		while($R = mysql_fetch_assoc($Q))
 		{
@@ -174,6 +175,12 @@ function entrylist_invoice_tobemade ($SQL)
 			$area = getArea($entry['area_id']);
 			if(count($area))
 				echo $area['area_name'];
+			echo '</td>'.chr(10);
+			
+			// Set ready
+			echo '  <td style="border: 1px solid black;">';
+			echo '<a href="invoice_setready.php?entry_id='.$entry['entry_id'].'">'.
+			' Sett faktureringsklar '.iconHTML ('arrow_right').'</a>';
 			echo '</td>'.chr(10);
 			
 			echo ' </tr>'.chr(10);
