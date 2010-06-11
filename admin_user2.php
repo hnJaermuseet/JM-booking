@@ -104,7 +104,8 @@ if(isset($_GET['editor']))
 	$editor->makeNewField('user_phone', _('Phone'), 'text');
 	$editor->makeNewField('user_position', 'Stilling', 'text');
 	
-	$editor->makeNewField('user_invoice', 'Tilgang til faktura', 'boolean');
+	$editor->makeNewField('user_invoice', 'Tilgang til eksport av faktura til Komfakt', 'boolean');
+	$editor->makeNewField('user_invoice_setready', 'Tilgang til å sette bookinger faktureringsklar', 'boolean');
 	
 	//$editor->makeNewField('user_area_default', _('Default area'), 'select', array('defaultValue' => $area['area_id']));
 	$editor->makeNewField('user_area_default', 'Standard bygg', 'select');
@@ -212,7 +213,11 @@ else
 				if(!count($area_user))
 					$area_user['area_name'] = 'IKKE FUNNET'; 
 				echo 'Standard bygg: '.$area_user['area_name'].'<br>';
-				echo 'Fakturatilgang: ';
+				echo 'Sette faktureringsklar: ';
+				if($user['user_invoice_setready'])  echo 'ja';
+				else                                echo 'nei';
+				echo '<br>';
+				echo 'Fakturaeksport: ';
 				if($user['user_invoice'])	echo 'ja';
 				else						echo 'nei';
 				'</div></td>'.chr(10);
