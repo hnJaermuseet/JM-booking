@@ -25,6 +25,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+echo 'Invoice_view is disabled. Not in use. '.
+'Please contact hn@jaermuseet.no about the link you followed to come here.';
+exit();
+
 require "include/invoice_top.php";
 
 if(!isset($_GET['invoice_id']) || !is_numeric($_GET['invoice_id']))
