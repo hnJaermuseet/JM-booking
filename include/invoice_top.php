@@ -83,9 +83,11 @@ function entrylist_invoice_tobemade_ready ($SQL)
 		echo '  <td style="border: 1px solid black;"><b>&nbsp;</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Satt faktureringsklar av</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
+		$entry_ids = array();
 		while($R = mysql_fetch_assoc($Q))
 		{
 			$entry = getEntry($R['entry_id']);
+			$entry_ids[] = $entry['entry_id'];
 			
 			echo ' <tr>'.chr(10);
 			
@@ -132,6 +134,23 @@ function entrylist_invoice_tobemade_ready ($SQL)
 			
 			echo ' </tr>'.chr(10);
 		}
+		echo '</table>';
+		
+		echo '<div style="font-size: 1.6em; margin-top: 20px; margin-left: 10px;">'.
+		'<a href="invoice_export.php?';
+		$counter = 0;
+		foreach($entry_ids as $id)
+		{
+			$counter++;
+			echo 'entry_id[]='.$id;
+			if($counter != count($entry_ids))
+				echo '&amp;';
+		}
+		
+		echo '">'.
+		'<img src="img/Crystal_Clear_action_db_comit.png" style="border: 0px solid black;" height="32"> '.
+		'Eksporter til Komfakt'.
+		'</a></div>';
 	}
 }
 
