@@ -190,20 +190,9 @@ $language_available['Norsk']='no';
 $config_defaultlang="no";
 define ('COUNTY', '11');
 
-#allow changing of language by passing a new value via GET
-if(isset($_GET['select_language'])){
-    if(!in_array($_GET['select_language'],$language_available)){
-        echo(_("invalid language selected"));
-        exit;
-    }
-    $_SESSION['session_selected_language']=$_GET['select_language'];
-}
-$session_selected_language=$_SESSION['session_selected_language'];
-
-#if needed, initialize language variable, then include language file for selected language
-if($_SESSION['session_selected_language']==""){
-    $_SESSION['session_selected_language']=$config_defaultlang; 
-}
+//$locale = "de_DE";
+$locale = 'nb_NO';
+//$locale = "en_US";
 
 ##########################################
 # PHP System Configuration - do not change

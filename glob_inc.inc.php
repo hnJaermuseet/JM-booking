@@ -72,10 +72,21 @@ if(!isset($_SESSION['instance'])) {
 }
 $instance = $_SESSION['instance'];
 
-
-include_once("./language.inc.php");
-
 include "default/config.inc.php";
+
+if (!defined('LC_MESSAGES'))
+	define('LC_MESSAGES', 6); // windows workaround for LC_MESSAGES
+
+//putenv ("LANGUAGE=nb_NO");
+putenv ("LANG=".$locale); 
+
+//setlocale(LC_MESSAGES, $locale);
+bindtextdomain("arbs", "./lang");
+
+textdomain("arbs");
+
+setlocale(LC_TIME, "");
+
 
 // Establish a database connection.
 // On connection error, the message will be output without a proper HTML
