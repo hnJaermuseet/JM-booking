@@ -27,16 +27,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 include_once("glob_inc.inc.php");
 
-if(!$login['user_invoice_setready'])
+if(!$login['user_invoice_setready'] && !$login['user_invoice'])
 {
-	echo 'No access!';
+	echo 'Ingen tilgang!';
+	exit;
 }
 
 if(!isset($_GET['entry_id']))
 	$entry = array();
 else
 	$entry = getEntry($_GET['entry_id']);
- 
+
+if(isset($_GET['return']))
+{
+	if($_GET['return'] == 'invoice_tobemade')
+	{
+		$return_to = 'invoice_tobemade.php';
+		$return = $_GET['return'];
+	}
+	elseif($_GET['return'] == 'invoice_tobemade_area')
+	{
+		$return_to = 'invoice_tobemade.php?area_id='.$entry['area_id'];
+		$return = $_GET['return'];
+	}
+	else
+	{
+		$return_to = 'entry.php?entry_id='.$entry['entry_id'];
+		$return = '';
+	}
+}
+else
+	$return_to = 'entry.php?entry_id='.$entry['entry_id'];
 
 if(isset($_GET['set_okey']))
 {
@@ -47,7 +68,7 @@ if(isset($_GET['set_okey']))
 		exit();
 	}
 	
-	header('Location: entry.php?entry_id='.$entry['entry_id']);
+	header('Location: '.$return_to);
 	exit();
 }
 
@@ -63,6 +84,8 @@ $smarty = new Smarty;
 
 templateAssignEntry('smarty', $entry);
 templateAssignSystemvars('smarty');
+$smarty->assign('return', $return);
+$smarty->assign('return_to', $return_to);
 $smarty->display('file:invoice_setready.tpl');
 
 ?>

@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <h1>Klart til fakturering?</h1>
 
-- {iconHTML ico='tick'}<a href="invoice_setready.php?entry_id={$entry_id}&amp;set_okey=1">Ja</a><br>
+- {iconHTML ico='tick'}<a href="invoice_setready.php?entry_id={$entry_id}&amp;set_okey=1&amp;return={$return}">Ja</a><br>
 <br>
-- {iconHTML ico='cross'}<a href="entry.php?entry_id={$entry_id}">Nei</a><br>
+- {iconHTML ico='cross'}<a href="{$return_to}">Nei</a><br>
 
 <br><h2>Detaljer:</h2><br>
 <table style="border: black 1px solid;">

@@ -218,7 +218,7 @@ function entrylist_invoice_tobemade_ready ($SQL)
 	}
 }
 
-function entrylist_invoice_tobemade ($SQL)
+function entrylist_invoice_tobemade ($SQL, $area_spesific = false)
 {
 	$Q = mysql_query($SQL.' order by `time_start`');
 	if(!mysql_num_rows($Q))
@@ -266,7 +266,12 @@ function entrylist_invoice_tobemade ($SQL)
 			
 			// Set ready
 			echo '  <td style="border: 1px solid black;">';
-			echo '<a href="invoice_setready.php?entry_id='.$entry['entry_id'].'">'.
+			echo '<a href="invoice_setready.php?entry_id='.$entry['entry_id'];
+			if($area_spesific)
+				echo '&amp;return=invoice_tobemade_area';
+			else
+				echo '&amp;return=invoice_tobemade';
+			echo '">'.
 			' Sett faktureringsklar '.iconHTML ('arrow_right').'</a>';
 			echo '</td>'.chr(10);
 			
