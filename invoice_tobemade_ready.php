@@ -30,7 +30,7 @@ require "include/invoice_top.php";
 $section = 'tobemade_ready';
 require "include/invoice_menu.php";
 
-echo '<h1>Klar til &aring; eksporteres til Komfakt';
+echo '<h1 style="margin-bottom: 0px;">Klar til &aring; eksporteres til Komfakt';
 
 if(isset($_GET['filters']))
 {
@@ -52,15 +52,37 @@ else
 {
 	echo '</h1>'.chr(10).chr(10);
 	
+	echo '<span class="hiddenprint">';
+	$Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
+	$num_area = mysql_num_rows($Q_area);
+	
+	$counter_area = 0;
+	echo '<span style="font-size: 0.8em;">Filtrer p&aring; bygg: ';
+	while($R = mysql_fetch_assoc($Q_area))
+	{
+		$counter_area++;
+		if($area_invoice['area_id'] == $R['area_id'])
+			echo '<b>';
+		echo '<a href="'.$_SERVER['PHP_SELF'].'?area_id='.$R['area_id'].'">'.$R['area_name'].'</a>';
+		if($area_invoice['area_id'] == $R['area_id'])
+			echo '</b>';
+		if($counter_area != $num_area)
+		echo ' -:- ';
+	}
+	echo '<br /><br /></span>';
+	
 	$filters = array();
 	$filters = addFilter($filters, 'invoice', '1');
 	$filters = addFilter($filters, 'invoice_status', '2');
+	if($area_spesific)
+		$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
 	
 	$SQL = genSQLFromFilters($filters, 'entry_id');
 	filterLink($filters, 'invoice_tobemade_ready');	echo '<br>'.chr(10);
+	echo '</span>';
 	filterPrint($filters);				echo '<br>'.chr(10);
 	echo '<br>'.chr(10).chr(10);
 	
-	entrylist_invoice_tobemade_ready($SQL);
+	entrylist_invoice_tobemade_ready($SQL, $area_spesific);
 }
 ?>

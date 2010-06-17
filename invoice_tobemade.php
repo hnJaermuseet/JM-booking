@@ -30,7 +30,7 @@ require "include/invoice_top.php";
 $section = 'tobemade';
 require "include/invoice_menu.php";
 
-echo '<h1>Ikke klargjort til eksportering/fakturering';
+echo '<h1 style="margin-bottom: 0px;">Ikke klargjort til eksportering/fakturering';
 
 if(isset($_GET['filters']))
 {
@@ -51,21 +51,41 @@ if(isset($_GET['filters']))
 else
 {
 	echo '</h1>'.chr(10).chr(10);
-	echo 'Øverst er de som har passert arrangementsdato. Listen under er de kommende bookingene med faktura planlagt.';
-	echo '<br><br>';
+	
+	echo '<span class="hiddenprint">';
+	$Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
+	$num_area = mysql_num_rows($Q_area);
+	
+	$counter_area = 0;
+	echo '<span style="font-size: 0.8em;">Filtrer p&aring; bygg: ';
+	while($R = mysql_fetch_assoc($Q_area))
+	{
+		$counter_area++;
+		if($area_invoice['area_id'] == $R['area_id'])
+			echo '<b>';
+		echo '<a href="'.$_SERVER['PHP_SELF'].'?area_id='.$R['area_id'].'">'.$R['area_name'].'</a>';
+		if($area_invoice['area_id'] == $R['area_id'])
+			echo '</b>';
+		if($counter_area != $num_area)
+		echo ' -:- ';
+	}
+	echo '<br /><br /></span>';
 	
 	$filters = array();
 	$filters = addFilter($filters, 'invoice', '1');
 	$filters = addFilter($filters, 'invoice_status', '1');
 	$filters = addFilter($filters, 'time_end', 'current', '<');
+	if($area_spesific)
+		$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
 	
 	$SQL = genSQLFromFilters($filters, 'entry_id');
 	filterLink($filters, 'invoice_tobemade');	echo '<br>'.chr(10);
+	echo '</span>';
 	filterPrint($filters);				echo '<br>'.chr(10);
 	echo '<br>'.chr(10).chr(10);
 	
-	entrylist_invoice_tobemade($SQL);
-	
+	entrylist_invoice_tobemade($SQL, $area_spesific);
+	/*
 	echo '<br><br>';
 	echo '<h2>Bookinger som snart gjennomføres og som skal ha faktura</h2>';
 	$filters = array();
@@ -78,7 +98,7 @@ else
 	filterPrint($filters);				echo '<br>'.chr(10);
 	echo '<br>'.chr(10).chr(10);
 	
-	entrylist_invoice_tobemade($SQL);
+	entrylist_invoice_tobemade($SQL);*/
 }
 
 ?>

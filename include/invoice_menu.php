@@ -30,33 +30,73 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+filterMakeAlternatives();
+$filters = array();
+$filters = addFilter($filters, 'invoice', '1');
+$filters = addFilter($filters, 'invoice_status', '1');
+$filters = addFilter($filters, 'time_start', 'current', '>');
+if($area_spesific)
+	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
+$SQL = genSQLFromFilters($filters, 'entry_id');
+$num_invoice_soon = mysql_num_rows(mysql_query($SQL));
+
+$filters = array();
+$filters = addFilter($filters, 'invoice', '1');
+$filters = addFilter($filters, 'invoice_status', '1');
+$filters = addFilter($filters, 'time_start', 'current', '<');
+if($area_spesific)
+	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
+$SQL = genSQLFromFilters($filters, 'entry_id');
+$num_invoice_tobemade = mysql_num_rows(mysql_query($SQL));
+
+$filters = array();
+$filters = addFilter($filters, 'invoice', '1');
+$filters = addFilter($filters, 'invoice_status', '2');
+if($area_spesific)
+	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
+$SQL = genSQLFromFilters($filters, 'entry_id');
+$num_invoice_tobemade_ready = mysql_num_rows(mysql_query($SQL));
+
+$filters = array();
+$filters = addFilter($filters, 'invoice', '1');
+$filters = addFilter($filters, 'invoice_status', '3');
+if($area_spesific)
+	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
+$SQL = genSQLFromFilters($filters, 'entry_id');
+$num_invoice_exported = mysql_num_rows(mysql_query($SQL));
+
+unset($SQL, $filters);
+
 print_header($day, $month, $year, $area);
+
+$add_to_href = '';
+if($area_spesific)
+	$add_to_href = '?area_id='.$area_invoice['area_id'];
 
 //layout
 echo '<div class="hiddenprint">';
-echo '<h2>'._("Invoice").'</h2>'.chr(10);
+echo '<h2>'._("Invoice");
+if($area_spesific)
+	echo ' - viser kun for '.$area_invoice['area_name'];
+echo '</h2>'.chr(10);
 
 echo '<a href="invoice_main.php"';
 if($section=="main") echo "style='color:red'";
 echo '>'._('Main page').'</a> -:- ';
 
-echo '<a href="invoice_create.php"';
-if($section=="create") echo "style='color:red'";
-echo '>'._('Create blank').'</a> -:- ';
-
-echo '<a href="invoice_soon.php"';
+echo '<a href="invoice_soon.php'.$add_to_href.'"';
 if($section=="soon") echo "style='color:red'";
 echo '>Ikke gjennomført</a> ('.$num_invoice_soon.') -:- ';
 
-echo '<a href="invoice_tobemade.php"';
+echo '<a href="invoice_tobemade.php'.$add_to_href.'"';
 if($section=="tobemade") echo "style='color:red'";
 echo '>Ikke klargjort</a> ('.$num_invoice_tobemade.') -:- ';
 
-echo '<a href="invoice_tobemade_ready.php"';
+echo '<a href="invoice_tobemade_ready.php'.$add_to_href.'"';
 if($section=="tobemade_ready") echo "style='color:red'";
 echo '>Klar til eksportering</a> ('.$num_invoice_tobemade_ready.') -:- ';
 
-echo '<a href="invoice_exported.php"';
+echo '<a href="invoice_exported.php'.$add_to_href.'"';
 if($section=="exported") echo "style='color:red'";
 echo '>Allerede eksportet</a> ('.$num_invoice_exported.') -:- ';
 

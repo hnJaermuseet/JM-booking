@@ -41,36 +41,21 @@ if(!$login['user_invoice'])
 	exit();
 }
 
-require "libs/invoice.class.php";
 
-filterMakeAlternatives();
-$filters = array();
-$filters = addFilter($filters, 'invoice', '1');
-$filters = addFilter($filters, 'invoice_status', '1');
-$filters = addFilter($filters, 'time_start', 'current', '>');
-$SQL = genSQLFromFilters($filters, 'entry_id');
-$num_invoice_soon = mysql_num_rows(mysql_query($SQL));
+if(isset($_GET['area_id']))
+{
+	$area_invoice = getArea($_GET['area_id']);
+	if(!count($area_invoice))
+	{
+		echo 'Finner ikke bygget du ville ha data fra.';
+		exit;
+	}
+	
+	$area_spesific = true;
+}
+else
+	$area_spesific = false;
 
-$filters = array();
-$filters = addFilter($filters, 'invoice', '1');
-$filters = addFilter($filters, 'invoice_status', '1');
-$filters = addFilter($filters, 'time_start', 'current', '<');
-$SQL = genSQLFromFilters($filters, 'entry_id');
-$num_invoice_tobemade = mysql_num_rows(mysql_query($SQL));
-
-$filters = array();
-$filters = addFilter($filters, 'invoice', '1');
-$filters = addFilter($filters, 'invoice_status', '2');
-$SQL = genSQLFromFilters($filters, 'entry_id');
-$num_invoice_tobemade_ready = mysql_num_rows(mysql_query($SQL));
-
-$filters = array();
-$filters = addFilter($filters, 'invoice', '1');
-$filters = addFilter($filters, 'invoice_status', '3');
-$SQL = genSQLFromFilters($filters, 'entry_id');
-$num_invoice_exported = mysql_num_rows(mysql_query($SQL));
-
-unset($SQL, $filters);
 
 /* Functions for printing of bookinglists */
 
