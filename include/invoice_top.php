@@ -138,8 +138,12 @@ function entrylist_invoice_tobemade_ready ($SQL)
 	{
 		echo '<font color="red">'.mysql_num_rows($Q).'</font> '._('entries found.');
 		echo '<br>'.chr(10).chr(10);
+		
+		echo '<form action="invoice_export.php" method="get" id="invoice_export">'.chr(10).chr(10);
+		
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
+		echo '  <td style="border: 1px solid black;">&nbsp;</td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Arrangementsdato</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>'._('Name').'</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>'._('Area').'</b></td>'.chr(10);
@@ -154,6 +158,16 @@ function entrylist_invoice_tobemade_ready ($SQL)
 			$entry_ids[] = $entry['entry_id'];
 			
 			echo ' <tr>'.chr(10);
+			
+			// Checkbox
+			echo '  <td style="border: 1px solid black;">'.
+				'<input '.
+					'type="checkbox" '.
+					'checked="checked" '.
+					'value="'.$entry['entry_id'].'" '.
+					'name="entry_id[]"'.
+				'>'.
+			'</td>';
 			
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
@@ -201,20 +215,15 @@ function entrylist_invoice_tobemade_ready ($SQL)
 		echo '</table>';
 		
 		echo '<div style="font-size: 1.6em; margin-top: 20px; margin-left: 10px;">'.
-		'<a href="invoice_export.php?';
-		$counter = 0;
-		foreach($entry_ids as $id)
-		{
-			$counter++;
-			echo 'entry_id[]='.$id;
-			if($counter != count($entry_ids))
-				echo '&amp;';
-		}
-		
-		echo '">'.
+		'<a href="#">'.
 		'<img src="img/Crystal_Clear_action_db_comit.png" style="border: 0px solid black;" height="32"> '.
 		'Eksporter til Komfakt'.
 		'</a></div>';
+		
+		echo '</form>';
+		echo '<script type="text/javascript">'.
+		'$("#invoice_export").click(function () { this.submit(); });'.chr(10);
+		echo '</script>';
 	}
 }
 
