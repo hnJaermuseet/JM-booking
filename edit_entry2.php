@@ -375,6 +375,8 @@ if ($entry_id != 0 || isset($_GET['copy_entry_id'])) {
 	addValue('infoscreen_txt',			$entry['infoscreen_txt']);
 	
 	// Disabled of invoice_status is 2, 3 or 4
+	/*
+	        THIS PART IS DISABLED
 	if(!$entry_add && 
 		(
 			$entry['invoice_status'] == 2 || 
@@ -395,7 +397,7 @@ if ($entry_id != 0 || isset($_GET['copy_entry_id'])) {
 		'<input size="1" type="text" name="invoice_address_id2" disabled="disabled" id="invoice_address_id2">'.
 		'<input type="button" value="'._('Choose address').'" disabled="disabled" onclick="chooseAddress(\'invoice_address_id\', \'invoice_address\'); return false;">'.
 		'<input type="button" value="'._('Edit customer/address').'" disabled="disabled" onclick="new_customer(); return false;">');
-	}
+	}*/
 	addValue('invoice',					$entry['invoice']);
 	addValue('invoice_electronic',		$entry['invoice_electronic']);
 	addValue('invoice_email',			$entry['invoice_email']);

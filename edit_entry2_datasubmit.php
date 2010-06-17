@@ -776,8 +776,9 @@ if(!count($form_errors))
 			if($entry['contact_person_email'] != $contact_person_email)
 				$changed[] = 'contact_person_email';
 			
-			if($entry['invoice_status'] != 2 && $entry['invoice_status'] != 3 && $entry['invoice_status'] != 4)
-			{
+			// Dont disable
+			//if($entry['invoice_status'] != 2 && $entry['invoice_status'] != 3 && $entry['invoice_status'] != 4)
+			//{
 				// Invoice
 				if($entry['invoice'] != $invoice)
 					$changed[] = 'invoice';
@@ -797,7 +798,7 @@ if(!count($form_errors))
 					$changed[] = 'invoice_address_id';
 				if(serialize($entry['invoice_content']) != serialize($invoice_content))
 					$changed[] = 'invoice_content';
-			}
+			//}
 			
 			// # Making SQL query
 			if (count($changed))
