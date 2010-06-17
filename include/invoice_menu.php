@@ -44,27 +44,21 @@ echo '<a href="invoice_create.php"';
 if($section=="create") echo "style='color:red'";
 echo '>'._('Create blank').'</a> -:- ';
 
+echo '<a href="invoice_soon.php"';
+if($section=="soon") echo "style='color:red'";
+echo '>Ikke gjennomført</a> ('.$num_invoice_soon.') -:- ';
+
 echo '<a href="invoice_tobemade.php"';
 if($section=="tobemade") echo "style='color:red'";
-echo '>'._('To be made').'</a> ('.$num_invoice_tobemade.') -:- ';
+echo '>Ikke klargjort</a> ('.$num_invoice_tobemade.') -:- ';
 
 echo '<a href="invoice_tobemade_ready.php"';
 if($section=="tobemade_ready") echo "style='color:red'";
-echo '>'._('Ready to be made').'</a> ('.$num_invoice_tobemade_ready.') -:- ';
+echo '>Klar til eksportering</a> ('.$num_invoice_tobemade_ready.') -:- ';
 
-echo '<a href="invoice_payed_not.php"';
-if($section=="payed_not") echo "style='color:red'";
-echo '>'._('Not payed').'</a> ('.$num_invoice_not_payed.') -:- ';
-
-echo '<a href="invoice_payed.php"';
-if($section=="payed") echo "style='color:red'";
-echo '>'._('Payed').'</a> -:- ';
-
-/*
-echo '<a href="invoice_search.php"';
-if($section=="search") echo "style='color:red'";
-echo '>'._('Search').'</a> -:- ';
-*/
+echo '<a href="invoice_exported.php"';
+if($section=="exported") echo "style='color:red'";
+echo '>Allerede eksportet</a> ('.$num_invoice_exported.') -:- ';
 
 echo '<hr>'.chr(10);
 echo '</div>';

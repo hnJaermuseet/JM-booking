@@ -25,34 +25,43 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-echo 'Invoice_payed is disabled. Not in use. '.
-'Please contact hn@jaermuseet.no about the link you followed to come here.';
-exit();
-
 require "include/invoice_top.php";
 
-$section = 'payed';
+$section = 'soon';
 require "include/invoice_menu.php";
 
-echo '<h1>'._('Payed').'</h1>'.chr(10).chr(10);
-$Q_invoice = mysql_query("select * from `invoice` where invoice_payed = '1' order by invoice_id desc");
-invoicelist_payed($Q_invoice);
+echo '<h1>Bookinger som ikke er gjennomført enda'.chr(10).chr(10);
 
-if(isset($_GET['debug']))
+if(isset($_GET['filters']))
 {
-	$Q_invoice = mysql_query("select * from `invoice` where invoice_payed = '1' order by invoice_id desc");
-	if(!mysql_num_rows($Q_invoice))
-	{
-		echo '<i>'._('There are no invoices that are registered as payed.').'</i>';
-	}
-	{
-		echo '<table>';
-		while($R_invoice = mysql_fetch_assoc($Q_invoice))
-		{
-			$R_invoice['invoice_content'] = unserialize($R_invoice['invoice_content']);
-			echo '<tr><td>'.$R_invoice['invoice_id'].'</td><td>'.nl2br(print_r($R_invoice, true)).'</td></tr>';
-		}
-		echo '</table>';
-	}
+	echo ' - endret filter';
+	echo '</h1>'.chr(10).chr(10);
+	
+	$filters = filterGetFromSerialized($_GET['filters']);
+	if(!$filters)
+		$filters = array();
+	
+	$SQL = genSQLFromFilters($filters, 'entry_id');
+	filterLink($filters, 'invoice_soon');	echo '<br>'.chr(10);
+	filterPrint($filters);				echo '<br>'.chr(10);
+	echo '<br>'.chr(10).chr(10);
+	
+	entrylist_invoice_soon($SQL);
+}
+else
+{
+	echo '</h1>'.chr(10).chr(10);
+	
+	$filters = array();
+	$filters = addFilter($filters, 'invoice', '1');
+	$filters = addFilter($filters, 'invoice_status', '1');
+	$filters = addFilter($filters, 'time_end', 'current', '>');
+	
+	$SQL = genSQLFromFilters($filters, 'entry_id');
+	filterLink($filters, 'invoice_soon');	echo '<br>'.chr(10);
+	filterPrint($filters);				echo '<br>'.chr(10);
+	echo '<br>'.chr(10).chr(10);
+	
+	entrylist_invoice_soon($SQL);
 }
 ?>

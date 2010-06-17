@@ -30,11 +30,11 @@ require "include/invoice_top.php";
 $section = 'tobemade';
 require "include/invoice_menu.php";
 
-echo '<h1>'._('To be made');
+echo '<h1>Ikke klargjort til eksportering/fakturering';
 
 if(isset($_GET['filters']))
 {
-	echo ' - '._('customized list');
+	echo ' - endret filter';
 	echo '</h1>'.chr(10).chr(10);
 	
 	$filters = filterGetFromSerialized($_GET['filters']);
@@ -57,7 +57,7 @@ else
 	$filters = array();
 	$filters = addFilter($filters, 'invoice', '1');
 	$filters = addFilter($filters, 'invoice_status', '1');
-	$filters = addFilter($filters, 'time_start', 'current', '<');
+	$filters = addFilter($filters, 'time_end', 'current', '<');
 	
 	$SQL = genSQLFromFilters($filters, 'entry_id');
 	filterLink($filters, 'invoice_tobemade');	echo '<br>'.chr(10);

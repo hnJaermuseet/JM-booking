@@ -578,3 +578,15 @@ CREATE TABLE `users` (
   `user_areas` varchar(255) NOT NULL,
   PRIMARY KEY  (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Database upgrades - 17.06.2010
+-- Export of invoice data
+--
+ALTER TABLE `entry` ADD `invoice_exported_time` INT NOT NULL AFTER `invoice_email` ;
+DROP TABLE `invoice` , `invoice_log` ;

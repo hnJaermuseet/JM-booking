@@ -222,8 +222,7 @@ function templateAssignEntry($var, $entry)
 			case '0':	$$var->assign ('invoice_status2', _('not to be made'));	break;
 			case '1':	$$var->assign ('invoice_status2', 'skal lages, ikke klar');	break;
 			case '2':	$$var->assign ('invoice_status2', 'skal lages, klar til fakturering');	break;
-			case '3':	$$var->assign ('invoice_status2', 'faktura laget og sendt');	break;
-			case '4':	$$var->assign ('invoice_status2', 'betalt');	break;
+			case '3':	$$var->assign ('invoice_status2', 'faktura eksportert til Komfakt');	break;
 		}
 		$$var->assign ('invoice_electronic', $entry['invoice_electronic']);
 		if($entry['invoice_electronic'] == '1') {
@@ -245,6 +244,7 @@ function templateAssignEntry($var, $entry)
 		else
 			$$var->assign ('invoice_address', '');
 		$$var->assign ('invoice_content', $entry['invoice_content']);
+		$$var->assign ('invoice_exported_time', $entry['invoice_exported_time']);
 		$$var->assign ('mva_vis', $entry['mva_vis']);
 		$$var->assign ('mva', $entry['mva']);
 		$$var->assign ('mva_grunnlag', $entry['mva_grunnlag']);

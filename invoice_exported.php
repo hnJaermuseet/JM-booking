@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 require "include/invoice_top.php";
 
-$section = 'tobemade_ready';
+$section = 'exported';
 require "include/invoice_menu.php";
 
-echo '<h1>Klar til &aring; eksporteres til Komfakt';
+echo '<h1>Bookinger eksportert til Komfakt'.chr(10).chr(10);
 
 if(isset($_GET['filters']))
 {
@@ -42,11 +42,11 @@ if(isset($_GET['filters']))
 		$filters = array();
 	
 	$SQL = genSQLFromFilters($filters, 'entry_id');
-	filterLink($filters, 'invoice_tobemade_ready');	echo '<br>'.chr(10);
+	filterLink($filters, 'invoice_exported');	echo '<br>'.chr(10);
 	filterPrint($filters);				echo '<br>'.chr(10);
 	echo '<br>'.chr(10).chr(10);
 	
-	entrylist_invoice_tobemade_ready($SQL);
+	entrylist_invoice_exported($SQL);
 }
 else
 {
@@ -54,13 +54,13 @@ else
 	
 	$filters = array();
 	$filters = addFilter($filters, 'invoice', '1');
-	$filters = addFilter($filters, 'invoice_status', '2');
+	$filters = addFilter($filters, 'invoice_status', '3');
 	
 	$SQL = genSQLFromFilters($filters, 'entry_id');
-	filterLink($filters, 'invoice_tobemade_ready');	echo '<br>'.chr(10);
+	filterLink($filters, 'invoice_exported');	echo '<br>'.chr(10);
 	filterPrint($filters);				echo '<br>'.chr(10);
 	echo '<br>'.chr(10).chr(10);
 	
-	entrylist_invoice_tobemade_ready($SQL);
+	entrylist_invoice_exported($SQL);
 }
 ?>

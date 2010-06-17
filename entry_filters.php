@@ -36,10 +36,14 @@ if(isset($_GET['return_to']))
 			$return_to = 'entry_stat'; break;
 		case 'entry_list':
 			$return_to = 'entry_list'; break;
+		case 'invoice_soon':
+			$return_to = 'invoice_soon'; break;
 		case 'invoice_tobemade_ready':
 			$return_to = 'invoice_tobemade_ready'; break;
 		case 'invoice_tobemade':
 			$return_to = 'invoice_tobemade'; break;
+		case 'invoice_exported':
+			$return_to = 'invoice_exported'; break;
 		case 'customer_list':
 			$return_to = 'customer_list'; break;
 		default:
@@ -70,10 +74,14 @@ else
 				header('Location: entry_list.php?filters='.$filters_serialized); break;
 			case 'customer_list':
 				header('Location: entry_list.php?listtype=customer_list&filters='.$filters_serialized); break;
+			case 'invoice_tobemade_soon':
+				header('Location: invoice_soon.php?filters='.$filters_serialized); break;
 			case 'invoice_tobemade_ready':
 				header('Location: invoice_tobemade_ready.php?filters='.$filters_serialized); break;
 			case 'invoice_tobemade':
 				header('Location: invoice_tobemade.php?filters='.$filters_serialized); break;
+			case 'invoice_exported':
+				header('Location: invoice_exported.php?filters='.$filters_serialized); break;
 			default:
 				echo 'Return to not found. Code error.'; break;
 		}
@@ -242,6 +250,10 @@ echo '> Kundeliste</label><br>'.chr(10);
 
 if($login['user_invoice'])
 {
+	echo '<label><input type="radio" name="return_to" value="invoice_soon"';
+	if($return_to == 'invoice_soon')
+		echo ' checked="checked"';
+	echo '> Faktura - Ikke gjennomf&oslash;rt</label><br>'.chr(10);
 	echo '<label><input type="radio" name="return_to" value="invoice_tobemade"';
 	if($return_to == 'invoice_tobemade')
 		echo ' checked="checked"';
@@ -250,6 +262,10 @@ if($login['user_invoice'])
 	if($return_to == 'invoice_tobemade_ready')
 		echo ' checked="checked"';
 	echo '> Faktura - Klar til å lages</label><br>'.chr(10);
+	echo '<label><input type="radio" name="return_to" value="invoice_exported"';
+	if($return_to == 'invoice_exported')
+		echo ' checked="checked"';
+	echo '> Faktura - Eksportet til Komfakt</label><br>'.chr(10);
 
 }
 
