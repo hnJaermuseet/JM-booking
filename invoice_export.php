@@ -373,4 +373,25 @@ foreach($entries as $entry)
 		invoice_export_end(chr(10));
 }
 
+
+foreach($entries as $entry)
+{
+	if(count($entry))
+	{
+		/*
+		 * Set new status
+		 * Set new rev_num, time of edit, etc
+		 */
+		$rev_num = $entry['rev_num']+1;
+		mysql_query("UPDATE `entry` SET `invoice_status` = '3', ".
+		"`user_last_edit` = '".$login['user_id']."', `time_last_edit` = '".time()."', ".
+		"`rev_num` = '$rev_num' WHERE `entry_id` = '".$entry['entry_id']."' LIMIT 1 ;");
+		
+		$log_data = array();
+		if(!newEntryLog($entry['entry_id'], 'edit', 'invoice_exported', $rev_num, $log_data))
+		{
+		}
+	}
+}
+
 ?>

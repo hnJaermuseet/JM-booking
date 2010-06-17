@@ -91,7 +91,7 @@ foreach($entry_log as $thislog)
 	// What
 	echo '  <td>';
 	if($thislog['log_action2'] != 'invoice_readyfor' && 
-	$thislog['log_action2'] != 'invoice_made' && 
+	$thislog['log_action2'] != 'invoice_exported' && 
 	$thislog['log_action2'] != 'invoice_payed')
 	{
 		echo '<a href="javascript:switchView('.$thislog['log_id'].');" id="switchlink'.$thislog['log_id'].'">'._("hide").'</a>'.chr(10);

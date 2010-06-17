@@ -1629,8 +1629,8 @@ function printEntryLog($log, $printData = FALSE, $to_return = FALSE)
 			{
 				case 'invoice_readyfor':
 					$return .= 'Booking klar til fakturering'; break;
-				case 'invoice_made':
-					$return .= 'Faktura ble opprettet'; break;
+				case 'invoice_exported':
+					$return .= 'Fakturadel ble eksportert til Komfakt'; break;
 					
 				case 'invoice_sent': // Not in use?
 					$return .= _('Invoice is registered as sent.'); break;
@@ -2041,7 +2041,7 @@ function newEntryLog($entry_id, $log_action, $log_action2, $rev_num, $log_data)
 		case 'edit':
 			switch ($log_action2)
 			{
-				case 'invoice_made':
+				case 'invoice_exported':
 				case 'invoice_readyfor':
 				case 'invoice_sent':
 				case 'invoice_payed':
