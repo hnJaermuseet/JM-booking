@@ -32,4 +32,75 @@ require "include/invoice_menu.php";
 
 echo '<h1>'._('Main page').'</h1>'.chr(10).chr(10);
 
+$Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
+
+echo '<table class="prettytable">'.chr(10);
+echo '	<tr>'.chr(10);
+echo '		<th>Bygg</th>'.chr(10);
+echo '		<th>Ikke gjennomf&oslash;rt</th>'.chr(10);
+echo '		<th>Ikke klargjort</th>'.chr(10);
+echo '		<th>Klar til eksportering</th>'.chr(10);
+echo '		<th>Allerede eksportert</th>'.chr(10);
+echo '	</tr>'.chr(10).chr(10);
+while($R = mysql_fetch_assoc($Q_area))
+{
+	$filters = array();
+	$filters = addFilter($filters, 'invoice', '1');
+	$filters = addFilter($filters, 'invoice_status', '1');
+	$filters = addFilter($filters, 'time_start', 'current', '>');
+	$filters = addFilter($filters, 'area_id', $R['area_id']);
+	$SQL = genSQLFromFilters($filters, 'entry_id');
+	$area_num_invoice_soon = mysql_num_rows(mysql_query($SQL));
+	
+	$filters = array();
+	$filters = addFilter($filters, 'invoice', '1');
+	$filters = addFilter($filters, 'invoice_status', '1');
+	$filters = addFilter($filters, 'time_start', 'current', '<');
+	$filters = addFilter($filters, 'area_id', $R['area_id']);
+	$SQL = genSQLFromFilters($filters, 'entry_id');
+	$area_num_invoice_tobemade = mysql_num_rows(mysql_query($SQL));
+	
+	$filters = array();
+	$filters = addFilter($filters, 'invoice', '1');
+	$filters = addFilter($filters, 'invoice_status', '2');
+	$filters = addFilter($filters, 'area_id', $R['area_id']);
+	$SQL = genSQLFromFilters($filters, 'entry_id');
+	$area_num_invoice_tobemade_ready = mysql_num_rows(mysql_query($SQL));
+	
+	$filters = array();
+	$filters = addFilter($filters, 'invoice', '1');
+	$filters = addFilter($filters, 'invoice_status', '3');
+	$filters = addFilter($filters, 'area_id', $R['area_id']);
+	$SQL = genSQLFromFilters($filters, 'entry_id');
+	$area_num_invoice_exported = mysql_num_rows(mysql_query($SQL));
+	
+	unset($SQL, $filters);
+	
+	echo '	<tr>'.chr(10);
+	echo '		<td><b>'.$R['area_name'].'</b></td>'.chr(10);
+	echo '		<td class="rightalign"><a href="invoice_soon.php?area_id='.$R['area_id'].'">'.
+		$area_num_invoice_soon.'</a></td>'.chr(10);
+	echo '		<td class="rightalign"><a href="invoice_tobemade.php?area_id='.$R['area_id'].'">'.
+		$area_num_invoice_tobemade.'</a></td>'.chr(10);
+	echo '		<td class="rightalign"><a href="invoice_tobemade_ready.php?area_id='.$R['area_id'].'">'.
+		$area_num_invoice_tobemade_ready.'</a></td>'.chr(10);
+	echo '		<td class="rightalign"><a href="invoice_exported.php?area_id='.$R['area_id'].'">'.
+		$area_num_invoice_exported.'</a></td>'.chr(10);
+	echo '	</tr>'.chr(10).chr(10);
+}
+
+	
+echo '	<tr>'.chr(10);
+echo '		<td><b>SUM</b></td>'.chr(10);
+echo '		<td class="rightalign"><b><a href="invoice_soon.php?area_id='.$R['area_id'].'">'.
+	$num_invoice_soon.'</a></b></td>'.chr(10);
+echo '		<td class="rightalign"><b><a href="invoice_tobemade.php?area_id='.$R['area_id'].'">'.
+	$num_invoice_tobemade.'</a></b></td>'.chr(10);
+echo '		<td class="rightalign"><b><a href="invoice_tobemade_ready.php?area_id='.$R['area_id'].'">'.
+	$num_invoice_tobemade_ready.'</a></b></td>'.chr(10);
+echo '		<td class="rightalign"><b><a href="invoice_exported.php?area_id='.$R['area_id'].'">'.
+	$num_invoice_exported.'</a></b></td>'.chr(10);
+echo '	</tr>'.chr(10).chr(10);
+echo '</table>';
+
 ?>
