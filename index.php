@@ -26,10 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#Index is just a stub to redirect to the appropriate day view
-if(isset($_GET['instance']))
-	header("Location: day.php?instance=".strip_tags($_GET['instance']));
-else
-        header("Location: day.php");
+// Redirect to day view for today
+header("Location: day.php");
 
 ?>

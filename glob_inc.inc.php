@@ -31,8 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 session_start();
-session_register('instance');
-session_register('session_selected_language');
 
 if(isset($_GET['pview']))
 	$pview=1;
@@ -54,23 +52,6 @@ if(isset($_GET['year']))
 	$year = $_GET['year'];
 else
 	$year = '';
-	
-if(isset($_GET['instance']))
-{
-	// check for invalid or malcious instance values
-	if (strrpos($_GET['instance'],".")!=0 || strrpos($_GET['instance'],"/")!=0) {
-		echo(_("Invalid instance-name"));
-		exit;
-	}
-	$instance=$_GET['instance'];
-	$_SESSION['instance']=$instance;
-	// reset session later
-	$session_must_be_reset=true;
-}
-if(!isset($_SESSION['instance'])) {
-	$_SESSION['instance']="default";
-}
-$instance = $_SESSION['instance'];
 
 include "default/config.inc.php";
 
@@ -108,9 +89,6 @@ if (!$db_c || !mysql_select_db ($db_database)){
 #sometimes, script include other stand-alone scripts -> include_once
 include_once "functions.inc.php";
 include_once "mrbs_auth.inc.php";
-
-if (isset($session_must_be_reset))
-	reset_session();
 
 
 /*

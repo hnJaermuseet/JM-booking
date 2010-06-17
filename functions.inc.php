@@ -33,130 +33,8 @@ require_once "functions/postal_number.php";
 require_once "functions/entry.php";
 
 
-#vals[0]=variablename
-#vals[1]=typ
-#	typ: 0: input   1: textarea  2:checkbox  3:radio  4:select
-#	note: checkbox and radio are not finished yet
-#vals[2]=param[] list of input params
-#vals[3]=title(key for lang[] array) 
-#vals[4]=description(key for lang[] array)
-
-function drawFormRow($val){
-    global $db_entry_fields,$db_entry_fields_session,$db_entry_fields_optional,$db_entry_all_fields_set,$lang,$$val[0];
-    if(isset($_GET[$val[0]]))
-	    $value=strip_tags($_GET[$val[0]]);
-    else
-	$value=strip_tags($$val[0]);
-    $offset=array_search($val[0],$db_entry_fields);
-    #$db_entry_all_fields_set=true;
-    #everything saved in session? then do nothing
-    if(isset($_SESSION['db_entry_all_fields_set'])&&$db_entry_fields_session[$offset])
-    	return;
-    echo "<tr><td width=150 align=right nowrap><b>",$val[3],"</b></td><td CLASS=CL style=\"background-color:#DDDDDD\" width=250><table border=0 cellspacing=0 cellpadding=0><tr><td>";
-    switch($val[1]){
-    	case 0:echo "<input type=text name=\"",$val[0],"\" value=\"",$value,"\"";
-		drawInputParams($val[2]);
-		echo ">";
-		break;
-	case 1:echo "<textarea name=\"",$val[0],"\"";
-		drawInputParams($val[2]);
-		echo ">",$value,"</textarea>";
-		break;
-	//note: checkbox and radio are not finished yet
-	case 2:echo "<input type=checkbox name=\"",$val[0],"\" value=\"",$value,"\"";
-		drawInputParams($val[2]);
-		echo ">";
-		break;
-	case 3:echo "<input type=checkbox name=\"",$val[0],"\" value=\"",$value,"\"";
-		drawInputParams($val[2]);
-		echo ">";
-		break;		
-	case 4:echo "<select name=\"",$val[0],"\"";
-		drawInputParams($val[2]);
-		echo ">";
-		foreach($val[2] as $oname=>$ovalue){
-			if(substr($oname,0,7)=="option:")
-			echo "<option value=\"".substr($oname,7)."\"",($value==substr($oname,7)?" selected":""),">",$ovalue,"</option>";
-		}
-		echo "</select>";
-    }
-    if(!$db_entry_fields_optional[$offset]){
-	echo "</td><td>";
-    	star();
-	}
-    echo "</td></tr></table></td><td width=650 style=\"background-color:#e0e4f1\">";
-	if(@constant($val[4]) != '')
-		echo constant($val[4]);
-	else
-		echo "&nbsp;";
-	echo "</td></tr>";
-    
-}
-
-function drawInputParams($param){
-	foreach($param as $key=>$val)
-	if(substr($key,0,7)!="option:")
-		echo " $key=\"",$val,"\"";
-}
-
-#this function kills all booking relevant informations from the session, but retaines instance and language information
-function reset_session(){
-	global $db_entry_fields;
-	session_unregister("session_booking_ids");
-	session_unregister("session_booking_rid");
-	session_unregister("db_entry_all_fields_set");
-	
-	foreach($db_entry_fields as $val){
-		session_unregister($val);
-	}
-	$_SESSION["db_entry_all_fields_set"]=false;
-}
-
-function buildSelectFormat($start,$end,$step,$selection,$prefix,$suffix){
-	for($i=$start;$i<=$end;$i=$i+$step){
-		$iv = $prefix.((strlen($i)==1)?("0"):("")).$i.$suffix;
-		if($i==$selection)
-			echo "<option value='$i' selected>$iv</option>";
-		else
-			echo "<option value='$i'>$iv</option>";
-	}
-}
-
-function buildSelect($start,$end,$step,$selection){
-	for($i=$start;$i<=$end;$i=$i+$step){
-		$iv = ((strlen($i)==1)?("0"):("")).$i;
-		if($i==$selection)
-			echo "<option value='$i' selected>$iv</option>";
-		else
-			echo "<option value='$i'>$iv</option>";
-	}
-}
-
-function formHiddenFields(){
-	#certain fields should not be passed again: instance and select_language
-	#passing them in every form is unnecessary and prevents further changing of these values
-	$skip=array("instance","select_language");
-	foreach($_GET as $key=>$val)
-	{
-		if (strlen($val))
-		{
-			if(!in_array($key,$skip))
-				echo "<input type='hidden' name='".$key."' value='".strip_tags($val)."'>";
-		}
-	}
-}
-function hrefGetVar($data,$var){
-	$pos = strpos($data,$var."=");
-	if($pos===false){
-		return "";
-	}
-	else{
-		return substr($data, $pos+strlen($var)+1, strpos($data,"&", $pos+strlen($var)+2)-($pos+strlen($var)+1));
-	}
-}
-
 function print_header($day, $month, $year, $area){
-	global $lang, $mrbs_company, $search_str,$nrbs_pageheader,$instance,$language_available,$session_selected_language,$header_links;
+	global $lang, $mrbs_company, $search_str,$nrbs_pageheader,$language_available,$session_selected_language,$header_links;
 	global $userinfo, $testSystem;
 	global $selected_room;
 	if(!isset($selected_room))
@@ -214,7 +92,6 @@ function print_header($day, $month, $year, $area){
 			'							<td align="right">'.
 			'<form action="day.php" method="get" style="margin: 0px; padding: 0px;">';
 		
-		//formHiddenFields(); 
 		genDateSelector("", $day, $month, $year);
 		if (!empty($area))
 			echo '<input type="hidden" name="area" value='.$area.'>'; 

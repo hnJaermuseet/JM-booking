@@ -26,12 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-if (file_exists($instance."/mrbs.css")){	
-		$cssfile=$instance."/mrbs.css";
-}
-else{
-	$cssfile="mrbs.css";
-}  
+$cssfile="css/jm-booking.css";
 ?>
 	<link rel="stylesheet" href="<?php echo(($cssfile)); ?>" type="text/css">
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo(_("iso-8859-1")); ?>">
