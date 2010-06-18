@@ -269,6 +269,27 @@ if($copy_entry)
 	echo '<tr><td colspan="4">&nbsp;</td></tr>'.chr(10).chr(10);
 }
 
+if(!$entry_add && $entry['invoice_status'] > 1)
+{
+	
+	echo '<tr><td colspan="4" style="border: 0px;" align="center">'.chr(10);
+	
+	echo '<div class="notice" style="text-align: center; font-size: 20px; width:600px;">';
+	echo 'Obs! Denne bookingen sin fakturadel er ';
+	if($entry['invoice_status'] == '2')
+		echo 'satt faktureringsklar';
+	else
+		echo 'eksport til Komfakt';
+	echo '.<br>'.
+	'<span style="font-size: 16px;">V&aelig;r obs på hva du gj&oslash;r.</span>'.chr(10);
+	
+	echo '</div>';
+	echo '</td></tr>'.chr(10);
+	
+	// Make some space
+	echo '<tr><td colspan="4">&nbsp;</td></tr>'.chr(10).chr(10);
+}
+
 $hidden_after = '';
 foreach ($entry_fields as $field)
 {
