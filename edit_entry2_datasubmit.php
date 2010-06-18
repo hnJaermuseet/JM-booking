@@ -295,7 +295,12 @@ foreach ($entry_fields as $field)
 			}
 			
 			if($field['var'] == 'invoice' && $$field['var'])
-				$invoice_status = '1';
+			{
+				if($entry_add)
+					$invoice_status = '1';
+				else
+					$invoice_status = $entry['invoice_status'];
+			}
 			elseif($field['var'] == 'invoice')
 				$invoice_status = '0';
 			
@@ -539,6 +544,37 @@ if(!count($form_errors))
 			if(($time_end - $time_start) > (7*24*60*60))
 				$warnings[] = _('The entry goes over more than 7 days. I think this might be wrong.');
 		}
+		
+		
+		// Invoice, detect change to make warning
+		// If you change anything here, remember to change the other place in edit_entry2_datasubmit
+		if(
+			$entry['invoice_status'] > 1 && (
+				$entry['invoice'] != $invoice ||
+				$entry['invoice_status'] != $invoice_status ||
+				$entry['invoice_comment'] != $invoice_comment ||
+				$entry['invoice_internal_comment'] != $invoice_internal_comment ||
+				$entry['invoice_electronic'] != $invoice_electronic ||
+				$entry['invoice_ref_your'] != $invoice_ref_your ||
+				$entry['invoice_email'] != $invoice_email ||
+				$entry['invoice_address_id'] != $invoice_address_id ||
+				serialize($entry['invoice_content']) != serialize($invoice_content)
+			)
+		)
+		{
+			// Invoice_status over 1 and an invoice change
+			// => warning
+			$warning_tmp = 'Du fors&oslash;ket &aring; endre p&aring; <b>fakturadelen av bookingen</b>. '.
+				'Bookingen har status som <b>';
+			if($entry['invoice_status'] == '2')
+				$warning_tmp .= 'godkjent for fakturautsending';
+			elseif($entry['invoice_status'] == '3')
+				$warning_tmp .= 'ekporter til Komfakt';
+			else
+				$warning_tmp .= 'ukjent';
+			$warning_tmp .= '</b> og det kan hende at endringer ikke vil bli tatt med p&aring; endelig faktura.';
+			$warnings[] = $warning_tmp;
+		}
 	}
 	
 	if(!count($warnings))
@@ -779,25 +815,28 @@ if(!count($form_errors))
 			// Dont disable
 			//if($entry['invoice_status'] != 2 && $entry['invoice_status'] != 3 && $entry['invoice_status'] != 4)
 			//{
-				// Invoice
-				if($entry['invoice'] != $invoice)
-					$changed[] = 'invoice';
-				if($entry['invoice_status'] != $invoice_status)
-					$changed[] = 'invoice_status';
-				if($entry['invoice_comment'] != $invoice_comment)
-					$changed[] = 'invoice_comment';
-				if($entry['invoice_internal_comment'] != $invoice_internal_comment)
-					$changed[] = 'invoice_internal_comment';
-				if($entry['invoice_electronic'] != $invoice_electronic)
-					$changed[] = 'invoice_electronic';
-				if($entry['invoice_ref_your'] != $invoice_ref_your)
-					$changed[] = 'invoice_ref_your';
-				if($entry['invoice_email'] != $invoice_email)
-					$changed[] = 'invoice_email';
-				if($entry['invoice_address_id'] != $invoice_address_id)
-					$changed[] = 'invoice_address_id';
-				if(serialize($entry['invoice_content']) != serialize($invoice_content))
-					$changed[] = 'invoice_content';
+			
+			// Invoice
+			// If you change anything here, remember to change the other place in edit_entry2_datasubmit
+			if($entry['invoice'] != $invoice)
+				$changed[] = 'invoice';
+			if($entry['invoice_status'] != $invoice_status)
+				$changed[] = 'invoice_status';
+			if($entry['invoice_comment'] != $invoice_comment)
+				$changed[] = 'invoice_comment';
+			if($entry['invoice_internal_comment'] != $invoice_internal_comment)
+				$changed[] = 'invoice_internal_comment';
+			if($entry['invoice_electronic'] != $invoice_electronic)
+				$changed[] = 'invoice_electronic';
+			if($entry['invoice_ref_your'] != $invoice_ref_your)
+				$changed[] = 'invoice_ref_your';
+			if($entry['invoice_email'] != $invoice_email)
+				$changed[] = 'invoice_email';
+			if($entry['invoice_address_id'] != $invoice_address_id)
+				$changed[] = 'invoice_address_id';
+			if(serialize($entry['invoice_content']) != serialize($invoice_content))
+				$changed[] = 'invoice_content';
+			
 			//}
 			
 			// # Making SQL query
