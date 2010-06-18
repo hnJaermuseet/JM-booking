@@ -154,28 +154,32 @@ function stringToString ($length, $string, $cut = false)
 	return $string;
 }
 
+// Text to be printed
+$the_text = '';
+
 $number_of_posts = 0;
 $product_counter = array();
 function invoice_export_start ($entry_id)
 {
-	global $number_of_posts;
+	global $number_of_posts, $the_text;
 	
 	// Make sure the invoiceend has been executed
 	if($number_of_posts > 0)
 	{
+		// System error
 		echo '<h1>EXPORT FAILED!</h1>';
 		echo 'No invoiceend printed.';
 	}
 	
 	// Posttype, character 001-002: ST
-	echo 'ST';
+	$the_text .= 'ST';
 	$number_of_posts++;
 	
 	// Referance, character 003-062 - max length 60: using "BOOKING<ID>"
-	echo 'BOOKING'.$entry_id;
+	$the_text .= 'BOOKING'.$entry_id;
 	
 	// End of line
-	echo chr(10);
+	$the_text .= chr(10);
 }
 
 function invoice_export_invoiceheading (
@@ -194,58 +198,58 @@ function invoice_export_invoiceheading (
 	$saksnummer
 )
 {
-	global $number_of_posts, $product_counter;
+	global $number_of_posts, $product_counter, $the_text;
 	
 	// Posttype, character 001-002: FL
-	echo 'FL';
+	$the_text .= 'FL';
 	$number_of_posts++;
 	
 	// Customer number/id, character 003-013 - max length 11: using customer_id
-	echo integerToString(11, $customer_id);
+	$the_text .= integerToString(11, $customer_id);
 	
 	// Customer name, char 014-043 - length 30: using customer_name
-	echo stringToString(30, $customer_name, true);
+	$the_text .= stringToString(30, $customer_name, true);
 	
 	// Address line 1, character 044-073 - length 30: using customers address line 1
-	echo stringToString(30, $customer_adr1, true);
+	$the_text .= stringToString(30, $customer_adr1, true);
 	
 	// Address line 2, character 074-103 - length 30: using customers address line 2
-	echo stringToString(30, $customer_adr1, true);
+	$the_text .= stringToString(30, $customer_adr1, true);
 	
 	// Postal number, character 104-107 - length 4: using customers postal number
-	echo stringToString(4, $customer_adr_postalnum, true);
+	$the_text .= stringToString(4, $customer_adr_postalnum, true);
 	
 	// Payment type (BG, PG), character 108-109 - length 2:
-	echo stringToString(2, $payment_type, true);
+	$the_text .= stringToString(2, $payment_type, true);
 	
 	// Oppdragsgivernummer, character 110-112 - length 3: using 0
 	// Must exist in Komfakt
-	echo integerToString(3, $oppdragsgivernummber);
+	$the_text .= integerToString(3, $oppdragsgivernummber);
 	
 	// Product number, character 113-116 - length 4: using 0
 	// Must exist in Komfakt
-	echo integerToString(4, $product_id);
+	$the_text .= integerToString(4, $product_id);
 	
 	// Product counter, character 117-118 - length 2: using ???
 	if(!isset($product_counter[$customer_id.'-'.$product_id]))
 		$product_counter[$customer_id.'-'.$product_id] = 0;
 	$product_counter[$customer_id.'-'.$product_id]++;
-	echo integerToString(2, $product_counter[$customer_id.'-'.$product_id]);
+	$the_text .= integerToString(2, $product_counter[$customer_id.'-'.$product_id]);
 	
 	// Product price topay, character 119-127 - length 9: using product_topay_each
-	echo integerToString(9, $product_topay_each);
+	$the_text .= integerToString(9, $product_topay_each);
 	
 	// Product amount, character 128-136 - length 9: using product_amount
-	echo integerToString(9, $product_amount);
+	$the_text .= integerToString(9, $product_amount);
 	
 	// Product topay total, character 137-147 - length 11: using product_topay_total
-	echo integerToString(11, $product_topay_total);
+	$the_text .= integerToString(11, $product_topay_total);
 	
 	// Saksnummer, character 148-163 - length 16: not in use
-	echo integerToString(16, $saksnummer);
+	$the_text .= integerToString(16, $saksnummer);
 	
 	// End of line
-	echo chr(10);
+	$the_text .= chr(10);
 }
 
 
@@ -257,55 +261,55 @@ function invoice_export_invoicetextline (
 	$text
 )
 {
-	global $number_of_posts, $product_counter;
+	global $number_of_posts, $product_counter, $the_text;
 	
 	// Posttype, character 001-002: LT
-	echo 'LT';
+	$the_text .= 'LT';
 	$number_of_posts++;
 	
 	// Customer number/id, character 003-013 - max length 11: using customer_id
-	echo integerToString(11, $customer_id);
+	$the_text .= integerToString(11, $customer_id);
 	
 	// Oppdragsgivernummer, character 014-016 - length 3: using 0
 	// Must exist in Komfakt
-	echo integerToString(3, $oppdragsgivernummer);
+	$the_text .= integerToString(3, $oppdragsgivernummer);
 	
 	// Product number, character 017-020 - length 4: using 0
 	// Must exist in Komfakt
-	echo integerToString(4, $product_id);
+	$the_text .= integerToString(4, $product_id);
 	
 	// Product counter, character 021-022 - length 2: using ???
-	echo integerToString(2, $product_counter[$customer_id.'-'.$product_id]);
+	$the_text .= integerToString(2, $product_counter[$customer_id.'-'.$product_id]);
 	
 	// Text line number, character 023-024 - length 2: using $textline_num
-	echo integerToString(2, $textline_num);
+	$the_text .= integerToString(2, $textline_num);
 	
 	// Text, character 025-074 - length 50: using $text
-	echo stringToString(50, $text);
+	$the_text .= stringToString(50, $text);
 	
 	// End of line
-	echo chr(10);
+	$the_text .= chr(10);
 }
 
 
 function invoice_export_end ($end_of_line)
 {
-	global $number_of_posts, $product_counter;
+	global $number_of_posts, $product_counter, $the_text;
 	
 	// Posttype, character 001-002: SL
-	echo 'SL';
+	$the_text .= 'SL';
 	$number_of_posts++;
 	
 	// Number of posts including start and end
 	// character 003-010 - max length 8:
 	// using $number_of_posts
-	echo integerToString(8, $number_of_posts);
+	$the_text .= integerToString(8, $number_of_posts);
 	$number_of_posts = 0; // reset
 	
 	$product_counter = array(); // reset
 	
 	// End of line
-	echo $end_of_line;
+	$the_text .= $end_of_line;
 }
 
 $i = 0;
@@ -394,4 +398,6 @@ foreach($entries as $entry)
 	}
 }
 
+// Print text that is made during the process above
+echo $the_text;
 ?>
