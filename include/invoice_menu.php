@@ -77,7 +77,7 @@ if($area_spesific)
 echo '<div class="hiddenprint">';
 echo '<h2>'._("Invoice");
 if($area_spesific)
-	echo ' - viser kun for '.$area_invoice['area_name'];
+	echo ' - viser '.$area_invoice['area_name'];
 echo '</h2>'.chr(10);
 
 echo '<a href="invoice_main.php"';
