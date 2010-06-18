@@ -429,11 +429,6 @@ if(!count($form_errors))
 	{
 		/* ## Checking for warnings ## */
 		
-		// Checking invoice
-		//if($invoice && $invoice_info == '')
-		//{
-		//	$warnings[] = _('You have selected that you want an invoice to be sent, but you havn\'t specified what it should contain.');
-		//}
 		
 		// Checking title
 		if(!$entry_name_set)
