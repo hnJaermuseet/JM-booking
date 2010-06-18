@@ -587,6 +587,19 @@ if(!count($form_errors))
 			$warning_tmp .= '</b> og det kan hende at endringer ikke vil bli tatt med p&aring; endelig faktura.';
 			$warnings[] = $warning_tmp;
 		}
+		
+		// Checking if user_assigned2 matches one user in the database
+		if($entry['user_assigned2'] != $user_assigned2)
+		{
+			$Q_user = mysql_query("select user_id from `users` where user_name = '".$user_assigned2."'");
+			if(mysql_num_rows($Q_user))
+			{
+				$warnings[] = 'Du skrev inn navnet til <b>'.$user_assigned2.'</b> i feltet for '.
+					'annen vert. Vedkommende <b>har bruker i bookingen</b> og det anbefales at du knytter '.
+					'bookingen med brukeren. Hvis vedkommende ikke er vanlig vert p&aring; bygget du valgte, '.
+					's&aring; finner du vedkommende ved &aring; trykke p&aring; <b>vis alle</b>';
+			}
+		}
 	}
 	
 	if(!count($warnings))
