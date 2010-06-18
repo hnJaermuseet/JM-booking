@@ -37,6 +37,7 @@ function print_header($day, $month, $year, $area){
 	global $lang, $mrbs_company, $search_str,$nrbs_pageheader,$language_available,$session_selected_language,$header_links;
 	global $userinfo, $testSystem;
 	global $selected_room;
+	global $login;
 	if(!isset($selected_room))
 		$selected_room = 0;
 
@@ -222,9 +223,17 @@ function print_header($day, $month, $year, $area){
 		iconHTML('group').' '.
 		_('Customers').'</a>'.chr(10);
 		
-		echo '		 -:- <a class="menubar" href="./invoice_main.php">'.
-		iconHTML('coins').' '.
-		_('Invoice').'</a>'.chr(10);
+		if($login['user_invoice'] || $login['user_invoice_setready'])
+		{
+			echo '		 -:- <a class="menubar" href="./invoice_main.php';
+			
+			// By default, use the current area when going into the invoice part
+			if(!$login['user_invoice'])
+				echo '?area_id='.$area['area_id'];
+			echo '">'.
+			iconHTML('coins').' '.
+			_('Invoice').'</a>'.chr(10);
+		}
 		
 		echo '		 -:- <a class="menubar" href="./user_list.php">'.
 		iconHTML('user').' '.
