@@ -124,7 +124,7 @@ function entrylist_invoice_tobemade_ready ($SQL)
 		echo '<font color="red">'.mysql_num_rows($Q).'</font> '._('entries found.');
 		echo '<br>'.chr(10).chr(10);
 		
-		echo '<form action="invoice_export.php" method="get">'.chr(10).chr(10);
+		echo '<form action="invoice_export.php" method="get" id="invoice_export">'.chr(10).chr(10);
 		
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
@@ -207,7 +207,7 @@ function entrylist_invoice_tobemade_ready ($SQL)
 		
 		echo '</form>';
 		echo '<script type="text/javascript">'.
-		'$("#invoice_export_submit").click(function () { this.submit(); });'.chr(10);
+		'$("#invoice_export_submit").click(function () { $("#invoice_export").submit(); });'.chr(10);
 		echo '</script>';
 	}
 }
