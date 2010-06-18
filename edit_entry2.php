@@ -63,6 +63,11 @@ function addField ($var, $type, $name, $description = '')
 		$entry_fields[$var]['value']		= ''; // The value/whats selected
 		$entry_fields[$var]['value_array']	= array(); // The value/whats selected (if type is radio, select, etc)
 		$entry_fields[$var]['choice']		= array();
+		
+		if($type == 'date')
+			$entry_fields[$var]['class']		= array('edit_entry_date'); // Multiple classes
+		else
+			$entry_fields[$var]['class']		= array(); // Multiple classes
 	}
 }
 addField ('entry_id', 				'hidden',		_('Entry ID')); $entry_fields['entry_id']['add'] = FALSE;
@@ -87,7 +92,7 @@ addField ('customer_name',		'text',			_('Customer'),				_('Type in parts for the
 	addID ('customer_name', 'customer_name');
 	addAfterField ('customer_name', '&nbsp;'.
 	'<input size="1" type="text" name="customer_id2" disabled="disabled" id="customer_id2">'.
-	'&nbsp;<input type="button" value="+" onclick="new_customer(); return false;">');
+	'&nbsp;<input type="button" value="+" onclick="new_customer(); return false;" style="width: 25px">');
 addField ('customer_id',		'hidden',		'');
 	addID ('customer_id',	'customer_id');
 addField ('customer_municipal',	'text',			_('Municipal'),				_('The municipal which the customer belong to.'));

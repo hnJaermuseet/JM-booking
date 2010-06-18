@@ -490,3 +490,56 @@ tr.invoiceGray td {
 .ui-dialog .ui-state-highlight, .ui-dialog .ui-state-error {
 	padding: .3em;
 }
+
+
+
+input.edit_entry
+{
+	font-size: 1.2em;
+	width: 450px;
+}
+
+textarea.edit_entry
+{
+	font-size: 1.2em;
+	width: 550px;
+}
+
+span.edit_entry
+{
+	font-size: 1.2em;
+}
+
+select.edit_entry
+{
+	font-size: 1.2em;
+}
+
+input.edit_entry_date
+{
+	width: 150px;
+}
+
+td.edit_entry {
+	border-bottom: 1px lightgrey dotted;
+}
+td.edit_entry_fields
+{
+	border-bottom: 1px lightgrey dotted;
+	width: 560px;
+}
+
+input.edit_entry_submit
+{
+	font-size:1.3em; width: 200px; padding:3px;
+}
+
+td.valign {
+	vertical-align:middle;
+}
+a.infoicon {
+	width: 16px; height: 16px;
+	background-image:url('../img/icons/information.png');
+	background-repeat:no-repeat; display:block;
+	text-decoration:none;
+}

@@ -138,7 +138,7 @@ while($R_prod = mysql_fetch_assoc($Q_prod))
 		'</td>'.
 		
 		'<td style="text-align: center;">'.
-			'<input type="button" value="+" '.
+			'<input type="button" style="width: 25px;" value="+" '.
 				'onclick="addFromProducts (this, \''.$R_prod['product_name'].'\', \''.$R_prod['product_price'].'\', \''.$R_prod['product_tax'].'\'); '.
 				'return false;">'.
 		'</td>'.
@@ -279,11 +279,19 @@ foreach ($entry_fields as $field)
 		$disabled = '';
 		$before = '';
 		$after = '';
+		$classes = '';
 		if(isset($field['onchange']))						$onchange = ' onchange="'.$field['onchange'].'"';
 		if(isset($field['id']) && $field['id'] != '')		$elementid = ' id="'.$field['id'].'"';
 		if(isset($field['disabled']) && $field['disabled'])	$disabled = ' disabled="disabled"';
 		if(isset($field['before']))							$before = $field['before'];
 		if(isset($field['after']))							$after = $field['after'];
+		if(count($field['class']))                          $classes = ' '.implode($field['class']);
+		
+		// Vertical alignment
+		if($field['type'] != 'radio' && $field['type'] != 'checkbox')
+			$valign = ' valign';
+		else
+			$valign = '';
 		
 		if($field['type'] == 'hidden')
 		{
@@ -292,7 +300,7 @@ foreach ($entry_fields as $field)
 		else
 		{
 			echo '<tr>'.chr(10);
-			echo ' <td align="right" style="border-bottom: 1px lightgrey dotted;">';
+			echo ' <td align="right" class="edit_entry'.$valign.'">';
 			if($field['var'] != 'empty' && $field['type'] != 'hidden' && $field['type'] != 'submit') {
 				if(isset($icon[$field['var']]))
 					echo iconHTML($icon[$field['var']], '').'&nbsp;';
@@ -301,22 +309,39 @@ foreach ($entry_fields as $field)
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
+		
+			if($field['type'] == 'invoice_content') {
+				
+			}
+			elseif(isset($field['desc']) && $field['desc'] != '')
+			{
+				echo ' <td class="edit_entry'.$valign.'">'.
+					'<a class="programHover infoicon" title="'.nl2br($field['desc']).'">&nbsp;'.
+						///iconHTML('information').
+						//'abc'.
+					'</a>'.
+				'</td>'.chr(10);
+			}
+			else
+			{
+				echo ' <td class="edit_entry" style="width: 15px; text-align: center;">&nbsp;</td>'.chr(10);
+			}
 			
 			if($field['type'] == 'invoice_content' || (isset($field['colspanDesc']) && $field['colspanDesc']))
-				echo ' <td style="border-bottom: 1px lightgrey dotted;" colspan="2">';
+				echo ' <td class="edit_entry_fields" colspan="2">';
 			else
-				echo ' <td style="border-bottom: 1px lightgrey dotted;">';
+				echo ' <td class="edit_entry_fields">';
 			if(isset($field['beforeChoices']))
 				echo $field['beforeChoices'];
 			switch ($field['type'])
 			{
 				
 				case 'text':
-					echo $before.'<input type="text" name="'.$field['var'].'" value="'.$field['value'].'"'.$elementid.$disabled.'>'.$after;
+					echo $before.'<input type="text" class="edit_entry'.$classes.'" name="'.$field['var'].'" value="'.$field['value'].'"'.$elementid.$disabled.'>'.$after;
 					break;
 				
 				case 'textarea':
-					echo $before.'<textarea cols="25" rows="5" name="'.$field['var'].'"'.$elementid.$disabled.'>'.$field['value'].'</textarea>'.$after;
+					echo $before.'<textarea class="edit_entry'.$classes.'" cols="75" rows="5" name="'.$field['var'].'"'.$elementid.$disabled.'>'.$field['value'].'</textarea>'.$after;
 					break;
 				
 				case 'radio':
@@ -328,7 +353,7 @@ foreach ($entry_fields as $field)
 						echo '<label><input type="radio" name="'.$field['var'].'" value="'.$choiceid.'" id="'.$field['var'].$choiceid.'"'.$disabled;
 						if ($choiceid == $field['value'])
 							echo ' checked="checked"';
-						echo '> - '.$choice.'</label><br>';
+						echo '> - <span class="edit_entry">'.$choice.'</span></label><br>';
 						if(isset($field['choice_after']) && array_key_exists($choiceid, $field['choice_after']))
 							echo $field['choice_after'][$choiceid];
 					}
@@ -336,7 +361,7 @@ foreach ($entry_fields as $field)
 					break;
 				
 				case 'select':
-					echo $before.'<select name="'.$field['var'].'"'.$onchange.$elementid.$disabled.'>';
+					echo $before.'<select class="edit_entry'.$classes.'" name="'.$field['var'].'"'.$onchange.$elementid.$disabled.'>';
 					foreach ($field['choice'] as $choiceid => $choice)
 					{
 						echo '<option value="'.$choiceid.'"';
@@ -364,11 +389,11 @@ foreach ($entry_fields as $field)
 					break;
 				
 				case 'submit':
-					echo $before.'<input type="submit" name="'.$field['var'].'" value="'.$field['name'].'"'.$elementid.$disabled.'>'.$after;
+					echo $before.'<input type="submit" class="edit_entry_submit'.$classes.'" name="'.$field['var'].'" value="'.$field['name'].'"'.$elementid.$disabled.'>'.$after;
 					break;
 				
 				case 'date':
-					echo $before.'<input type="text" name="'.$field['var'].'" value="'.date('H:i d-m-Y', $field['value']).'"'.$elementid.$disabled.'>'.$after;
+					echo $before.'<input type="text" class="edit_entry'.$classes.'" name="'.$field['var'].'" value="'.date('H:i d-m-Y', $field['value']).'"'.$elementid.$disabled.'>'.$after;
 					break;
 				
 				case 'empty':
@@ -466,13 +491,6 @@ foreach ($entry_fields as $field)
 					break;
 			}
 			echo '</td>'.chr(10);
-			if($field['type'] == 'invoice_content') {
-				
-			}
-			elseif(isset($field['desc']) && $field['desc'] != '')
-				echo ' <td style="border-bottom: 1px lightgrey dotted;">'.$field['desc'].'</td>'.chr(10);
-			elseif(!isset($field['colspanDesc']) || !$field['colspanDesc'])
-				echo ' <td style="border-bottom: 1px lightgrey dotted;">&nbsp;</td>'.chr(10);
 			echo '</tr>'.chr(10);
 		}
 	}
