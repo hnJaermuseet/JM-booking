@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 include_once("glob_inc.inc.php");
 
-if(!$login['user_invoice'])
+if(!$login['user_invoice'] && !$login['user_invoice_setready'])
 {
 	print_header($day, $month, $year, $area);
 	echo '<h1>'._('Invoice').'</h1>'.chr(10).chr(10);
@@ -42,7 +42,7 @@ if(!$login['user_invoice'])
 }
 
 
-if(isset($_GET['area_id']))
+if(isset($_GET['area_id']) && $_GET['area_id'] != '')
 {
 	$area_invoice = getArea($_GET['area_id']);
 	if(!count($area_invoice))
