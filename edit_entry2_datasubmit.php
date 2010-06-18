@@ -447,85 +447,101 @@ if(!count($form_errors))
 			$warnings[] = _('Please be advised: You have set a customer name but no customer in the database where selected. The result of this is that no customer is selected.');
 		}
 		
-		// Checking room
-		$checkroom = checkTime_Room ($time_start, $time_end, $area_id, $room_id); // $array[roomid][entryid] = entryid;
-		if(count($checkroom))
+		// Checking room, if some conditions are met
+		if(
+			$entry_add || // new entries 
+			$entry['time_start'] != $time_start || // changed starttime 
+			$entry['time_end'] != $time_end || // changed endtime
+			splittalize($entry['room_id']) != splittalize($room_id) // changed room
+		)
 		{
-			// Removing this event if we are editing
-			if(!$entry_add)
+			$checkroom = checkTime_Room ($time_start, $time_end, $area_id, $room_id); // $array[roomid][entryid] = entryid;
+			if(count($checkroom))
 			{
-				$checkroom2	= $checkroom;
-				$checkroom	= array();
-				foreach ($checkroom2 as $rid => $entries)
+				// Removing this event if we are editing
+				if(!$entry_add)
 				{
-					foreach ($entries as $thisentry)
+					$checkroom2	= $checkroom;
+					$checkroom	= array();
+					foreach ($checkroom2 as $rid => $entries)
 					{
-						if($thisentry != $entry_id)
-							$checkroom[$rid][$thisentry] = $thisentry;
+						foreach ($entries as $thisentry)
+						{
+							if($thisentry != $entry_id)
+								$checkroom[$rid][$thisentry] = $thisentry;
+						}
 					}
 				}
-			}
-			foreach ($checkroom as $rid => $entries)
-			{
-				if($rid == 0)
+				foreach ($checkroom as $rid => $entries)
 				{
-					$warning_tmp = '<b>Hele bygningen</b> er booket for: ';
-				}
-				else
-				{
-					$thisroom = getRoom ($rid);
-					if(!count($thisroom))
-						$warning_tmp = _('One of the rooms you have selected is already booked for').': ';
+					if($rid == 0)
+					{
+						$warning_tmp = '<b>Hele bygningen</b> er booket for: ';
+					}
 					else
-						$warning_tmp = '<b>'.$thisroom['room_name'].'</b>'._(' is already booked at the time you have selected for').': ';
-				}
-				
-				$i = 0;
-				$warning_tmp .= '<ul>';
-				foreach ($entries as $entryid)
-				{
-					$i++;
-					$entrytmp = getEntry($entryid);
-					if(count($entrytmp))
 					{
-						$warning_tmp .= '<li>'. iconHTML('page_white').' <i>'.$entrytmp['entry_name'].'</i> ('.
-							'<a href="entry.php?entry_id='.$entrytmp['entry_id'].'">Vis booking</a>)'.
-							'</li>';
-						//if($i != count($entries))
-						//	$warning_tmp .= ' '._('and for').' ';
+						$thisroom = getRoom ($rid);
+						if(!count($thisroom))
+							$warning_tmp = _('One of the rooms you have selected is already booked for').': ';
+						else
+							$warning_tmp = '<b>'.$thisroom['room_name'].'</b>'._(' is already booked at the time you have selected for').': ';
 					}
+					
+					$i = 0;
+					$warning_tmp .= '<ul>';
+					foreach ($entries as $entryid)
+					{
+						$i++;
+						$entrytmp = getEntry($entryid);
+						if(count($entrytmp))
+						{
+							$warning_tmp .= '<li>'. iconHTML('page_white').' <i>'.$entrytmp['entry_name'].'</i> ('.
+								'<a href="entry.php?entry_id='.$entrytmp['entry_id'].'">Vis booking</a>)'.
+								'</li>';
+							//if($i != count($entries))
+							//	$warning_tmp .= ' '._('and for').' ';
+						}
+					}
+					$warning_tmp .= '</ul>';
+					$warnings[] = $warning_tmp;
 				}
-				$warning_tmp .= '</ul>';
-				$warnings[] = $warning_tmp;
 			}
 		}
 		
-		// Checking user
-		$checkuser = checkTime_User ($time_start, $time_end, $user_assigned); // $array[userid][entryid] = entryid;
-		if(count($checkuser))
+		// Checking user, if some conditions are met
+		if(
+			$entry_add || // new entries 
+			$entry['time_start'] != $time_start || // changed starttime 
+			$entry['time_end'] != $time_end || // changed endtime
+			splittalize($entry['user_assigned']) != splittalize($user_assigned) // changed user_assigned
+		)
 		{
-			// Removing this event if we are editing
-			if(!$entry_add)
+			$checkuser = checkTime_User ($time_start, $time_end, $user_assigned); // $array[userid][entryid] = entryid;
+			if(count($checkuser))
 			{
-				$checkuser2	= $checkuser;
-				$checkuser	= array();
-				foreach ($checkuser2 as $uid => $entries)
+				// Removing this event if we are editing
+				if(!$entry_add)
 				{
-					foreach ($entries as $thisentry)
+					$checkuser2	= $checkuser;
+					$checkuser	= array();
+					foreach ($checkuser2 as $uid => $entries)
 					{
-						if($thisentry != $entry_id)
-							$checkroom[$uid][$thisentry] = $thisentry;
+						foreach ($entries as $thisentry)
+						{
+							if($thisentry != $entry_id)
+								$checkroom[$uid][$thisentry] = $thisentry;
+						}
 					}
 				}
-			}
-			
-			foreach ($checkuser as $uid => $entries)
-			{
-				$thisuser = getUser($uid);
-				if(!count($thisuser))
-					$warnings[] = _('One of the users you have selected is already booked.');
-				else
-					$warnings[] = '<b>'.$thisuser['user_name'].'</b>'._(' is already booked at the time you have selected.');
+				
+				foreach ($checkuser as $uid => $entries)
+				{
+					$thisuser = getUser($uid);
+					if(!count($thisuser))
+						$warnings[] = _('One of the users you have selected is already booked.');
+					else
+						$warnings[] = '<b>'.$thisuser['user_name'].'</b>'._(' is already booked at the time you have selected.');
+				}
 			}
 		}
 		
@@ -534,9 +550,10 @@ if(!count($form_errors))
 			$warnings[] = _('You have selected rooms from more than one area.');
 		
 		
+		// Checking for starttime in the past and too long into the future
 		if($entry_add || $entry['time_start'] != $time_start || $entry['time_end'] != $time_end)
 		{
-			// Checking for starttime in the past and too long into the future
+			// Only checked if time is changed (or its a new entry)
 			if($time_start < time())
 				$warnings[] = _('You have selected a starttime in the past.');
 			if($time_end > (time() + 364*24*60*60))
