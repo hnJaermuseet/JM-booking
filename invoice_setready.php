@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-include_once("glob_inc.inc.php");
+require "include/invoice_top.php";
 
 if(!$login['user_invoice_setready'] && !$login['user_invoice'])
 {
@@ -57,7 +57,10 @@ if(isset($_GET['return']))
 	}
 }
 else
+{
 	$return_to = 'entry.php?entry_id='.$entry['entry_id'];
+	$return = '';
+}
 
 if(isset($_GET['set_okey']))
 {
@@ -71,6 +74,8 @@ if(isset($_GET['set_okey']))
 	header('Location: '.$return_to);
 	exit();
 }
+
+$checkInvoice = checkInvoicedata($entry);
 
 $day	= date('d', $entry['time_start']);
 $month	= date('m', $entry['time_start']);
@@ -86,6 +91,7 @@ templateAssignEntry('smarty', $entry);
 templateAssignSystemvars('smarty');
 $smarty->assign('return', $return);
 $smarty->assign('return_to', $return_to);
+$smarty->assign('checkInvoice', $checkInvoice);
 $smarty->display('file:invoice_setready.tpl');
 
 ?>

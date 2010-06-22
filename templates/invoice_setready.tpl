@@ -23,13 +23,40 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 *}{* ## Klar til fakturering?? ## *}
 
-<h1>Klart til fakturering?</h1>
 
-- {iconHTML ico='tick'}<a href="invoice_setready.php?entry_id={$entry_id}&amp;set_okey=1&amp;return={$return}">Ja</a><br>
-<br>
-- {iconHTML ico='cross'}<a href="{$return_to}">Nei</a><br>
+{if $checkInvoice[0]|count || $checkInvoice[1]|count}
 
-<br><h2>Detaljer:</h2><br>
+<h1>Feil/advarsler på fakturagrunnlag</h1>
+{if $checkInvoice[0]|count}
+	<b>Feil med fakturagrunnlag:</b><br />
+	<div class="error"><ul style="padding-left: 20px; margin: 0px;">
+	{foreach from=$checkInvoice[0] item=error}<li>{$error}</li>{/foreach}
+	</ul></div>
+{/if}
+{if $checkInvoice[1]|count}
+	{if !$checkInvoice[0]|count}<br /><br />{/if}
+	<b>Advarsler p&aring; fakturagrunnlag:</b><br />
+	<div class="notice"><ul style="padding-left: 20px; margin: 0px;">
+	{foreach from=$checkInvoice[1] item=warnings}<li>{$warnings}</li>{/foreach}
+	</ul></div>
+{/if}
+
+	Siden det er <b>feil og/eller advarsler på fakturagrunnlaget</b>, så anbefales det at <b>du retter opp i disse</b>
+	
+	<br /><br />
+	<p style="font-size: 1.4em; margin: 10px;">{iconHTML ico='arrow_right'} <a href="edit_entry2.php?entry_id={$entry_id}">Endre bookingen</a></p>
+	<p style="font-size: 1.4em; margin: 10px;">{iconHTML ico='arrow_right'} <a href="entry.php?entry_id={$entry_id}">Gå tilbake til bookingen</a></p><br />
+	
+	Du kan også sette den klar til fakturering, men det blir å skyve problemene videre på noen andre<br />
+	- <a href="invoice_setready.php?entry_id={$entry_id}&amp;set_okey=1&amp;return={$return}">Sett faktureringsklar</a><br>
+	- eller <a href="{$return_to}">returnere der du kom fra</a>
+{else}
+<h1>Klar til fakturering?</h1>
+	<p style="font-size: 1.4em; margin: 10px;">{iconHTML ico='tick'} <a href="invoice_setready.php?entry_id={$entry_id}&amp;set_okey=1&amp;return={$return}">Ja</a></p>
+	<p style="font-size: 1.4em; margin: 10px;">{iconHTML ico='cross'} <a href="{$return_to}">Nei</a></p><br />
+{/if}
+
+<h2>Detaljer:</h2><br>
 <table style="border: black 1px solid;">
 {include file='invoice_fromEntry.tpl'}
 </table>

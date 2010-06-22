@@ -94,7 +94,33 @@ function entrylist_invoice_soon ($SQL)
 			
 			// Name
 			echo '  <td style="border: 1px solid black;"><a href="entry.php?entry_id='.$entry['entry_id'].'">'.
-			$entry['entry_name'].'</a></td>'.chr(10);
+			$entry['entry_name'].'</a>';
+			
+			$checkInvoice = checkInvoicedata($entry);
+			if(count($checkInvoice[0]))
+			{
+				echo '<br /><br /><b>Feil med fakturagrunnlag:</b><br />';
+				echo '<div class="error"><ul style="padding-left: 20px; margin: 0px;">';
+				foreach($checkInvoice[0] as $error)
+				{
+					echo '<li>'.$error.'</li>';
+				}
+				echo '</ul></div>';
+			}
+			if(count($checkInvoice[1]))
+			{
+				if(!count($checkInvoice[0]))
+					echo '<br /><br />';
+				echo '<b>Advarsler p&aring; fakturagrunnlag:</b><br />';
+				echo '<div class="notice"><ul style="padding-left: 20px; margin: 0px;">';
+				foreach($checkInvoice[1] as $warnings)
+				{
+					echo '<li>'.$warnings.'</li>';
+				}
+				echo '</ul></div>';
+			}
+			
+			echo '</td>'.chr(10);
 			
 			// Area
 			echo '  <td style="border: 1px solid black;">';
@@ -114,6 +140,8 @@ function entrylist_invoice_soon ($SQL)
 
 function entrylist_invoice_tobemade_ready ($SQL)
 {
+	global $area_spesific, $area_invoice;
+	
 	$Q = mysql_query($SQL.' order by `time_start`');
 	if(!mysql_num_rows($Q))
 	{
@@ -125,6 +153,13 @@ function entrylist_invoice_tobemade_ready ($SQL)
 		echo '<br>'.chr(10).chr(10);
 		
 		echo '<form action="invoice_export.php" method="get" id="invoice_export">'.chr(10).chr(10);
+		if($area_spesific)
+			echo '<input '.
+						'type="hidden" '.
+						'checked="checked" '.
+						'value="'.$area_invoice['area_id'].'" '.
+						'name="area_id"'.
+					'>';
 		
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
@@ -163,7 +198,33 @@ function entrylist_invoice_tobemade_ready ($SQL)
 			
 			// Name
 			echo '  <td style="border: 1px solid black;"><a href="entry.php?entry_id='.$entry['entry_id'].'">'.
-			$entry['entry_name'].'</a></td>'.chr(10);
+			$entry['entry_name'].'</a>';
+			
+			$checkInvoice = checkInvoicedata($entry);
+			if(count($checkInvoice[0]))
+			{
+				echo '<br /><br /><b>Feil med fakturagrunnlag:</b><br />';
+				echo '<div class="error"><ul style="padding-left: 20px; margin: 0px;">';
+				foreach($checkInvoice[0] as $error)
+				{
+					echo '<li>'.$error.'</li>';
+				}
+				echo '</ul></div>';
+			}
+			if(count($checkInvoice[1]))
+			{
+				if(!count($checkInvoice[0]))
+					echo '<br /><br />';
+				echo '<b>Advarsler p&aring; fakturagrunnlag:</b><br />';
+				echo '<div class="notice"><ul style="padding-left: 20px; margin: 0px;">';
+				foreach($checkInvoice[1] as $warnings)
+				{
+					echo '<li>'.$warnings.'</li>';
+				}
+				echo '</ul></div>';
+			}
+			
+			echo '</td>'.chr(10);
 			
 			// Area
 			echo '  <td style="border: 1px solid black;">';
@@ -246,7 +307,33 @@ function entrylist_invoice_tobemade ($SQL, $area_spesific = false)
 			
 			// Name
 			echo '  <td style="border: 1px solid black;"><a href="entry.php?entry_id='.$entry['entry_id'].'">'.
-			$entry['entry_name'].'</a></td>'.chr(10);
+			$entry['entry_name'].'</a>';
+			
+			$checkInvoice = checkInvoicedata($entry);
+			if(count($checkInvoice[0]))
+			{
+				echo '<br /><br /><b>Feil med fakturagrunnlag:</b><br />';
+				echo '<div class="error"><ul style="padding-left: 20px; margin: 0px;">';
+				foreach($checkInvoice[0] as $error)
+				{
+					echo '<li>'.$error.'</li>';
+				}
+				echo '</ul></div>';
+			}
+			if(count($checkInvoice[1]))
+			{
+				if(!count($checkInvoice[0]))
+					echo '<br /><br />';
+				echo '<b>Advarsler p&aring; fakturagrunnlag:</b><br />';
+				echo '<div class="notice"><ul style="padding-left: 20px; margin: 0px;">';
+				foreach($checkInvoice[1] as $warnings)
+				{
+					echo '<li>'.$warnings.'</li>';
+				}
+				echo '</ul></div>';
+			}
+			
+			echo '</td>'.chr(10);
 			
 			// Area
 			echo '  <td style="border: 1px solid black;">';
@@ -256,7 +343,7 @@ function entrylist_invoice_tobemade ($SQL, $area_spesific = false)
 			echo '</td>'.chr(10);
 			
 			// Invoice
-			echo '  <td style="border: 1px solid black; text-align: right;">kr '.smarty_modifier_commify($entry['faktura_belop_sum'],2,","," ").'</td>'.chr(10);
+			echo '  <td style="border: 1px solid black; text-align: right;">kr&nbsp;'.smarty_modifier_commify($entry['faktura_belop_sum'],2,",","&nbsp;").'</td>'.chr(10);
 			
 			// Set ready
 			echo '  <td style="border: 1px solid black;">';
@@ -266,7 +353,16 @@ function entrylist_invoice_tobemade ($SQL, $area_spesific = false)
 			else
 				echo '&amp;return=invoice_tobemade';
 			echo '">'.
-			' Sett faktureringsklar '.iconHTML ('arrow_right').'</a>';
+			'Sett&nbsp;faktureringsklar&nbsp;';
+			
+			if (count($checkInvoice[0])) // Errors
+				echo iconHTML ('arrow_right_red');
+			elseif (count($checkInvoice[1])) // Warnings
+				echo iconHTML ('arrow_right_yellow');
+			else // None
+				echo iconHTML ('arrow_right');
+			
+			echo '</a>';
 			echo '</td>'.chr(10);
 			
 			echo ' </tr>'.chr(10);
@@ -332,4 +428,142 @@ function entrylist_invoice_exported ($SQL)
 		}
 		echo '</table>';
 	}
+}
+
+/**
+ * Checks the invoice data an entry contains
+ * 
+ * @param array getEntry-array
+ * @return array Things that failed, [0] is errors, [1] is warnings
+ */
+function checkInvoicedata ($entry)
+{
+	$errors = array();
+	$warnings = array();
+
+	// Any invoice content?
+	if(!count($entry['invoice_content']))
+	{
+		$errors[] = 'Ingen fakturalinjer er lagt inn på bookingen. Det må være fakturalinjer for at fakturering skal kunne finne sted.';
+	}
+	else
+	{
+		$line_num = 0;
+		foreach($entry['invoice_content'] as $line)
+		{
+			$line_num++;
+			if($line['name'] == '')
+			{
+				$warnings[] = 'Fakturalinje nr '.$line_num.' har ikke beskrivelse.';
+			}
+			else
+			{
+				$text_split = explode(chr(10), $line['name']);
+				foreach($text_split as $this_text)
+				{
+					$this_text = trim($this_text);
+					if(strlen($this_text) > 50)
+					{
+						$warnings[] = 
+							'Fakturalinje nr '.$line_num.' har beskrivelse som har bredd lenger enn 50 bokstaver. '.
+							'Ved eksport blir teksten kuttet til 50 bokstaver. '.
+							'Du kan fikse dette ved å fordele teksten på to linjer i beskrivelsesfeltet.';
+					}
+				}
+			}
+			
+			// Checking amount
+			if($line['antall'] < 0)
+			{
+				$errors[] = 'Fakturalinje nr '.$line_num.' har minus i antall. Dette kan ikke eksporteres til Kommfakt. Pris per stykk kan være minus.';
+			}
+			elseif($line['antall'] == 0)
+			{
+				$warnings[] = 'Fakturalinje nr '.$line_num.' har null i antall.';
+			}
+			
+			// Checking a few export limits
+			if($line['belop_hver'] > 99999999)
+			{
+				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort beløp per stykk. Maks er 99 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved å dele opp i flere fakturalinjer.';
+			}
+			if($line['belop_sum_netto'] > 9999999999)
+			{
+				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort beløp totalt. Maks er 9999 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved å dele opp i flere fakturalinjer.';
+			}
+			if($line['antall'] > 99999999)
+			{
+				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort antall. Maks er 99 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved å dele opp i flere fakturalinjer.';
+			}
+		}
+	}
+	
+	// Checking customer
+	if($entry['customer_id'] == 0)
+	{
+		$errors[] = 'Ingen kunde er valgt. Dette m&aring; rettes.';
+	}
+	else
+	{
+		$customer = getCustomer($entry['customer_id']);
+		if(!count($customer))
+		{
+			$errors[] = 'Finner ikke kunden som er valgt. Det kan hende den er slettet. Velg en ny kunde. Dette m&aring; rettes.';
+		}
+		else
+		{
+			// We have got the customer
+			
+			if(strlen($customer['customer_name']) > 30)
+				$warnings[] = 'Kundens navn er lenger enn 30 bokstaver. Dette vil bli kuttet ned til 30 bokstaver ved eksport til Kommfakt.';
+			if(strlen($customer['customer_name']) < 1)
+				$errors[] = 'Kundens navn er ikke lagt inn på kunden. Dette går ikke og må rettes. Kunde må endres før eksport.';
+			
+			// Checking address
+			if($entry['invoice_address_id'] == 0)
+			{
+				$errors[] = 'Ingen fakturaadresse er valgt. Dette m&aring; rettes.';
+			}
+			else
+			{
+				$address = getAddress($entry['invoice_address_id']);
+				if(!count($address))
+				{
+					$errors[] = 'Finner ikke addressen som er valgt. Det kan hende den er slettet. Velg en ny adresse. Dette m&aring; rettes.';
+				}
+				else
+				{
+					// We got a address
+					if($address['address_line_1'] == $customer['customer_name'])
+					{
+						$warnings[] = 'Navnet på kunden står på første linje i adressen. Ved eksport til Kommfakt, så vil det da stå kundens navn to ganger.';
+					}
+					if(strlen($address['address_line_1']) > 30)
+					{
+						$warnings[] = 'Adresselinje nr 1 er mer enn 30 bokstaver. Dette vil bli kuttet ned til 30 bokstaver ved eksport til Kommfakt.';
+					}
+					if(strlen($address['address_line_2']) > 30)
+					{
+						$warnings[] = 'Adresselinje nr 2 er mer enn 30 bokstaver. Dette vil bli kuttet ned til 30 bokstaver ved eksport til Kommfakt.';
+					}
+					if(
+						$address['address_line_3'] != '' ||
+						$address['address_line_4'] != '' ||
+						$address['address_line_5'] != '' ||
+						//$address['address_line_6'] != '' ||
+						$address['address_line_7'] != ''
+					)
+					{
+						$warnings[] = 'Det er flere enn 2 adresselinjer. Ved eksport til Kommfakt, så vil dette bli kuttet ned til 2 linjer.';
+					}
+					if($address['address_postalnum'] == '')
+					{
+						$warnings[] = 'Det er ikke valgt noe postnummer/poststed for adressen.';
+					}
+				}
+			}
+		}
+	}
+	
+	return array($errors, $warnings);
 }

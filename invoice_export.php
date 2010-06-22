@@ -125,13 +125,59 @@ if(!isset($_GET['entry_id']) || !is_array($_GET['entry_id']))
 	exit;
 }
 
+$entry_errors = false;
 $entries = array();
 foreach($_GET['entry_id'] as $id)
 {
 	$tmp_entry = getEntry($id);
 	$id = $tmp_entry['entry_id'];
 	$entries[$id] = $tmp_entry;
+	
+	
+	$checkInvoice = checkInvoicedata($tmp_entry);
+	
+	if(count($checkInvoice[0]))
+	{
+		if(!$entry_errors)
+		{
+			$section = 'tobemade_ready';
+			include "include/invoice_menu.php";
+			$entry_errors = true;
+			
+			echo '<span class="hiddenprint">';
+			$Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
+			$num_area = mysql_num_rows($Q_area);
+			
+			$counter_area = 0;
+			echo '<span style="font-size: 0.8em;">Filtrer p&aring; bygg: ';
+			while($R = mysql_fetch_assoc($Q_area))
+			{
+				$counter_area++;
+				if($area_spesific && $area_invoice['area_id'] == $R['area_id'])
+					echo '<b>';
+				echo '<a href="'.$_SERVER['PHP_SELF'].'?area_id='.$R['area_id'].'">'.$R['area_name'].'</a>';
+				if($area_spesific && $area_invoice['area_id'] == $R['area_id'])
+					echo '</b>';
+				if($counter_area != $num_area)
+				echo ' -:- ';
+			}
+			echo '<br /><br /></span>';
+		}
+		
+		echo '<h1>Booking '.
+		'<a href="entry.php?entry_id='.$id.'">'.$id.'</a>'.
+		' har feil med fakturagrunnlaget</h1>';
+		echo '<div class="error" style="width: 500px;"><ul style="padding-left: 20px; margin: 0px;">';
+		foreach($checkInvoice[0] as $error)
+		{
+			echo '<li>'.$error.'</li>';
+		}
+		echo '</ul></div>';
+	}
 }
+
+if($entry_errors)
+	exit();
 
 function integerToString ($length, $int)
 {
