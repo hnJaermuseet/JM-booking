@@ -115,7 +115,7 @@ if(isset($_GET['editor']))
 		$editor->makeNewField('user_access_programadmin', 'Tilgang til å endre faste program', 'boolean');
 		$editor->makeNewField('user_access_templateadmin', 'Tilgang til å endre på systemmaler', 'boolean');
 		$editor->makeNewField('user_invoice_setready', 'Tilgang til å sette bookinger faktureringsklar', 'boolean');
-		$editor->makeNewField('user_invoice', 'Tilgang til eksport av faktura til Komfakt', 'boolean');
+		$editor->makeNewField('user_invoice', 'Tilgang til eksport av faktura til Kommfakt', 'boolean');
 	}
 	
 	//$editor->makeNewField('user_area_default', _('Default area'), 'select', array('defaultValue' => $area['area_id']));

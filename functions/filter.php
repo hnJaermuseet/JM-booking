@@ -126,7 +126,7 @@ function filterMakeAlternatives () {
 	$alternatives['invoice_status']['choice'][0] = _('Not to be made');
 	$alternatives['invoice_status']['choice'][1] = _('To be made');
 	$alternatives['invoice_status']['choice'][2] = _('Ready to be made');
-	$alternatives['invoice_status']['choice'][3] = 'Eksportert til Komfakt';
+	$alternatives['invoice_status']['choice'][3] = 'Eksportert til Kommfakt';
 	
 }
 

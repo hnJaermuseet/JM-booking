@@ -279,7 +279,7 @@ if(!$entry_add && $entry['invoice_status'] > 1)
 	if($entry['invoice_status'] == '2')
 		echo 'satt faktureringsklar';
 	else
-		echo 'eksport til Komfakt';
+		echo 'eksport til Kommfakt';
 	echo '.<br>'.
 	'<span style="font-size: 16px;">V&aelig;r obs på hva du gj&oslash;r.</span>'.chr(10);
 	
