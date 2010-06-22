@@ -175,29 +175,6 @@ function authValidateUser($user, $pass) {
 	}
 }
 
-/* authGetUserLevel($user)
- * 
- * Determines the users access level
- * 
- * $user - The user name
- * $user = userid, earlier was it the user name
- *
- * Returns:
- *   The users access level
- */
-function authGetUserLevel($user_id) {
-	// User not logged in, user level '0'
-	if(!isset($user_id) || !is_numeric($user_id))
-		return 0;
-	
-	// Getting userlevel from SQL
-	$Q_userlevel = mysql_query("select user_accesslevel from `users` where user_id = '".$user_id."'");
-	if(!mysql_num_rows($Q_userlevel))
-		return 0;
-	else
-		return mysql_result($Q_userlevel, 0, 'user_accesslevel');
-}
-
 function getUserName(){
     if(isset($_SESSION['WEBAUTH_VALID'])){
         return $_SESSION['WEBAUTH_USER'];

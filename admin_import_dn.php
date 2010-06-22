@@ -69,7 +69,7 @@ if(!count($area))
 
 if(isset($_GET['editor_kat']))
 {
-	if(authGetUserLevel(getUserID()) < $user_level)
+	if(!$login['user_access_importdn'])
 	{
 		showAccessDenied($day, $month, $year, $area, true);
 		exit ();
@@ -137,7 +137,7 @@ if(isset($_GET['editor_kat']))
 }
 elseif(isset($_GET['editor_varereg']))
 {
-	if(authGetUserLevel(getUserID()) < $user_level)
+	if(!$login['user_access_importdn'])
 	{
 		showAccessDenied($day, $month, $year, $area, true);
 		exit ();
@@ -281,7 +281,7 @@ else
 		'</a> på wikien for informasjon om import fra Datanova kasseapparat.';
 	
 	echo '<h3>Kategorier (felles for hele Jærmuseet)</h3>'.chr(10);
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_importdn'])
 		echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_kat=1">'.
 			'Ny kategori</a><br />'.chr(10);
 	
@@ -296,7 +296,7 @@ else
 		echo '		<th>'._('ID').'</th>'.chr(10);
 		echo '		<th>Kategorinavn</th>'.chr(10);
 		//echo '		<th>'._('Area').'</th>'.chr(10);
-		if(authGetUserLevel(getUserID()) >= $user_level)
+		if($login['user_access_importdn'])
 			echo '		<th>'._('Options').'</th>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 		while($ROW = mysql_fetch_assoc($QUERY))
@@ -312,7 +312,7 @@ else
 			//else
 			//	echo mysql_result($Q_area, 0, 'area_name');
 			//echo '</td>'.chr(10);
-			if(authGetUserLevel(getUserID()) >= $user_level)
+			if($login['user_access_importdn'])
 				echo '		<td><a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_kat=1&amp;id='.$ROW['kat_id'].'">'._('Edit').'</td>'.chr(10);
 			echo '	</tr>'.chr(10).chr(10);
 		}
@@ -325,7 +325,7 @@ else
 	echo 'Dette er varer fra kasseapparatet (Datanova) som bookingsystemet kjenner til. '.
 		'Hvis det ikke står noe i kategori, så blir kommer det advarsel på varen ved import.<br />';
 	
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_importdn'])
 		echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_varereg=1">'.
 			'Ny vare</a>'.chr(10);
 	
@@ -339,7 +339,7 @@ else
 		echo '		<th>Kategori</th>'.chr(10);
 		echo '		<th>B / V</th>'.chr(10);
 		echo '		<th>'._('Area').'</th>'.chr(10);
-		if(authGetUserLevel(getUserID()) >= $user_level)
+		if($login['user_access_importdn'])
 			echo '		<th>'._('Options').'</th>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 		while($ROW = mysql_fetch_assoc($QUERY))
@@ -368,7 +368,7 @@ else
 			else
 				echo mysql_result($Q_area, 0, 'area_name');
 			echo '</td>'.chr(10);
-			if(authGetUserLevel(getUserID()) >= $user_level)
+			if($login['user_access_importdn'])
 				echo '		<td><a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_varereg=1&amp;id='.$ROW['vare_nr'].'">'._('Edit').'</td>'.chr(10);
 			echo '	</tr>'.chr(10).chr(10);
 		}

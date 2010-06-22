@@ -31,7 +31,7 @@ $section = 'entry_type';
 
 if(isset($_GET['editor']))
 {
-	if(authGetUserLevel(getUserID()) < $user_level)
+	if(!$login['user_access_entryadmin'])
 	{
 		showAccessDenied($day, $month, $year, $area, true);
 		exit ();
@@ -200,7 +200,7 @@ else
 	echo '<h2>Bookingtyper</h2>'.chr(10).chr(10);
 	$Q_programs = mysql_query("select * from `entry_type` order by entry_type_name");
 	
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_entryadmin'])
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.
 		iconHTML('page_white_stack_add').' '._('New entrytype').'</a><br><br>'.chr(10);
 		
@@ -211,7 +211,7 @@ else
 	echo '		<th>'._('Entrytype').'</th>'.chr(10);
 	echo '		<th>'._('Short name').'</th>'.chr(10);
 	echo '		<th>Automatisk vedlegg ved bekreftelse</th>'.chr(10);
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_entryadmin'])
 		echo '		<th>'._('Options').'</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
 	while($ROW = mysql_fetch_assoc($Q_programs))
@@ -268,7 +268,7 @@ else
 		
 		
 		echo '		<td>';
-		if(authGetUserLevel(getUserID()) >= $user_level)
+		if($login['user_access_entryadmin'])
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$ROW['entry_type_id'].'">'.
 			iconHTML('page_white_edit').' '._('Edit').' -:- ';
 		

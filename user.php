@@ -49,6 +49,14 @@ if (!count($user))
 print_header($day, $month, $year, $area);
 
 echo '<h1>'._('Viewing user details').'</h1>'.chr(10).chr(10);
+
+if($login['user_access_useredit'] || $login['user_id'] == $user['user_id'])
+{
+	echo '<a href="admin_user2.php?editor=1&amp;id='.$user['user_id'].'">'.
+		iconHTML('user_edit').
+		' Endre bruker</a><br /><br />'.chr(10).chr(10);
+}
+
 echo '<b>'._('UserID').':</b> '.$user['user_id'].'<br>'.chr(10);
 echo '<b>'._('Username').':</b> '.$user['user_name'].'<br>'.chr(10);
 echo '<b>'._('Short username').':</b> '.$user['user_name_short'].'<br>'.chr(10);

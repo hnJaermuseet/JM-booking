@@ -31,7 +31,7 @@ $section = 'programs';
 
 if(isset($_GET['editor']))
 {
-	if(authGetUserLevel(getUserID()) < $user_level)
+	if(!$login['user_access_programadmin'])
 	{
 		showAccessDenied($day, $month, $year, $area, true);
 		exit ();
@@ -193,7 +193,7 @@ else
 	echo '<h2>'._('Fixed programs').'</h2>'.chr(10).chr(10);
 	$Q_programs = mysql_query("select * from `programs` order by program_name");
 	
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_programadmin'])
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.
 		iconHTML('package_add').' '._('New fixed program').'</a><br><br>'.chr(10);
 	
@@ -244,7 +244,7 @@ else
 		
 		// Options
 		echo '		<td>';
-		if(authGetUserLevel(getUserID()) >= $user_level)
+		if($login['user_access_programadmin'])
 		{
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$R_program['program_id'].'">'.
 				iconHTML('package_go').' '.

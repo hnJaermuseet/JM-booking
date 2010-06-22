@@ -29,54 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // include the authentification wrappers
 include "auth_$auth[type].inc.php";
 
-/* getAuthorised($user, $pass, $level)
- * 
- * Check to see if the user name/password is valid
- * 
- * $userid  - The user ID
- * $pass  - The users password
- * $level - The access level required
- * 
- * Returns:
- *   0        - The user does not have the required access
- *   non-zero - The user has the required access
- */
-function getAuthorised($userid, $pass, $level){
-	global $auth;
-	
-	echo '<h1>DONT USE THIS FUNCTION!</h1>';
-	return 0; // This function is disabled
-	
-	if(!authValidateUser($userid, $pass))
-		return 0;
-	
-	return authGetUserLevel($userid) >= $level;
-}
-
-/* getWritable($creator, $user)
- * 
- * Determines if a user is able to modify an entry
- *
- * $creator - The creator of the entry
- * $user    - Who wants to modify it
- *
- * Returns:
- *   0        - The user does not have the required access
- *   non-zero - The user has the required access
- */
-function getWritable($creator, $user){
-	global $auth;
-	// Always allowed to modify your own stuff
-	if($creator == $user)
-		return 1;
-	
-	if(authGetUserLevel($user, $auth["admin"]) >= 2)
-		return 1;
-	
-	// Unathorised access
-	return 0;
-}
-
 /* showAccessDenied()
  * 
  * Displays an appropate message when access has been denied
@@ -103,4 +55,3 @@ function showAccessDenied($day, $month, $year, $area, $admin)
 	'</HTML>';
 	exit();
 }
-?>

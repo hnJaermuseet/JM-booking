@@ -45,7 +45,7 @@ if(!count($area))
 
 if(isset($_GET['editor']))
 {
-	if(authGetUserLevel(getUserID()) < $user_level)
+	if(!$login['user_access_areaadmin'])
 	{
 		showAccessDenied($day, $month, $year, $area, true);
 		exit ();
@@ -112,7 +112,7 @@ else
 	echo '<h2>'._('Rooms for').' '.$area['area_name'].'</h2>'.chr(10).chr(10);
 	$QUERY = mysql_query("select * from `mrbs_room` where area_id = '".$area['area_id']."' order by room_name");
 	
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_areaadmin'])
 		echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor=1">'._('New room').'</a><br><br>'.chr(10);
 	
 	echo '<table class="prettytable">'.chr(10).chr(10);
@@ -120,7 +120,7 @@ else
 	echo '		<th>'._('ID').'</th>'.chr(10);
 	echo '		<th>'._('Room name').'</th>'.chr(10);
 	echo '		<th>'._('Area').'</th>'.chr(10);
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_areaadmin'])
 		echo '		<th>'._('Options').'</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
 	while($ROW = mysql_fetch_assoc($QUERY))
@@ -135,7 +135,7 @@ else
 		else
 			echo mysql_result($Q_area, 0, 'area_name');
 		echo '</td>'.chr(10);
-		if(authGetUserLevel(getUserID()) >= $user_level)
+		if($login['user_access_areaadmin'])
 			echo '		<td><a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor=1&amp;id='.$ROW['id'].'">'._('Edit').'</td>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 	}

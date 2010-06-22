@@ -67,7 +67,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	if(isset($_POST['group_add_user']) && is_numeric($_POST['group_add_user']))
 	{
 		// Adding a user
-		if(authGetUserLevel(getUserID()) < $user_level)
+		if(!$login['user_access_useredit'])
 		{
 			showAccessDenied($day, $month, $year, $area, true);
 			exit ();
@@ -93,7 +93,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	if(isset($_GET['group_del_user']) && is_numeric($_GET['group_del_user']))
 	{
 		// Deleting a user
-		if(authGetUserLevel(getUserID()) < $user_level)
+		if(!$login['user_access_useredit'])
 		{
 			showAccessDenied($day, $month, $year, $area, true);
 			exit ();
@@ -115,7 +115,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	echo _('Users').': '.count($gusers1).'<br><br>'.chr(10);
 	echo '<b>'._('Add user to group').':</b><br>'.chr(10);
 	
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_useredit'])
 	{
 		echo '<form action="admin_group.php?gid='.$gid.'" method="post">'.chr(10);
 		echo '<input type="text" name="group_add_user">'.chr(10);
@@ -132,7 +132,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	{
 		echo '<li><a href="user.php?user_id='.$user_id.'">'.$user_name.'</a>';
 		
-		if(authGetUserLevel(getUserID()) >= $user_level)
+		if($login['user_access_useredit'])
 			echo ' (<a href="admin_group.php?gid='.$gid.'&amp;group_del_user='.$user_id.'">'._('Remove user from group').'</a>)';
 		
 		echo '</li>'.chr(10);
@@ -143,7 +143,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 elseif(isset($_POST['add']))
 {
 	// Adding
-	if(authGetUserLevel(getUserID()) < $user_level)
+	if(!$login['user_access_useredit'])
 	{
 		showAccessDenied($day, $month, $year, $area, true);
 		exit ();
@@ -163,7 +163,7 @@ else
 	// Add
 	echo '<form action="admin_group.php" method="post">'.chr(10);
 	echo '<b>'._('Add group').'</b><br>'.chr(10);
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_useredit'])
 	{
 		echo '<input type="text" name="add"><br>'.chr(10);
 		echo '<input type="submit" value="'._('Add').'">'.chr(10);

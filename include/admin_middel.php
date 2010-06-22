@@ -35,7 +35,7 @@ print_header($day, $month, $year, $area);
 //layout
 echo '<h2>'._("Administration").'</h2>'.chr(10);
 
-echo '<a href="admin_user.php"';
+echo '<a href="admin_user2.php"';
 if($section=="users") echo "style='color:red'";
 echo '>'._('Users').'</a> -:- ';
 

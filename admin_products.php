@@ -31,7 +31,7 @@ $section = 'products';
 
 if(isset($_GET['editor']))
 {
-	if(authGetUserLevel(getUserID()) < $user_level)
+	if(!$login['user_access_productsadmin'])
 	{
 		showAccessDenied($day, $month, $year, $area, true);
 		exit ();
@@ -108,7 +108,7 @@ else
 	echo '<h2>Produktregister</h2>'.chr(10).chr(10);
 	$Q_products = mysql_query("select * from `products` order by area_id,product_name");
 	
-	if(authGetUserLevel(getUserID()) >= $user_level)
+	if($login['user_access_productsadmin'])
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.
 		iconHTML('package_add').' Nytt produkt</a><br><br>'.chr(10);
 	else
@@ -158,7 +158,7 @@ else
 		
 		// Options
 		echo '		<td>';
-		if(authGetUserLevel(getUserID()) >= $user_level)
+		if($login['user_access_productsadmin'])
 		{
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$R_product['product_id'].'">'.
 				iconHTML('package_go').' '.

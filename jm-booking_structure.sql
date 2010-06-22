@@ -590,3 +590,18 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `entry` ADD `invoice_exported_time` INT NOT NULL AFTER `invoice_email` ;
 DROP TABLE `invoice` , `invoice_log` ;
+
+
+--
+-- Database upgrades - 22.06.2010
+-- Users accesslevel is not longer in use
+--
+ALTER TABLE `users` ADD `user_access_useredit` BOOL NOT NULL DEFAULT '0' AFTER `user_areas` ,
+ADD `user_access_changerights` BOOL NOT NULL DEFAULT '0' AFTER `user_access_useredit` ;
+
+ALTER TABLE `users` ADD `user_access_areaadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_useredit`  ,
+ADD `user_access_entrytypeadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_areaadmin` ,
+ADD `user_access_importdn` BOOL NOT NULL DEFAULT '0' AFTER `user_access_entrytypeadmin` ,
+ADD `user_access_productsadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_importdn` ,
+ADD `user_access_programadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_productsadmin` ,
+ADD `user_access_templateadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_programadmin` ;
