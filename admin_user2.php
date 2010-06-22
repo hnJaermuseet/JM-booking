@@ -99,7 +99,7 @@ if(isset($_GET['editor']))
 	$editor->makeNewField('user_password', _('Password').'*', 'password', array('defaultValue' => 'NoT_jEt_sEt', 'noDB' => true));
 	$editor->setFieldProcessor ('user_password', 'password');
 	$editor->setFieldChecker ('user_password', 'password');
-	$editor->makeNewField('user_name', _('Username'), 'text');
+	$editor->makeNewField('user_name', 'Navn', 'text');
 	$editor->makeNewField('user_email', _('E-mail'), 'text');
 	$editor->makeNewField('user_phone', _('Phone'), 'text');
 	$editor->makeNewField('user_position', 'Stilling', 'text');
