@@ -277,7 +277,7 @@ function entrylist_invoice_tobemade ($SQL, $area_spesific = false)
 
 function entrylist_invoice_exported ($SQL)
 {
-	$Q = mysql_query($SQL.' order by `time_start`');
+	$Q = mysql_query($SQL.' order by `invoice_exported_time`');
 	if(!mysql_num_rows($Q))
 	{
 		echo _('No entries found.');
@@ -288,6 +288,7 @@ function entrylist_invoice_exported ($SQL)
 		echo '<br>'.chr(10).chr(10);
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>Eksportert</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Arrangementsdato</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>'._('Name').'</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>'._('Area').'</b></td>'.chr(10);
@@ -298,6 +299,9 @@ function entrylist_invoice_exported ($SQL)
 			$entry = getEntry($R['entry_id']);
 			
 			echo ' <tr>'.chr(10);
+			
+			// invoice_exported_time
+			echo '  <td style="border: 1px solid black;">'.date('H:i d.m.Y', $entry['invoice_exported_time']).'</td>'.chr(10);
 			
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
