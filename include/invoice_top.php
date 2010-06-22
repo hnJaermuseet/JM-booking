@@ -202,7 +202,7 @@ function entrylist_invoice_tobemade_ready ($SQL)
 		echo '<div style="font-size: 1.6em; margin-top: 20px; margin-left: 10px;">'.
 		'<a href="#" id="invoice_export_submit">'.
 		'<img src="img/Crystal_Clear_action_db_comit.png" style="border: 0px solid black;" height="32"> '.
-		'Eksporter til Komfakt'.
+		'Eksporter til Kommfakt'.
 		'</a></div>';
 		
 		echo '</form>';
