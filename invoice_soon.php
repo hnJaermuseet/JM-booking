@@ -61,10 +61,10 @@ else
 	while($R = mysql_fetch_assoc($Q_area))
 	{
 		$counter_area++;
-		if($area_invoice['area_id'] == $R['area_id'])
+		if($area_spesific && $area_invoice['area_id'] == $R['area_id'])
 			echo '<b>';
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?area_id='.$R['area_id'].'">'.$R['area_name'].'</a>';
-		if($area_invoice['area_id'] == $R['area_id'])
+		if($area_spesific && $area_invoice['area_id'] == $R['area_id'])
 			echo '</b>';
 		if($counter_area != $num_area)
 		echo ' -:- ';

@@ -306,7 +306,8 @@ foreach ($entry_fields as $field)
 		if(isset($field['disabled']) && $field['disabled'])	$disabled = ' disabled="disabled"';
 		if(isset($field['before']))							$before = $field['before'];
 		if(isset($field['after']))							$after = $field['after'];
-		if(count($field['class']))                          $classes = ' '.implode($field['class']);
+		if(isset($field['class']) && count($field['class']))
+			$classes = ' '.implode($field['class']);
 		
 		// Vertical alignment
 		if($field['type'] != 'radio' && $field['type'] != 'checkbox')
