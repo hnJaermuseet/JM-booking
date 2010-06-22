@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 require "include/invoice_top.php";
 
 /*
- * Export of invoice data to Visma - Komfakt
+ * Export of invoice data to Visma - Unique Kommfakt
  * 
  * Input: entry_id[], entry_id[], etc
  */
@@ -135,7 +135,7 @@ foreach($_GET['entry_id'] as $id)
 
 function integerToString ($length, $int)
 {
-	while($length >= strlen($int))
+	while($length > strlen($int))
 	{
 		$int = "0".$int;
 	}
@@ -147,9 +147,9 @@ function stringToString ($length, $string, $cut = false)
 	if($cut && strlen($string) > $length)
 		$string = substr($string, 0, $length);
 	
-	while($length >= strlen($string))
+	while($length > strlen($string))
 	{
-		$string = " ".$string;
+		$string = $string." ";
 	}
 	return $string;
 }
@@ -189,8 +189,8 @@ function invoice_export_invoiceheading (
 	$customer_adr2, // max 30 characters
 	$customer_adr_postalnum,
 	$payment_type, // BG or PG
-	$oppdragsgivernummber, // Must be created in Komfakt
-	$product_id, // Must be created in Komfakt
+	$oppdragsgivernummber, // Must be created in Kommfakt
+	$product_id, // Must be created in Kommfakt
 	// $product_counter
 	$product_topay_each,
 	$product_amount,
@@ -223,11 +223,11 @@ function invoice_export_invoiceheading (
 	$the_text .= stringToString(2, $payment_type, true);
 	
 	// Oppdragsgivernummer, character 110-112 - length 3: using 0
-	// Must exist in Komfakt
+	// Must exist in Kommfakt
 	$the_text .= integerToString(3, $oppdragsgivernummber);
 	
 	// Product number, character 113-116 - length 4: using 0
-	// Must exist in Komfakt
+	// Must exist in Kommfakt
 	$the_text .= integerToString(4, $product_id);
 	
 	// Product counter, character 117-118 - length 2: using ???
@@ -237,16 +237,25 @@ function invoice_export_invoiceheading (
 	$the_text .= integerToString(2, $product_counter[$customer_id.'-'.$product_id]);
 	
 	// Product price topay, character 119-127 - length 9: using product_topay_each
-	$the_text .= integerToString(9, $product_topay_each);
+	$product_topay_each = (int)($product_topay_each*100);
+	if($product_topay_each < 0)
+		$the_text .= integerToString(9, (-$product_topay_each).'-');
+	else
+		$the_text .= integerToString(9, $product_topay_each);
 	
 	// Product amount, character 128-136 - length 9: using product_amount
-	$the_text .= integerToString(9, $product_amount);
+	if($product_amount < 0)
+	{
+		echo 'Antall av en varen er minus. Det g&aring;r ikke.';
+		exit();
+	}
+	$the_text .= integerToString(9, (int)($product_amount*100));
 	
 	// Product topay total, character 137-147 - length 11: using product_topay_total
-	$the_text .= integerToString(11, $product_topay_total);
+	$the_text .= integerToString(11, (int)($product_topay_total*100));
 	
 	// Saksnummer, character 148-163 - length 16: not in use
-	$the_text .= integerToString(16, $saksnummer);
+	$the_text .= stringToString(16, $saksnummer);
 	
 	// End of line
 	$the_text .= chr(10);
@@ -271,11 +280,11 @@ function invoice_export_invoicetextline (
 	$the_text .= integerToString(11, $customer_id);
 	
 	// Oppdragsgivernummer, character 014-016 - length 3: using 0
-	// Must exist in Komfakt
+	// Must exist in Kommfakt
 	$the_text .= integerToString(3, $oppdragsgivernummer);
 	
 	// Product number, character 017-020 - length 4: using 0
-	// Must exist in Komfakt
+	// Must exist in Kommfakt
 	$the_text .= integerToString(4, $product_id);
 	
 	// Product counter, character 021-022 - length 2: using ???
