@@ -403,7 +403,7 @@ foreach($entries as $entry)
 			0,
 			$line['belop_hver'],
 			$line['antall'],
-			$line['belop_sum'],
+			$line['belop_sum_netto'],
 			0
 		);
 		
