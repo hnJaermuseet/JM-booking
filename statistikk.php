@@ -212,11 +212,11 @@ echo '</tr><tr>';
 echo '<td style="border: 1px solid black; padding: 5px;">
 <input type="checkbox" name="num_person_count" value="1" checked="checked"> <b>De som skal telles i booking</b>';
 
-// Bygg
-$Q_bygg = mysql_query("select id as area_id, area_name from `mrbs_area` order by area_name");
-echo '<br><br><b>Bygg:</b><br><select name="area_id">';
+// Area
+$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by area_name");
+echo '<br><br><b>'._('Area').':</b><br><select name="area_id">';
 echo '<option value="0">Alle anleggene</option>';
-while ($R = mysql_fetch_assoc($Q_bygg)) {
+while ($R = mysql_fetch_assoc($Q_area)) {
 	echo '<option value="'.$R['area_id'].'"';
 	if(($area == '' || $area == 0) && $R['area_name'] == 'Vitenfabrikken')
 		echo ' selected="selected"';

@@ -57,7 +57,7 @@ else
 	$num_area = mysql_num_rows($Q_area);
 	
 	$counter_area = 0;
-	echo '<span style="font-size: 0.8em;">Filtrer p&aring; bygg: ';
+	echo '<span style="font-size: 0.8em;">Filtrer p&aring; avdeling: ';
 	while($R = mysql_fetch_assoc($Q_area))
 	{
 		$counter_area++;

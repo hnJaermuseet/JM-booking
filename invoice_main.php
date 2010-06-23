@@ -36,7 +36,7 @@ $Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by a
 
 echo '<table class="prettytable">'.chr(10);
 echo '	<tr>'.chr(10);
-echo '		<th>Bygg</th>'.chr(10);
+echo '		<th>'._('Area').'</th>'.chr(10);
 echo '		<th>Ikke gjennomf&oslash;rt</th>'.chr(10);
 echo '		<th>Ikke klargjort</th>'.chr(10);
 echo '		<th>Klar til eksportering</th>'.chr(10);

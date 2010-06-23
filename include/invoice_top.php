@@ -47,7 +47,7 @@ if(isset($_GET['area_id']) && $_GET['area_id'] != '')
 	$area_invoice = getArea($_GET['area_id']);
 	if(!count($area_invoice))
 	{
-		echo 'Finner ikke bygget du ville ha data fra.';
+		echo _('Can\'t find the area you want data from.');
 		exit;
 	}
 	

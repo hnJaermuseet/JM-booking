@@ -108,7 +108,7 @@ if(isset($_GET['editor']))
 	{
 		$editor->makeNewField('user_access_changerights', 'Tilgang til å endre brukeres rettigheter', 'boolean');
 		$editor->makeNewField('user_access_useredit', 'Tilgang til å endre brukere', 'boolean');
-		$editor->makeNewField('user_access_areaadmin', 'Tilgang til å endre bygg og rom', 'boolean');
+		$editor->makeNewField('user_access_areaadmin', _('Access to edit area and room'), 'boolean');
 		$editor->makeNewField('user_access_entrytypeadmin', 'Tilgang til å endre bookingtyper', 'boolean');
 		$editor->makeNewField('user_access_importdn', 'Tilgang til å importere tall fra Datanova kassesystem', 'boolean');
 		$editor->makeNewField('user_access_productsadmin', 'Tilgang til å endre i produktsregister', 'boolean');
@@ -119,7 +119,7 @@ if(isset($_GET['editor']))
 	}
 	
 	//$editor->makeNewField('user_area_default', _('Default area'), 'select', array('defaultValue' => $area['area_id']));
-	$editor->makeNewField('user_area_default', 'Standard bygg', 'select');
+	$editor->makeNewField('user_area_default', _('Default area'), 'select');
 	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
 	while($R_area = mysql_fetch_assoc($Q_area))
 		$editor->addChoice('user_area_default', $R_area['area_id'], $R_area['area_name']);
@@ -227,7 +227,7 @@ else
 				$area_user = getArea($user['user_area_default']);
 				if(!count($area_user))
 					$area_user['area_name'] = 'IKKE FUNNET'; 
-				echo 'Standard bygg: '.$area_user['area_name'];
+				echo _('Default area').': '.$area_user['area_name'];
 				'</div></td>'.chr(10);
 			
 			echo '		<td>';
@@ -334,7 +334,7 @@ else
 		echo '<ul>'.
 			'<li>1, Rettighet til å administrere brukeres rettigheter</li>'.
 			'<li>2, Rettighet til å administrere brukere</li>'.
-			'<li>3, Rettighet til å endre på bygg og rom</li>'.
+			'<li>3, Rettighet til å endre på avdeling og rom</li>'.
 			'<li>4, Rettighet til å endre på bookingtyper</li>'.
 			'<li>5, Rettighet til å importere data fra Datanovas kassesystem</li>'.
 			'<li>6, Rettighet til å endre vareregisteret</li>'.

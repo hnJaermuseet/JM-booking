@@ -76,7 +76,7 @@ if(isset($_GET['att_id']))
 			if(!count($conArea))
 			{
 				include "include/admin_middel.php";
-				templateError('Fant ikke bygget du prøvde å koble til vedlegg nr '.$att['att_id']);
+				templateError('Fant ikke avdelingen du prøvde å koble til vedlegg nr '.$att['att_id']);
 				exit();
 			}
 			

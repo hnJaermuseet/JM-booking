@@ -201,7 +201,7 @@ elseif(isset($_GET['editor_varereg']))
 		array('defaultValue' => $vare_nr));
 	}
 	
-	$editor->makeNewField('area_id', 'Bygg', 'hidden', array('defaultValue' => $area['area_id']));
+	$editor->makeNewField('area_id', _('Area'), 'hidden', array('defaultValue' => $area['area_id']));
 	
 	$editor->makeNewField('navn', 'Navn på vare i Datanova kasseapparat', 'text',
 		array('defaultValue' => $vare_navn));
@@ -248,7 +248,7 @@ elseif(isset($_GET['editor_varereg']))
 					include "include/admin_middel.php";
 					echo '<h1>Feil ved import</h1>';
 					echo '<div class="error">'.
-						'Vare med dette varenret for dette bygget eksiterer allerede.'.
+						'Vare med dette varenret for denne avdelingen eksiterer allerede.'.
 						'</div>';
 				}
 				else

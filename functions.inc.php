@@ -1484,7 +1484,7 @@ function getAttachment($id, $getAll = false)
 					{
 						$area = getArea($program['area_id']);
 						if(!count($area))
-							$area = array('area_name' => 'UKJENT BYGG');
+							$area = array('area_name' => _('UNKNOWN AREA'));
 						
 						$att['connections'][] = array(
 								'type' => 'Fast program',
@@ -1499,7 +1499,7 @@ function getAttachment($id, $getAll = false)
 				{
 					$area = getArea($R['area_id']);
 					if(!count($area))
-						$area = array('area_name' => 'UKJENT BYGG');
+						$area = array('area_name' => _('UNKNOWN AREA'));
 					
 					$entry_type = getEntryType($R['entry_type_id']);
 					if(count($entry_type))

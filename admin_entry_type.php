@@ -97,7 +97,7 @@ elseif(isset($_GET['entry_type_id']) && isset($_GET['area_id']))
 	$area = getArea($_GET['area_id']);
 	if(!count($area))
 	{
-		echo 'Finner ikke bygget.';
+		echo _('Can\'t find the area.');
 		exit();
 	}
 	
