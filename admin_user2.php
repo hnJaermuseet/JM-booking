@@ -95,7 +95,19 @@ if(isset($_GET['editor']))
 	
 	$editor->setDBFieldID('user_id');
 	$editor->showID (TRUE);
-	$editor->makeNewField('user_name_short', 'Innloggingsnavn / initialer', 'text');
+	
+	// Login name, only for people with access to editing users can change this
+	if(!$login['user_access_useredit'])
+		$user_name_short_txt = ', kan ikke endres av deg';
+	else
+		$user_name_short_txt = '';
+	$editor->makeNewField('user_name_short', 'Innloggingsnavn / initialer'.$user_name_short_txt, 'text');
+	if(!$login['user_access_useredit'])
+	{
+		$editor->vars['user_name_short']['disabled'] = true;
+		$editor->vars['user_name_short']['DBQueryPerform'] = false;
+	}
+	
 	$editor->makeNewField('user_password', _('Password').'*', 'password', array('defaultValue' => 'NoT_jEt_sEt', 'noDB' => true));
 	$editor->setFieldProcessor ('user_password', 'password');
 	$editor->setFieldChecker ('user_password', 'password');
