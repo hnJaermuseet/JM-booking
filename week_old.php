@@ -398,5 +398,4 @@ echo "</table>";
 echo '<input type="submit" value="'._('Make entry').'"><br><br>'.chr(10);
 echo '</form>'.chr(10);
 
-show_colour_key();
 include("trailer.inc.php");

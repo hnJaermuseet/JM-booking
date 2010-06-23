@@ -539,18 +539,6 @@ function tdcell($colclass){
 		echo "<td class=\"$colclass\">";
 }
 
-# Display the entry-type color key. This has up to 2 rows, up to 5 columns.
-function show_colour_key(){
-	global $typel,$lang;
-	echo "<table border=0><tr>\n";
-	for ($ct = "A"; $ct <= "J"; $ct++){
-		if (!empty($typel[$ct])){			
-			echo "<td class=$ct>$typel[$ct]</td>\n";
-		}
-	}
-	echo "<td class=nofreeslots>", _("Booked out"), "</td></tr></table>\n";
-}
-
 # Round time down to the nearest resolution
 function round_t_down($t, $resolution){
        return (int)$t - (int)$t % $resolution;
