@@ -50,6 +50,9 @@ print_header($day, $month, $year, $area);
 
 echo '<h1>'._('Viewing user details').'</h1>'.chr(10).chr(10);
 
+if($user['deactivated'])
+	echo '<div class="error" style="width: 500px;">'._('This user is deactivated.').'</div>';
+
 if($login['user_access_useredit'] || $login['user_id'] == $user['user_id'])
 {
 	echo '<a href="admin_user2.php?editor=1&amp;id='.$user['user_id'].'">'.

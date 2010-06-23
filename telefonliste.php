@@ -75,7 +75,7 @@ else
 			foreach($group['users'] as $user)
 			{
 				$user = getUser($user);
-				if(count($user))
+				if(count($user) && !$user['deactivated'])
 				{
 					echo '	<tr>'.chr(10);
 					echo '		<td>'.$user['user_name'].'</td>'.chr(10);

@@ -605,3 +605,9 @@ ADD `user_access_importdn` BOOL NOT NULL DEFAULT '0' AFTER `user_access_entrytyp
 ADD `user_access_productsadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_importdn` ,
 ADD `user_access_programadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_productsadmin` ,
 ADD `user_access_templateadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_programadmin` ;
+
+ALTER TABLE `users` ADD `user_access_userdelete` BOOL NOT NULL DEFAULT '0' AFTER `user_access_changerights`  ;
+ALTER TABLE `users` ADD `deletet` BOOL NOT NULL DEFAULT '0' AFTER `user_access_userdelete` ;
+ALTER TABLE `users` CHANGE `deletet` `deleted` TINYINT( 1 ) NOT NULL DEFAULT '0' ;
+ALTER TABLE `users` CHANGE `deleted` `deactivated` TINYINT( 1 ) NOT NULL DEFAULT '0' ;
+ALTER TABLE `users` CHANGE `user_access_userdelete` `user_access_userdeactivate`  TINYINT( 1 ) NOT NULL DEFAULT '0' ;

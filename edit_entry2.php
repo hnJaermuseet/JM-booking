@@ -275,12 +275,16 @@ addChoice ('room_id', $choices);
 addChoiceBeforeAndAfter ('room_id', $before, $after);
 
 // User_assigned
-$Q_users = mysql_query("select user_id, user_name from `users` order by user_name");
+$Q_users = mysql_query("select user_id, user_name, deactivated from `users` order by user_name");
 $choices = array();
 $before = array();	$after = array();
 while( $r_choice = mysql_fetch_assoc($Q_users))
 {
-	$before[$r_choice['user_id']] = '<span id="user_id'.$r_choice['user_id'].'" style="display: inline;">';
+	if($r_choice['deactivated'])
+		$deactivated = ' class="strike graytext"';
+	else
+		$deactivated = '';
+	$before[$r_choice['user_id']] = '<span id="user_id'.$r_choice['user_id'].'" style="display: inline;"'.$deactivated.'>';
 	$choices[$r_choice['user_id']] = $r_choice['user_name'];
 	$after[$r_choice['user_id']] = '</span>';
 }

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: arbs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-23 09:25+0100\n"
-"PO-Revision-Date: 2010-06-23 09:51+0100\n"
+"POT-Creation-Date: 2010-06-23 14:53+0100\n"
+"PO-Revision-Date: 2010-06-23 14:54+0100\n"
 "Last-Translator: Hallvard Nygård <hn@jaermuseet.no>\n"
 "Language-Team: Hallvard Nygård <hn@jaermuseet.no>\n"
 "MIME-Version: 1.0\n"
@@ -128,14 +128,14 @@ msgstr "Kontaktperson"
 
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:146
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:202
-#: Y:\www\jm-bookingtest/admin_user2.php:104
+#: Y:\www\jm-bookingtest/admin_user2.php:116
 #: Y:\www\jm-bookingtest/customer.php:136
 msgid "Phone"
 msgstr "Telefon"
 
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:147
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:203
-#: Y:\www\jm-bookingtest/admin_user2.php:103
+#: Y:\www\jm-bookingtest/admin_user2.php:115
 #: Y:\www\jm-bookingtest/customer.php:137
 msgid "E-mail"
 msgstr "E-post"
@@ -202,7 +202,7 @@ msgstr "Gruppenavn"
 
 #: Y:\www\jm-bookingtest/admin_group.php:115
 #: Y:\www\jm-bookingtest/admin_group.php:128
-#: Y:\www\jm-bookingtest/admin_user2.php:170
+#: Y:\www\jm-bookingtest/admin_user2.php:190
 msgid "Users"
 msgstr "Brukere"
 
@@ -540,7 +540,7 @@ msgid "Address for the system"
 msgstr "Adresse til bookingsystemet"
 
 #: Y:\www\jm-bookingtest/admin_template.php:113
-#: Y:\www\jm-bookingtest/auth_sql.inc.php:84
+#: Y:\www\jm-bookingtest/auth_sql.inc.php:91
 msgid "Username"
 msgstr "Brukernavn"
 
@@ -766,29 +766,33 @@ msgstr "Variabler:"
 msgid "No password was supplied."
 msgstr "Intet passord gitt."
 
-#: Y:\www\jm-bookingtest/admin_user2.php:99
-#: Y:\www\jm-bookingtest/auth_sql.inc.php:87
+#: Y:\www\jm-bookingtest/admin_user2.php:111
+#: Y:\www\jm-bookingtest/auth_sql.inc.php:94
 msgid "Password"
 msgstr "Passord"
 
-#: Y:\www\jm-bookingtest/admin_user2.php:111
-msgid "Access to edit area and room"
-msgstr "Tilgang til å endre anlegg og rom"
-
-#: Y:\www\jm-bookingtest/admin_user2.php:122
-#: Y:\www\jm-bookingtest/admin_user2.php:230
+#: Y:\www\jm-bookingtest/admin_user2.php:119
+#: Y:\www\jm-bookingtest/admin_user2.php:262
 msgid "Default area"
 msgstr "Standard anlegg"
 
-#: Y:\www\jm-bookingtest/admin_user2.php:173
+#: Y:\www\jm-bookingtest/admin_user2.php:133
+msgid "Userrights"
+msgstr "Brukerrettigheter"
+
+#: Y:\www\jm-bookingtest/admin_user2.php:137
+msgid "Access to edit area and room"
+msgstr "Tilgang til å endre anlegg og rom"
+
+#: Y:\www\jm-bookingtest/admin_user2.php:193
 msgid "New user"
 msgstr "Ny bruker"
 
-#: Y:\www\jm-bookingtest/admin_user2.php:178
+#: Y:\www\jm-bookingtest/admin_user2.php:198
 msgid "List of users"
 msgstr "Liste med brukere i systemet"
 
-#: Y:\www\jm-bookingtest/admin_user2.php:181
+#: Y:\www\jm-bookingtest/admin_user2.php:201
 msgid "No users found."
 msgstr "Ingen brukere funnet."
 
@@ -797,13 +801,17 @@ msgid "JM-booking"
 msgstr "JM-booking"
 
 #: Y:\www\jm-bookingtest/auth_sql.inc.php:58
-#: Y:\www\jm-bookingtest/auth_sql.inc.php:90
+#: Y:\www\jm-bookingtest/auth_sql.inc.php:97
 msgid "Log in"
 msgstr "Logg inn"
 
-#: Y:\www\jm-bookingtest/auth_sql.inc.php:82
-msgid "Username / Password wrong"
-msgstr "Brukernavn / passord feil"
+#: Y:\www\jm-bookingtest/auth_sql.inc.php:83
+msgid "Username and/or password is wrong"
+msgstr "Brukernavn og/eller passord er feil"
+
+#: Y:\www\jm-bookingtest/auth_sql.inc.php:88
+msgid "The account is disabled"
+msgstr "Kontoen er deaktivert"
 
 #: Y:\www\jm-bookingtest/customer.php:32
 msgid "Error: Customer ID is invalid."
@@ -1161,11 +1169,11 @@ msgstr "Innhold"
 msgid "Select one"
 msgstr "Velg en"
 
-#: Y:\www\jm-bookingtest/edit_entry2.php:327
+#: Y:\www\jm-bookingtest/edit_entry2.php:331
 msgid "No customer set."
 msgstr "Ingen kunde valgt."
 
-#: Y:\www\jm-bookingtest/edit_entry2.php:351
+#: Y:\www\jm-bookingtest/edit_entry2.php:355
 #: Y:\www\jm-bookingtest/entry.php:51
 msgid "Can't find entry"
 msgstr "Finner ikke bookingen"
@@ -1806,174 +1814,174 @@ msgstr "Des"
 msgid "Unspesified title"
 msgstr "Uspesifisert tittel"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1487
-#: Y:\www\jm-bookingtest/functions.inc.php:1502
+#: Y:\www\jm-bookingtest/functions.inc.php:1501
+#: Y:\www\jm-bookingtest/functions.inc.php:1516
 msgid "UNKNOWN AREA"
 msgstr "UKJENT ANLEGG"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1621
+#: Y:\www\jm-bookingtest/functions.inc.php:1641
 msgid "New entry."
 msgstr "Opprett booking."
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1633
+#: Y:\www\jm-bookingtest/functions.inc.php:1653
 msgid "Invoice is registered as sent."
 msgstr "Faktura er registert som behandlet."
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1638
+#: Y:\www\jm-bookingtest/functions.inc.php:1658
 msgid "Confirmation was sent."
 msgstr "Bekreftelse ble sendt."
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1641
+#: Y:\www\jm-bookingtest/functions.inc.php:1661
 msgid "Confirmation email is sent to"
 msgstr "Bekreftelses-epost er sendt til"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1645
+#: Y:\www\jm-bookingtest/functions.inc.php:1665
 msgid "Icalendar element is sent to"
 msgstr "Kalenderelement er sendt til"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1649
+#: Y:\www\jm-bookingtest/functions.inc.php:1669
 msgid "Entry was edited."
 msgstr "Bookingen ble endret."
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1691
+#: Y:\www\jm-bookingtest/functions.inc.php:1711
 msgid "set to"
 msgstr "satt til"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1693
+#: Y:\www\jm-bookingtest/functions.inc.php:1713
 msgid "changed to"
 msgstr "endret til"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1704
-#: Y:\www\jm-bookingtest/functions.inc.php:1711
-#: Y:\www\jm-bookingtest/functions.inc.php:1778
-#: Y:\www\jm-bookingtest/functions.inc.php:1791
-#: Y:\www\jm-bookingtest/functions.inc.php:1813
-#: Y:\www\jm-bookingtest/functions.inc.php:1820
-#: Y:\www\jm-bookingtest/functions.inc.php:1827
-#: Y:\www\jm-bookingtest/functions.inc.php:1834
-#: Y:\www\jm-bookingtest/functions.inc.php:1841
-#: Y:\www\jm-bookingtest/functions.inc.php:1848
-#: Y:\www\jm-bookingtest/functions.inc.php:1863
-#: Y:\www\jm-bookingtest/functions.inc.php:1877
-#: Y:\www\jm-bookingtest/functions.inc.php:1884
-#: Y:\www\jm-bookingtest/functions.inc.php:1891
-#: Y:\www\jm-bookingtest/functions.inc.php:1906
-#: Y:\www\jm-bookingtest/functions.inc.php:1913
-#: Y:\www\jm-bookingtest/functions.inc.php:1920
-#: Y:\www\jm-bookingtest/functions.inc.php:1934
-#: Y:\www\jm-bookingtest/functions.inc.php:1941
-#: Y:\www\jm-bookingtest/functions.inc.php:1972
-#: Y:\www\jm-bookingtest/functions.inc.php:1985
+#: Y:\www\jm-bookingtest/functions.inc.php:1724
+#: Y:\www\jm-bookingtest/functions.inc.php:1731
+#: Y:\www\jm-bookingtest/functions.inc.php:1798
+#: Y:\www\jm-bookingtest/functions.inc.php:1811
+#: Y:\www\jm-bookingtest/functions.inc.php:1833
+#: Y:\www\jm-bookingtest/functions.inc.php:1840
+#: Y:\www\jm-bookingtest/functions.inc.php:1847
+#: Y:\www\jm-bookingtest/functions.inc.php:1854
+#: Y:\www\jm-bookingtest/functions.inc.php:1861
+#: Y:\www\jm-bookingtest/functions.inc.php:1868
+#: Y:\www\jm-bookingtest/functions.inc.php:1883
+#: Y:\www\jm-bookingtest/functions.inc.php:1897
+#: Y:\www\jm-bookingtest/functions.inc.php:1904
+#: Y:\www\jm-bookingtest/functions.inc.php:1911
+#: Y:\www\jm-bookingtest/functions.inc.php:1926
+#: Y:\www\jm-bookingtest/functions.inc.php:1933
+#: Y:\www\jm-bookingtest/functions.inc.php:1940
+#: Y:\www\jm-bookingtest/functions.inc.php:1954
+#: Y:\www\jm-bookingtest/functions.inc.php:1961
+#: Y:\www\jm-bookingtest/functions.inc.php:1992
+#: Y:\www\jm-bookingtest/functions.inc.php:2005
 msgid "not set"
 msgstr "ikke satt"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1729
+#: Y:\www\jm-bookingtest/functions.inc.php:1749
 msgid "Name not found"
 msgstr "Navn ikke funnet"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1757
-#: Y:\www\jm-bookingtest/functions.inc.php:1764
+#: Y:\www\jm-bookingtest/functions.inc.php:1777
+#: Y:\www\jm-bookingtest/functions.inc.php:1784
 msgid "Nobody"
 msgstr "Ingen"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1778
-#: Y:\www\jm-bookingtest/functions.inc.php:1780
+#: Y:\www\jm-bookingtest/functions.inc.php:1798
+#: Y:\www\jm-bookingtest/functions.inc.php:1800
 msgid "Manual user assigned"
 msgstr "Annen vert"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1827
-#: Y:\www\jm-bookingtest/functions.inc.php:1829
+#: Y:\www\jm-bookingtest/functions.inc.php:1847
+#: Y:\www\jm-bookingtest/functions.inc.php:1849
 msgid "Contact persons phone number"
 msgstr "Kontaktperson-tlf"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1834
-#: Y:\www\jm-bookingtest/functions.inc.php:1836
+#: Y:\www\jm-bookingtest/functions.inc.php:1854
+#: Y:\www\jm-bookingtest/functions.inc.php:1856
 msgid "Contact persons email"
 msgstr "Kontaktpersons epost"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1856
+#: Y:\www\jm-bookingtest/functions.inc.php:1876
 msgid "not count in booking system / Datanova / cash register"
 msgstr "ikke tell i bookingsystemet, men i Datanova/kasseapparat"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1858
+#: Y:\www\jm-bookingtest/functions.inc.php:1878
 msgid "count in booking system"
 msgstr "tell i bookingsystemet"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1870
-#: Y:\www\jm-bookingtest/functions.inc.php:1872
+#: Y:\www\jm-bookingtest/functions.inc.php:1890
+#: Y:\www\jm-bookingtest/functions.inc.php:1892
 msgid "Alcohol"
 msgstr "Alkohol"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1870
+#: Y:\www\jm-bookingtest/functions.inc.php:1890
 msgid "is to be served"
 msgstr "skal serveres"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1872
+#: Y:\www\jm-bookingtest/functions.inc.php:1892
 msgid "is not to be served"
 msgstr "skal ikke serveres"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1898
+#: Y:\www\jm-bookingtest/functions.inc.php:1918
 msgid "should be made"
 msgstr "skal lages"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1900
+#: Y:\www\jm-bookingtest/functions.inc.php:1920
 msgid "should not be made"
 msgstr "skal ikke lages"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1927
+#: Y:\www\jm-bookingtest/functions.inc.php:1947
 msgid "is to be sendt by e-mail"
 msgstr "ønskes sendt via e-post"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1929
+#: Y:\www\jm-bookingtest/functions.inc.php:1949
 msgid "is to be sendt by regular mail"
 msgstr "ønskes sendt via vanlig post"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1929
+#: Y:\www\jm-bookingtest/functions.inc.php:1949
 msgid "Not"
 msgstr "Ikke"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1960
+#: Y:\www\jm-bookingtest/functions.inc.php:1980
 msgid "line"
 msgstr "linje"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1961
+#: Y:\www\jm-bookingtest/functions.inc.php:1981
 msgid "name"
 msgstr "navn"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1963
+#: Y:\www\jm-bookingtest/functions.inc.php:1983
 msgid "amount"
 msgstr "antall"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1964
+#: Y:\www\jm-bookingtest/functions.inc.php:1984
 msgid "tax"
 msgstr "MVA"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1972
-#: Y:\www\jm-bookingtest/functions.inc.php:1977
+#: Y:\www\jm-bookingtest/functions.inc.php:1992
+#: Y:\www\jm-bookingtest/functions.inc.php:1997
 msgid "Fixed program"
 msgstr "Program"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1979
+#: Y:\www\jm-bookingtest/functions.inc.php:1999
 msgid "ID of fixed program"
 msgstr "ID til fast program"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1992
+#: Y:\www\jm-bookingtest/functions.inc.php:2012
 msgid "ID of entry type"
 msgstr "ID til type"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:1997
+#: Y:\www\jm-bookingtest/functions.inc.php:2017
 msgid "Confirmation sent"
 msgstr "Bekreftelse sendt"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:2006
+#: Y:\www\jm-bookingtest/functions.inc.php:2026
 msgid "Confirmation was <b>not sent</b> to"
 msgstr "Bekreftelses-epost ble <b>ikke sendt</b> til"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:2009
+#: Y:\www\jm-bookingtest/functions.inc.php:2029
 msgid "Confirmation was sent to"
 msgstr "Bekreftelses-epost ble sendt til"
 
-#: Y:\www\jm-bookingtest/functions.inc.php:2381
+#: Y:\www\jm-bookingtest/functions.inc.php:2401
 msgid "Icon"
 msgstr "Ikon"
 
@@ -2003,7 +2011,7 @@ msgstr "Hovedside"
 msgid "Can't find invoice."
 msgstr "Finner ikke faktura."
 
-#: Y:\www\jm-bookingtest/login.php:86
+#: Y:\www\jm-bookingtest/login.php:124
 msgid "You're already logged in."
 msgstr "Du er allerede logget inn."
 
@@ -2137,15 +2145,19 @@ msgstr "Finner ikke brukeren"
 msgid "Viewing user details"
 msgstr "Viser brukerdetaljer"
 
-#: Y:\www\jm-bookingtest/user.php:60
+#: Y:\www\jm-bookingtest/user.php:54
+msgid "This user is deactivated."
+msgstr "Brukeren er deaktivert."
+
+#: Y:\www\jm-bookingtest/user.php:63
 msgid "UserID"
 msgstr "BrukerID"
 
-#: Y:\www\jm-bookingtest/user.php:73
+#: Y:\www\jm-bookingtest/user.php:76
 msgid "Upcoming entries for "
 msgstr "Kommende bookinger for "
 
-#: Y:\www\jm-bookingtest/user.php:89
+#: Y:\www\jm-bookingtest/user.php:92
 msgid "No upcoming entries found"
 msgstr "Ingen kommende bookinger funnet"
 

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 function authGet($realm)
 {	
-	global $testSystem;
+	global $testSystem, $deactivated;
 	
 	if(isset($_POST['WEBAUTH_USER']))
 		$user = slashes(htmlspecialchars(strip_tags($_POST['WEBAUTH_USER']),ENT_QUOTES));
@@ -57,7 +57,7 @@ function authGet($realm)
 	echo ' - ';
 	echo _("Log in"); 
 	echo '</TITLE>
-<LINK REL="stylesheet" href="mrbs.css" type="text/css">
+<LINK REL="stylesheet" href="css/jm-booking.css" type="text/css">
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=iso-8859-1">
 <script type="text/javascript" src="js/browser_detection.js"></script>
     </HEAD>
@@ -78,8 +78,15 @@ function authGet($realm)
 	echo "<form method=POST action=\"".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."\">";
 	echo "<table width=300 border=0 align=center cellspacing=0 cellpadding=1>";
 	echo '<tr><td colspan="2" style="text-align:center; font-size:18px; padding: 10px;"><b>Innlogging til booking</b></td></tr>';
-	if(isset($_POST['WEBAUTH_USER'])) {
-		echo "<tr><td colspan=2 align=center bgcolor=#ff0000><font color=#ffffff>", _("Username / Password wrong"), "</font></td></tr>";
+	if(!$deactivated && isset($_POST['WEBAUTH_USER'])) {
+		echo '<tr><td colspan="2"" align="center"><div class="error">'.
+		_("Username and/or password is wrong").
+		'</div></td></tr>';
+	}
+	if($deactivated) {
+		echo '<tr><td colspan="2" align="center"><div class="error">'.
+		_('The account is disabled').
+		'</div></td></tr>';
 	}
 	echo "<tr><td>", _("Username"), "</td>";
 	echo "<td><input id=\"dofocus\" type=\"text\" value=\"".$user."\" name=\"WEBAUTH_USER\"></td></tr>";
@@ -128,51 +135,6 @@ function authGet($realm)
 	
 	echo "</body></html>";
 	exit;
-}
-
-/* authValidateUser($user, $pass)
- * 
- * Checks if the specified username/password pair are valid
- * 
- * $user  - The user name
- * $pass  - The password
- * 
- * Returns:
- *   0        - The pair are invalid or do not exist
- *   non-zero - The pair are valid
- */
-function authValidateUser($user, $pass) {
-	global $auth,$users;
-	
-	// Check if we do not have a username/password
-	if(empty($user) || empty($pass)) {
-		return FALSE;
-	}
-	
-	$user	= slashes(htmlspecialchars(strip_tags($user),ENT_QUOTES)); // Username
-	$pass	= md5($pass); // md5 hash of the password
-	
-	// Checking against database
-	$Q_login = mysql_query("select user_id from `users` where user_name_short = '".$user."' and user_password = '".$pass."' limit 1");
-	if(mysql_num_rows($Q_login) > '0')
-	{
-		session_register('WEBAUTH_VALID');
-        session_register('WEBAUTH_USER');
-        session_register('WEBAUTH_PW');
-        $_SESSION['WEBAUTH_VALID']=true;
-        $_SESSION['WEBAUTH_USER']=$user;
-        $_SESSION['WEBAUTH_PW']=$pass;
-		
-		// New variabels (JM-booking)
-		$_SESSION['user_id']		= mysql_result($Q_login, 0, 'user_id');
-		$_SESSION['user_password']	= $pass;
-		
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
 }
 
 function getUserName(){

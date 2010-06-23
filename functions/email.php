@@ -251,60 +251,76 @@ function emailSend ($user_id, $subject, $message)
 function emailSendEntryChanges ($entry, $rev_num, $user_id)
 {
 	global $smarty;
-	$smarty = new Smarty;
 	
-	templateAssignEntry('smarty', $entry);
-	templateAssignSystemvars('smarty');
-	templateAssignEntryChanges('smarty', $entry, $rev_num, true);
-	$message = $smarty->fetch('file:mail-entry-changes.tpl');
-	$subject = "[booking]".$entry['entry_id'].' '.
-	date('d.m.Y', $entry['time_start']).' Endring';
-	
-	emailSend($user_id, $subject, $message);
+	if(!isUserDeactivated($user_id))
+	{
+		$smarty = new Smarty;
+		
+		templateAssignEntry('smarty', $entry);
+		templateAssignSystemvars('smarty');
+		templateAssignEntryChanges('smarty', $entry, $rev_num, true);
+		$message = $smarty->fetch('file:mail-entry-changes.tpl');
+		$subject = "[booking]".$entry['entry_id'].' '.
+		date('d.m.Y', $entry['time_start']).' Endring';
+		
+		emailSend($user_id, $subject, $message);
+	}
 }
 
 function emailSendEntryNew ($entry, $user_id)
 {
 	global $smarty;
-	$smarty = new Smarty;
 	
-	templateAssignEntry('smarty', $entry);
-	templateAssignSystemvars('smarty');
-	$message = $smarty->fetch('file:mail-entry-new.tpl');
-	$subject = "[booking]".$entry['entry_id'].' '.
-	date('d.m.Y', $entry['time_start']).' Ny booking';
-	
-	emailSend($user_id, $subject, $message);
+	if(!isUserDeactivated($user_id))
+	{
+		$smarty = new Smarty;
+		
+		templateAssignEntry('smarty', $entry);
+		templateAssignSystemvars('smarty');
+		$message = $smarty->fetch('file:mail-entry-new.tpl');
+		$subject = "[booking]".$entry['entry_id'].' '.
+		date('d.m.Y', $entry['time_start']).' Ny booking';
+		
+		emailSend($user_id, $subject, $message);
+	}
 }
 
 function emailSendEntryNewUser ($entry, $rev_num, $user_id)
 {
 	global $smarty;
-	$smarty = new Smarty;
 	
-	templateAssignEntry('smarty', $entry);
-	templateAssignSystemvars('smarty');
-	templateAssignEntryChanges('smarty', $entry, $rev_num);
-	$message = $smarty->fetch('file:mail-entry-newuser.tpl');
-	$subject = "[booking]".$entry['entry_id'].' '.
-	date('d.m.Y', $entry['time_start']).' Ny som vert';
-	
-	emailSend($user_id, $subject, $message);
+	if(!isUserDeactivated($user_id))
+	{
+		$smarty = new Smarty;
+		
+		templateAssignEntry('smarty', $entry);
+		templateAssignSystemvars('smarty');
+		templateAssignEntryChanges('smarty', $entry, $rev_num);
+		$message = $smarty->fetch('file:mail-entry-newuser.tpl');
+		$subject = "[booking]".$entry['entry_id'].' '.
+		date('d.m.Y', $entry['time_start']).' Ny som vert';
+		
+		emailSend($user_id, $subject, $message);
+	}
 }
 
 function emailSendEntryUserDeleted ($entry, $rev_num, $user_id)
 {
 	global $smarty;
-	$smarty = new Smarty;
 	
-	templateAssignEntry('smarty', $entry);
-	templateAssignSystemvars('smarty');
-	templateAssignEntryChanges('smarty', $entry, $rev_num);
-	$message = $smarty->fetch('file:mail-entry-userdeleted.tpl');
-	$subject = "[booking]".$entry['entry_id'].' '.
-	date('d.m.Y', $entry['time_start']).' Ikke lenger vert';
-	
-	emailSend($user_id, $subject, $message);
+	if(!isUserDeactivated($user_id))
+	{
+		$smarty = new Smarty;
+		
+		templateAssignEntry('smarty', $entry);
+		templateAssignSystemvars('smarty');
+		templateAssignEntryChanges('smarty', $entry, $rev_num);
+		$message = $smarty->fetch('file:mail-entry-userdeleted.tpl');
+		$subject = "[booking]".$entry['entry_id'].' '.
+		date('d.m.Y', $entry['time_start']).' Ikke lenger vert';
+		
+		emailSend($user_id, $subject, $message);
+	}
 }
 
 function emailSendConfirmation ($entry, $to, $message)

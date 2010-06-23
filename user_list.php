@@ -29,7 +29,7 @@ include_once("glob_inc.inc.php");
 
 print_header($day, $month, $year, $area);
 
-$Q_users = mysql_query("select user_id from `users` order by user_name");
+$Q_users = mysql_query("select user_id from `users` where deactivated = 0 order by user_name");
 echo '<h1>'._('Users').'</h1>'.chr(10);
 
 if(!isset($_GET['gid']))
@@ -95,7 +95,7 @@ else
 			foreach($group['users'] as $user)
 			{
 				$user = getUser($user);
-				if(count($user))
+				if(count($user) && !$user['deactivated'])
 				{
 					echo '	<tr>'.chr(10);
 					echo '		<td>'.$user['user_name'].'</td>'.chr(10);

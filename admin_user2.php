@@ -104,10 +104,24 @@ if(isset($_GET['editor']))
 	$editor->makeNewField('user_phone', _('Phone'), 'text');
 	$editor->makeNewField('user_position', 'Stilling', 'text');
 	
+	$editor->makeNewField('user_area_default', _('Default area'), 'select');
+	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
+	while($R_area = mysql_fetch_assoc($Q_area))
+		$editor->addChoice('user_area_default', $R_area['area_id'], $R_area['area_name']);
+	
+	if($login['user_access_userdeactivate'])
+	{
+		$editor->makeNewField('deactivated', 'Er brukeren deaktivert', 'boolean');
+	}
+	
 	if($login['user_access_changerights'])
 	{
 		$editor->makeNewField('user_access_changerights', 'Tilgang til å endre brukeres rettigheter', 'boolean');
+		$editor->vars['user_access_changerights']['before'] = 
+			"\t<tr>\n\t\t<td><h2>"._('Userrights')."</h2></td>\n\t</tr>". // Added heading
+			"\t<tr>\n\t\t<td>";
 		$editor->makeNewField('user_access_useredit', 'Tilgang til å endre brukere', 'boolean');
+		$editor->makeNewField('user_access_userdeactivate', 'Tilgang til å deaktivere brukere', 'boolean');
 		$editor->makeNewField('user_access_areaadmin', _('Access to edit area and room'), 'boolean');
 		$editor->makeNewField('user_access_entrytypeadmin', 'Tilgang til å endre bookingtyper', 'boolean');
 		$editor->makeNewField('user_access_importdn', 'Tilgang til å importere tall fra Datanova kassesystem', 'boolean');
@@ -117,12 +131,6 @@ if(isset($_GET['editor']))
 		$editor->makeNewField('user_invoice_setready', 'Tilgang til å sette bookinger faktureringsklar', 'boolean');
 		$editor->makeNewField('user_invoice', 'Tilgang til eksport av faktura til Kommfakt', 'boolean');
 	}
-	
-	//$editor->makeNewField('user_area_default', _('Default area'), 'select', array('defaultValue' => $area['area_id']));
-	$editor->makeNewField('user_area_default', _('Default area'), 'select');
-	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
-	while($R_area = mysql_fetch_assoc($Q_area))
-		$editor->addChoice('user_area_default', $R_area['area_id'], $R_area['area_name']);
 	
 	/* Disabled until implementet
 	
@@ -200,26 +208,38 @@ else
 		echo '		<th>8</th>'.chr(10);
 		echo '		<th>9</th>'.chr(10);
 		echo '		<th>10</th>'.chr(10);
+		echo '		<th>11</th>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 		while($R_user = mysql_fetch_assoc($Q_users))
 		{
 			$user = getUser($R_user['user_id'], true);
 			echo '	<tr>'.chr(10);
 			
-			echo '		<td>'.$user['user_id'].'</td>';
+			if($user['deactivated'])
+			{
+				$deactivated = 'strike graytext';
+				$deactivated2 = 'graytext';
+			}
+			else
+			{
+				$deactivated = '';
+				$deactivated2 = '';
+			}
 			
-			echo '		<td>'.
-					'<a href="user.php?user_id='.$user['user_id'].'">'.
+			echo '		<td class="'.$deactivated.'">'.$user['user_id'].'</td>';
+			
+			echo '		<td class="'.$deactivated.'">'.
+					'<a href="user.php?user_id='.$user['user_id'].'" class="'.$deactivated2.'">'.
 					iconHTML('user').' '.
 					$user['user_name'].'</a>'.
 				'</td>'.chr(10);
 			
-			echo '		<td>'.
+			echo '		<td class="'.$deactivated.'">'.
 					$user['user_name_short'].
 				'</td>'.chr(10);
 			
-			echo '		<td>'.
-					'<div class="showButton" id="buttonId'.$user['user_id'].'"><a href="javascript:void();">Vis / Ikke vis</a></div>'.
+			echo '		<td class="'.$deactivated.'">'.
+					'<div class="showButton" id="buttonId'.$user['user_id'].'"><a href="javascript:void();" class="'.$deactivated2.'">Vis / Ikke vis</a></div>'.
 					'<div class="showField" id="fieldId'.$user['user_id'].'" style="display:none;">'.
 					'Telefon: '.$user['user_phone'].'<br>'.
 					'E-post: '.$user['user_email'].'<br>'.
@@ -230,11 +250,11 @@ else
 				echo _('Default area').': '.$area_user['area_name'];
 				'</div></td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="'.$deactivated.'">';
 			
 			if($login['user_access_useredit'] || $login['user_id'] == $user['user_id'])
 			{
-				echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$user['user_id'].'">'.
+				echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$user['user_id'].'" class="'.$deactivated2.'">'.
 					iconHTML('user_edit').' '.
 					'Endre</a>';
 			}
@@ -243,7 +263,7 @@ else
 			echo '</td>'.chr(10);
 			
 			echo '		<td>';
-			if(count($user) && count($user['groups']))
+			if(count($user) && !$user['deactivated'] && count($user['groups']))
 			{
 				echo '<ul style="margin: 0;">'.chr(10);
 				foreach($user['groups'] as $gid)
@@ -326,6 +346,13 @@ else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
+			echo '		<td>';
+			if($user['user_access_userdeactivate'])
+				echo 'X';
+			else
+				echo '&nbsp;';
+			echo '</td>'.chr(10);
+			
 			echo '	</tr>'.chr(10).chr(10);
 			//echo '- <br>'.chr(10);
 		}
@@ -342,6 +369,7 @@ else
 			'<li>8, Rettighet til å endre systemmaler</li>'.
 			'<li>9, Rettighet til å sette faktureringsklar</li>'.
 			'<li>10, Rettighet til å eksportere fakturaer til Kommfakt</li>'.
+			'<li>11, Rettighet til å deaktivere brukere</li>'.
 			'</ul>';
 	}
 }

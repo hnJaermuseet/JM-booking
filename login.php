@@ -32,12 +32,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 include "glob_inc.inc.php";
 
+$deactivated = false;
 if(isset($_POST['WEBAUTH_USER']))
 {
-	if(authValidateUser(getUserName(), getUserPassword()))
+	$user = getUserName();
+	$pass = getUserPassword();
+	
+	// Check if we do not have a username/password
+	if(empty($user) || empty($pass)) {
+		
+	}
+	else
 	{
-		header('Location: index.php');
-		exit();
+		$user	= slashes(htmlspecialchars(strip_tags($user),ENT_QUOTES)); // Username
+		$pass	= md5($pass); // md5 hash of the password
+		
+		// Checking against database
+		$Q_login = mysql_query("select user_id, deactivated from `users` where user_name_short = '".$user."' and user_password = '".$pass."' limit 1");
+		if(mysql_num_rows($Q_login) > '0')
+		{
+			if(mysql_result($Q_login,0,'deactivated'))
+			{
+				$deactivated = true;
+			}
+			else
+			{
+				session_register('WEBAUTH_VALID');
+		        session_register('WEBAUTH_USER');
+		        session_register('WEBAUTH_PW');
+		        $_SESSION['WEBAUTH_VALID']=true;
+		        $_SESSION['WEBAUTH_USER']=$user;
+		        $_SESSION['WEBAUTH_PW']=$pass;
+				
+				// New variabels (JM-booking)
+				$_SESSION['user_id']		= mysql_result($Q_login, 0, 'user_id');
+				$_SESSION['user_password']	= $pass;
+				
+				header('Location: index.php');
+				exit();
+			}
+		}
+		else
+		{
+			
+		}
 	}
 }
 

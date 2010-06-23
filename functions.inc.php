@@ -1165,6 +1165,20 @@ function getUser ($id, $getGroups = false)
 	}
 }
 
+function isUserDeactivated ($user_id)
+{
+	if(!is_numeric($id) || $id == '0')
+	{
+		return true;
+	}
+	else
+	{
+		$id = (int)$id;
+		$Q = mysql_query("select deactivated from `users` where user_id = '".$id."' limit 1");
+		return (bool)mysql_result($Q, 0, 'deactivated');
+	}
+}
+
 function getEntryType($id)
 {
 	if(!is_numeric($id) || $id == '0')
@@ -1542,6 +1556,12 @@ function getGroup($id)
 		{
 			$return = mysql_fetch_assoc($Q);
 			$return['users'] = splittIDs($return['user_ids']);
+			foreach($return['users'] as $key => $user_id)
+			{
+				$user = getUser($user_id);
+				if($user['deactivated'])
+					unset($return['users'][$key]);
+			}
 			return $return;
 		}
 	}
