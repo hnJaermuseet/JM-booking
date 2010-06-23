@@ -91,7 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </tr>
 
 <tr>
-	<td align="right">{iconHTML ico='house'} <b>Avdeling:</b> </td>
+	<td align="right">{iconHTML ico='house'} <b>Anlegg:</b> </td>
 	<td>{$area}</td>
 </tr>
 
@@ -184,7 +184,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </tr>
 <tr class="hiddenprint">
 	<td align="right"{if $infoscreen_txt == ""} style="color: gray;"{/if}>{iconHTML ico='monitor'} <b>Forhåndsvis infoskjerm:</b> </td>
-	<td><a href="infoskjerm.php?area={$area_id}&amp;date={$time_start|date_format:"%d.%m.%Y"}"{if $infoscreen_txt == ""} style="color: gray;"{/if}>Forhåndsvis kvelden for det nåværende avdelingen *</td>
+	<td><a href="infoskjerm.php?area={$area_id}&amp;date={$time_start|date_format:"%d.%m.%Y"}"{if $infoscreen_txt == ""} style="color: gray;"{/if}>Forhåndsvis kvelden for det nåværende anlegg*</td>
 </tr>
 <tr class="hiddenprint">
 	<td colspan="2"{if $infoscreen_txt == ""} style="color: gray;"{/if}>* Vil bare vise noe hvis bookingen er lagt til tidspunkt etter 16.00. Gjelder kun invendige skjermer på Vitenfabrikken</td>

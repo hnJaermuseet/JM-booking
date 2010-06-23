@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: arbs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-23 09:25+0100\n"
-"PO-Revision-Date: 2010-06-23 09:27+0100\n"
+"PO-Revision-Date: 2010-06-23 09:51+0100\n"
 "Last-Translator: Hallvard Nygård <hn@jaermuseet.no>\n"
 "Language-Team: Hallvard Nygård <hn@jaermuseet.no>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #: Y:\www\jm-bookingtest/admin_area.php:49
 #: Y:\www\jm-bookingtest/admin_area.php:104
 msgid "New area"
-msgstr "Ny avdeling"
+msgstr "Nytt anlegg"
 
 #: Y:\www\jm-bookingtest/admin_area.php:50
 #: Y:\www\jm-bookingtest/admin_entry_type.php:50
@@ -35,7 +35,7 @@ msgstr "Legg til"
 
 #: Y:\www\jm-bookingtest/admin_area.php:55
 msgid "Change area"
-msgstr "Endre avdeling"
+msgstr "Endre anlegg"
 
 #: Y:\www\jm-bookingtest/admin_area.php:56
 #: Y:\www\jm-bookingtest/admin_entry_type.php:56
@@ -51,7 +51,7 @@ msgstr "Endre"
 #: Y:\www\jm-bookingtest/admin_area.php:62
 #: Y:\www\jm-bookingtest/admin_room.php:76
 msgid "Area name"
-msgstr "Avdelingsnavn"
+msgstr "Anleggsnavn"
 
 #: Y:\www\jm-bookingtest/admin_area.php:100
 #: Y:\www\jm-bookingtest/admin_area.php:109
@@ -62,7 +62,7 @@ msgstr "Avdelingsnavn"
 #: Y:\www\jm-bookingtest/admin_room.php:122
 #: Y:\www\jm-bookingtest/admin_template.php:68
 msgid "Area"
-msgstr "Avdeling"
+msgstr "Anlegg"
 
 #: Y:\www\jm-bookingtest/admin_area.php:108
 #: Y:\www\jm-bookingtest/admin_entry_type.php:210
@@ -144,7 +144,7 @@ msgstr "E-post"
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:221
 #: Y:\www\jm-bookingtest/customer.php:155
 msgid "Whole area"
-msgstr "Hele avdelingen/bygget"
+msgstr "Hele anlegget"
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:49
 #: Y:\www\jm-bookingtest/admin_entry_type.php:205
@@ -165,7 +165,7 @@ msgstr "Kort typenavn"
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:100
 msgid "Can't find the area."
-msgstr "Finner ikke avdelingen."
+msgstr "Finner ikke anlegget."
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:211
 msgid "Entrytype"
@@ -250,7 +250,7 @@ msgstr "Ikke funnet"
 #: Y:\www\jm-bookingtest/admin_programs.php:64
 #: Y:\www\jm-bookingtest/admin_room.php:77
 msgid "Area belonging"
-msgstr "Avdelingstilhørighet"
+msgstr "Anleggstilhørighet"
 
 #: Y:\www\jm-bookingtest/admin_programs.php:49
 #: Y:\www\jm-bookingtest/admin_programs.php:198
@@ -399,7 +399,7 @@ msgstr "tabell med navnene"
 
 #: Y:\www\jm-bookingtest/admin_template.php:67
 msgid "Area ID"
-msgstr "Avdelingsid"
+msgstr "Anleggsid"
 
 #: Y:\www\jm-bookingtest/admin_template.php:69
 msgid "User(s) assigned"
@@ -773,12 +773,12 @@ msgstr "Passord"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:111
 msgid "Access to edit area and room"
-msgstr "Tilgang til å endre avdeling og rom"
+msgstr "Tilgang til å endre anlegg og rom"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:122
 #: Y:\www\jm-bookingtest/admin_user2.php:230
 msgid "Default area"
-msgstr "Standard avdeling"
+msgstr "Standard anlegg"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:173
 msgid "New user"
@@ -990,7 +990,7 @@ msgstr "Vis bookinger"
 
 #: Y:\www\jm-bookingtest/day.php:83
 msgid "This area has no rooms"
-msgstr "Denne avdelingen har ingen rom"
+msgstr "Dette anlegget har ingen rom"
 
 #: Y:\www\jm-bookingtest/day.php:126
 #: Y:\www\jm-bookingtest/day.php:341
@@ -1184,15 +1184,15 @@ msgstr "Ugyldig dato. Vennligst sjekk formatet på datoen."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:79
 msgid "Area is invalid."
-msgstr "Avdelingen er ugyldig."
+msgstr "Anlegget er ugyldig."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:89
 msgid "Area must be selected."
-msgstr "Avdeling må bli valgt."
+msgstr "Anlegg må bli valgt."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:96
 msgid "Can't find area in database"
-msgstr "Finner ikke avdelingen i databasen."
+msgstr "Finner ikke anlegget i databasen."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:117
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:123
@@ -1269,7 +1269,7 @@ msgstr " er allerede booked på tidspunktet du valgte."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:545
 msgid "You have selected rooms from more than one area."
-msgstr "Du har valgt rom fra mer enn en avdeling."
+msgstr "Du har valgt rom fra mer enn et anlegg."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:553
 msgid "You have selected a starttime in the past."
@@ -1809,7 +1809,7 @@ msgstr "Uspesifisert tittel"
 #: Y:\www\jm-bookingtest/functions.inc.php:1487
 #: Y:\www\jm-bookingtest/functions.inc.php:1502
 msgid "UNKNOWN AREA"
-msgstr "UKJENT AVDELING"
+msgstr "UKJENT ANLEGG"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1621
 msgid "New entry."
@@ -2087,7 +2087,7 @@ msgstr "Marker alle endringer i denne listen som lest"
 
 #: Y:\www\jm-bookingtest/roomlist.php:70
 msgid "Areas"
-msgstr "Avdelinger"
+msgstr "Anlegg"
 
 #: Y:\www\jm-bookingtest/roomlist.php:109
 msgid "Device"
@@ -2254,7 +2254,7 @@ msgstr "Ingen tilgang"
 
 #: Y:\www\jm-bookingtest/include/invoice_top.php:50
 msgid "Can't find the area you want data from."
-msgstr "Finner ikke avdelingen du vil ha data fra."
+msgstr "Finner ikke anlegget du vil ha data fra."
 
 #: Y:\www\jm-bookingtest/libs/editor.class.php:353
 #: Y:\www\jm-bookingtest/libs/editor.class.php:382

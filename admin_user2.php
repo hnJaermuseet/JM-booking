@@ -334,7 +334,7 @@ else
 		echo '<ul>'.
 			'<li>1, Rettighet til å administrere brukeres rettigheter</li>'.
 			'<li>2, Rettighet til å administrere brukere</li>'.
-			'<li>3, Rettighet til å endre på avdeling og rom</li>'.
+			'<li>3, Rettighet til å endre på anlegg og rom</li>'.
 			'<li>4, Rettighet til å endre på bookingtyper</li>'.
 			'<li>5, Rettighet til å importere data fra Datanovas kassesystem</li>'.
 			'<li>6, Rettighet til å endre vareregisteret</li>'.

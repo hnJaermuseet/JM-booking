@@ -43,7 +43,7 @@ function no_areaid_selected () {
 		$area_id_vitengarden = -1;
 	
 	
-	echo '<h1>Velg hvilken avdeling du vil endre innstillinger for</h1>';
+	echo '<h1>Velg hvilket anlegg du vil endre innstillinger for</h1>';
 	echo '<div style="font-size: 1.2em">';
 	echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area_id_vitenfabrikken.'">'.
 		'Vitenfabrikken</a><br />';
@@ -248,7 +248,7 @@ elseif(isset($_GET['editor_varereg']))
 					include "include/admin_middel.php";
 					echo '<h1>Feil ved import</h1>';
 					echo '<div class="error">'.
-						'Vare med dette varenret for denne avdelingen eksiterer allerede.'.
+						'Vare med dette varenret for dettee anlegget eksiterer allerede.'.
 						'</div>';
 				}
 				else

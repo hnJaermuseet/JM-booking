@@ -596,7 +596,7 @@ if(!count($form_errors))
 			{
 				$warnings[] = 'Du skrev inn navnet til <b>'.$user_assigned2.'</b> i feltet for '.
 					'annen vert. Vedkommende <b>har bruker i bookingen</b> og det anbefales at du knytter '.
-					'bookingen med brukeren. Hvis vedkommende ikke er vanlig vert p&aring; avdelingen du valgte, '.
+					'bookingen med brukeren. Hvis vedkommende ikke er vanlig vert p&aring; anlegget du valgte, '.
 					's&aring; finner du vedkommende ved &aring; trykke p&aring; <b>vis alle</b>';
 			}
 		}
