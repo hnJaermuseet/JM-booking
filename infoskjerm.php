@@ -36,19 +36,24 @@ if(isset($_GET['date']))
 }
 else
 	$date = time();
+
+/*
+ * Select entries between 16:00 and 06:00
+ */
 $start 	= mktime(16, 0, 0, date('m', $date), date('d', $date), date('Y', $date));
 $end 	= mktime(06, 0, 0, date('m', $date), date('d', $date)+1, date('Y', $date));
 
-$default_area = 6;
-if(isset($_GET['area']))
+
+$default_area = 6; // Default is Vitenfabrikken
+if(isset($_GET['area'])) // Selected area
 {
 	$area2 = getArea($_GET['area']);
 	if(!count($area2))
 		$area = $default_area;
 	else
-		$area = $area['area_id'];
+		$area = $area2['area_id'];
 }
-else
+else // Non selected, getting default
 {
 	$area = $default_area;
 	$area2 = getArea($area);
@@ -56,21 +61,23 @@ else
 		$area = 0;
 }
 
+// Head
 echo '<html><head><title>';
 if(count($area2))
 	echo $area2['area_name'].' - ';
 echo date('d.m.Y', $start);
 echo '</title></head>';
 
+// Background image
 echo '<body background="img/infoskjerm-bg.png" style="margin: 0px; padding: 0px;">'.chr(10);
 
-
+// Getting rooms
 $Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
 $rooms = array();
 while($R_room = mysql_fetch_assoc($Q_room))
 	$rooms[$R_room['room_id']]			= $R_room['room_name'];
 
-
+// Finding entries
 $entries = array();
 $timed_entries = array();
 foreach ($rooms as $room_id => $room)
@@ -95,6 +102,7 @@ foreach ($rooms as $room_id => $room)
 	}
 }
 
+// Layout for 1024x768
 echo '<table width="1024" style="border-collapse: collapse;">'.chr(10);
 echo ' <tr>'.chr(10);
 echo '  <td height="135px">'.chr(10);
@@ -103,15 +111,19 @@ echo '  <td width="160" height="200px">&nbsp;</td>'.chr(10);
 echo '  <td align="center" valign="top"><font style="font-size: 110px; font-family: arial;">'.$area2['area_name'].'</font></td>'.chr(10);
 echo ' <tr>'.chr(10);
 echo '<td width="1000" align="center" colspan="2" height="360px" style="padding: 40px 100px 40px 100px;">';
+
+echo chr(10).'<!-- count(entries): '.count($entries).' -->'; // Debug info
+
 foreach ($entries as $entry)
 {
+	echo chr(10).'<!-- entry_id: '.$entry['entry_id'].' -->'; // Debug info
+	
+	// Printing text for infoscreen
 	if($entry['infoscreen_txt'] != '')
 		echo "<font style='font-size: 50px; font-family: arial;'>".$entry['infoscreen_txt']."</font>";
-//	elseif($entry['customer_name'] != '')
-//		echo "<font style='font-size: 50px; font-family: arial;'>Velkommen ".$entry['customer_name']."</font>";
 }
 
-echo '  </td>'.chr(10);
+echo chr(10).'  </td>'.chr(10);
 echo ' </tr>'.chr(10);
 echo '</table>'.chr(10);
 
