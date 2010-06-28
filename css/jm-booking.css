@@ -64,7 +64,8 @@ A:hover.blue {color:red}
 TH {color:#eeeeee; font-size:10pt; font-family:verdana,sans-serif;
 background-color:#333333;
 border-width:1px; border-color:black; vertical-align:top}
-TD.banner {vertical-align:middle; background-color:pink}
+TD.banner {vertical-align:middle; background-color:lightblue}
+td.testbanner {background-color:pink;}
 
 TD.blue {background-color:#F0F0FF}
 TD.red  {background-color:#CCCCCC}

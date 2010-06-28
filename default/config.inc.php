@@ -218,6 +218,7 @@ if($systemIsInTest)
 			'informasjon om testområdet på wikien</a><br><br>'.
 		'Bruk følgende for innlogging:<br>Brukernavn: test<br>Passord: test<br><br></div>';
 	$testSystem['bodyAttrib'] = ' background="img/bg-test.GIF"';
+	$testSystem['bannerExtraClass'] = ' testbanner';
 	
 	$systemurl = 'http://infoskjerm.jaermuseet.local/jm-bookingtest';
 }
@@ -226,6 +227,7 @@ else
 	$testSystem = array();
 	$testSystem['msgLogin'] = '';
 	$testSystem['bodyAttrib'] = '';
+	$testSystem['bannerExtraClass'] = '';
 	
 	$systemurl = 'http://booking.jaermuseet.local';
 }

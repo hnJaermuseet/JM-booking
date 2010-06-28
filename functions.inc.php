@@ -82,11 +82,11 @@ function print_header($day, $month, $year, $area){
 			'	<td bgcolor="#5B69A6">'.chr(10).
 			'		<table width="100%" border=0>'.chr(10).
 			'			<tr>'.chr(10).
-			'				<td class="banner" '.
+			'				<td class="banner'.$testSystem['bannerExtraClass'].'" '.
 				'style="text-align:center; font-size: 18px; font-weight: bold;">'.
 				$mrbs_company.
 			'</td>'.chr(10).
-			'				<td class="banner">'.chr(10).
+			'				<td class="banner'.$testSystem['bannerExtraClass'].'">'.chr(10).
 				
 			'					<table>'.chr(10).
 			'						<tr>'.chr(10).
@@ -177,7 +177,7 @@ function print_header($day, $month, $year, $area){
 		
 		echo '				</td>'.chr(10);
 		
-		echo '				<td class="banner" align="center">'.chr(10);
+		echo '				<td class="banner'.$testSystem['bannerExtraClass'].'" align="center">'.chr(10);
 		echo '					'._("Logged in as").' <a href="user.php?user_id='.$userinfo['user_id'].'">'.$userinfo['user_name'].'</a><br>'.chr(10);
 		echo '					<a href="logout.php">'.
 			iconHTML('bullet_delete').' '.
