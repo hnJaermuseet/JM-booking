@@ -30,6 +30,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
   */
 
 
+$debug_log = '';
+$debug = true;
+if($debug)
+{
+	$debug_time_start = microtime(true);
+}
+function debugAddToLog($file, $line, $txt = '')
+{
+	global $debug, $debug_log, $debug_time_start;
+	
+	if($debug)
+	{
+		$time = round(microtime(true) - $debug_time_start, 4);
+		
+		// Formating
+		$time_parts = explode('.',"$time", 2);
+		if(!isset($time_parts[1]))
+				$time_parts[1] = 0;
+		while(4 > strlen($time_parts[1]))
+		{
+			$time_parts[1] = $time_parts[1]."0";
+		}
+		while(4 > strlen($time_parts[0]))
+		{
+			$time_parts[0] = "0".$time_parts[0];
+		}
+		$time = $time_parts[0].'.'.$time_parts[1];
+		
+		// Add to log
+		$debug_log .= chr(10).
+			$time.'-'.$file.' - LINE '.$line.': '.$txt;
+	}
+}
+function debugPrintLog ()
+{
+	global $debug, $debug_log;
+	
+	if($debug)
+	{
+		echo '<!-- '.$debug_log.' -->';
+	}
+}
+
+debugAddToLog(__FILE__, __LINE__, 'Start of glob_inc.inc.php');
+
 session_start();
 
 if(isset($_GET['pview']))
@@ -53,6 +98,7 @@ if(isset($_GET['year']))
 else
 	$year = '';
 
+debugAddToLog(__FILE__, __LINE__, 'Including config');
 include "default/config.inc.php";
 
 if (!defined('LC_MESSAGES'))
@@ -74,6 +120,7 @@ setlocale(LC_TIME, "");
 // header. There is no way I can see around this; if track_errors isn't on
 // there seems to be no way to supress the automatic error message output and
 // still be able to access the error text.
+debugAddToLog(__FILE__, __LINE__, 'Connecting to database server');
 if (empty($db_nopersist))
 	$db_c = mysql_pconnect($db_host, $db_login, $db_password);
 else
@@ -87,7 +134,9 @@ if (!$db_c || !mysql_select_db ($db_database)){
 #lang.inc is included in config.inc.php
 #also, all changeing code for language selection is at config.inc.php
 #sometimes, script include other stand-alone scripts -> include_once
+debugAddToLog(__FILE__, __LINE__, 'Including functions');
 include_once "functions.inc.php";
+debugAddToLog(__FILE__, __LINE__, 'Including auth');
 include_once "mrbs_auth.inc.php";
 
 
@@ -95,7 +144,7 @@ include_once "mrbs_auth.inc.php";
 	## LOGIN ##
 	If not logged in, redirect to login.php
 */
-
+debugAddToLog(__FILE__, __LINE__, 'Checking login status');
 $login = array();
 if(isset($_SESSION['user_id']))
 	$login['user_id']	= $_SESSION['user_id'];

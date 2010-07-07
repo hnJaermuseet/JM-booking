@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 include_once("glob_inc.inc.php");
 
+debugAddToLog(__FILE__, __LINE__, 'Start of entry.php');
+
 if(isset($_POST['entry_id']) && is_numeric($_POST['entry_id']))
 	$entry_id = (int)$_POST['entry_id'];
 elseif(isset($_GET['entry_id']) && is_numeric($_GET['entry_id']))
@@ -45,6 +47,7 @@ else
 	exit();
 }
 
+debugAddToLog(__FILE__, __LINE__, 'Getting entry');
 $entry = getEntry ($entry_id);
 if (!count($entry))
 {
@@ -58,9 +61,9 @@ $month	= date('m', $entry['time_start']);
 $year	= date('Y', $entry['time_start']);
 $area	= $entry['area_id'];
 
-
 print_header($day, $month, $year, $area);
 
+debugAddToLog(__FILE__, __LINE__, 'Marking entry as read');
 readEntry ($entry['entry_id'], $entry['rev_num']);
 
 $smarty = new Smarty;
@@ -68,9 +71,11 @@ $smarty = new Smarty;
 templateAssignEntry('smarty', $entry);
 templateAssignSystemvars('smarty');
 
+debugAddToLog(__FILE__, __LINE__, 'Displaying template (entry_view.tpl)');
 $smarty->display('file:entry_view.tpl');
 
 
+debugAddToLog(__FILE__, __LINE__, 'Getting entry log');
 $entry_log = getEntryLog($entry['entry_id'], true);
 foreach($entry_log as $thislog)
 {
@@ -109,4 +114,7 @@ foreach($entry_log as $thislog)
 echo '</table>'.chr(10);
 
 echo '</td></tr></table>';
+
+debugAddToLog(__FILE__, __LINE__, 'entry.php finished');
+debugPrintLog();
 ?>

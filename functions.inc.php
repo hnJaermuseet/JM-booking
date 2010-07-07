@@ -38,6 +38,9 @@ function print_header($day, $month, $year, $area){
 	global $userinfo, $testSystem;
 	global $selected_room;
 	global $login;
+	
+	debugAddToLog(__FILE__, __LINE__, 'Start of glob_inc.inc.php');
+	
 	if(!isset($selected_room))
 		$selected_room = 0;
 
@@ -253,7 +256,8 @@ function print_header($day, $month, $year, $area){
 		echo '		</td>'.chr(10).
 			'	</tr>'.chr(10).
 			'</table>'.chr(10);
-	} 
+	}
+	debugAddToLog(__FILE__, __LINE__, 'Finished printing header');
 }
 
 function toTimeString(&$dur, &$units){
