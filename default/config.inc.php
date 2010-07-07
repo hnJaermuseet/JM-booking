@@ -194,12 +194,6 @@ define ('COUNTY', '11');
 $locale = 'nb_NO';
 //$locale = "en_US";
 
-##########################################
-# PHP System Configuration - do not change
-##########################################
-# Disable magic quoting on database returns:
-set_magic_quotes_runtime(0);
-
 
 
 /*
