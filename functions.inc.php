@@ -1169,7 +1169,7 @@ function getUser ($id, $getGroups = false)
 	}
 }
 
-function isUserDeactivated ($user_id)
+function isUserDeactivated ($id)
 {
 	if(!is_numeric($id) || $id == '0')
 	{
