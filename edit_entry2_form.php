@@ -426,15 +426,26 @@ foreach ($entry_fields as $field)
 					echo '<table id="invoicerows">'.chr(10);
 					
 					echo '<tr>'.chr(10);
-					echo ' <td>Linjenr</td>'.chr(10);
-					echo ' <td>Produktbeskrivelse</td>'.chr(10);
-					echo ' <td>Pris</td>'.chr(10);
-					echo ' <td>Antall</td>'.chr(10);
-					echo ' <td>MVA-%</td>'.chr(10);
-					echo ' <td>Eks.mva?</td>'.chr(10);
-					echo ' <td>MVA-hver</td>'.chr(10);
-					echo ' <td>Sum-MVA</td>'.chr(10);
-					echo ' <td>Sum</td>'.chr(10);
+					echo ' <td>&nbsp;</td>'.chr(10);
+					echo ' <td>&nbsp;</td>'.chr(10);
+					echo ' <td>&nbsp;</td>'.chr(10);
+					echo ' <td>&nbsp;</td>'.chr(10);
+					echo ' <td>&nbsp;</td>'.chr(10);
+					echo ' <td>&nbsp;</td>'.chr(10);
+					echo ' <td colspan="2" style="text-align: center; border: 1px dashed lightgray;">Stkpris</td>'.chr(10);
+					echo ' <td style="text-align: center; border: 1px dashed lightgray;" rowspan="2">Sum MVA</td>'.chr(10);
+					echo ' <td style="text-align: center; border: 1px dashed lightgray;" rowspan="2">Sum ink.mva</td>'.chr(10);
+					echo ' <td>&nbsp;</td>'.chr(10);
+					echo '</tr>'.chr(10).chr(10);
+					echo '<tr>'.chr(10);
+					echo ' <td style="border: 1px dashed lightgray;">Linjenr</td>'.chr(10);
+					echo ' <td style="border: 1px dashed lightgray;">Produktbeskrivelse</td>'.chr(10);
+					echo ' <td style="border: 1px dashed lightgray;">Pris</td>'.chr(10);
+					echo ' <td style="border: 1px dashed lightgray;">Antall</td>'.chr(10);
+					echo ' <td style="border: 1px dashed lightgray;">MVA-%</td>'.chr(10);
+					echo ' <td style="border: 1px dashed lightgray;">Eks.mva?</td>'.chr(10);
+					echo ' <td style="border: 1px dashed lightgray;">eks.mva</td>'.chr(10);
+					echo ' <td style="border: 1px dashed lightgray;">ink.mva</td>'.chr(10);
 					echo ' <td>&nbsp;</td>'.chr(10);
 					echo '</tr>'.chr(10).chr(10);
 					
@@ -480,11 +491,19 @@ foreach ($entry_fields as $field)
 							echo ' checked="checked"';
 						echo $disabled.'></td>'.chr(10);
 						
-						// Mva_hver
-						echo ' <td><input type="text" size="3" id="mva_hver'.$id.'" name="mva_hver'.$id.'" value="" disabled>'.chr(10);
+						// Mva_hver / belop_hver_real
+						echo ' <td>'.
+							'<input type="text" size="3" id="belop_hver_real2'.$id.'" name="belop_hver_real2'.$id.'" '.
+								'value="" disabled>'.
+							'<input type="hidden" id="mva_hver'.$id.'" name="mva_hver'.$id.'" value="" disabled>'.
+							'</td>'.chr(10);
+						echo ' <td>'.
+							'<input type="text" size="3" id="belop_hver_withtax3'.$id.'" name="belop_hver_withtax3'.$id.'" '.
+								'value="" disabled>'.
+							'</td>'.chr(10);
 						
 						// Mva_sum
-						echo ' <td><input type="text" size="3" id="mva_sum_hver'.$id.'" name="mva_sum_hver'.$id.'" value="" disabled>'.chr(10);
+						echo ' <td><input type="text" size="3" id="mva_sum_hver'.$id.'" name="mva_sum_hver'.$id.'" value="" disabled></td>'.chr(10);
 						
 						// Belop_sum
 						echo ' <td><input type="text" size="6" id="belop_delsum'.$id.'" name="belop_delsum'.$id.'" value="" disabled></td>'.chr(10);

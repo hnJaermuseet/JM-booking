@@ -65,16 +65,21 @@ function updateMva (id)
 		belop_hver_real.value = 0;
 	
 	if(eks_mva.checked) {
-		mva_hver.value			= Math.round(parseFloat(belop_hver.value) * (parseFloat(mva.value) / 100)*100)/100;
+		mva_hver.value			= Math.round((parseFloat(belop_hver.value) * (parseFloat(mva.value) / 100))*100)/100;
 		belop_hver_real.value	= Math.round(parseFloat(belop_hver.value)*100)/100;
-		mva_sum_hver.value		= Math.round(parseFloat(mva_hver.value) * parseFloat(antall.value)*100)/100;
+		mva_sum_hver.value		= Math.round((parseFloat(mva_hver.value) * parseFloat(antall.value))*100)/100;
 		belop_delsum.value		= Math.round((parseFloat(belop_hver_real.value) + parseFloat(mva_hver.value)) * parseFloat(antall.value)*100)/100;
 	} else {
-		belop_delsum.value		= Math.round(parseFloat(belop_hver.value) * parseFloat(antall.value)*100)/100;
-		mva_hver.value			= Math.round(parseFloat(belop_hver.value) * (parseFloat(mva.value) / (parseFloat(mva.value) + 100))*100)/100;
-		belop_hver_real.value	= Math.round(parseFloat(belop_hver.value) - parseFloat(mva_hver.value)*100)/100;
-		mva_sum_hver.value		= Math.round(parseFloat(mva_hver.value) * parseFloat(antall.value)*100)/100;
+		belop_delsum.value		= Math.round((parseFloat(belop_hver.value) * parseFloat(antall.value))*100)/100;
+		mva_hver.value			= Math.round((parseFloat(belop_hver.value) * parseFloat(mva.value) / (parseFloat(mva.value) + 100))*100)/100;
+		belop_hver_real.value	= Math.round((parseFloat(belop_hver.value) - parseFloat(mva_hver.value))*100)/100;
+		mva_sum_hver.value		= Math.round((parseFloat(mva_hver.value) * parseFloat(antall.value))*100)/100;
 	}
+	
+	belop_hver_real2		= document.getElementById("belop_hver_real2" + id);
+	belop_hver_withtax3		= document.getElementById("belop_hver_withtax3" + id);
+	belop_hver_real2.value = belop_hver_real.value; // Showing it to the user also
+	belop_hver_withtax3.value = Math.round((parseFloat(belop_hver_real2.value)+parseFloat(mva_hver.value))*100)/100;
 	
 	updateMvaSum();
 	
@@ -127,7 +132,6 @@ function addFieldInvoiceWithValues (description, topay_each, tax)
 	valuehighestrow++;
 	thisvalue = valuehighestrow;
 	valuehighestline++;
-	thisline = valuehighestline;
 	
 	var tr = '<tr id="row'+ thisvalue+'">' +
 		'<input type="hidden" name="rows[]" value="'+thisvalue+'">'+
@@ -204,8 +208,25 @@ function addFieldInvoiceWithValues (description, topay_each, tax)
 	var td7 = '<td>' +
 			'<input '+
 				'type="text" '+
+				'id="belop_hver_real2'+thisvalue+'" '+
+				'name="belop_hver_real2'+thisvalue+'" '+
+				'value="0" '+
+				'size="3" '+
+				'disabled="disabled" '+
+			'>'+
+			'<input '+
+				'type="hidden" '+
 				'id="mva_hver'+thisvalue+'" '+
 				'name="mva_hver'+thisvalue+'" '+
+				'value="0" '+
+				'disabled="disabled" '+
+			'>'+
+		'</td>'+
+		'<td>' +
+			'<input '+
+				'type="text" '+
+				'id="belop_hver_withtax3'+thisvalue+'" '+
+				'name="belop_hver_withtax3'+thisvalue+'" '+
 				'value="0" '+
 				'size="3" '+
 				'disabled="disabled" '+
