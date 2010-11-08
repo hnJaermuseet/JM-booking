@@ -1257,7 +1257,7 @@ function getEntry($id)
 				$vars['mva'] *= 100;
 				if($vars['mva'] > 0)
 				{
-					if(isset($mva[$vars['mva']]))
+					if(isset($return['mva'][$vars['mva']]))
 						$return['mva'][$vars['mva']] += $vars['mva_sum'];
 					else
 						$return['mva'][$vars['mva']] = $vars['mva_sum'];
