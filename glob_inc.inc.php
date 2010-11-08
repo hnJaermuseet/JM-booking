@@ -121,10 +121,7 @@ setlocale(LC_TIME, "");
 // there seems to be no way to supress the automatic error message output and
 // still be able to access the error text.
 debugAddToLog(__FILE__, __LINE__, 'Connecting to database server');
-if (empty($db_nopersist))
-	$db_c = mysql_pconnect($db_host, $db_login, $db_password);
-else
-	$db_c = mysql_connect($db_host, $db_login, $db_password);
+$db_c = mysql_connect($db_host, $db_login, $db_password);
 
 if (!$db_c || !mysql_select_db ($db_database)){
 	echo "\n<p>\n", _("FATAL ERROR: Couldn't connect to database."), "\n";
