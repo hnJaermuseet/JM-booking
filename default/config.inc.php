@@ -90,7 +90,6 @@ $db_login = "jm-booking";
 # Database login password:
 $db_password = "u5rsdu75ndfty66";
 
-$DB_nopersist = 1;
 
 ################################
 # Site identification information
