@@ -293,7 +293,7 @@ if(!isset($_GET['template_file']))
 		else
 			$namelink = false;
 		
-		if($namelink && ($template[6] != '' && $login[$template[6]]))
+		if($namelink && ($template[6] == '' || $login[$template[6]]))
 			echo '<td>'.
 				'<img src="./img/icons/'.$template[4].'" style="border: 0px solid black; vertical-align: middle;"> '.
 				'<a href="'.$_SERVER['PHP_SELF'].'?template_file='.$template[1].'">'.$template[0].'</a>'.
@@ -302,19 +302,19 @@ if(!isset($_GET['template_file']))
 		{
 			echo '		<td>'.
 			'<img src="./img/icons/'.$template[4].'" style="border: 0px solid black; vertical-align: middle;"> ';
-			if($template[6] != '' && $login[$template[6]])
+			if($template[6] == '' || $login[$template[6]])
 				echo '<a href="'.$_SERVER['PHP_SELF'].'?template_file='.$template[1].'&amp;view=1">'.
 					$template[0].'</a></td>'.chr(10);
 			else
 				echo $template[0].'</td>'.chr(10);
 		}
 		echo '		<td>';
-		if(!$namelink && ($template[6] != '' && $login[$template[6]]))
+		if(!$namelink && ($template[6] == '' || $login[$template[6]]))
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?template_file='.$template[1].'">'.
 				iconHTML('layout_edit').' '._('Edit').'</a>';
 		else
 			echo '&nbsp;';
-		if($template[5] && ($template[6] != '' && $login[$template[6]]))
+		if($template[5] && ($template[6] == '' || $login[$template[6]]))
 		{
 			echo ' -:- <a href="'.$_SERVER['PHP_SELF'].'?template_delete=1&amp;template_file='.$template[1].'">'.
 			' <img src="./img/icons/layout_delete.png" style="border: 0px solid black; vertical-align: middle;"> '.
@@ -340,7 +340,7 @@ if(!array_key_exists($_GET['template_file'], $allowed_templatefiles))
 
 $template = $allowed_templatefiles[$_GET['template_file']];
 
-if(!isset($_GET['view']) && !($template[6] != '' && $login[$template[6]]))
+if(!isset($_GET['view']) && !($template[6] == '' || $login[$template[6]]))
 {
 	showAccessDenied($day, $month, $year, $area, true);
 	exit ();
@@ -391,7 +391,7 @@ else
 	}
 }
 
-if($template[6] != '' && $login[$template[6]])
+if($template[6] == '' || $login[$template[6]])
 {
 	// Delete
 	if($tpl_db && isset($_GET['template_delete']))
@@ -551,7 +551,7 @@ include "include/admin_middel.php";
 echo '<h1>'._('Templates').' - '.$template[0].'</h1>';
 echo '- <a href="'.$_SERVER['PHP_SELF'].'">'._('Back to template list').'</a><br><br>'.chr(10);
 
-if(($template[6] != '' && $login[$template[6]]) || (isset($_GET['view']) && $_GET['view'] == '1'))
+if(($template[6] == '' || $login[$template[6]]) && (isset($_GET['view']) && $_GET['view'] == '1'))
 {
 	echo _('The template in its original form:').'<br>';
 	echo '<textarea cols="75" rows="20" name="template_txt">'.$template_txt.'</textarea>'.chr(10);
