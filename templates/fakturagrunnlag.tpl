@@ -23,9 +23,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 *}<html>
 <head><title>Fakturagrunnlag</title></head><body>
-<div align="right">Sandnes, {$smarty.now|date_format:"%d-%m-%Y"}</div>
+<div align="right">{$smarty.now|date_format:"%d-%m-%Y"}</div>
 {$invoice_address|nl2br}
-<h1 style="font-size: x-large;">Fakturagrunnlag på arrangement ved {$area} {$time_start|date_format:"%d-%m-%Y"}</h1>
+<h1 style="font-size: x-large;">Fakturagrunnlag p&aring; arrangement ved {$area} {$time_start|date_format:"%d-%m-%Y"}</h1>
 <b>Bookingid:</b> {$entry_id}<br>
 <b>Arrangementstittel:</b> {$entry_title}<br>
 <b>Tidrom:</b> {$time_start|date_format:"%A %d-%m-%Y %H:%M"} - {$time_end|date_format:"%d-%m-%Y %H:%M"}<br>
@@ -83,7 +83,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <br><br>
 Med vennlig hilsen<br>
-Jærmuseet<br>
+J&aelig;rmuseet<br>
 v/{$user_name}
 
 </body>
