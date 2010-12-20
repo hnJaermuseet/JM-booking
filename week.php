@@ -49,8 +49,6 @@ if (isset($_GET['week']) && isset($_GET['year']))
 	// Search for the right date...
 	while($thisweek != $_GET['week'])
 	{
-		
-		echo $thisweek.' - ';
 		$thistime = $thistime + (60*60*24); // add one day
 		$thisweek = date('W', $thistime);
 	}
