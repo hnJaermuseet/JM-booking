@@ -105,10 +105,13 @@ function authGet($realm)
 	'Wiki for opplæring og rutiner på Vitenfabrikken</td>';
 	echo "</tr></table>";
 	
-	echo "<br><br>";
-	echo "<form method=POST action=\"".$_SERVER['PHP_SELF']."?sendepost=1\">";
-	echo '<table width=400 align=center cellspacing=0 cellpadding=1 style="border:1px solid #0000ff; padding: 30px;">';
-	echo "<tr><td colspan=2 align=center><b>Sliter du med passordet eller har ikke bruker?</b><br>Send beskjed til Hallvard da vel.</td></tr>";
+	echo '<br><br>';
+	echo '<form method=POST action="'.$_SERVER['PHP_SELF'].'?sendepost=1">';
+	echo '<div style="text-align: center;">';
+	echo '<div style="border:1px solid #0000ff; padding: 30px; width:450px; margin-left: auto; margin-right: auto;">';
+	echo '<table width="400" align="center" cellspacing="0" cellpadding="0">'.chr(10);
+	echo '	<tr>'.chr(10);
+	echo '		<td colspan="2" align=center><b>Sliter du med passordet eller har ikke bruker?</b><br>Send beskjed til Hallvard da vel.</td></tr>';
 	if(isset($_GET['sendepost'])) {
 		echo "<tr><td colspan=2 align=center bgcolor=#ff0000><font color=#ffffff>Du må taste inn i alle feltene under.</font></td></tr>";
 	}
@@ -125,8 +128,11 @@ function authGet($realm)
 	echo '<td><textarea row="10" cols="20" name="sendepost_melding">'.$_POST['sendepost_melding'].'</textarea></td></tr>';
 	
 	echo "<tr><td>&nbsp;</td><td><input type=\"submit\" value=\"Send melding\"></td>";
-	echo "</tr></table>";
-	echo "</form>";
+	echo '</tr>'.chr(10).
+	'</table>'.
+	'</div>'.
+	'</div>'.
+	'</form>';
 	
 	if(isset($_POST['WEBAUTH_USER']))
 		echo "<script language=JavaScript>document.getElementById('dofocus2').focus();</script>";
