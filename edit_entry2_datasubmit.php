@@ -298,6 +298,8 @@ foreach ($entry_fields as $field)
 			{
 				if($entry_add)
 					$invoice_status = '1';
+				elseif($entry['invoice_status'] == '0') // No invoice
+					$invoice_status = '1'; // Yes, we now want invoice
 				else
 					$invoice_status = $entry['invoice_status'];
 			}
