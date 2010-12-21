@@ -561,7 +561,8 @@ if(!count($form_errors))
 		// Invoice, detect change to make warning
 		// If you change anything here, remember to change the other place in edit_entry2_datasubmit
 		if(
-			$entry['invoice_status'] > 1 && (
+			(isset($entry['invoice_status']) &&	$entry['invoice_status'] > 1) 
+			&& (
 				$entry['invoice'] != $invoice ||
 				$entry['invoice_status'] != $invoice_status ||
 				$entry['invoice_comment'] != $invoice_comment ||
