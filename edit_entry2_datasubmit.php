@@ -592,7 +592,10 @@ if(!count($form_errors))
 		}
 		
 		// Checking if user_assigned2 matches one user in the database
-		if($entry['user_assigned2'] != $user_assigned2)
+		if(
+			!isset($entry['user_assigned2']) || 
+			$entry['user_assigned2'] != $user_assigned2
+		)
 		{
 			$Q_user = mysql_query("select user_id from `users` where user_name = '".$user_assigned2."'");
 			if(mysql_num_rows($Q_user))
