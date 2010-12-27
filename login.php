@@ -68,7 +68,10 @@ if(isset($_POST['WEBAUTH_USER']))
 				$_SESSION['user_id']		= mysql_result($Q_login, 0, 'user_id');
 				$_SESSION['user_password']	= $pass;
 				
-				header('Location: index.php');
+				if(isset($_POST['redirect']))
+					header('Location: '.$_POST['redirect']);
+				else
+					header('Location: index.php');
 				exit();
 			}
 		}
@@ -127,11 +130,6 @@ if(isLoggedIn())
 }
 else
 {
-
-function authGet($realm)
-{	
-	global $testSystem, $deactivated;
-	
 	if(isset($_POST['WEBAUTH_USER']))
 		$user = slashes(htmlspecialchars(strip_tags($_POST['WEBAUTH_USER']),ENT_QUOTES));
 	else
@@ -169,7 +167,9 @@ function authGet($realm)
 	echo '<tr>';
 	
 	echo '<td align="center" style="border:1px solid #0000ff; padding: 30px;">';
-	echo "<form method=POST action=\"".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."\">";
+	echo '<form method=POST action="'.$_SERVER['PHP_SELF'].'">';
+	if(isset($_GET['redirect']))
+		echo '<input type="hidden" name="redirect" value="'.$_GET['redirect'].'">'.chr(10);
 	echo "<table width=300 border=0 align=center cellspacing=0 cellpadding=1>";
 	echo '<tr><td colspan="2" style="text-align:center; font-size:18px; padding: 10px;"><b>Innlogging til booking</b></td></tr>';
 	if(!$deactivated && isset($_POST['WEBAUTH_USER'])) {
@@ -234,9 +234,6 @@ function authGet($realm)
 		echo "<script language=JavaScript>document.getElementById('dofocus').focus();</script>";
 	
 	echo "</body></html>";
-	exit;
-}
-
-	authGet('');
+	
 	exit();
 }

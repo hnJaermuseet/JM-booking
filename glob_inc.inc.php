@@ -156,7 +156,7 @@ else
 if($require_login && basename($_SERVER['PHP_SELF']) != 'login.php') {
 	if(!isLoggedIn())
 	{
-		header('Location: login.php');
+		header('Location: login.php?redirect='.htmlentities ($_SERVER['REQUEST_URI'],ENT_QUOTES));
 		exit(); // Don't run anymore after header is sent, DONT REMOVE THIS!
 	}
 }
