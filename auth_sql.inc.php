@@ -26,123 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-/* getAuth($realm)
- * 
- * Request that the username/password be given for the specified realm
- * 
- * $realm - Which username/password do we want.
- * 
- * Nothing
- */
-function authGet($realm)
-{	
-	global $testSystem, $deactivated;
-	
-	if(isset($_POST['WEBAUTH_USER']))
-		$user = slashes(htmlspecialchars(strip_tags($_POST['WEBAUTH_USER']),ENT_QUOTES));
-	else
-		$user = '';
-	
-	if(!isset($_POST['sendepost_navn']))
-		$_POST['sendepost_navn'] = '';
-	if(!isset($_POST['sendepost_epost']))
-		$_POST['sendepost_epost'] = '';
-	if(!isset($_POST['sendepost_melding']))
-		$_POST['sendepost_melding'] = '';
-	
-	echo '<HTML>
-    <HEAD>
-    <TITLE>';
-	echo _("JM-booking"); 
-	echo ' - ';
-	echo _("Log in"); 
-	echo '</TITLE>
-<LINK REL="stylesheet" href="css/jm-booking.css" type="text/css">
-<META HTTP-EQUIV="Content-Type" content="text/html; charset=iso-8859-1">
-<script type="text/javascript" src="js/browser_detection.js"></script>
-    </HEAD>
-	';
-	echo "<br><br><br><br>";
-	//echo '<script>if(!moz||!moz_brow==\'Firefox\') alert(\'Du kjører ikke Firefox. Det er ikke anbefalt og det kan hende at enkelte funksjoner ikke fungerer. Ta helst å bytt over til Firefox!\');</script>';
-	echo $testSystem['msgLogin'];
-	//echo "<div style=\"border:1px solid #0000ff;\">";
-	
-	//echo "</div>";
-	
-	//echo "<br><br>";
-	echo '<table style="border:0px solid #0000ff; border-collapse:collapse;" align=center cellspacing=0 cellpadding=0>';
-	
-	echo '<tr>';
-	
-	echo '<td align="center" style="border:1px solid #0000ff; padding: 30px;">';
-	echo "<form method=POST action=\"".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."\">";
-	echo "<table width=300 border=0 align=center cellspacing=0 cellpadding=1>";
-	echo '<tr><td colspan="2" style="text-align:center; font-size:18px; padding: 10px;"><b>Innlogging til booking</b></td></tr>';
-	if(!$deactivated && isset($_POST['WEBAUTH_USER'])) {
-		echo '<tr><td colspan="2"" align="center"><div class="error">'.
-		_("Username and/or password is wrong").
-		'</div></td></tr>';
-	}
-	if($deactivated) {
-		echo '<tr><td colspan="2" align="center"><div class="error">'.
-		_('The account is disabled').
-		'</div></td></tr>';
-	}
-	echo "<tr><td>", _("Username"), "</td>";
-	echo "<td><input id=\"dofocus\" type=\"text\" value=\"".$user."\" name=\"WEBAUTH_USER\"></td></tr>";
-	
-	echo "<tr><td>", _("Password"), "</td>";
-	echo "<td><input id=\"dofocus2\" type=\"password\" name=\"WEBAUTH_PW\"></td></tr>";
-	
-	echo "<tr><td>&nbsp;</td><td><input type=\"submit\" value=\"", _("Log in"), "\"></td>";
-	//echo "<td><a href=\"javascript:history.back()\">", _("Back"), "</a></td>";
-	echo "</tr></table>";
-	echo "</form>";
-	echo '</td>';
-	
-	echo '<td style="text-align: center; vertical-align:middle; border:1px solid #0000ff; padding: 30px; width: 300px;">'.
-	'<a href="/wiki/" style="font-size: 28px">Wiki</a><br>'.
-	'Wiki for opplæring og rutiner på Vitenfabrikken</td>';
-	echo "</tr></table>";
-	
-	echo '<br><br>';
-	echo '<form method=POST action="'.$_SERVER['PHP_SELF'].'?sendepost=1">';
-	echo '<div style="text-align: center;">';
-	echo '<div style="border:1px solid #0000ff; padding: 30px; width:450px; margin-left: auto; margin-right: auto;">';
-	echo '<table width="400" align="center" cellspacing="0" cellpadding="0">'.chr(10);
-	echo '	<tr>'.chr(10);
-	echo '		<td colspan="2" align=center><b>Sliter du med passordet eller har ikke bruker?</b><br>Send beskjed til Hallvard da vel.</td></tr>';
-	if(isset($_GET['sendepost'])) {
-		echo "<tr><td colspan=2 align=center bgcolor=#ff0000><font color=#ffffff>Du må taste inn i alle feltene under.</font></td></tr>";
-	}
-	if(isset($_GET['melding_sendt'])) {
-		echo '<tr><td colspan=2 align=center bgcolor=#ff0000><font color=#ffffff>Melding sendt!</font></td></tr>';
-	}
-	echo "<tr><td>Ditt navn</td>";
-	echo "<td><input type=\"text\" value=\"".$_POST['sendepost_navn']."\" name=\"sendepost_navn\"></td></tr>";
-	
-	echo "<tr><td>Din epost</td>";
-	echo "<td><input type=\"text\" value=\"".$_POST['sendepost_epost']."\" name=\"sendepost_epost\"></td></tr>";
-	
-	echo "<tr><td>Melding</td>";
-	echo '<td><textarea row="10" cols="20" name="sendepost_melding">'.$_POST['sendepost_melding'].'</textarea></td></tr>';
-	
-	echo "<tr><td>&nbsp;</td><td><input type=\"submit\" value=\"Send melding\"></td>";
-	echo '</tr>'.chr(10).
-	'</table>'.
-	'</div>'.
-	'</div>'.
-	'</form>';
-	
-	if(isset($_POST['WEBAUTH_USER']))
-		echo "<script language=JavaScript>document.getElementById('dofocus2').focus();</script>";
-	else
-		echo "<script language=JavaScript>document.getElementById('dofocus').focus();</script>";
-	
-	echo "</body></html>";
-	exit;
-}
-
 function getUserName(){
     if(isset($_SESSION['WEBAUTH_VALID'])){
         return $_SESSION['WEBAUTH_USER'];
@@ -152,15 +35,6 @@ function getUserName(){
 	}
 	else
 		return '';
-}
-
-function getUserID() {
-	global $login;
-    if(isset($login['user_id'])){
-        return $login['user_id'];
-    }
-	else
-		return 0;
 }
 
 function getUserPassword(){
@@ -204,21 +78,6 @@ function getUserinfoLoggedin ()
 	//$userinfo = getUserinfo ($login['user_id']);
 	$userinfo = getUser($login['user_id']);
 	$login = $userinfo;
-}
-
-function checkUser ($user_id = '0')
-{
-	if($user_id == '0')
-		return FALSE;
-	else
-	{
-		$Q_user = mysql_query("select * from `users` where user_id = '".$user_id."'");
-		
-		if(!mysql_num_rows($Q_user))
-			return FALSE;
-		else
-			return TRUE;
-	}
 }
 
 function getUserinfo ($user_id = '0')
