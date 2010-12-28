@@ -260,37 +260,6 @@ function print_header($day, $month, $year, $area){
 	debugAddToLog(__FILE__, __LINE__, 'Finished printing header');
 }
 
-function toTimeString(&$dur, &$units){
-	global $lang;
-	if($dur >= 60){
-		$dur /= 60;		
-		if($dur >= 60){
-			$dur /= 60;			
-			if(($dur >= 24) && ($dur % 24 == 0)){
-				$dur /= 24;		
-				if(($dur >= 7) && ($dur % 7 == 0)){
-					$dur /= 7;
-					
-					if(($dur >= 52) && ($dur % 52 == 0)){
-						$dur  /= 52;
-						$units = _("Years");
-					}
-					else
-						$units = _("Weeks");
-				}
-				else
-					$units = _("Days");
-			}
-			else
-				$units = _("Hours");
-		}
-		else
-			$units = _("Minutes");
-	}
-	else
-		$units = _("Secounds");
-}
-
 function parseDate($date){
 	/* $s means "search";
 	 * $r means "replace";
@@ -480,26 +449,6 @@ function genDateSelector2($prefix, $end_day, $end_month, $end_year,$history=0){
 	echo "</select>";
 }
 
-
-
-
-
-#-------------------------
-
-# Error handler - this is used to display serious errors such as database
-# errors without sending incomplete HTML pages. This is only used for
-# errors which "should never happen", not those caused by bad inputs.
-# If $need_header!=0 output the top of the page too, else assume the
-# caller did that. Alway outputs the bottom of the page and exits.
-function fatal_error($need_header, $message){
-	global $lang;
-	if ($need_header) 
-		print_header(0, 0, 0, 0);
-	echo $message;
-	include("trailer.inc.php");
-	exit;
-}
-
 # Apply backslash-escape quoting unless PHP is configured to do it
 # automatically. Use this for GET/POST form parameters, since we
 # cannot predict if the PHP configuration file has magic_quotes_gpc on.
@@ -508,39 +457,6 @@ function slashes($s){
 		return $s;
 	else 
 		return addslashes($s);
-}
-
-# Remove backslash-escape quoting if PHP is configured to do it with
-# magic_quotes_gpc. Use this whenever you need the actual value of a GET/POST
-# form parameter (which might have special characters) regardless of PHP's
-# magic_quotes_gpc setting.
-function unslashes($s){
-	if (get_magic_quotes_gpc()) 
-		return stripslashes($s);
-	else
-		return $s;
-}
-
-# Get the local day name based on language. Note 2000-01-02 is a Sunday.
-function day_name($daynumber){
-	return strftime("%A", mktime(0,0,0,1,2+$daynumber,2000));
-}
-
-# Output a start table cell tag <td> with color class and fallback color.
-# $colclass is an entry type (A-J), "white" for empty, or "red" for highlighted.
-# The colors for CSS browsers can be found in the style sheet. The colors
-# in the array below are fallback for non-CSS browsers only.
-function tdcell($colclass){
-	# This should be 'static $ecolors = array(...)' but that crashes PHP3.0.12!
-	static $ecolors;
-	if (!isset($ecolors)) $ecolors = array("A"=>"#FFCCFF", "B"=>"#99CCCC",
-		"C"=>"#FF9999", "D"=>"#FFFF99", "E"=>"#C0E0FF", "F"=>"#FFCC99",
-		"G"=>"#FF6666", "H"=>"#66FFFF", "I"=>"#DDFFDD", "J"=>"#CCCCCC",
-		"red"=>"#FFF0F0", "white"=>"#FFFFFF");
-	if (isset($ecolors[$colclass]))
-		echo "<td class=\"$colclass\" bgcolor=\"$ecolors[$colclass]\">";
-	else
-		echo "<td class=\"$colclass\">";
 }
 
 # Round time down to the nearest resolution
@@ -556,101 +472,6 @@ function round_t_up($t, $resolution){
        else{
                return $t;
        }
-}
-
-function fileContent($fn){
-	if (file_exists($fn)){
-		$f = fopen($fn,"r");
-		$contents = fread($f,filesize($fn));
-		fclose($f);
-		return $contents;
-	}
-	return "";
-}
-function getSubject($text){
-	return trim(substr($text,0,strpos($text,"\n")));
-}
-function removeSubject($text){
-	return trim(substr($text,strpos($text,"\n")));
-}
-
-function drawTimeTableColum ($room, $capacity, $time)
-{
-	global $resolution,$showSingleEntrysAsBlock;
-	
-	$wday	= date("d",$time);
-	$wmonth	= date("m",$time);
-	$wyear	= date("Y",$time);
-	$hour	= date("H",$time);
-	$minute	= date("i",$time);
-	$time2	= $time + $resolution;
-	
-	$start = $time;
-	$end = $time2;
-	$area_id = 4;
-	$roomentries	= checkTime_Room ($start, $end, $area_id, $room);
-	if(count($roomentries))
-	{
-		print_r($roomentries);
-		$num_entry = count($roomentries[$room]);
-	}
-	else
-		$num_entry = '';
-	
-	if ($num_entry > 0) {
-		tdcell("nofreeslots");
-	}
-	else {
-		tdcell("white");
-	}
-	
-	echo "<center>";
-	echo $num_entry;
-	
-	echo '<input type="radio" name="starttime" value="'.$wyear.';'.$wmonth.';'.$wday.';'.$hour.';'.$minute.';'.$room.';day">'.chr(10);
-	echo '<input type="radio" name="endtime" value="'.$wyear.';'.$wmonth.';'.$wday.';'.$hour.';'.$minute.';'.$room.';day">'.chr(10);
-	//if(!$showSingleEntrysAsBlock&&$available==1&&$capacity==1)
-	//{
-		//do nothing
-		echo "<a href=\"edit_entry2.php?view=week&room=$room"
-		. "&hour=$hour&minute=$minute&year=$wyear&month=$wmonth"
-		. "&day=$wday\"><img src=img/new.gif width=10 height=10 border=0></a>";
-	/*} 
-	elseif ($available > 0)
-	{
-		echo "<a href=\"edit_entry2.php?view=week&room=$room"
-		. "&hour=$hour&minute=$minute&year=$wyear&month=$wmonth"
-		. "&day=$wday\"> ( $available / $capacity ) <img src=img/new.gif width=10 height=10 border=0></a>";
-		
-	}
-	elseif ($showSingleEntrysAsBlock) {
-		echo " ( $available / $capacity )";
-	}*/
-	echo "</center>";
-	#begin table for entry list boxes
-	#if there is only one entry, show this as text instead of box
-	/*
-	if($reserviert==1&&!$showSingleEntrysAsBlock){
-		$type		= mysql_result($entries, 0 , 0);
-		$id			= mysql_result($entries, 0 , 1 );
-		$thetitle	= mysql_result($entries, 0 , 2);
-		
-		$links="view_entry.php?view=week&id=".$id."&day=$wday&month=$wmonth&year=$wyear";
-		echo "<a href=\"$links\">",substr($thetitle,0,20),"</a>";
-	}
-	else {
-		echo "<table cellspacing=3 cellpadding=0 border=0><tr>";
-		for ($i = 0 ; $i < $reserviert ; $i++){
-			$type		= mysql_result($entries, $i , 0);
-			$id			= mysql_result($entries, $i , 1 );
-			$thetitle	= mysql_result($entries, $i , 2);
-			
-			$links="view_entry.php?view=week&id=".$id."&day=$wday&month=$wmonth&year=$wyear";
-			echo "<td class=$type><a onmouseover=\"return overlib('<b>",addslashes($thetitle),"</b><br>", _("from"), " ", strftime('%d.%b.%Y %H:%M',mysql_result($entries,$i,3)),"<br>", _("till"), " ",strftime('%d.%b.%Y %H:%M',mysql_result($entries,$i,4)),"');\" onmouseout=\"return nd();\" href=\"$links\" ><img src=img/pixel.gif width=10 height=10 border=0></a></td>";
-		}
-		echo "</tr></table>";
-	}*/
-	echo "</td>";
 }
 
 
