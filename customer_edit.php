@@ -562,7 +562,11 @@ else
 			
 			if(!isset($_GET['customer_add_force']))
 			{
-				$Q_customer = mysql_query("select customer_id from `customer` where `customer_name` = '".$data['customer_name']."'");
+				$Q_customer = mysql_query("select customer_id from `customer` 
+					WHERE
+						`customer_name` = '".$data['customer_name']."' AND
+						`slettet` = '0'
+					");
 				if(mysql_num_rows($Q_customer))
 				{
 					filterMakeAlternatives();
