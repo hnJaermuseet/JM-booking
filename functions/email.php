@@ -248,6 +248,15 @@ function emailSend ($user_id, $subject, $message)
 	}
 }
 
+function emailSendAdmin ($subject, $message)
+{
+	$headers = 'From: '.constant('EMAIL_FROM');
+		
+	$headers .= "\r\n";
+	$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
+	mail (constant('EMAIL_FROM'), $subject, $message, $headers);
+}
+
 function emailSendEntryChanges ($entry, $rev_num, $user_id)
 {
 	global $smarty;
