@@ -187,7 +187,7 @@ else
 
 // Getting entries for the user for the next 2 years
 $sync_from = mktime(0,0,0,date('m'), date('d'), date('Y'));
-$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num
+$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num, entry_name
 	from `entry` where 
 	(`user_assigned` LIKE '%;".$user_id.";%') AND 
 	(`time_end` >= '".$sync_from."') AND 
@@ -274,13 +274,14 @@ foreach($entries as $entry) // Running through items in database
 				
 				'Hei'.chr(10).chr(10).
 				
-				'I forbindelse med innlegging av bookinger i kalenderen din, så ble det'.chr(10).
-				'oppdaget at du har slettet en av bookingene som var en av avtalene i kalenderen.'.chr(10).chr(10).
+				'Det er blitt oppdaget at du har slettet en booking som '.
+				'var overført til kalenderen din.'.chr(10).chr(10).
 				
+				'Bookingnavn: '.$entry['entry_name'].chr(10).
 				'Bookingid: '.$entry['entry_id'].chr(10).
 				'Starter: '.date('H:i d.m.Y', $entry['time_start']).chr(10).chr(10).
 				
-				'Det er opprettet ny avtale i kalenderen din med rett informasjon fra bookingsystemet.'.chr(10).
+				'Det er opprettet ny avtale i kalenderen din med oppdatert informasjon fra bookingsystemet.'.chr(10).
 				'Hvis du ønsker å slette en booking eller gjøre endringer på den, så må dette gjøres i '.chr(10).
 				'bookingsystemet og kan ikke gjøres i kalenderen.'.chr(10).chr(10).
 				
@@ -311,13 +312,14 @@ foreach($entries as $entry) // Running through items in database
 				
 				'Hei'.chr(10).chr(10).
 				
-				'I forbindelse med innlegging av bookinger i kalenderen din, så ble det'.chr(10).
-				'oppdaget at du har endret en av bookingene som var en av avtalene i kalenderen.'.chr(10).chr(10).
+				'Det er blitt oppdaget at du har endret en booking som '.
+				'var overført til kalenderen din.'.chr(10).chr(10).
 				
+				'Bookingnavn: '.$entry['entry_name'].chr(10).
 				'Bookingid: '.$entry['entry_id'].chr(10).
 				'Starter: '.date('H:i d.m.Y', $entry['time_start']).chr(10).chr(10).
 				
-				'Det er opprettet ny avtale i kalenderen din med rett informasjon fra bookingsystemet.'.chr(10).
+				'Det er opprettet ny avtale i kalenderen din med oppdatert informasjon fra bookingsystemet.'.chr(10).
 				'Hvis du ønsker å gjøre endringer på den, så må dette gjøres i bookingsystemet og kan'.chr(10).
 				'ikke gjøres i kalenderen.'.chr(10).chr(10).
 				
