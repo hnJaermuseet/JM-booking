@@ -266,6 +266,40 @@ else
 		'<input type="text" name="cid2"> - Kunde 2, denne <b>slettes</b><br><br>'.
 		'<input type="submit" value="Neste">'.
 	'</form>';
+	
+	echo '<br><br>';
+	
+	echo '<table class="prettytable">';
+	echo '<tr>'.
+			'<th>To eller flere kunder heter</th>'.
+			'<th>Kunde 1, denne beholdes</th>'.
+			'<th>Kunde 2, denne slettes</th>'.
+			'<th>&nbsp;</th>'.
+		'</tr>';
+	$Q = mysql_query("
+			SELECT customer_id, customer_name 
+			FROM `customer` 
+			WHERE `slettet` = '0' 
+			ORDER BY customer_name
+		");
+	$last = '';
+	$last_id = 0;
+	while($R = mysql_fetch_assoc($Q))
+	{
+		if(strtolower($last) == strtolower($R['customer_name']))
+		{
+			echo '<tr><form action="admin_customer_merge.php" method="get">'.chr(10).
+				'<td><b>'.$last.'</b></td>'.
+				'<td><input type="text" name="cid1" value="'.$last_id.'"></td>'.
+				'<td><input type="text" name="cid2" value="'.$R['customer_id'].'"></td>'.
+				'<td><input type="submit" value="Slett kunde 2 og flytt over bookingene til kunde 1"></td>'.
+			'</form></tr>';
+		}
+		$last = $R['customer_name'];
+		$last_id = $R['customer_id'];
+	}
+	
+	echo '</table>';
 }
 
 echo '</td>
