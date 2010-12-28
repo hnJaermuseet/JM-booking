@@ -169,9 +169,6 @@ $refresh_rate = 0;
 ###############################################
 # Authentication settings - read AUTHENTICATION
 ###############################################
-# IP authentication allows any user to create bookings.
-$auth["realm"]  = "ARBS";
-$auth["type"]   = "sql"; //dont change this right now
 
 if(!isset($require_login))
 	$require_login = TRUE; // DON'T CHANGE THIS IF YOU NOT FIX THE CODE

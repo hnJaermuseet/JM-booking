@@ -133,9 +133,35 @@ if (!$db_c || !mysql_select_db ($db_database)){
 #sometimes, script include other stand-alone scripts -> include_once
 debugAddToLog(__FILE__, __LINE__, 'Including functions');
 include_once "functions.inc.php";
-debugAddToLog(__FILE__, __LINE__, 'Including auth');
-include_once "mrbs_auth.inc.php";
+debugAddToLog(__FILE__, __LINE__, 'Including auth_sql.inc.php');
+include_once "auth_sql.inc.php";
 
+/* showAccessDenied()
+ * 
+ * Displays an appropate message when access has been denied
+ * 
+ * Retusns: Nothing
+ */
+function showAccessDenied($day, $month, $year, $area, $admin)
+{
+	global $lang,$section;
+	
+	if($admin)
+	{
+		require "include/admin_middel.php";
+	}
+	else
+		print_header($day, $month, $year, $area);
+	
+	echo chr(10).
+	'<H1>'._("Access denied").'</H1>'.chr(10).
+	'	<P>'.chr(10).
+	'		'._("You don't have the neccessary rights to do this action.").chr(10).
+	'	</P>'.chr(10).
+	'</BODY>'.chr(10).
+	'</HTML>';
+	exit();
+}
 
 /*
 	## LOGIN ##
