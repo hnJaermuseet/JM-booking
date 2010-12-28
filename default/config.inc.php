@@ -211,6 +211,8 @@ if($systemIsInTest)
 	$testSystem['bannerExtraClass'] = ' testbanner';
 	
 	$systemurl = 'http://infoskjerm.jaermuseet.local/jm-bookingtest';
+	
+	$exchangesync_from_clionly = false;
 }
 else
 {
@@ -220,5 +222,8 @@ else
 	$testSystem['bannerExtraClass'] = '';
 	
 	$systemurl = 'http://booking.jaermuseet.local';
+	
+	$exchangesync_from_clionly = true;
 }
+
 ?>

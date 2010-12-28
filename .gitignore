@@ -11,3 +11,8 @@ invoice/*
 test-exchange/*
 img/*-logo.jpg
 img/infoskjerm-bg.PNG
+exchangesync/Services.wsdl
+exchangesync/messages.xsd
+exchangesync/types.xsd
+exchangesync/logs/log*
+exchangesync/password.php
