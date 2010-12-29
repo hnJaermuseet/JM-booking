@@ -73,6 +73,8 @@ if(
 	
 	echo '<h1>Kundeopprydding</h1>';
 	
+	echo '<a href="'.$_SERVER['PHP_SELF'].'?cid1='.$customer2['customer_id'].
+		'&amp;cid2='.$customer1['customer_id'].'">Bytt hvilken kunde som beholdes</a>';
 	echo '<table class="prettytable">'.
 		'<tr>'.
 			'<th>&nbsp;</td>'.
