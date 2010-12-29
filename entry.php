@@ -64,7 +64,7 @@ $area	= $entry['area_id'];
 print_header($day, $month, $year, $area);
 
 debugAddToLog(__FILE__, __LINE__, 'Marking entry as read');
-readEntry ($entry['entry_id'], $entry['rev_num']);
+//readEntry ($entry['entry_id'], $entry['rev_num']);
 
 $smarty = new Smarty;
 
