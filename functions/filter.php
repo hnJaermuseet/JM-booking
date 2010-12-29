@@ -233,8 +233,12 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 	foreach ($filters as $filter) {
 		$thisFilter = "`".$filter[0]."` ";
 		switch ($alternatives[$filter[0]]['type']) {
-			case 'bool':
+			
 			case 'select':
+				if($filter[0] == 'room_id') {
+					$thisFilter .= 'LIKE'; break;
+				}
+			case 'bool':
 			case 'id':
 				$thisFilter .= '='; break;
 			
@@ -254,6 +258,10 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 				$thisFilter .= "'%;".$filter[1].";%'"; break; // Value1
 			case 'text':
 				$thisFilter .= "'%".$filter[1]."%'"; break; // Value1, matcher
+			case 'select':
+				if($filter[0] == 'room_id') {
+					$thisFilter .= "'%;".$filter[1].";%'"; break;
+				}
 			default:
 				$thisFilter .= "'".$filter[1]."'"; break; // Value1
 		}
@@ -269,6 +277,9 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 		}
 		$used_filtertypes[$filter[0]] = true;
 	}
+	
+	// Adding the room_id=0, all rooms
+	$SQL = str_replace(" AND (`room_id`", " AND (`room_id` LIKE '%;0;%' OR `".$filter[0]."`", $SQL);
 	return $SQL;
 }
 
