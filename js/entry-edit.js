@@ -117,7 +117,8 @@ function chooseAddress (id, name)
 {
 	customer_id = document.getElementById('customer_id').value;
 	if(customer_id == '')
-		alert('Kunde ikke valgt.');
+		alert('Kunde er ikke valgt. Skriv inn kundenavn lenger oppe i skjemaet '+
+			'og velg en eksisterende eller opprett en ny.');
 	else
 	{
 		wAddress = window.open("customer_address_choose.php?id=" + id + "&name=" + name + "&id2=1&customer_id=" + customer_id, "wAddress", "width=450,height=610");
