@@ -32,6 +32,8 @@ require_once "functions/email.php";
 require_once "functions/postal_number.php";
 require_once "functions/entry.php";
 
+/* Language */
+require_once 'lang/lang.php';
 
 function print_header($day, $month, $year, $area){
 	global $lang, $mrbs_company, $search_str,$nrbs_pageheader,$language_available,$session_selected_language,$header_links;
@@ -161,7 +163,7 @@ function print_header($day, $month, $year, $area){
 			echo '>'.$i.'</option>';
 		}
 		echo '</select>';
-		echo '<input type="submit" value="'._('View month').'">'.
+		echo '<input type="submit" value="'._h('View month').'">'.
 		iconHTML('calendar_view_month');
 		echo '</form></td>'.chr(10);
 		

@@ -191,6 +191,8 @@ $locale = 'nb_NO';
 //$locale = "en_US";
 
 
+$language = 'no'; // Simple translator
+
 
 /*
  * Test-messages
