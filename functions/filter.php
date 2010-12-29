@@ -84,7 +84,7 @@ function filterMakeAlternatives () {
 	filterAddAlternative ('program_id',					'id2',			_('Fixed programs')); filterAssignTable ('program_id', 'programs', 'program_id', 'program_name');
 	filterAddAlternative ('program_description',		'text',			_('Program description'));
 	filterAddAlternative ('comment',					'text',			_('Comment'));
-	filterAddAlternative ('infoscreen_txt',				'text',			_('Text on infoscreen'));
+	filterAddAlternative ('infoscreen_txt',				'text',			_h('Text on infoscreen'));
 	filterAddAlternative ('invoice',					'bool',			_('Invoice'));
 	filterAddAlternative ('invoice_ref_your',			'text',			_('Invoice - Your referance'));
 	filterAddAlternative ('invoice_comment',			'text',			_('Invoice comment - to customer'));
@@ -126,7 +126,7 @@ function filterMakeAlternatives () {
 	$alternatives['invoice_status']['choice'][0] = _('Not to be made');
 	$alternatives['invoice_status']['choice'][1] = _('To be made');
 	$alternatives['invoice_status']['choice'][2] = _('Ready to be made');
-	$alternatives['invoice_status']['choice'][3] = 'Eksportert til Kommfakt';
+	$alternatives['invoice_status']['choice'][3] = _h('Export to Kommfakt');
 	
 }
 
@@ -301,7 +301,7 @@ function filterLink ($filtertable, $return_to = '') {
 	'<a href="entry_stat.php?filters='.$filtertable_serialized.'">'._('Statistics').'</a> -:- ';
 	
 	echo '<img height="12" src="./img/icons/group.png" style="border: 0px solid black; vertical-align: middle;"> '.
-	'<a href="entry_list.php?listtype=customer_list&amp;filters='.$filtertable_serialized.'">Kundeliste</a> ';
+	'<a href="entry_list.php?listtype=customer_list&amp;filters='.$filtertable_serialized.'">'._h('Customer list').'</a> ';
 	
 	echo '</font> ]';
 }
@@ -340,16 +340,16 @@ function filterToText ($filtertable) {
 			case 'date':
 			case 'num':
 				switch($filter[2]) {
-					case '=':	$return .= _('is');							break;
-					case '>';	$return .= _('is bigger than');				break;
-					case '>=':	$return .= _('is bigger than or same as');	break;
-					case '<':	$return .= _('is less than');					break;
-					case '<=':	$return .= _('is less than or same as');		break;
+					case '=':	$return .= _h('is');							break;
+					case '>';	$return .= _h('is bigger than');				break;
+					case '>=':	$return .= _h('is bigger than or same as');	break;
+					case '<':	$return .= _h('is less than');					break;
+					case '<=':	$return .= _h('is less than or same as');		break;
 				}
 		}
 		$return .= ' <b>';
 		if($alternatives[$filter[0]]['type'] == 'date' && $filter[1] == 'current') {
-			$return .= _('current time');
+			$return .= _h('current time');
 		}
 		elseif($alternatives[$filter[0]]['type'] == 'date') {
 			$return .= date('H:i d-m-Y', $filter[1]);
