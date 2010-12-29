@@ -59,6 +59,9 @@ if(!count($user))
 }
 
 print_header($day,$month,$year,$area);
+echo '<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>'.chr(10);
+echo '<script src="js/hide_unhide.js" type="text/javascript"></script>'.chr(10);
+
 echo '<h1>'._('Confirmation').', '.$entry['entry_name'].'</h1>'.chr(10);
 echo '- <a href="entry.php?entry_id='.$entry['entry_id'].'">'._('Back to entry').'</a><br><br>';
 
@@ -115,13 +118,17 @@ echo '	</tr>'.chr(10).chr(10);
 
 echo '</table>'.chr(10);
 
-if($confirm['confirm_pdf'] != '1')
-{
-	echo '<h2>'._('E-mail that was sent').':</h2>'.chr(10);
-	echo '<textarea cols="85" rows="15">'.$confirm['confirm_txt'].'</textarea>'.chr(10);
-	echo '<br><br>'.chr(10);
-}
-else
+echo '<h2>'._h('E-mail content').':</h2>'.chr(10);
+echo '<textarea cols="85" rows="10">'.$confirm['confirm_txt'].'</textarea>'.chr(10);
+echo '<br><br>'.chr(10);
+
+echo '<div class="showButton" id="buttonIdCONFIRMTPL">'.
+	'<a href="javascript:void();">'._h('View / Don\'t view template for e-mail content').'</a></div>'.
+	'<div class="showField" id="fieldIdCONFIRMTPL" style="display:none;">'.
+					'<textarea cols="85" rows="15">'.$confirm['confirm_tpl'].'</textarea>'.
+				'</div>'.chr(10);
+
+if($confirm['confirm_pdf'] == '1')
 {
 	echo '<h2>Følgende vedlegg var med bekreftelsen:</h2>';
 	echo '<ul>';
@@ -138,8 +145,15 @@ else
 			'</a></li>'; 
 	}
 	echo '</ul>';
+	
+	echo '<div class="showButton" id="buttonIdCONFIRMPDFTXT">'.
+		'<a href="javascript:void();">'._h('View / Don\'t view PDF content as plain text').'</a></div>'.
+		'<div class="showField" id="fieldIdCONFIRMPDFTXT" style="display:none;">'.
+						'<textarea cols="85" rows="15">'.$confirm['confirm_pdf_txt'].'</textarea>'.
+					'</div>'.chr(10);
+	echo '<div class="showButton" id="buttonIdCONFIRMPDFTPL">'.
+		'<a href="javascript:void();">'._h('View / Don\'t view template for PDF content').'</a></div>'.
+		'<div class="showField" id="fieldIdCONFIRMPDFTPL" style="display:none;">'.
+						'<textarea cols="85" rows="15">'.$confirm['confirm_pdf_tpl'].'</textarea>'.
+					'</div>'.chr(10);
 }
-echo '<h2>'._('Template that was sent').':</h2>'.chr(10);
-echo '<textarea cols="85" rows="15">'.$confirm['confirm_tpl'].'</textarea>'.chr(10);
-
-?>

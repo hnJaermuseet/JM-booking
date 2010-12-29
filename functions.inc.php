@@ -1853,7 +1853,8 @@ function readEntryLog ($log)
 						$return[] = _('Confirmation was <b>not sent</b> to'). ' <i>'.$value.'</i>'; break;
 					}
 					elseif(substr($index, 0, 5) == 'email') {
-						$return[] = _('Confirmation was sent to'). ' <i>'.$value.'</i>'; break;
+						$return[] = _h('Tried sending confirmation e-mail to').' <i>'.$value.'</i><br />('.
+							_h('The bookingsystem can not know if it was recived').')'; break;
 					}
 					
 					if(is_array($value))

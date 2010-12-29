@@ -552,3 +552,9 @@ td.strike, span.strike {
 td.graytext, a.graytext, span.graytext {
 	color: gray;
 }
+
+#emailTable input[type=text] {
+	font-size:1.5em;
+	width: 500px;
+	padding: 5px;	
+}

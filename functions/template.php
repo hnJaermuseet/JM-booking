@@ -378,6 +378,9 @@ function templateFetchFromVariable ($var, $tpl)
 {
 	global $$var;
 	
+	// Disable caching of this template
+	$$var->force_compile = true;
+	
 	// register the resource name "var"
 	$$var->register_resource("var", array("smarty_resource_var_template",
 	                                       "smarty_resource_var_timestamp",

@@ -24,8 +24,30 @@ function langNo($text)
 			return 'er mindre enn';
 		case 'is less than or same as':
 			return 'er mindre enn eller samme som';
-		case 'current time';
+		case 'current time':
 			return 'nåværende tid';
+		case 'E-mail content':
+			return 'Innhold i e-post';
+		case 'View / Don\'t view template for e-mail content';
+			return 'Vis / Ikke vis mal for epost-innholdet';
+		case 'View / Don\'t view PDF content as plain text':
+			return 'Vis / Ikke vis innholdet i PDF som ren tekst';
+		case 'View / Don\'t view template for PDF content':
+			return 'Vis / Ikke vis mal for innholdet i PDF';
+		case 'Choose already save template:':
+			return 'Velg en lagret mal:';
+		case 'Make PDF from the following template:':
+			return 'Lag PDFens innhold fra følgende mal:';
+		case 'Use the following template for the e-mail content:':
+			return 'Bruk følgende mal for innholdet til e-post:';
+		case 'Template for the content of the e-mail (not attachment):':
+			return 'Mal for hva som skal stå i e-posten (ikke PDF-vedlegget):';
+		case 'Templates':
+			return 'Maler';
+		case 'Tried sending confirmation e-mail to':
+			return 'Bekreftelsesepost ble forsøkt send til';
+		case 'The bookingsystem can not know if it was recived':
+			return 'Bookingsystemet kan ikke vite om den kom frem';
 	}
 	
 	trigger_error('No transaltion for: '.$text);

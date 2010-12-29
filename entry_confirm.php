@@ -65,26 +65,37 @@ if(isset($_POST['confirm_tpl']))
 	
 	
 	$smarty = new Smarty;
-	if(isset($_POST['emailTypePDF']) && $_POST['emailTypePDF'] == '1') {
-		$confirm_pdf = 1;
-		$smarty->assign('confirm_pdf', true);
-	}
-	else {
-		$confirm_pdf = 0;
-		$smarty->assign('confirm_pdf', false);
-	}
 	templateAssignEntry('smarty', $entry);
 	templateAssignSystemvars('smarty');
-	//echo $confirm_tpl;
-	$confirm_txt = templateFetchFromVariable('smarty', htmlspecialchars_decode($confirm_tpl,ENT_QUOTES));
-	$confirm_pdf_txt = '';
-	$confirm_pdf_tpl = '';
+	
+	if(isset($_POST['emailTypePDF']) && $_POST['emailTypePDF'] == '1')
+	{
+		$confirm_pdf = 1;
+		$smarty->assign('confirm_pdf', true);
+		
+		
+		$confirm_pdf_tpl = $confirm_tpl;
+		$confirm_pdf_txt = templateFetchFromVariable('smarty', 
+			htmlspecialchars_decode($confirm_pdf_tpl,ENT_QUOTES));
+	}
+	else
+	{
+		$confirm_pdf = 0;
+		$smarty->assign('confirm_pdf', false);
+		
+		
+		$confirm_txt = templateFetchFromVariable('smarty', 
+			htmlspecialchars_decode($confirm_tpl,ENT_QUOTES));
+		$confirm_pdf_txt = '';
+		$confirm_pdf_tpl = '';
+	}
 	
 	/* ## PDF ## */
 	if($confirm_pdf == 1)
 	{
-		$confirm_pdf_txt = $confirm_txt;
-		$confirm_pdf_tpl = $confirm_tpl;
+		// Switching
+		
+		// Make PDF and save
 		if($confirm_pdf_txt != '')
 		{
 			$confirm_pdffile = 'bekreftelse-'.date('Ymd-His').'-'.$entry['entry_id'].'.pdf';
@@ -110,15 +121,19 @@ if(isset($_POST['confirm_tpl']))
 		}
 		
 		
-		// Getting plain mailbody
+		// Getting plain mailbody from template submitted in form
 		$smarty2 = new Smarty;
-		templateAssignEntry('smarty', $entry);
-		templateAssignSystemvars('smarty');
-		$confirm_txt = $smarty2->fetch('file:mail-entry-confirm-pdfbody.tpl');
-		$confirm_tpl = file_get_contents('templates/mail-entry-confirm-pdfbody.tpl');
-				
+		templateAssignEntry('smarty2', $entry);
+		templateAssignSystemvars('smarty2');
+		$confirm_tpl = '';
+		if(isset($_POST['confirm_tpl_mainbody']))
+		{
+			$confirm_tpl = $_POST['confirm_tpl_mainbody'];
+		}
+		$confirm_txt = templateFetchFromVariable('smarty2', htmlspecialchars_decode($confirm_tpl, ENT_QUOTES));
 	} else {
 		$confirm_pdffile = '';
+		$confirm_txt = strip_tags($confirm_txt); // All templates should be HTML and we want without HTML.
 	}
 	
 	// For testing:
@@ -268,9 +283,9 @@ echo '<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>'.chr
 echo '<script src="js/jquery.blockUI.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/entry-confirm.js" type="text/javascript"></script>'.chr(10);
 
-echo '<h2>'._('Template').'</h2>'.chr(10);
+echo '<h2>'._h('Templates').'</h2>'.chr(10);
 echo '<div style="margin-left: 20px;">';
-echo 'Velg en lagret mal:<br>';
+echo _h('Choose already save template:').'<br>';
 $Q_template = mysql_query("select template_id, template_name from `template` where template_type = 'confirm'");
 if(mysql_num_rows($Q_template))
 {
@@ -287,16 +302,28 @@ else
 	echo '<select><option>'._('No template').'</option></select>'.chr(10);
 }
 echo '<br><br>'.chr(10);
+echo '<span id="txt_heading1">'._h('Make PDF from the following template:').'<br></span>'.chr(10);
+echo '<span id="txt_heading1_pdf" style="display:none;">'.
+	_h('Make PDF from the following template:').'<br></span>'.chr(10);
+echo '<span id="txt_heading1_nopdf" style="display:none;">'.
+	_h('Use the following template for the e-mail content:').'<br></span>'.chr(10);
 echo '</div>'; // Must end div, if not the <form> isn't correct
 echo '<form name="entry_confirm" method="post" action="'.$_SERVER['PHP_SELF'].'?entry_id='.$entry['entry_id'].'">'.chr(10).chr(10);
 
 
 echo '<div style="margin-left: 20px;">';
-echo '<textarea cols="85" rows="15" name="confirm_tpl" id="confirm_tpl"></textarea><br><br>'.chr(10);
+echo '<textarea cols="85" rows="10" name="confirm_tpl" id="confirm_tpl"></textarea><br><br>'.chr(10);
 
 echo '<label><input type="radio" name="emailTypePDF" value="1" checked="checked"> - '. iconFiletype('pdf').' Send som PDF-vedlegg (andre vedlegg også mulig)</label><br>';
 echo '<label><input type="radio" name="emailTypePDF" value="0"> - Send som ren tekst direkte i e-posten (vedlegg ikke mulig)</label><br>';
 echo '<br><br>'.chr(10);
+
+echo '<div id="pdf_mailbody">';
+echo _h('Template for the content of the e-mail (not attachment):').'<br>';
+echo '<textarea cols="85" rows="10" name="confirm_tpl_mainbody" id="confirm_tpl_mainbody">'.
+	file_get_contents('templates/mail-entry-confirm-pdfbody.tpl').'</textarea><br>'.chr(10);
+echo '<br><br>'.chr(10);
+echo '</div>';
 echo '</div>';
 
 

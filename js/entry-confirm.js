@@ -136,8 +136,24 @@ $(document).ready(function(){
 	$("input[name=emailTypePDF]").click(function () {
 		if($("input[name=emailTypePDF]:checked").val() != '1') {
 			disableAttachment();
+			
+			// Fade in some new text
+			$("#txt_heading1").fadeTo('slow', 0.1, function() {
+				$("#txt_heading1").html($("#txt_heading1_nopdf").html());
+				$("#txt_heading1").fadeTo('slow', 1);
+			});
+			
+			$("#pdf_mailbody").slideUp('slow');
 		} else {
 			enableAttachment();
+			
+			// Fade in some new text
+			$("#txt_heading1").fadeTo('slow', 0.1, function() {
+				$("#txt_heading1").html($("#txt_heading1_pdf").html());
+				$("#txt_heading1").fadeTo('slow', 1);
+			});
+			
+			$("#pdf_mailbody").slideDown('slow');
 		}
 	});
 	
