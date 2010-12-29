@@ -107,7 +107,9 @@ elseif(isset($_GET['postal_num']))
 {
 	if(strlen($_GET['postal_num']) == 4 && postalNumber($_GET['postal_num']))
 	{
-		echo postalNumber($_GET['postal_num']);
+		// Fixing some norwegian characters, making utf-8
+		header('Content-Type: text/html; charset=utf-8'); 
+		echo utf8_encode(postalNumber($_GET['postal_num']));
 	}
 	exit();
 }
