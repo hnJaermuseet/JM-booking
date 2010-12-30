@@ -144,6 +144,34 @@ if(isset($_GET['editor']))
 		$editor->makeNewField('user_invoice', 'Tilgang til eksport av faktura til Kommfakt', 'boolean');
 	}
 	
+	if($login['user_access_useredit'])
+	{
+		$Q_groups = mysql_query("select * from `groups` order by group_name");
+		$first = true;
+		while($R_group = mysql_fetch_assoc($Q_groups))
+		{
+			$editor->makeNewField('group_'.$R_group['group_id'], 
+				$R_group['group_name'], 'boolean', 
+				array(
+					'noDB' => true,
+				));
+			$editor->vars['group_'.$R_group['group_id']]['DBQueryPerform'] = false;
+			if($first)
+			{
+				$editor->vars['group_'.$R_group['group_id']]['before'] = 
+					"\t<tr>\n\t\t<td><h2>"._('Groups')."</h2></td>\n\t</tr>". // Added heading
+					"\t<tr>\n\t\t<td>";
+				$first = false;
+			}
+			
+			// Adding value
+			$gusers = splittIDs($R_group['user_ids']);
+			$editor->vars['group_'.$R_group['group_id']]['value']
+				= in_array($id,$gusers);
+		}
+	}
+	
+	
 	/* Disabled until implementet
 	
 	// TODO: Implement
@@ -162,6 +190,34 @@ if(isset($_GET['editor']))
 		{
 			if($editor->performDBquery())
 			{
+				// Edit of groups
+				$Q_groups = mysql_query("select * from `groups` order by group_name");
+				$first = true;
+				while($R_group = mysql_fetch_assoc($Q_groups))
+				{
+					$gusers = splittIDs($R_group['user_ids']); // Users in group
+					if(
+						$editor->vars['group_'.$R_group['group_id']]['value'] && // Wants to be in group 
+						!in_array($id, $gusers) // Are not in group
+					)
+					{
+						// Update
+						$gusers_new = $R_group['user_ids'].';'.$id.';';
+						mysql_query("UPDATE `groups` SET `user_ids` = '".$gusers_new."' 
+							WHERE `group_id` = '".$R_group['group_id']."' LIMIT 1 ;");
+					}
+					elseif(
+						!$editor->vars['group_'.$R_group['group_id']]['value'] && // Don't want to be in group 
+						in_array($id, $gusers) // Are in group
+					)
+					{
+						// Update
+						$gusers_new = str_replace(';'.$id.';', '', $R_group['user_ids']);
+						mysql_query("UPDATE `groups` SET `user_ids` = '".$gusers_new."' 
+							WHERE `group_id` = '".$R_group['group_id']."' LIMIT 1 ;");
+					}
+				}
+				
 				// Redirect
 				header('Location: '.$_SERVER['PHP_SELF']);
 				exit();
