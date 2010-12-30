@@ -107,6 +107,12 @@ function addEmailField () {
 	table.find('[name="email'+thisvalue+'"]').keyup(function() {
 		checkEmailAndAlert($(this));
 	});
+	table.find('[name="email'+thisvalue+'"]').change(function() {
+		checkEmailAndAlert($(this));
+	});
+	table.find('[name="email'+thisvalue+'"]').click(function() {
+		checkEmailAndAlert($(this));
+	});
 	
 	// Change for checkbox
 	table.find('[name="email'+thisvalue+'"]').parent().parent().
@@ -133,7 +139,6 @@ function enableAttachment ()
 }
 
 function checkEmail (value) {
-//return false;
 	if(value == "")
 		return true;
 	else
@@ -242,6 +247,12 @@ $(document).ready(function(){
 	});
 	
 	$("input[type=text][name^=email]").keyup(function() {
+		checkEmailAndAlert($(this));
+	});
+	$("input[type=text][name^=email]").change(function() {
+		checkEmailAndAlert($(this));
+	});
+	$("input[type=text][name^=email]").click(function() {
 		checkEmailAndAlert($(this));
 	});
 	
