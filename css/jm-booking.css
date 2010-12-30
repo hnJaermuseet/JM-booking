@@ -564,3 +564,12 @@ select.chooseTemplate {
 .haserror {
 	border: 1px dotted red;
 }
+
+table.editor {
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+table.editor td {
+	border-top: 1px dashed gray;
+	border-bottom: 1px dashed gray;
+}

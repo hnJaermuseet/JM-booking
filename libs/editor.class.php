@@ -71,7 +71,7 @@ class editor {
 	 	* [choiceid] = choiceid
 	 */
 	var $vars			= array();
-	var $heading_before	= "<table style=\"border: 1px solid black;\">\n\t<tr>\n\t\t<td colspan=\"4\" align=\"center\"><h1>";
+	var $heading_before	= "<table class=\"editor\">\n\t<tr>\n\t\t<td colspan=\"4\" align=\"center\"><h1>";
 	var $heading		= 'Editor';
 	var $heading_after	= "</h1></td>\n\t</tr>";
 	var $fields_before	= "\n";
