@@ -126,11 +126,10 @@ function addFieldInvoiceWithValues (description, topay_each, tax)
 		if(formelements[i].name == "rows[]")
 		{
 			if(formelements[i].value > valuehighestrow)
-				valuehighestrow = formelements[i].value;
+				valuehighestrow = parseInt(formelements[i].value);
 		}
 	}
-	valuehighestrow++;
-	thisvalue = valuehighestrow;
+	thisvalue = parseInt(valuehighestrow)+1;
 	valuehighestline++;
 	
 	var tr = '<tr id="row'+ thisvalue+'">' +
@@ -261,7 +260,7 @@ function addFieldInvoiceWithValues (description, topay_each, tax)
 	var td10 = '<td>'+
 		'<input '+
 			'type="button" '+
-			'value="Fjern linje" '+
+			'value="Ta vekk linje" '+
 			'onclick="removeInvoiceField(\''+thisvalue+'\');" '+
 		'></td>';
 		
@@ -278,6 +277,7 @@ function addFieldInvoiceWithValues (description, topay_each, tax)
 			td9 + td10 +
 		tr_slutt);
 	
+	$('#mva'+thisvalue).keydown(tabInTaxField);
 	
 	updateMva(thisvalue);
 }

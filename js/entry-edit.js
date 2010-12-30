@@ -233,6 +233,39 @@ function putInTextForInfoscreen () {
 	alert ("ABC");
 }
 
+function tabInTaxField (e)
+{
+	if(e.keyCode == 9) // Tab key
+	{
+		// Checking if the last mva field is selected
+		form = document.forms['entry'];
+		formelements = form.elements;
+		valuelastrow = 0;
+		valuehighestrow = 0;
+		for (var i = 0; i<formelements.length;i++)
+		{
+			if(formelements[i].name == "rows[]")
+			{
+				if(formelements[i].value > valuehighestrow)
+					valuehighestrow = parseInt(formelements[i].value);
+			}
+		}
+		
+		if($(this).attr('name').substr(3) == valuehighestrow)
+		{
+			// Are the last line, making a new and focusing on the first input field
+			addFieldInvoice();
+			
+			// thisvalue is being changed by addFieldInvoice, its now the new row
+			$('textarea[name="name'+thisvalue+'"]').focus();
+			
+			// Preventing default, dont want browser to focus on the wrong field
+			e.preventDefault();
+		}
+		
+	}
+}
+
 $(document).ready(function(){
 	$('#time_start').datepicker({
 			dateFormat: 'dd-mm-yy',
@@ -285,4 +318,7 @@ $(document).ready(function(){
 	
 	
 	$('.programHover').hoverbox();
+	
+	
+	$('input[type=text][name^=mva]').keydown(tabInTaxField);
 });
