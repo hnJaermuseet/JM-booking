@@ -2297,4 +2297,20 @@ function get_default_area(){
 	$area = mysql_result($Q_area,0, 'thisid');
 	return ($area < 0 ? 0 : $area);
 }
+
+function checkUser ($user_id = '0')
+{
+	if($user_id == '0')
+		return FALSE;
+	else
+	{
+		$Q_user = mysql_query("select * from `users` where user_id = '".$user_id."'");
+		
+		if(!mysql_num_rows($Q_user))
+			return FALSE;
+		else
+			return TRUE;
+	}
+}
+
 ?>
