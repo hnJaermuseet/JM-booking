@@ -58,6 +58,10 @@ function langNo($text)
 			return 'E-postens innhold';
 		case 'Change the templates':
 			return 'Endre på malene';
+		case 'Users not in this group':
+			return 'Brukere som ikke er i gruppen';
+		case 'Add user to group':
+			return 'Legg brukeren til gruppen';
 	}
 	
 	trigger_error('No translation for: '.$text);

@@ -64,7 +64,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 		}
 	}
 	
-	if(isset($_POST['group_add_user']) && is_numeric($_POST['group_add_user']))
+	if(isset($_GET['group_add_user']) && is_numeric($_GET['group_add_user']))
 	{
 		// Adding a user
 		if(!$login['user_access_useredit'])
@@ -73,7 +73,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 			exit ();
 		}
 		
-		$user_id = $_POST['group_add_user'];
+		$user_id = $_GET['group_add_user'];
 		if(checkUser($user_id))
 		{
 			if(!array_key_exists($user_id, $gusers1))
@@ -127,6 +127,16 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	echo '<br><br>'.chr(10);
 	echo '<b>'._('Users').'</b><br>'.chr(10);
 	
+	$Q_users = mysql_query("
+		SELECT user_id, user_name
+		FROM `users`
+		WHERE `deactivated` = false
+		ORDER BY user_name");
+	$all_users = array();
+	while($R_user = mysql_fetch_assoc($Q_users))
+	{
+		$all_users[$R_user['user_id']] = $R_user['user_name'];
+	}
 	echo '<ol>'.chr(10);
 	foreach ($gusers1 as $user_id => $user_name)
 	{
@@ -136,8 +146,28 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 			echo ' (<a href="admin_group.php?gid='.$gid.'&amp;group_del_user='.$user_id.'">'._('Remove user from group').'</a>)';
 		
 		echo '</li>'.chr(10);
+		
+		if(isset($all_users[$user_id]))
+			unset($all_users[$user_id]);
 	}
 	echo '</ol>'.chr(10);
+	
+	if(count($all_users))
+	{
+		echo '<h2>'._h('Users not in this group').'</h2>';
+		echo '<table class="prettytable">'.chr(10);
+		foreach ($all_users as $user_id => $user_name)
+		{
+			echo '<tr><td><a href="user.php?user_id='.$user_id.'">'.$user_name.'</a>';
+			
+			echo '</td><td>';
+			if($login['user_access_useredit'])
+				echo '<a href="admin_group.php?gid='.$gid.'&amp;group_add_user='.$user_id.'">'._h('Add user to group').'</a>';
+			
+			echo '</td></tr>'.chr(10);
+		}
+		echo '</table>'.chr(10);
+	}
 	
 }
 elseif(isset($_POST['add']))
