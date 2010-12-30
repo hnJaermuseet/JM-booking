@@ -573,3 +573,15 @@ table.editor td {
 	border-top: 1px dashed gray;
 	border-bottom: 1px dashed gray;
 }
+
+table.entry_invoice {
+	border-collapse: collapse;
+}
+table.entry_invoice th {
+	background: #E0E0E0;
+	color: black;
+	border: 1px solid black;
+}
+table.entry_invoice td {
+	border: 1px solid black;
+}

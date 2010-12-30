@@ -22,10 +22,20 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 *}<html>
-<head><title>Fakturagrunnlag</title></head><body>
+<head>
+	<title>Fakturagrunnlag</title>
+	<link type="text/css" href="css/jm-booking.css" rel="stylesheet">
+</head><body>
 <div align="right">{$smarty.now|date_format:"%d-%m-%Y"}</div>
 {$invoice_address|nl2br}
 <h1 style="font-size: x-large;">Fakturagrunnlag p&aring; arrangement ved {$area} {$time_start|date_format:"%d-%m-%Y"}</h1>
+
+{if $invoice_electronic}
+<span style="font-size: 1.2em; color: red;" class="hiddenprint"><b>Faktura &oslash;nskes tilsendt per e-post til {$contact_person_email}</b></span>
+<span style="font-size: 1.2em;" class="print"><b>Faktura &oslash;nskes tilsendt per e-post til {$contact_person_email}</b></span>
+<br /><br />
+{/if}
+
 <b>Bookingid:</b> {$entry_id}<br>
 <b>Arrangementstittel:</b> {$entry_title}<br>
 <b>Tidrom:</b> {$time_start|date_format:"%A %d-%m-%Y %H:%M"} - {$time_end|date_format:"%d-%m-%Y %H:%M"}<br>
@@ -34,25 +44,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <b>Referanse:</b> {$invoice_ref_your}<br>
 <br><br>
 
-<table style="border-collapse: collapse;">
+<table class="entry_invoice">
  <tr>
-  <th style="border: 1px solid black;" width="50px" bgcolor="#E0E0E0" align="center"><b>Lnr</b></th>
-  <th style="border: 1px solid black;" bgcolor="#E0E0E0" align="left"><b>Beskrivelse</b></th>
-  <th style="border: 1px solid black;" width="80px" bgcolor="#E0E0E0" align: right;"><b>Stk.pris<br />eks. mva</b></th>
-  <th style="border: 1px solid black;" width="50px" bgcolor="#E0E0E0" align="center"><b>Antall</b></th>
-  <th style="border: 1px solid black;" width="80px" bgcolor="#E0E0E0" align="right"><b>Sum eks.mva</b></th>
-  <th style="border: 1px solid black;" width="50px" bgcolor="#E0E0E0" align="right"><b>MVA<br />-sats</b></th>
-  <th style="border: 1px solid black;" width="80px" bgcolor="#E0E0E0" align="right"><b>Sum ink.mva</b></th>
+  <th width="50px" align="center"><b>Lnr</b></th>
+  <th align="left"><b>Beskrivelse</b></th>
+  <th width="80px" align: right;"><b>Stk.pris<br />eks. mva</b></th>
+  <th width="50px" align="center"><b>Antall</b></th>
+  <th width="80px" align="right"><b>Sum eks.mva</b></th>
+  <th width="50px" align="right"><b>MVA<br />-sats</b></th>
+  <th width="80px" align="right"><b>Sum ink.mva</b></th>
  </tr>
 {foreach from=$invoice_content key=linjenr item=innhold}
  <tr>
-  <td style="border: 1px solid black;" align="center">{$linjenr}</td>
-  <td style="border: 1px solid black;" align="left" width="250px">{$innhold.name|nl2br}</td>
-  <td style="border: 1px solid black;" align="right">kr {$innhold.belop_hver|commify:2:",":" "}</td>
-  <td style="border: 1px solid black;" align="center">{$innhold.antall}</td>
-  <td style="border: 1px solid black;" align="right"><b>kr {$innhold.belop_sum_netto|commify:2:",":" "}</b></td>
-  <td style="border: 1px solid black;" align="right"><b>{math equation="x*100" x=$innhold.mva} %</b></td>
-  <td style="border: 1px solid black;" align="right"><b>kr {$innhold.belop_sum|commify:2:",":" "}</b></td>
+  <td align="center">{$linjenr}</td>
+  <td align="left" width="250px">{$innhold.name|nl2br}</td>
+  <td align="right">kr {$innhold.belop_hver|commify:2:",":" "}</td>
+  <td align="center">{$innhold.antall}</td>
+  <td align="right"><b>kr {$innhold.belop_sum_netto|commify:2:",":" "}</b></td>
+  <td align="right"><b>{math equation="x*100" x=$innhold.mva} %</b></td>
+  <td align="right"><b>kr {$innhold.belop_sum|commify:2:",":" "}</b></td>
  </tr>
 {/foreach}
 </table>
@@ -63,23 +73,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 {if $mva_vis}
 <br><br>
-<table style="border-collapse: collapse;">
+<table class="entry_invoice">
  <tr>
-  <th style="border: 1px solid black;" bgcolor="#E0E0E0">MVA-%</th>
-  <th style="border: 1px solid black;" bgcolor="#E0E0E0">Grunnlag</th>
-  <th style="border: 1px solid black;" bgcolor="#E0E0E0">MVA</th>
+  <th>MVA-%</th>
+  <th>Grunnlag</th>
+  <th>MVA</th>
  </tr>
 {foreach from=$mva key=mvaen item=mva_delsum}
  <tr>
-  <td style="border: 1px solid black;" align="right">{$mvaen}&nbsp;%</td>
-  <td style="border: 1px solid black;" align="right">kr&nbsp;{$mva_grunnlag.$mvaen|commify:2:",":" "}</td>
-  <td style="border: 1px solid black;" align="right">kr&nbsp;{$mva_delsum|commify:2:",":" "}</td>
+  <td align="right">{$mvaen}&nbsp;%</td>
+  <td align="right">kr&nbsp;{$mva_grunnlag.$mvaen|commify:2:",":" "}</td>
+  <td align="right">kr&nbsp;{$mva_delsum|commify:2:",":" "}</td>
  </tr>
 {/foreach}
  <tr>
-  <td style="border: 1px solid black;" align="right">SUM</td>
-  <td style="border: 1px solid black;" align="right">kr&nbsp;{$mva_grunnlag_sum|commify:2:",":" "}</td>
-  <td style="border: 1px solid black;" align="right">kr&nbsp;{$faktura_belop_sum_mva|commify:2:",":" "}</td>
+  <td align="right">SUM</td>
+  <td align="right">kr&nbsp;{$mva_grunnlag_sum|commify:2:",":" "}</td>
+  <td align="right">kr&nbsp;{$faktura_belop_sum_mva|commify:2:",":" "}</td>
  </tr>
 </table>{/if}
 
