@@ -29,7 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <style type="text/css">
 {fetch file="css/entry-confirm_pdf.css"}
 </style>
-{if $area == 'Vitenfabrikken'}
+{if 
+
+
+$area == 'Vitenfabrikken'}
 <div class="box3"><img src="img/Vitenfabrikken-logo.jpg" width="220"></div>
 <div class="box4"><br>
 <b>Besøksadresse:</b><br>
@@ -52,5 +55,55 @@ sandnes@jaermuseet.no<br>
 (+47) 51 97 25 49<br>
 http://www.jaermuseet.no/<br>
 http://www.vitenfabrikken.no/
+</div>
+{elseif 
+
+
+
+$area == 'Vitengarden'}
+<div class="box3"><img src="img/Vitengarden-logo.jpg" width="220"></div>
+<div class="box4"><br><br><br>
+<b>Besøksadresse:</b><br>
+<br>
+<b>Postadresse:</b><br>
+<br>
+<b>Org.nr.:</b><br>
+<b>E-post:</b><br>
+<b>Sentralbord:</b><br>
+<b>Telefaks:</b><br>
+<b>Nettside:</b></div>
+<div class="box5"><br><br><br>
+Kviavegen 99,<br>
+4367 N&aelig;rb&oslash;<br>
+Postboks 250,<br>
+4367 N&aelig;rb&oslash;<br>
+NO 971 098 767 MVA<br>
+post@jaermuseet.no<br>
+(+47) 51 79 94 20<br>
+(+47) 51 79 94 21<br>
+http://www.jaermuseet.no/<br>
+http://www.vitengarden.no/
+</div>
+{else
+
+
+}
+<div class="box3"><img src="img/JM-logo.jpg" width="220"></div>
+<div class="box4"><br>
+<b>Postadresse:</b><br>
+<br>
+<b>Org.nr.:</b><br>
+<b>E-post:</b><br>
+<b>Sentralbord:</b><br>
+<b>Telefaks:</b><br>
+<b>Nettside:</b></div>
+<div class="box5"><br>
+Postboks 250,<br>
+4367 N&aelig;rb&oslash;<br>
+NO 971 098 767 MVA<br>
+post@jaermuseet.no<br>
+(+47) 51 79 94 20<br>
+(+47) 51 79 94 21<br>
+http://www.jaermuseet.no/
 </div>
 {/if}

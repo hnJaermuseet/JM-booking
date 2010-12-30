@@ -281,15 +281,17 @@ echo '- <a href="entry.php?entry_id='.$entry['entry_id'].'">'._('Back to entry')
 
 echo '<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/jquery.blockUI.js" type="text/javascript"></script>'.chr(10);
+echo '<script src="js/jquery-validation/jquery.validate.min.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/entry-confirm.js" type="text/javascript"></script>'.chr(10);
 
-echo '<h2>'._h('Templates').'</h2>'.chr(10);
+echo '<h2>'._h('Choose template').'</h2>'.chr(10);
 echo '<div style="margin-left: 20px;">';
 echo _h('Choose already save template:').'<br>';
 $Q_template = mysql_query("select template_id, template_name from `template` where template_type = 'confirm'");
 if(mysql_num_rows($Q_template))
 {
-	echo '<select onchange="useTemplate(this.options[this.selectedIndex].value);">'.chr(10);
+	echo '<select onchange="useTemplate(this.options[this.selectedIndex].value);" '.
+		'class="chooseTemplate" validate="required:true">'.chr(10);
 	echo '<option value="0">'._('Non selected').'</option>'.chr(10);
 	while ($R_tpl = mysql_fetch_assoc($Q_template))
 	{
@@ -301,30 +303,10 @@ else
 {
 	echo '<select><option>'._('No template').'</option></select>'.chr(10);
 }
+echo '<span id="chooseTemplate_anim"></span>';
 echo '<br><br>'.chr(10);
-echo '<span id="txt_heading1">'._h('Make PDF from the following template:').'<br></span>'.chr(10);
-echo '<span id="txt_heading1_pdf" style="display:none;">'.
-	_h('Make PDF from the following template:').'<br></span>'.chr(10);
-echo '<span id="txt_heading1_nopdf" style="display:none;">'.
-	_h('Use the following template for the e-mail content:').'<br></span>'.chr(10);
 echo '</div>'; // Must end div, if not the <form> isn't correct
 echo '<form name="entry_confirm" method="post" action="'.$_SERVER['PHP_SELF'].'?entry_id='.$entry['entry_id'].'">'.chr(10).chr(10);
-
-
-echo '<div style="margin-left: 20px;">';
-echo '<textarea cols="85" rows="10" name="confirm_tpl" id="confirm_tpl"></textarea><br><br>'.chr(10);
-
-echo '<label><input type="radio" name="emailTypePDF" value="1" checked="checked"> - '. iconFiletype('pdf').' Send som PDF-vedlegg (andre vedlegg også mulig)</label><br>';
-echo '<label><input type="radio" name="emailTypePDF" value="0"> - Send som ren tekst direkte i e-posten (vedlegg ikke mulig)</label><br>';
-echo '<br><br>'.chr(10);
-
-echo '<div id="pdf_mailbody">';
-echo _h('Template for the content of the e-mail (not attachment):').'<br>';
-echo '<textarea cols="85" rows="10" name="confirm_tpl_mainbody" id="confirm_tpl_mainbody">'.
-	file_get_contents('templates/mail-entry-confirm-pdfbody.tpl').'</textarea><br>'.chr(10);
-echo '<br><br>'.chr(10);
-echo '</div>';
-echo '</div>';
 
 
 /* ## SEND TIL ## */
@@ -348,11 +330,12 @@ echo '<tr><td><input type="checkbox" name="emails[]" value="'.$i.'" checked="che
 	'<input type="text" name="email'.$i.'" value=""></td></tr>'.chr(10);
 
 echo '</table>'.chr(10);
-echo '<input type="button" onclick="addEmailField();" value="'._('Add field').'" class="ui-button ui-state-default ui-corner-all">'.chr(10);
+echo '<input type="button" onclick="addEmailField();" value="'._('Add field').'" '.
+	'class="ui-button ui-state-default ui-corner-all" style="margin-left: 25px;">'.chr(10);
 
 echo '</div>';
 
-echo '<br><br><br>'.chr(10);
+echo '<br>'.chr(10);
 /*
 echo '<b>'._('Save template').'</b><br>'.chr(10);
 echo '<table width="600"><tr><td>';
@@ -363,12 +346,35 @@ echo '<input type="checkbox" name="save_template" value="1"> '.
 */
 
 
+/* ## SEND BEKREFTELSE ## */
+echo '<h2>Send bekreftelse</h2>';
+echo '<div style="margin-left: 20px;">';
+echo '<div class="notice" id="noPDF" style="display:none;">'.
+	'<h2>Ingen mal valgt</h2>'.
+	'Du har ikke valgt mal og PDF-vedlegg blir da ikke sendt (eller e-posten blir tom).<br>'.
+	'Er du sikker på at du vil fortsette?<br><br>'.
+	'<label><input type="checkbox" id="nopdf_confirm"> Ja, jeg vil fortsette</label>'.
+	'</div>'.chr(10).chr(10);
+echo '<div class="notice" id="failedEmail" style="display:none;">'.
+	'<h2>Feil med en eller flere e-poster</h2>'.
+	'Du har en eller flere e-post-adressene med feil. Sjekk disse over.<br>'.
+	//'Er du sikker på at du vil fortsette?<br><br>'.
+	//'<label><input type="checkbox" id="nopdf_confirm"> Ja, jeg vil fortsette</label>'.
+	'</div>'.chr(10).chr(10);
+echo '<input type="text" name="confirm_comment" size="20"> - '.
+	_('Internal comment') .' (vil ligge i loggen)<br><br><br>'.chr(10);
+echo '<input type="submit" value="'._('Send confirmation').'" style="font-size: 18px;"
+ class="ui-button ui-state-default ui-corner-all"><br><br><br><br><br>'.chr(10);
+echo '</div>'.chr(10).chr(10);
+
+
 /* ## VEDLEGG ## */
 echo '<h2>Vedlegg</h2>';
 echo '<div style="margin-left: 20px;" id="emailAttachment">';
-echo 'Filene må lastes opp fra egen side under <i>Administrasjon</i><br><br>';
+echo 'Filene må lastes opp fra egen side under <i>Administrasjon</i>. '.
+	'Du kan velge filer under, eller få disse fra bookingtype eller faste program.<br><br>';
 
-echo '<div style="border:2px solid #DDDDDD; margin-bottom:1em; padding:0.8em;">';
+echo '<div style="border:2px solid #DDDDDD; margin-bottom:1em; padding:0.8em; width: 699px;">';
 echo '<div id="noAttachmentsSelected" style="display: none; padding: 5px;"><i>Ingen vedlegg valgt</i></div>';
 
 $SQL = "
@@ -440,26 +446,30 @@ echo '<div style="width: 400px; margin-left: 20px; display:none; font-size: 14px
 	'Vedlegg er ikke mulig når sendingstype er ren tekst.<br>Velg PDF for vedlegg.</div>';
 
 
-/* ## SEND BEKREFTELSE ## */
-echo '<h2>Send bekreftelse</h2>';
+/* ## Template fields ## */
+echo '<h2>'._h('Change the templates').'</h2>'.chr(10);
 echo '<div style="margin-left: 20px;">';
-echo '<div class="notice" id="noPDF" style="display:none;">'.
-	'<h2>Ingen mal valgt</h2>'.
-	'Du har ikke valgt mal og PDF-vedlegg blir da ikke sendt (eller e-posten blir tom).<br>'.
-	'Er du sikker på at du vil fortsette?<br><br>'.
-	'<label><input type="checkbox" id="nopdf_confirm"> Ja, jeg vil fortsette</label>'.
-	'</div>'.chr(10).chr(10);
-echo '<div class="notice" id="failedEmail" style="display:none;">'.
-	'<h2>Feil med en eller flere e-poster</h2>'.
-	'Du har en eller flere e-post-adressene med feil. Sjekk disse over.<br>'.
-	//'Er du sikker på at du vil fortsette?<br><br>'.
-	//'<label><input type="checkbox" id="nopdf_confirm"> Ja, jeg vil fortsette</label>'.
-	'</div>'.chr(10).chr(10);
-echo '<input type="text" name="confirm_comment" size="20"> - '.
-	_('Internal comment') .' (vil ligge i loggen)<br><br><br>'.chr(10);
+	echo '<span id="txt_heading1">'._h('Content of PDF file').' ('._h('can be edited here').')<br></span>'.chr(10);
+	echo '<span id="txt_heading1_pdf" style="display:none;">'.
+		_h('Content of PDF file').' ('._h('can be edited here').')<br></span>'.chr(10);
+	echo '<span id="txt_heading1_nopdf" style="display:none;">'.
+		_h('Content of the e-mail').' ('._h('can be edited here').')<br></span>'.chr(10);
+	echo '<textarea cols="85" rows="10" name="confirm_tpl" id="confirm_tpl"></textarea><br><br>'.chr(10);
+	
+	echo '<label><input type="radio" name="emailTypePDF" value="1" checked="checked"> - '. iconFiletype('pdf').' Send som PDF-vedlegg (andre vedlegg også mulig)</label><br>';
+	echo '<label><input type="radio" name="emailTypePDF" value="0"> - Send som ren tekst direkte i e-posten (vedlegg ikke mulig)</label><br>';
+	echo '<br><br>'.chr(10);
+	
+	echo '<div id="pdf_mailbody">';
+		echo _h('Content of the e-mail').' ('._h('can be edited here').')<br>';
+		echo '<textarea cols="85" rows="10" name="confirm_tpl_mainbody" id="confirm_tpl_mainbody">'.
+			htmlentities(utf8_decode(file_get_contents('templates/mail-entry-confirm-pdfbody.tpl')), ENT_QUOTES).'</textarea><br>'.chr(10);
+		echo '<br><br>'.chr(10);
+	echo '</div>';
+echo '</div>'.chr(10).chr(10);
+
 echo '<input type="submit" value="'._('Send confirmation').'" style="font-size: 18px;"
  class="ui-button ui-state-default ui-corner-all"><br><br><br><br><br>'.chr(10);
-echo '</div>';
 
 echo '</form>'.chr(10);
 

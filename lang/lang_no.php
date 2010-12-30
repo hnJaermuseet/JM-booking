@@ -48,9 +48,19 @@ function langNo($text)
 			return 'Bekreftelsesepost ble forsøkt send til';
 		case 'The bookingsystem can not know if it was recived':
 			return 'Bookingsystemet kan ikke vite om den kom frem';
+		case 'Choose template':
+			return 'Velg mal';
+		case 'Content of PDF file':
+			return 'PDF-filens innhold';
+		case 'can be edited here':
+			return 'kan endres her';
+		case 'Content of the e-mail':
+			return 'E-postens innhold';
+		case 'Change the templates':
+			return 'Endre på malene';
 	}
 	
-	trigger_error('No transaltion for: '.$text);
+	trigger_error('No translation for: '.$text);
 	return $text;
 }
 

@@ -553,8 +553,14 @@ td.graytext, a.graytext, span.graytext {
 	color: gray;
 }
 
-#emailTable input[type=text] {
+#emailTable input[type=text],
+select.chooseTemplate {
 	font-size:1.5em;
 	width: 500px;
 	padding: 5px;	
+}
+#emailTable td { vertical-align: middle; }
+
+.haserror {
+	border: 1px dotted red;
 }
