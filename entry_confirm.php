@@ -287,7 +287,9 @@ echo '<script src="js/entry-confirm.js" type="text/javascript"></script>'.chr(10
 echo '<h2>'._h('Choose template').'</h2>'.chr(10);
 echo '<div style="margin-left: 20px;">';
 echo _h('Choose already save template:').'<br>';
-$Q_template = mysql_query("select template_id, template_name from `template` where template_type = 'confirm'");
+$Q_template = mysql_query("select template_id, template_name from `template` 
+	WHERE template_type = 'confirm'
+	ORDER BY `template_name`");
 if(mysql_num_rows($Q_template))
 {
 	echo '<select onchange="useTemplate(this.options[this.selectedIndex].value);" '.
