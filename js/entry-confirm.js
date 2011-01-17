@@ -221,20 +221,6 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#test").click(function () {
-	
-		failedEmails = false;
-		$("input[type=text][name^=email]").each(function ()	{
-			tr = $(this).parent().parent();
-			checked = tr.find('input[type=checkbox]').attr('checked');
-			if(checked && !checkEmail ($(this).val()))
-			{
-				$("#failedEmail").slideDown();
-				failedEmails = true;
-				return false;
-			}
-		});
-	});
 	$("form[name=entry_confirm]").submit(function () {
 		if($("#confirm_tpl").value == "" && !$("#nopdf_confirm:checked").length) {
 			$("#noPDF").slideDown();
