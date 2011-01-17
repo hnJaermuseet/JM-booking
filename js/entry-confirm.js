@@ -27,6 +27,7 @@ waitingForTemplate = false;
 function useTemplate(tpl_id)
 {
 	waitingForTemplate = true;
+	$(".chooseTemplate").removeClass('noTemplate');
 	$("#chooseTemplate_anim").html('<img src="img/busy.gif">');
 	var xmlHttp=null; // Defines that xmlHttp is a new variable.
 	// Try to get the right object for different browser
@@ -220,26 +221,63 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#test").click(function () {
+	
+		failedEmails = false;
+		$("input[type=text][name^=email]").each(function ()	{
+			tr = $(this).parent().parent();
+			checked = tr.find('input[type=checkbox]').attr('checked');
+			if(checked && !checkEmail ($(this).val()))
+			{
+				$("#failedEmail").slideDown();
+				failedEmails = true;
+				return false;
+			}
+		});
+	});
 	$("form[name=entry_confirm]").submit(function () {
 		if($("#confirm_tpl").value == "" && !$("#nopdf_confirm:checked").length) {
 			$("#noPDF").slideDown();
 			return false;
 		}
 		
-		
+		failedEmails = false;
 		$("input[type=text][name^=email]").each(function ()	{
-			tr = $(this).parent.parent();
+			tr = $(this).parent().parent();
 			checked = tr.find('input[type=checkbox]').attr('checked');
 			if(checked && !checkEmail ($(this).val()))
 			{
-				$("#failedEmail").slideDown();
+				$.blockUI({ message: $('#dialog_failedEmail'), css: { width: '375px' } }); 
+				failedEmails = true;
 				return false;
 			}
 		});
 		
-		$("#failedEmail").slideUp();
+		if(failedEmails)
+			return false;
+		
+		if($("select.noTemplate").hasClass('noTemplate'))
+		{
+			$.blockUI({ message: $('#dialog_question'), css: { width: '475px' } }); 
+			return false;
+		}
 		
 		$.blockUI({ message: '<h1 style="font-size: 16px;">Sender bekreftelse,<br>vennligst vent...</h1>' });
+	});
+	
+	$('#dialog_yes').click(function() { 
+		$("select.noTemplate").removeClass('noTemplate');
+		$("form[name=entry_confirm]").submit();
+	});
+
+	$('#dialog_no').click(function() { 
+		$.unblockUI(); 
+		return false; 
+	});
+
+	$('#dialog_ok').click(function() { 
+		$.unblockUI(); 
+		return false; 
 	});
 	
 	$("input[type=text][name^=email]").each(function ()	{
@@ -263,4 +301,6 @@ $(document).ready(function(){
 		checkEmailAndAlert($(this).parent().parent().find('input[type=text]'));
 	});
 	
+	
+	$("#chooseTemplate_anim").html('<img src="img/icons/delete.png"> Ingen mal valg');
 });

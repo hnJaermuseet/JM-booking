@@ -561,8 +561,9 @@ select.chooseTemplate {
 }
 #emailTable td { vertical-align: middle; }
 
-.haserror {
-	border: 1px dotted red;
+.haserror , select.noTemplate {
+	border: 1px solid red;
+	background-color: #FF9999;
 }
 
 table.editor {

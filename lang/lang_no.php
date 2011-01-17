@@ -62,6 +62,16 @@ function langNo($text)
 			return 'Brukere som ikke er i gruppen';
 		case 'Add user to group':
 			return 'Legg brukeren til gruppen';
+		case 'You have not selected a template.':
+			return 'Du har ikke valgt en mal.';
+		case 'Are you sure you want to send?':
+			return 'Er du sikker på at du vil sende?';
+		case 'Incorrect email(s)':
+			return 'Ugyldig epost(er)';
+		case 'One or more emails are incorrect.':
+			return 'En eller flere eposter er ugyldige.';
+		case 'Fix them or remove them.':
+			return 'Rett opp i e-postene eller stryk de ut.';
 	}
 	
 	trigger_error('No translation for: '.$text);

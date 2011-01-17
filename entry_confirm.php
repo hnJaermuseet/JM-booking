@@ -293,7 +293,7 @@ $Q_template = mysql_query("select template_id, template_name from `template`
 if(mysql_num_rows($Q_template))
 {
 	echo '<select onchange="useTemplate(this.options[this.selectedIndex].value);" '.
-		'class="chooseTemplate" validate="required:true">'.chr(10);
+		'class="chooseTemplate noTemplate" validate="required:true">'.chr(10);
 	echo '<option value="0">'._('Non selected').'</option>'.chr(10);
 	while ($R_tpl = mysql_fetch_assoc($Q_template))
 	{
@@ -351,24 +351,31 @@ echo '<input type="checkbox" name="save_template" value="1"> '.
 /* ## SEND BEKREFTELSE ## */
 echo '<h2>Send bekreftelse</h2>';
 echo '<div style="margin-left: 20px;">';
-echo '<div class="notice" id="noPDF" style="display:none;">'.
-	'<h2>Ingen mal valgt</h2>'.
-	'Du har ikke valgt mal og PDF-vedlegg blir da ikke sendt (eller e-posten blir tom).<br>'.
-	'Er du sikker på at du vil fortsette?<br><br>'.
-	'<label><input type="checkbox" id="nopdf_confirm"> Ja, jeg vil fortsette</label>'.
-	'</div>'.chr(10).chr(10);
-echo '<div class="notice" id="failedEmail" style="display:none;">'.
-	'<h2>Feil med en eller flere e-poster</h2>'.
-	'Du har en eller flere e-post-adressene med feil. Sjekk disse over.<br>'.
-	//'Er du sikker på at du vil fortsette?<br><br>'.
-	//'<label><input type="checkbox" id="nopdf_confirm"> Ja, jeg vil fortsette</label>'.
-	'</div>'.chr(10).chr(10);
 echo '<input type="text" name="confirm_comment" size="20"> - '.
 	_('Internal comment') .' (vil ligge i loggen)<br><br><br>'.chr(10);
 echo '<input type="submit" value="'._('Send confirmation').'" style="font-size: 18px;"
  class="ui-button ui-state-default ui-corner-all"><br><br><br><br><br>'.chr(10);
 echo '</div>'.chr(10).chr(10);
 
+echo '
+<div id="dialog_question" style="display:none; cursor: default"> 
+        <h2>'._h('You have not selected a template.').'</h2>'.
+		'<h1>'._h('Are you sure you want to send?').'</h1> 
+        <input type="button" id="dialog_yes" value="'._('Yes').'" '.
+			'class="ui-button ui-state-default ui-corner-all" '.
+			'style="width: 70px;" /> 
+        <input type="button" id="dialog_no" value="'._('No').'" '.
+			'class="ui-button ui-state-default ui-corner-all" '.
+			'style="width: 70px;" /> <br /><br />
+</div> 
+<div id="dialog_failedEmail" style="display:none; cursor: default"> 
+        <h1>'._h('Incorrect email(s)').'</h1>'.
+		'<span style="font-size: 16px;">'._h('One or more emails are incorrect.').'<br />'._h('Fix them or remove them.').'</span> <br /><br />
+        <input type="button" id="dialog_ok" value="'._('Ok').'" '.
+			'class="ui-button ui-state-default ui-corner-all" '.
+			'style="width: 70px;" /> <br /><br />
+</div> 
+';
 
 /* ## VEDLEGG ## */
 echo '<h2>Vedlegg</h2>';
