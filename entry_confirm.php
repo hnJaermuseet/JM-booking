@@ -332,9 +332,11 @@ echo '<tr><td><input type="checkbox" name="emails[]" value="'.$i.'" checked="che
 	'<input type="text" name="email'.$i.'" value=""></td></tr>'.chr(10);
 
 echo '</table>'.chr(10);
-echo '<input type="button" onclick="addEmailField();" value="'._('Add field').'" '.
-	'class="ui-button ui-state-default ui-corner-all" style="margin-left: 25px;">'.chr(10);
-
+echo '<button type="button" onclick="addEmailField();"'.
+	'class="ui-button ui-state-default ui-corner-all" '.
+	'style="margin-left: 25px;">'.
+		'<img src="img/icons/add.png" alt="'._('Add field').'" title="'._('Add field').'">'.
+	'</button>'.chr(10);
 echo '</div>';
 
 echo '<br>'.chr(10);
