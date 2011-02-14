@@ -289,7 +289,7 @@ echo '<div style="margin-left: 20px;">';
 echo _h('Choose already save template:').'<br>';
 $Q_template = mysql_query("select template_id, template_name from `template` 
 	WHERE template_type = 'confirm'
-	ORDER BY `template_name`");
+	ORDER BY `template_name` desc");
 if(mysql_num_rows($Q_template))
 {
 	echo '<select onchange="useTemplate(this.options[this.selectedIndex].value);" '.
