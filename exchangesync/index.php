@@ -411,7 +411,7 @@ foreach($entries as $entry) // Running through items in database
 			date('c', $entryObj->time_end),
 				array(
 					'ReminderIsSet' => false,
-					'Location' => $rooms,
+					'Location' => utf8_encode($rooms),
 				)
 			);
 		$entries_new[$i] = $entry['entry_id'];
