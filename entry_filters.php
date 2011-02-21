@@ -74,7 +74,7 @@ else
 				header('Location: entry_list.php?filters='.$filters_serialized); break;
 			case 'customer_list':
 				header('Location: entry_list.php?listtype=customer_list&filters='.$filters_serialized); break;
-			case 'invoice_tobemade_soon':
+			case 'invoice_soon':
 				header('Location: invoice_soon.php?filters='.$filters_serialized); break;
 			case 'invoice_tobemade_ready':
 				header('Location: invoice_tobemade_ready.php?filters='.$filters_serialized); break;
@@ -248,7 +248,7 @@ if($return_to == 'customer_list')
 	echo ' checked="checked"';
 echo '> Kundeliste</label><br>'.chr(10);
 
-if($login['user_invoice'])
+if($login['user_invoice'] || $login['user_invoice_setready'])
 {
 	echo '<label><input type="radio" name="return_to" value="invoice_soon"';
 	if($return_to == 'invoice_soon')
