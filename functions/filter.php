@@ -294,7 +294,8 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 	}
 	
 	// Adding the room_id=0, all rooms
-	$SQL = str_replace(" AND (`room_id`", " AND (`room_id` LIKE '%;0;%' OR `".$filter[0]."`", $SQL);
+	//$SQL = str_replace(" AND (`room_id`", " AND (`room_id` LIKE '%;0;%' OR `".$filter[0]."`", $SQL);
+	// => disabled, gives some undesirable effects
 	return $SQL;
 }
 
