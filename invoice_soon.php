@@ -46,7 +46,14 @@ if(isset($_GET['filters']))
 	filterPrint($filters);				echo '<br>'.chr(10);
 	echo '<br>'.chr(10).chr(10);
 	
-	entrylist_invoice_soon($SQL);
+	$tamed_booking = true;
+	foreach($filters as $filter) {
+		if($filter[0] == 'tamed_booking')
+		{
+			$tamed_booking  = $filter[1];
+		}
+	}
+	entrylist_invoice_soon($SQL, $tamed_booking);
 }
 else
 {
@@ -84,6 +91,13 @@ else
 	filterPrint($filters);				echo '<br>'.chr(10);
 	echo '<br>'.chr(10).chr(10);
 	
-	entrylist_invoice_soon($SQL, $area_spesific);
+	$tamed_booking = true;
+	foreach($filters as $filter) {
+		if($filter[0] == 'tamed_booking')
+		{
+			$tamed_booking  = $filter[1];
+		}
+	}
+	entrylist_invoice_soon($SQL, $tamed_booking, $area_spesific);
 }
 ?>

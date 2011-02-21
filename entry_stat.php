@@ -112,7 +112,7 @@ _('Entries').'</th>'.chr(10);
 echo '		</tr>'.chr(10);
 foreach ($entrytypes2 as $id => $name)
 {
-	if($id == 0)
+	if(substr($id, 0, 2) != 'dn' && $id == 0)
 		$name = '<i>'._('Non').'</i>';
 	$valarray = $entrytypes[$id];
 	echo '		<tr>'.chr(10);

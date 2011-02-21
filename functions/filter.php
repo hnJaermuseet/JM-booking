@@ -96,6 +96,11 @@ function filterMakeAlternatives () {
 	filterAddAlternative ('invoice_status',				'select',		_('Status of invoice'));
 	filterAddAlternative ('confirm_email',				'bool',			_('Confirmation sent'));
 	
+	// Datanova
+	filterAddAlternative ('tamed_booking',              'bool',        'Ta med fra booking');
+	filterAddAlternative ('tamed_datanova',             'bool',        'Ta med fra Datanova');
+	filterAddAlternative ('dn_kategori_id',             'id',          'Datanova-kategorier'); filterAssignTable ('dn_kategori_id', 'import_dn_kategori', 'kat_id', 'kat_navn');
+	
 	// TODO: Add status of invoice choices
 	
 	// Area_id
@@ -230,7 +235,17 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 	
 	$SQL = "select $FieldsToSelect from `entry` where 1";
 	$used_filtertypes = array();
-	foreach ($filters as $filter) {
+	foreach ($filters as $filter)
+	{
+		if(
+			$filter[0] == 'tamed_booking' ||
+			$filter[0] == 'tamed_datanova' ||
+			$filter[0] == 'dn_kategori_id'
+		)
+		{
+			continue;
+		}
+		
 		$thisFilter = "`".$filter[0]."` ";
 		switch ($alternatives[$filter[0]]['type']) {
 			
@@ -277,6 +292,117 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 		}
 		$used_filtertypes[$filter[0]] = true;
 	}
+	
+	// Adding the room_id=0, all rooms
+	$SQL = str_replace(" AND (`room_id`", " AND (`room_id` LIKE '%;0;%' OR `".$filter[0]."`", $SQL);
+	return $SQL;
+}
+
+function genSQLFromFiltersDatanova ($filters, $FieldsToSelect = '*') {
+	global $alternatives;
+	
+	$SQL = "select $FieldsToSelect from `import_dn_tall` where 1";
+	$used_filtertypes = array();
+	foreach ($filters as $filter)
+	{
+		if(
+			$filter[0] != 'dn_kategori_id' &&
+			$filter[0] != 'time_start' &&
+			$filter[0] != 'time_end' &&
+			$filter[0] != 'area_id'
+		)
+		{
+			continue;
+		}
+		
+		if($filter[0] == 'dn_kategori_id')
+			$col_name = 'kat_id';
+		else
+			$col_name = $filter[0];
+		
+		$thisFilter = "`".$col_name."` ";
+		switch ($alternatives[$filter[0]]['type']) {
+			
+			case 'select':
+				if($filter[0] == 'room_id') {
+					$thisFilter .= 'LIKE'; break;
+				}
+			case 'bool':
+			case 'id':
+				$thisFilter .= '='; break;
+			
+			case 'id2':
+			case 'text':
+				$thisFilter .= 'LIKE'; break;
+			
+			case 'date':
+				if($filter[1] == 'current')
+					$filter[1] = time();
+			case 'num':
+				$thisFilter .= $filter[2]; break; // Value2
+		}
+		$thisFilter .= ' ';
+		switch ($alternatives[$filter[0]]['type']) {
+			case 'id2':
+				$thisFilter .= "'%;".$filter[1].";%'"; break; // Value1
+			case 'text':
+				$thisFilter .= "'%".$filter[1]."%'"; break; // Value1, matcher
+			default:
+				$thisFilter .= "'".$filter[1]."'"; break; // Value1
+		}
+		
+		if($filter[0] == 'time_start')
+		{
+			$time_start    = $filter[1];
+			$time_start_2  = $filter[2];
+			continue;
+		}
+		if($filter[0] == 'time_end')
+		{
+			$time_end    = $filter[1];
+			$time_end_2  = $filter[2];
+			continue;
+		}
+		
+		if(isset($used_filtertypes[$filter[0]]))
+		{
+			// Already in use, we must make a or-statment
+			$SQL = str_replace(" AND (`".$col_name."`", " AND (".$thisFilter." OR `".$col_name."`", $SQL);
+		}
+		else
+		{
+			$SQL .= " AND (".$thisFilter.")";
+		}
+		$used_filtertypes[$filter[0]] = true;
+	}
+	
+	// Detect time span
+	// time_start, time_start_2, time_end, time_end_2
+	$lower = null;
+	$upper = null;
+	
+	if($time_start_2 == '>=')
+		$lower = $time_start-1;
+	elseif($time_start_2 == '>')
+		$lower = $time_start;
+	elseif($time_end_2 == '>=')
+		$lower = $time_end-1;
+	elseif($time_end_2 == '>')
+		$lower = $time_end;
+	
+	if($time_start_2 == '<=')
+		$upper = $time_start+1;
+	elseif($time_start_2 == '<')
+		$upper = $time_start;
+	elseif($time_end_2 == '<=')
+		$upper = $time_end+1;
+	elseif($time_end_2 == '<')
+		$upper = $time_end;
+	
+	if(!is_null($lower))
+			$SQL .= " AND (`dag` >= '".$lower."')";
+	if(!is_null($lower))
+			$SQL .= " AND (`dag` < '".$upper."')";
 	
 	// Adding the room_id=0, all rooms
 	$SQL = str_replace(" AND (`room_id`", " AND (`room_id` LIKE '%;0;%' OR `".$filter[0]."`", $SQL);

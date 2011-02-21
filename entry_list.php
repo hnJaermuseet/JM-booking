@@ -121,8 +121,16 @@ echo '<br>'.chr(10).chr(10);
 
 $emaillist_entry = '';
 
+$tamed_booking = true;
+foreach($filters as $filter) {
+	if($filter[0] == 'tamed_booking')
+	{
+		$tamed_booking  = $filter[1];
+	}
+}
+
 $Q = mysql_query($SQL);
-if(!mysql_num_rows($Q))
+if(!$tamed_booking || !mysql_num_rows($Q))
 {
 	echo _('No entries found.');
 }

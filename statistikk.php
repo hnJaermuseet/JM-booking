@@ -154,27 +154,27 @@ echo '<form method="get" name="filters" action="'.$_SERVER['PHP_SELF'].'">'.chr(
 
 echo '<table><tr>';
 echo '<td style="border: 1px solid black; padding: 5px;">
-<b>Fra</b><br>
+<b>Fra og med</b><br>
 <input type="hidden" name="rows[]" value="0">
 <input type="hidden" name="filter[0]" value="time_start">
-<input type="hidden" name="filtervalue2_0" value=">">
+<input type="hidden" name="filtervalue2_0" value=">=">
 <input type="radio" name="time_start_nu" value="0" checked="checked"><input type="text" name="time_start" value="'.date('Y-01-01 00:00').'"><br>
-<input type="radio" name="time_start_nu" value="1"> Nåværende tidspunkt*</td>';
+<label><input type="radio" name="time_start_nu" value="1"> Nåværende tidspunkt*</label></td>';
 echo '<td style="border: 1px solid black; padding: 5px;">
-<b>Til</b><br>
+<b>Til og med</b><br>
 <input type="hidden" name="rows[]" value="1">
 <input type="hidden" name="filter[1]" value="time_end">
-<input type="hidden" name="filtervalue2_1" value="<">
-<input type="radio" name="time_end_nu" value="0"><input type="text" name="time_end" value="'.date('Y-01-01 00:00').'"><br>
-<input type="radio" name="time_end_nu" value="1" checked="checked"> Nåværende tidspunkt*</td>';
+<input type="hidden" name="filtervalue2_1" value="<=">
+<input type="radio" name="time_end_nu" value="0"><input type="text" name="time_end" value="'.date('Y-12-31 23:59').'"><br>
+<label><input type="radio" name="time_end_nu" value="1" checked="checked"> Nåværende tidspunkt*</label></td>';
 echo '</tr><tr style="margin-top: 5px;">';
 
 echo '<td style="border: 1px solid black; padding: 10px; text-align: center;">
 <span style="font-size: 18px;">Fra booking</span><br />
-<input type="checkbox" value="1" name="tamed_booking" checked="checked"> Ta med tall fra booking</td>';
+<label><input type="checkbox" value="1" name="tamed_booking" checked="checked"> Ta med tall fra booking</label></td>';
 echo '<td style="border: 1px solid black; padding: 10px; text-align: center;">
 <span style="font-size: 18px;">Fra kasseapparat</span><br />
-<input type="checkbox" value="1" name="tamed_datanova" checked="checked"> Ta med tall fra kasseapparat</td>';
+<label><input type="checkbox" value="1" name="tamed_datanova" checked="checked"> Ta med tall fra kasseapparat</label></td>';
 echo '</tr><tr>';
 
 // Bookingtyper
@@ -184,7 +184,7 @@ echo '<td style="border: 1px solid black; padding: 5px;">
 ';
 $Q_typer = mysql_query("select * from `entry_type` order by `entry_type_name`");
 while($R = mysql_fetch_assoc($Q_typer)) {
-	echo '<lable><input type="checkbox" name="entry_type[]" value="'.$R['entry_type_id'].'"> '.$R['entry_type_name'].'</lable><br>';
+	echo '<label><input type="checkbox" name="entry_type[]" value="'.$R['entry_type_id'].'"> '.$R['entry_type_name'].'</label><br>';
 }
 echo '</td>
 ';
@@ -196,21 +196,21 @@ echo '<td style="border: 1px solid black; padding: 5px;">
 ';
 $Q_typer = mysql_query("select * from `import_dn_kategori` order by `kat_navn`");
 while($R = mysql_fetch_assoc($Q_typer)) {
-	echo '<lable><input type="checkbox" name="dn_kategori[]" value="'.$R['kat_id'].'"> '.$R['kat_navn'].'</lable><br>';
+	echo '<label><input type="checkbox" name="dn_kategori[]" value="'.$R['kat_id'].'"> '.$R['kat_navn'].'</label><br>';
 }
 echo '</td>
 ';
 echo '</tr><tr>';
 echo '<td style="border: 1px solid black; padding: 5px;">
 <b>Vis resultat i:</b><br>';
-echo '<input type="radio" name="return_to" value="entry_list"> '._('Entry list').'<br>'.chr(10);
-echo '<input type="radio" name="return_to" value="entry_stat" checked="checked"';
-echo '> '._('Entry stats').'<br>'.chr(10);
-echo '<input type="radio" name="return_to" value="customer_list"> Kundeliste<br>'.chr(10);
+echo '<label><input type="radio" name="return_to" value="entry_list"> '._('Entry list').'</label><br>'.chr(10);
+echo '<label><input type="radio" name="return_to" value="entry_stat" checked="checked"';
+echo '> '._('Entry stats').'</label><br>'.chr(10);
+echo '<label><input type="radio" name="return_to" value="customer_list"> Kundeliste</label><br>'.chr(10);
 echo '</td>';
 echo '</tr><tr>';
 echo '<td style="border: 1px solid black; padding: 5px;">
-<input type="checkbox" name="num_person_count" value="1" checked="checked"> <b>De som skal telles i booking</b>';
+<label><input type="checkbox" name="num_person_count" value="1" checked="checked"> <b>De som skal telles i booking</b></label>';
 
 // Area
 $Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by area_name");

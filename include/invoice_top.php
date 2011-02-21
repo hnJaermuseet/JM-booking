@@ -59,10 +59,10 @@ else
 
 /* Functions for printing of bookinglists */
 
-function entrylist_invoice_soon ($SQL)
+function entrylist_invoice_soon ($SQL, $tamed_booking)
 {
 	$Q = mysql_query($SQL.' order by `time_start`');
-	if(!mysql_num_rows($Q))
+	if(!$tamed_booking || !mysql_num_rows($Q))
 	{
 		echo _('No entries found.');
 	}
@@ -138,12 +138,12 @@ function entrylist_invoice_soon ($SQL)
 	}
 }
 
-function entrylist_invoice_tobemade_ready ($SQL)
+function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 {
 	global $area_spesific, $area_invoice;
 	
 	$Q = mysql_query($SQL.' order by `time_start`');
-	if(!mysql_num_rows($Q))
+	if(!$tamed_booking || !mysql_num_rows($Q))
 	{
 		echo _('No entries found.');
 	}
@@ -273,10 +273,10 @@ function entrylist_invoice_tobemade_ready ($SQL)
 	}
 }
 
-function entrylist_invoice_tobemade ($SQL, $area_spesific = false)
+function entrylist_invoice_tobemade ($SQL, $tamed_booking, $area_spesific = false)
 {
 	$Q = mysql_query($SQL.' order by `time_start`');
-	if(!mysql_num_rows($Q))
+	if(!$tamed_booking || !mysql_num_rows($Q))
 	{
 		echo _('No entries found.');
 	}
@@ -371,10 +371,10 @@ function entrylist_invoice_tobemade ($SQL, $area_spesific = false)
 	}
 }
 
-function entrylist_invoice_exported ($SQL)
+function entrylist_invoice_exported ($SQL, $tamed_booking)
 {
 	$Q = mysql_query($SQL.' order by `invoice_exported_time`');
-	if(!mysql_num_rows($Q))
+	if(!$tamed_booking || !mysql_num_rows($Q))
 	{
 		echo _('No entries found.');
 	}

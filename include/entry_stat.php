@@ -40,6 +40,7 @@ if(!$filters)
 $SQL = genSQLFromFilters($filters, 'entry_id');
 $SQL .= " order by `time_start`";
 
+$SQL_datanova = genSQLFromFiltersDatanova ($filters);
 
 if(!isset($noprint))
 {
@@ -51,7 +52,8 @@ if(!isset($noprint))
 	echo '<br>'.chr(10).chr(10);
 }
 
-$Q = mysql_query($SQL);
+$Q           = mysql_query($SQL);
+$Q_datanova  = mysql_query($SQL_datanova);
 
 // Municipal
 // Bookingtype
@@ -71,18 +73,38 @@ $sum['e'] = 0;
 
 $municipals[0] = ''; // No municipal defined
 
+$tamed_booking = true;
+foreach($filters as $filter) {
+	if($filter[0] == 'tamed_booking')
+	{
+		$tamed_booking  = $filter[1];
+	}
+}
+$tamed_datanova = false;
+foreach($filters as $filter) {
+	if($filter[0] == 'tamed_datanova')
+	{
+		$tamed_datanova  = $filter[1];
+	}
+}
+if($tamed_datanova)
+{
+	$municipals[-1] = 'Løst besøkende';
+}
+
 /*
+ * #### ENTRIES ####
+ *
  * c = children
  * a = adult
  * p = people, total
  * e = entries
  */
-while($R = mysql_fetch_assoc($Q))
+while($tamed_booking && $R = mysql_fetch_assoc($Q))
 {
 	$entry = getEntry($R['entry_id']);
 	
-	
-	// ## MUNICIPALS ##
+	/* Municipals */
 	if($entry['customer_municipal_num'] == '')
 		$entry['customer_municipal_num'] = 0;
 	
@@ -104,7 +126,8 @@ while($R = mysql_fetch_assoc($Q))
 		$municipals2[$entry['customer_municipal_num']]['p'] += $entry['num_person_adult'];
 		$municipals2[$entry['customer_municipal_num']]['e'] ++;
 	}
-
+	
+	/* Entrytypes */
 	if(!isset($entrytypes[$entry['entry_type_id']]))
 	{
 		$entrytypes[$entry['entry_type_id']] = array(
@@ -131,6 +154,182 @@ while($R = mysql_fetch_assoc($Q))
 		$entrytypes[$entry['entry_type_id']]['e'] ++;
 	}
 
+	/* Days */
+	$thisone = date('Ymd', $entry['time_start']);
+	if(!isset($stats_day[$thisone]))
+	{
+		$stats_day[$thisone] = array(
+			'c' => $entry['num_person_child'],
+			'a' => $entry['num_person_adult'],
+			'p' => ($entry['num_person_child'] + $entry['num_person_adult']),
+			'e' => 1
+		);
+		$stats_day[$thisone]['Name'] = date('d-m-Y', $entry['time_start']);
+	}
+	else
+	{
+		$stats_day[$thisone]['c'] += $entry['num_person_child'];
+		$stats_day[$thisone]['a'] += $entry['num_person_adult'];
+		$stats_day[$thisone]['p'] += $entry['num_person_child'];
+		$stats_day[$thisone]['p'] += $entry['num_person_adult'];
+		$stats_day[$thisone]['e'] ++;
+	}
+	
+	/* Weeks */
+	$thisone = date('YW', $entry['time_start']);
+	if(!isset($stats_week[$thisone]))
+	{
+		$stats_week[$thisone] = array(
+			'c' => $entry['num_person_child'],
+			'a' => $entry['num_person_adult'],
+			'p' => ($entry['num_person_child'] + $entry['num_person_adult']),
+			'e' => 1
+		);
+		$stats_week[$thisone]['Name'] = 'Uke '.date('W, Y', $entry['time_start']);
+	}
+	else
+	{
+		$stats_week[$thisone]['c'] += $entry['num_person_child'];
+		$stats_week[$thisone]['a'] += $entry['num_person_adult'];
+		$stats_week[$thisone]['p'] += $entry['num_person_child'];
+		$stats_week[$thisone]['p'] += $entry['num_person_adult'];
+		$stats_week[$thisone]['e'] ++;
+	}
+	
+	/* Months */
+	$thisone = date('Ym', $entry['time_start']);
+	if(!isset($stats_month[$thisone]))
+	{
+		$stats_month[$thisone] = array(
+			'c' => $entry['num_person_child'],
+			'a' => $entry['num_person_adult'],
+			'p' => ($entry['num_person_child'] + $entry['num_person_adult']),
+			'e' => 1
+		);
+		$stats_month[$thisone]['Name'] = _(date('F', $entry['time_start'])).' '.date('Y', $entry['time_start']);
+	}
+	else
+	{
+		$stats_month[$thisone]['c'] += $entry['num_person_child'];
+		$stats_month[$thisone]['a'] += $entry['num_person_adult'];
+		$stats_month[$thisone]['p'] += $entry['num_person_child'];
+		$stats_month[$thisone]['p'] += $entry['num_person_adult'];
+		$stats_month[$thisone]['e'] ++;
+	}
+	
+	/* Years */
+	$thisone = date('Y', $entry['time_start']);
+	if(!isset($stats_year[$thisone]))
+	{
+		$stats_year[$thisone] = array(
+			'c' => $entry['num_person_child'],
+			'a' => $entry['num_person_adult'],
+			'p' => ($entry['num_person_child'] + $entry['num_person_adult']),
+			'e' => 1
+		);
+		$stats_year[$thisone]['Name'] = date('Y', $entry['time_start']);
+	}
+	else
+	{
+		$stats_year[$thisone]['c'] += $entry['num_person_child'];
+		$stats_year[$thisone]['a'] += $entry['num_person_adult'];
+		$stats_year[$thisone]['p'] += $entry['num_person_child'];
+		$stats_year[$thisone]['p'] += $entry['num_person_adult'];
+		$stats_year[$thisone]['e'] ++;
+	}
+	
+	$sum['c'] += $entry['num_person_child'];
+	$sum['a'] += $entry['num_person_adult'];
+	$sum['p'] += $entry['num_person_child'];
+	$sum['p'] += $entry['num_person_adult'];
+	$sum['e'] ++;
+}
+
+/*
+ * #### DATANOVA ####
+ *
+ * c = children
+ * a = adult
+ * p = people, total
+ * e = entries
+ */
+while($tamed_datanova && $R = mysql_fetch_assoc($Q_datanova))
+{
+	$entry = array(
+			'num_person_child' => $R['antall_barn'],
+			'num_person_adult' => $R['antall_voksne'],
+			'time_start' => $R['dag'],
+			
+			'entry_type_id' => 'dn_'.$R['kat_id'],
+			'customer_municipal_num' => -1,
+			
+			'dn_kat_id' => $R['kat_id'], // Datanova category
+		);
+	
+	/* Municipals */
+	if($entry['customer_municipal_num'] == '')
+		$entry['customer_municipal_num'] = 0;
+	
+	if(!isset($municipals2[$entry['customer_municipal_num']]))
+	{
+		$municipals2[$entry['customer_municipal_num']] = array(
+			'c' => $entry['num_person_child'],
+			'a' => $entry['num_person_adult'],
+			'p' => ($entry['num_person_child'] + $entry['num_person_adult']),
+			'e' => 1
+		);
+		$municipals2[$entry['customer_municipal_num']]['Name'] = $municipals[$entry['customer_municipal_num']];
+	}
+	else
+	{
+		$municipals2[$entry['customer_municipal_num']]['c'] += $entry['num_person_child'];
+		$municipals2[$entry['customer_municipal_num']]['a'] += $entry['num_person_adult'];
+		$municipals2[$entry['customer_municipal_num']]['p'] += $entry['num_person_child'];
+		$municipals2[$entry['customer_municipal_num']]['p'] += $entry['num_person_adult'];
+		$municipals2[$entry['customer_municipal_num']]['e'] ++;
+	}
+	
+	/* Entrytypes */
+	if(!isset($entrytypes[$entry['entry_type_id']]))
+	{
+		$entrytypes[$entry['entry_type_id']] = array(
+			'c' => $entry['num_person_child'],
+			'a' => $entry['num_person_adult'],
+			'p' => ($entry['num_person_child'] + $entry['num_person_adult']),
+			'e' => 1
+		);
+		
+		if(substr($entry['entry_type_id'], 0, 2) == 'dn')
+		{
+			$Q_typer = mysql_query("select * from `import_dn_kategori` where `kat_id` = '".((int)$entry['dn_kat_id'])."' limit 1");
+			$entry_type_name = 'Kasse - ukjent';
+			while($R_type = mysql_fetch_assoc($Q_typer))
+			{
+				$entry_type_name = 'Kasse - '. $R_type['kat_navn'];
+			}
+		}
+		elseif($entry['entry_type_id'] != 0)
+		{
+			
+			//if($entry['entry_type_id'] == -1)
+			//	$entry_type_name = 'Løst besøkende';
+			$entry_type = getEntryType($entry['entry_type_id']);
+			$entry_type_name = $entry_type['entry_type_name'];
+		}
+		else
+			$entry_type_name = '';
+		
+		$entrytypes[$entry['entry_type_id']]['Name'] = $entry_type_name;
+	}
+	else
+	{
+		$entrytypes[$entry['entry_type_id']]['c'] += $entry['num_person_child'];
+		$entrytypes[$entry['entry_type_id']]['a'] += $entry['num_person_adult'];
+		$entrytypes[$entry['entry_type_id']]['p'] += $entry['num_person_child'];
+		$entrytypes[$entry['entry_type_id']]['p'] += $entry['num_person_adult'];
+		$entrytypes[$entry['entry_type_id']]['e'] ++;
+	}
+	
 	/* Days */
 	$thisone = date('Ymd', $entry['time_start']);
 	if(!isset($stats_day[$thisone]))

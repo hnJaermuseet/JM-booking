@@ -106,7 +106,7 @@ $worksheet2->write($linje, 4, 'Antall bookinger', $formatHeading);
 foreach ($entrytypes2 as $id => $name)
 {
 	$linje++;
-	if($id == 0)
+	if(substr($id, 0, 2) != 'dn' && $id == 0)
 		$name = '';
 	$valarray = $entrytypes[$id];
 	
