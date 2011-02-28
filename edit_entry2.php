@@ -107,7 +107,9 @@ addField ('customer_municipal_num',		'hidden',		'');
 addField ('contact_person_name',	'text',			_('Contact person'),		_('The contact person of the customer.'));
 	addID ('contact_person_name', 'contact_person_name');
 addField ('contact_person_phone',	'text',			_('Contact telephone'),		_('Telephone number where the contact person can be reached. Preferably a mobile number.'));
-addField ('contact_person_email',	'text',			_('Contact email'),			_('The contact persons email address. For more than one, please seperate by a space, comma or semicolon.'));	
+addField ('contact_person_email',	'text',			_('Contact email'),			_('The contact persons email address. For more than one, please seperate by a space, comma or semicolon.'));
+	addBeforeField ('contact_person_email', '<table style="border-collapse:collapse;"><tr><td style="padding: 0px;">');
+	addAfterField  ('contact_person_email', '</td></tr></table>');
 
 addField ('empty',					'',				'');
 addField ('num_person_child',		'text',			_('Number of children'));

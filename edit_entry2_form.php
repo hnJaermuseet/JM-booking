@@ -54,6 +54,7 @@ echo '<script src="js/invoiceFields.js" type="text/javascript"></script>'.chr(10
 //echo '<script src="js/DatePicker.js" type="text/javascript"></script>'.chr(10).chr(10);
 //echo '<script src="js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>'.chr(10).chr(10);
 echo '<script src="js/timepicker.js" type="text/javascript"></script>'.chr(10).chr(10);
+echo '<script src="js/check_email.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/entry-edit.js" type="text/javascript"></script>'.chr(10).chr(10);
 echo '<script src="js/jquery.blockUI.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/jquery.hoverbox.min.js" type="text/javascript"></script>'.chr(10);

@@ -321,4 +321,19 @@ $(document).ready(function(){
 	
 	
 	$('input[type=text][name^=mva]').keydown(tabInTaxField);
+	
+	
+	$("input[type=text][name=contact_person_email]").each(function ()	{
+		checkEmailAndAlert_editentry($(this));
+	});
+	
+	$("input[type=text][name=contact_person_email]").keyup(function() {
+		checkEmailAndAlert_editentry($(this));
+	});
+	$("input[type=text][name=contact_person_email]").change(function() {
+		checkEmailAndAlert_editentry($(this));
+	});
+	$("input[type=text][name=contact_person_email]").click(function() {
+		checkEmailAndAlert_editentry($(this));
+	});
 });
