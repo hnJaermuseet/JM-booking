@@ -92,6 +92,19 @@ else
 	$rooms			= array();
 	while($R_room = mysql_fetch_assoc($Q_room))
 	{
+		if($dayview == 1)
+		{
+			$start	  = mktime(0,0,0,$month,$day,$year);
+			$end	  = mktime(23,59,59,$month,$day,$year);
+			$am7_tmp  = $am7;
+			$pm7_tmp  = $pm7;
+			$am7      = $start;
+			$pm7      = $end;
+		} else {
+			$start	= $am7;
+			$end	= $pm7;
+		}
+		
 		/* ## Make map of time ## */
 		for ($t = $am7; $t <= $pm7; $t += $resolution)
 		{
@@ -103,8 +116,12 @@ else
 		$room_max_col[$R_room['room_id']]	= 1;
 		$rooms[$R_room['room_id']]			= $R_room['room_name'];
 		
-		$start	= $am7;
-		$end	= $pm7;
+		if($dayview == 1)
+		{
+			$am7 = $am7_tmp;
+			$pm7 = $pm7_tmp;
+		}
+		
 		$events_room = checktime_Room ($start, $end, $area, $R_room['room_id']);
 		if(isset($events_room[$R_room['room_id']]))
 		{
@@ -224,21 +241,83 @@ else
 	
 	echo chr(10).chr(10);
 	
+	$entries = array();
+	$timed_entries = array();
+	
+	if($room != 0)
+	{
+		$rooms = array();
+		$rooms[$room] = getRoom($room);
+	}
+	foreach ($rooms as $room_id => $room3)
+	{
+		$start	= mktime(0,0,0,$month,$day,$year);
+		$end	= mktime(23,59,59,$month,$day,$year);
+		$events_room = checktime_Room ($start, $end, $area, $room_id);
+		if(isset($events_room[$room_id]))
+		{
+			foreach ($events_room[$room_id] as $entry_id)
+			{
+				$event = getEntry ($entry_id);
+				if(count($event))
+				{
+					$a = '';
+					if($event['time_start'] < $start)
+					{
+						$a .= _('started').' '.date('H:i d-m-Y', $event['time_start']);
+						$event['time_start'] = $start;
+					}
+					if($event['time_end'] > $end)
+					{
+						if($a != '')
+							$a .= ', ';
+						$a .= 'slutter '.date('H:i d-m-Y', $event['time_end']);
+						$event['time_end'] = $end;
+					}
+					if($a != '')
+						$event['entry_name'] .= ' ('.$a.')';
+					//$event['time_start'] = round_t_down($event['time_start'], $resolution);
+					$timed_entries[$event['time_start']][$event['entry_id']] = $event['entry_id'];
+					$entries[$event['entry_id']] = $event;
+				}
+			}
+		}
+	}
+	
+	
 	if($dayview == 1)
 	{
 		echo '<a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'">'._h('Go to other dayview').'</a><br>';
 		
-		echo '<form id="bookingRadios" method="GET" action="edit_entry2.php">'.chr(10);
-		
 		/* ## START DISPLAYING! ## */
 		echo '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="timetable">';
-		echo "<tr><th width=\"1%\" class=\"time3\">&nbsp;</th>";
+		echo '<tr><th width="1%" class="time3">&nbsp;</th>';
 	
 		$room_column_width = (int)(95 / mysql_num_rows($Q_room));
 		foreach($rooms as $room_id => $room_name)
-			echo '<th width="'.$room_column_width.'%" colspan="'.($room_max_col[$room_id] + 1).'" class="time3">' . htmlspecialchars($room_name). "</th>";
+			echo '<th width="'.$room_column_width.'%" colspan="'.($room_max_col[$room_id] + 1).'" class="time3">' . htmlspecialchars($room_name). '</th>';
 		
-		echo "</tr>\n";
+		echo '</tr>'.chr(10);
+		
+		$maxstart  = mktime(0,0,0,$month,$day,$year);
+		$maxend    = mktime(23,59,59,$month,$day,$year);
+		foreach($entries as $t => $entry)
+		{
+			if($am7 > $entry['time_start'])
+			{
+				if($maxstart > $entry['time_start'])
+					$am7 = $maxstart;
+				else
+					$am7 = $entry['time_start'];
+			}
+			if($pm7 < $entry['time_end'])
+			{
+				if($maxend < $entry['time_end'])
+					$pm7 = $maxend;
+				else
+					$pm7 = $entry['time_end'];
+			}
+		}
 		
 		for ($t = $am7; $t <= $pm7; $t += $resolution)
 		{
@@ -294,70 +373,22 @@ else
 					}
 				}
 				
-				echo '<td align="right" class="'.$td_style.'2"><img src="img/pixel.gif" width="15" height="1"><table cellpadding="0" cellspacing="0" border="0"><tr>';
+				echo '<td align="right" class="'.$td_style.'2"><img src="img/pixel.gif" width="15" height="16"><table cellpadding="0" cellspacing="0" border="0"><tr>';
 				$wday	= date("d",$t);
 				$wmonth	= date("m",$t);
 				$wyear	= date("Y",$t);
 				$hour	= date("H",$t);
 				$minute	= date("i",$t);
 				$minute2	= (int)($minute + ($resolution / 60));
-				echo '<td><input type="radio" name="starttime" value="'.$wyear.';'.$wmonth.';'.$wday.';'.$hour.';'.$minute.';'.$room_id.';day"></td>';
-				echo '<td><input type="radio" name="endtime" value="'.$wyear.';'.$wmonth.';'.$wday.';'.$hour.';'.$minute2.';'.$room_id.';day"></td>';
-				echo "<td><a href=\"edit_entry2.php?view=day&amp;room=$room&amp;hour=$hour&amp;minute=$minute&amp;year=$wyear&amp;month=$wmonth"
-				. "&amp;day=$wday\"><img src=\"img/new.gif\" width=\"10\" height=\"10\" border=\"0\" alt=\"\"></a></td>";
 				echo '</tr></table></td>'.chr(10);
 			}
 			echo '</tr>'.chr(10);
 		}
-		echo "</table>";
-		echo '<input type="submit" value="'._('Make entry').'"><br><br>'.chr(10);
-		echo '</form>'.chr(10);
+		echo '</table>';
 	}
 	else
 	{
-		$entries = array();
-		$timed_entries = array();
-		
-		if($room != 0)
-		{
-			$rooms = array();
-			$rooms[$room] = getRoom($room);
-		}
-		foreach ($rooms as $room_id => $room3)
-		{
-			$start	= mktime(0,0,0,$month,$day,$year);
-			$end	= mktime(23,59,59,$month,$day,$year);
-			$events_room = checktime_Room ($start, $end, $area, $room_id);
-			if(isset($events_room[$room_id]))
-			{
-				foreach ($events_room[$room_id] as $entry_id)
-				{
-					$event = getEntry ($entry_id);
-					if(count($event))
-					{
-						$a = '';
-						if($event['time_start'] < $start)
-						{
-							$a .= _('started').' '.date('H:i d-m-Y', $event['time_start']);
-							$event['time_start'] = $start;
-						}
-						if($event['time_end'] > $end)
-						{
-							if($a != '')
-								$a .= ', ';
-							$a .= 'slutter '.date('H:i d-m-Y', $event['time_end']);
-							$event['time_end'] = $end;
-						}
-						if($a != '')
-							$event['entry_name'] .= ' ('.$a.')';
-						//$event['time_start'] = round_t_down($event['time_start'], $resolution);
-						$timed_entries[$event['time_start']][$event['entry_id']] = $event['entry_id'];
-						$entries[$event['entry_id']] = $event;
-					}
-				}
-			}
-		}
-		//echo '<a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;dayview=1">'._('Go to other dayview').'</a><br><br>';
+		echo '<a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'&amp;dayview=1">'._h('Go to other dayview').'</a><br>';
 		
 		echo '<table width="100%" cellspacing="0" style="border-collapse: collapse;">';
 		echo '<tr><td class="dayplan"><b>'._('Time').'</b></td><td class="dayplan"><b>'._('Room').'</b></td><td class="dayplan"><b>'._('C/A').'</b></td><td class="dayplan" width="100%"><b>'._('What').'</b></td></tr>';
