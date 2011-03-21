@@ -72,6 +72,14 @@ function langNo($text)
 			return 'En eller flere eposter er ugyldige.';
 		case 'Fix them or remove them.':
 			return 'Rett opp i e-postene eller stryk de ut.';
+		case 'Go to today':
+			return 'Gå til i dag';
+		case 'Go to next day':
+			return 'Gå til neste dag';
+		case 'Go to previous day':
+			return 'Gå til forrige dag';
+		case 'Go to other dayview':
+			return 'Gå til den andre dagsvisningen';
 	}
 	
 	trigger_error('No translation for: '.$text);

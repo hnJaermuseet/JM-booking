@@ -218,15 +218,15 @@ else
 	}
 	
 	
-	echo "<table width=\"100%\" border=\"0\" class=\"hiddenprint\"><tr><td><a href=\"".$_SERVER['PHP_SELF']."?year=$yy&month=$ym&day=$yd&area=$area&room=$room\">&lt;&lt; " . _("Go to previous day") . "</a></td>
-	<td align=center><a href=\"".$_SERVER['PHP_SELF']."?area=$area&amp;room=$room\">" . _("Go to today") . "</a></td>
-	<td align=right><a href=\"".$_SERVER['PHP_SELF']."?year=$ty&amp;month=$tm&amp;day=$td&amp;area=$area&amp;room=$room\">" . _("Go to next day") . " &gt;&gt;</a></td></tr></table>";
+	echo "<table width=\"100%\" border=\"0\" class=\"hiddenprint\"><tr><td><a href=\"".$_SERVER['PHP_SELF']."?year=$yy&month=$ym&day=$yd&area=$area&room=$room\">&lt;&lt; " . _h('Go to previous day') . "</a></td>
+	<td align=center><a href=\"".$_SERVER['PHP_SELF']."?area=$area&amp;room=$room\">" . _h('Go to today') . "</a></td>
+	<td align=right><a href=\"".$_SERVER['PHP_SELF']."?year=$ty&amp;month=$tm&amp;day=$td&amp;area=$area&amp;room=$room\">" . _h('Go to next day') . " &gt;&gt;</a></td></tr></table>";
 	
 	echo chr(10).chr(10);
 	
 	if($dayview == 1)
 	{
-		echo '<a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'">'._('Go to other dayview').'</a><br>';
+		echo '<a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'">'._h('Go to other dayview').'</a><br>';
 		
 		echo '<form id="bookingRadios" method="GET" action="edit_entry2.php">'.chr(10);
 		
