@@ -337,9 +337,9 @@ function emailSendConfirmation ($entry, $to, $message)
 	global $login;
 	
 	if(isset($login['user_email']) && $login['user_email'] != '')
-			$headers = 'From: '.$login['user_email'];
+		$from = $login['user_email'];
 	else
-		$headers = 'From: '.constant('EMAIL_FROM');
+		$from = constant('EMAIL_FROM');
 	
 	$area = getArea($entry['area_id']);
 	if(count($area))
@@ -351,8 +351,9 @@ function emailSendConfirmation ($entry, $to, $message)
 	
 	
 	// TODO: Add HTML
-	$headers .= "\r\n";
+	$headers = 'From: ' . $from . "\r\n";
 	$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
+	$headers .= 'Sender: '. $from . "\r\n";
 	return mail ($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
 }
 
@@ -386,7 +387,8 @@ function emailSendConfirmationPDF ($entry, $to, $confirm_pdffile, $attachments, 
 	$crlf = "\n";
 	$hdrs = array(
 				'From'    => $from,
-				'Subject' => '=?UTF-8?B?'.base64_encode($subject).'?='
+				'Subject' => '=?UTF-8?B?'.base64_encode($subject).'?=',
+				'Sender'  => $from,
 				);
 	$mime = new Mail_mime($crlf);
 	
