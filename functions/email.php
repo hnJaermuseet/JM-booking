@@ -353,7 +353,7 @@ function emailSendConfirmation ($entry, $to, $message)
 	// TODO: Add HTML
 	$headers .= "\r\n";
 	$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
-	return mail ($to, $subject, $message, $headers);
+	return mail ($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
 }
 
 function emailSendConfirmationPDF ($entry, $to, $confirm_pdffile, $attachments, $message_plain)
@@ -386,7 +386,7 @@ function emailSendConfirmationPDF ($entry, $to, $confirm_pdffile, $attachments, 
 	$crlf = "\n";
 	$hdrs = array(
 				'From'    => $from,
-				'Subject' => $subject
+				'Subject' => '=?UTF-8?B?'.base64_encode($subject).'?='
 				);
 	$mime = new Mail_mime($crlf);
 	
