@@ -120,7 +120,7 @@ if(isset($_GET['editor_kat']))
 			if($editor->performDBquery())
 			{
 				// Redirect
-				header('Location: '.$_SERVER['PHP_SELF'].'?area_id='.$editor->vars['area_id']['value']);
+				header('Location: '.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id']);
 				exit();
 			}
 			else
