@@ -546,7 +546,7 @@ else
 	$files = array();
 	while ($file = readdir($dir_handle)) 
 	{
-		if($file != '.' && $file != '..')
+		if($file != '.' && $file != '..' && $file != '.gitignore')
 		{
 			$files[] = $file;
 		}
