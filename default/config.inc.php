@@ -228,4 +228,32 @@ else
 	$exchangesync_from_clionly = true;
 }
 
+
+
+
+/*
+ * IP filter
+ * - Used denied access to all files except some pages
+ * - Template displayed when accessing from a faulty address is
+ *   located in tmeplates/wrong_ip.tpl
+ */
+
+// Addresses allowed on all pages
+$ip_filter_okeyaddresses = '192.168.11'; // Starts with
+
+// Pages allowed for all IPs
+$ip_filter_pagesWithoutFilter = 
+	array(
+		'login.php'
+	);
+/*
+if (
+	!in_array($_SERVER['PHP_SELF'], $ip_filter_pagesWithoutFilter) &&
+	substr($_SERVER['REMOTE_ADDR'],0,strlen($ip_filter_okeyaddresses)) != $ip_filter_okeyaddresses
+)
+{
+	echo _('Access denied. This page is not accessable for external users.');
+	exit();
+}*/
+
 ?>
