@@ -44,6 +44,7 @@ if(isset($_GET['return_to']))
 }
 
 filterMakeAlternatives();
+
 if(isset($_GET['filter'])
  && isset($_GET['time_start_nu'])
  && isset($_GET['time_end_nu'])
@@ -70,16 +71,16 @@ if(isset($_GET['filter'])
 		}
 	}
 	
-	if($_GET['time_start_nu'] == '1') {
-		$_GET['filtervalue1_0'] = 'current';
+	if($_GET['time_start_nu'] != '1' && isset($_GET['time_start'])) {
+		$_GET['filtervalue1_0'] = date('Y-m-d H:i', getTime($_GET['time_start'], array('h', 'i', 'd', 'm', 'y')));
 	} else {
-		$_GET['filtervalue1_0'] = $_GET['time_start'];
+		$_GET['filtervalue1_0'] = 'current';
 	}
 	
-	if($_GET['time_end_nu'] == '1') {
-		$_GET['filtervalue1_1'] = 'current';
+	if($_GET['time_end_nu'] != '1' && isset($_GET['time_end'])) {
+		$_GET['filtervalue1_1'] = date('Y-m-d H:i', getTime($_GET['time_end'], array('h', 'i', 'd', 'm', 'y')));
 	} else {
-		$_GET['filtervalue1_1'] = $_GET['time_end'];
+		$_GET['filtervalue1_1'] = 'current';
 	}
 
 	if(isset($_GET['num_person_count']) && $_GET['num_person_count'] == '1') {
@@ -148,6 +149,9 @@ if(isset($_GET['filter'])
 
 print_header($day, $month, $year, $area);
 
+echo '<script src="js/timepicker.js" type="text/javascript"></script>'.chr(10).chr(10);
+echo '<script src="js/jquery.blockUI.js" type="text/javascript"></script>'.chr(10);
+echo '<script src="js/stats_getter.js" type="text/javascript"></script>'.chr(10).chr(10);
 echo '<h1>Statistikkuthenting</h1>'.chr(10).chr(10);
 
 echo '<form method="get" name="filters" action="'.$_SERVER['PHP_SELF'].'">'.chr(10);
@@ -158,15 +162,19 @@ echo '<td style="border: 1px solid black; padding: 5px;">
 <input type="hidden" name="rows[]" value="0">
 <input type="hidden" name="filter[0]" value="time_start">
 <input type="hidden" name="filtervalue2_0" value=">=">
-<input type="radio" name="time_start_nu" value="0" checked="checked"><input type="text" name="time_start" value="'.date('Y-01-01 00:00').'"><br>
-<label><input type="radio" name="time_start_nu" value="1"> Nåværende tidspunkt*</label></td>';
+<input type="radio" name="time_start_nu" value="0" checked="checked">
+<input type="text" name="time_start" id="time_start" value="'.date('00:00 01-01-Y').'" 
+	style="font-size: 1.3em; width: 150px;"><br>
+<label style="font-size: 1.3em;"><input type="radio" name="time_start_nu" value="1"> Nåværende tidspunkt*</label></td>';
 echo '<td style="border: 1px solid black; padding: 5px;">
 <b>Til og med</b><br>
 <input type="hidden" name="rows[]" value="1">
 <input type="hidden" name="filter[1]" value="time_end">
 <input type="hidden" name="filtervalue2_1" value="<=">
-<input type="radio" name="time_end_nu" value="0"><input type="text" name="time_end" value="'.date('Y-12-31 23:59').'"><br>
-<label><input type="radio" name="time_end_nu" value="1" checked="checked"> Nåværende tidspunkt*</label></td>';
+<input type="radio" name="time_end_nu" value="0">
+<input type="text" name="time_end" id="time_end" value="'.date('23:59 31-12-Y').'" 
+	style="font-size: 1.3em; width: 150px;"><br>
+<label style="font-size: 1.3em;"><input type="radio" name="time_end_nu" value="1" checked="checked"> Nåværende tidspunkt*</label></td>';
 echo '</tr><tr style="margin-top: 5px;">';
 
 echo '<td style="border: 1px solid black; padding: 10px; text-align: center;">
