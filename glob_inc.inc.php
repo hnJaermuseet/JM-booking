@@ -35,6 +35,8 @@ $debug = false;
 if($debug)
 {
 	$debug_time_start = microtime(true);
+	ini_set('display_errors', '1');
+	error_reporting(E_ALL);
 }
 function debugAddToLog($file, $line, $txt = '')
 {
@@ -98,9 +100,25 @@ if(isset($_GET['year']))
 else
 	$year = '';
 
-debugAddToLog(__FILE__, __LINE__, 'Including config');
-include "default/config.inc.php";
+debugAddToLog(__FILE__, __LINE__, 'Including old config (default/config.inc.php)');
+include 'default/config.inc.php';
 
+debugAddToLog(__FILE__, __LINE__, 'Including default config (config/default.config.php)');
+include 'config/default.config.php';
+
+debugAddToLog(__FILE__, __LINE__, 'Including site config ('.$path_site_config.')');
+if(file_exists($path_site_config))
+{
+	include $path_site_config;
+}
+else
+{
+	debugAddToLog(__FILE__, __LINE__, 'Site config not found ('.$path_site_config.')');
+}
+
+
+/* ## Language settings ## */
+debugAddToLog(__FILE__, __LINE__, 'Setting language to '.$locale);
 if (!defined('LC_MESSAGES'))
 	define('LC_MESSAGES', 6); // windows workaround for LC_MESSAGES
 
@@ -115,6 +133,7 @@ textdomain("arbs");
 setlocale(LC_TIME, "");
 
 
+/* ## Database connection ## */
 // Establish a database connection.
 // On connection error, the message will be output without a proper HTML
 // header. There is no way I can see around this; if track_errors isn't on
@@ -164,6 +183,53 @@ function showAccessDenied($day, $month, $year, $area, $admin)
 }
 
 /*
+ * Test-messages
+ */
+if($systemIsInTest)
+{
+	$testSystem = array();
+	$testSystem['msgLogin']
+		= '<h1 align="center">Du er inne på TEST-VERSJONEN av bookingen. '.
+		'Ingen data her er reelle.</h1>'.
+		'<div align="center">Her inne kan du prøve ut ALT du ikke tørr å gjøre ellers. Slå deg løs!<br><br>'.
+		'Se også <a href="http://booking.jaermuseet.local/wiki/index.php/Bookingsystemet/Testomr%C3%A5de">'.
+			'informasjon om testområdet på wikien</a><br><br>'.
+		'Bruk følgende for innlogging:<br>Brukernavn: test<br>Passord: test<br><br></div>';
+	$testSystem['bodyAttrib'] = ' background="img/bg-test.GIF"';
+	$testSystem['bannerExtraClass'] = ' testbanner';
+	
+	$systemurl = 'http://infoskjerm.jaermuseet.local/jm-bookingtest';
+	
+	$exchangesync_from_clionly = false;
+}
+else
+{
+	$testSystem = array();
+	$testSystem['msgLogin'] = '';
+	$testSystem['bodyAttrib'] = '';
+	$testSystem['bannerExtraClass'] = '';
+	
+	$systemurl = 'http://booking.jaermuseet.local';
+	
+	$exchangesync_from_clionly = true;
+}
+
+/*
+ * IP filter
+ * - Used denied access to all files except some pages
+ * - Template displayed when accessing from a faulty address is
+ *   located in tmeplates/wrong_ip.tpl
+ */
+if (
+	!in_array($_SERVER['PHP_SELF'], $ip_filter_pagesWithoutFilter) &&
+	substr($_SERVER['REMOTE_ADDR'],0,strlen($ip_filter_okeyaddresses)) != $ip_filter_okeyaddresses
+)
+{
+	echo _('Access denied. This page is not accessable for external users.');
+	exit();
+}
+
+/*
 	## LOGIN ##
 	If not logged in, redirect to login.php
 */
@@ -178,6 +244,12 @@ if(isset($_SESSION['user_password']))
 	$login['user_password']	= $_SESSION['user_password'];
 else
 	$login['user_password']	= '';
+
+
+// Earlier this was a setting that could be changed (MRBS etc)
+// JM-booking is not made for running as non-logged-in users
+$require_login = true;
+
 
 if($require_login && basename($_SERVER['PHP_SELF']) != 'login.php') {
 	if(!isLoggedIn())
@@ -202,5 +274,3 @@ else
 	else
 		$area = get_default_area();
 }
-
-?>

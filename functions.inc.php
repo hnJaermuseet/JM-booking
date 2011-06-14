@@ -36,7 +36,7 @@ require_once "functions/entry.php";
 require_once 'lang/lang.php';
 
 function print_header($day, $month, $year, $area){
-	global $lang, $mrbs_company, $search_str,$nrbs_pageheader,$language_available,$session_selected_language,$header_links;
+	global $lang, $search_str,$nrbs_pageheader,$session_selected_language,$header_links;
 	global $userinfo, $testSystem;
 	global $selected_room;
 	global $login;
@@ -89,7 +89,7 @@ function print_header($day, $month, $year, $area){
 			'			<tr>'.chr(10).
 			'				<td class="banner'.$testSystem['bannerExtraClass'].'" '.
 				'style="text-align:center; font-size: 18px; font-weight: bold;">'.
-				$mrbs_company.
+				'<a href="./" class="lightbluebg">Booking for<br>J&aelig;rmuseet</a>'.
 			'</td>'.chr(10).
 			'				<td class="banner'.$testSystem['bannerExtraClass'].'">'.chr(10).
 				

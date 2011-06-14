@@ -16,3 +16,4 @@ exchangesync/messages.xsd
 exchangesync/types.xsd
 exchangesync/logs/log*
 exchangesync/password.php
+config/site.config.php
