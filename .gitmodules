@@ -1,3 +1,6 @@
 [submodule "js/jquery-validation"]
 	path = js/jquery-validation
 	url = git://github.com/jzaefferer/jquery-validation.git
+[submodule "libs/ExchangePHP"]
+	path = libs/ExchangePHP
+	url = git://github.com/hnJaermuseet/ExchangePHP.git
