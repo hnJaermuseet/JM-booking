@@ -1,0 +1,10 @@
+## Setup of sync scripts with Github ##
+
+Installation and setup on Windows
+
+- Install Git as told on http://help.github.com/win-set-up-git/ and be sure to select the option displayed in "git_install_windows.PNG"
+- Create the folder you want the project located in
+- Open Git bash in the directory
+- Run the following git command. This should download the system into the folder.
+	git clone git://github.com/hnJaermuseet/JM-booking.git ./
+- Make a shortcut to update_jmbooking.bat in the gitscripts folder
