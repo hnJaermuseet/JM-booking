@@ -30,4 +30,4 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 - Vert(er): {$user_assigned_names}
 - Kunde: {$customer_name}
 
-Se bookingen på lenken over for alle detaljene og eventuelt gjør endringer.
+Logg på bookingsystemet for å se alle detaljer og eventuelt gjøre endringer.

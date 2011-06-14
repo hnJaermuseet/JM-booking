@@ -22,8 +22,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 *}{$systemurl}/entry.php?entry_id={$entry_id}
-{$entry_name} ble endret av {$log_user}, {$log_time|date_format:"%A %H:%M %d.%m.%Y"}:
+DENNE MELDINGER GJELDER:
+{include file="mail-entry-summary.tpl"}
 
+
+ENDRINGER:
+Ble endret av {$log_user}:
 {foreach from=$log_changes item=change}
 - {$change}
 {/foreach}

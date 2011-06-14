@@ -22,8 +22,13 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 *}{$systemurl}/entry.php?entry_id={$entry_id}
-Du er tatt vekk som vert for bookingen {$entry_name}. {$log_user} tok deg vekk {$time_last_edit|date_format:"%A %H:%M %d.%m.%Y"}.
+Du er tatt vekk som vert for bookingen {$entry_name} av {$log_user}.
 
+OPPSUMMERING AV BOOKINGEN:
+{include file="mail-entry-summary.tpl"}
+
+
+ENDRINGER:
 Følgende endringer ble gjort da du ble tatt vekk som vert:
 {foreach from=$log_changes item=change}
 - {$change}

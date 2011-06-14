@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 *}{$systemurl}/entry.php?entry_id={$entry_id}
-Du er blitt satt som vert for bookingen {$entry_name} av {$log_user}, {$log_time|date_format:"%A %H:%M %d.%m.%Y"}
+Du er blitt satt som vert for bookingen {$entry_name} av {$log_user}.
 
+OPPSUMMERING AV BOOKINGEN:
 {include file="mail-entry-summary.tpl"}
