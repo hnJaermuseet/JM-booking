@@ -7,6 +7,8 @@ Installation and setup on Windows
 - Open Git bash in the directory
 - Run the following git command. This should download the system into the folder.
 	git clone git://github.com/hnJaermuseet/JM-booking.git ./
+	git submodule init
+	git submodule update
 - Make a shortcut to update_jmbooking.bat in the gitscripts folder
 
 ## WHEN RUNNING THE SCRIPT, THE OUTPUT CAN BE: ##
