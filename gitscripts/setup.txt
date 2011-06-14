@@ -8,3 +8,27 @@ Installation and setup on Windows
 - Run the following git command. This should download the system into the folder.
 	git clone git://github.com/hnJaermuseet/JM-booking.git ./
 - Make a shortcut to update_jmbooking.bat in the gitscripts folder
+
+## WHEN RUNNING THE SCRIPT, THE OUTPUT CAN BE: ##
+
+
+## WHEN FAILING, THIS CAN HAPPEN: ##
+	C:\wamp\www2_githubtest\gitscripts>cd ..
+	
+	C:\wamp\www2_githubtest>call git pull origin master
+	remote: Counting objects: 7, done.
+	remote: Compressing objects: 100% (3/3), done.
+	remote: Total 4 (delta 2), reused 2 (delta 0)
+	Unpacking objects: 100% (4/4), done.
+	From git://github.com/hnJaermuseet/JM-booking
+	 * branch            master     -> FETCH_HEAD
+	Updating ce0d286..eebe569
+	error: Your local changes to the following files would be overwritten by merge:
+	        gitscripts/update_jmbooking.bat
+	Please, commit your changes or stash them before you can merge.
+	Aborting
+	
+	C:\wamp\www2_githubtest>pause
+	Press any key to continue . . .
+
+To fix this, you need to know a bit about how Git works. It also depends on what you have done
