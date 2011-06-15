@@ -84,7 +84,7 @@ function filterMakeAlternatives () {
 	filterAddAlternative ('program_id',					'id',			_('Fixed programs')); filterAssignTable ('program_id', 'programs', 'program_id', 'program_name');
 	filterAddAlternative ('program_description',		'text',			_('Program description'));
 	filterAddAlternative ('comment',					'text',			_('Comment'));
-	filterAddAlternative ('infoscreen_txt',				'text',			_('Text on infoscreen'));
+	filterAddAlternative ('infoscreen_txt',				'text',			_h('Text on infoscreen'));
 	filterAddAlternative ('invoice',					'bool',			_('Invoice'));
 	filterAddAlternative ('invoice_ref_your',			'text',			_('Invoice - Your referance'));
 	filterAddAlternative ('invoice_comment',			'text',			_('Invoice comment - to customer'));
