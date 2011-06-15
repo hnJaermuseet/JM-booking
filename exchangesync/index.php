@@ -88,6 +88,7 @@ CREATE TABLE `entry_exchangesync` (
 
 $alert_admin = false;
 $require_login = false;
+$path_site_config = '../config/site.config.php';
 
 require_once dirname(__FILE__).'/../libs/ExchangePHP/ExchangePHP.php';
 

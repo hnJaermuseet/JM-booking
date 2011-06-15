@@ -15,7 +15,8 @@ $db_password  = 'u5rsdu75ndfty66';
 $systemIsInTest = true;
 
 // Site config (can override all settings in this file)
-$path_site_config = 'config/site.config.php';
+if(!isset($path_site_config))
+	$path_site_config = 'config/site.config.php';
 
 // Paths to files that are saved on disk
 $entry_confirm_pdf_path = 'files/entry-confirm';
