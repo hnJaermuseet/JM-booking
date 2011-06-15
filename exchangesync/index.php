@@ -133,7 +133,7 @@ $login = array(
 
 
 // TODO: Add for each user in database
-$user_id = 6;
+$user_id = 48;
 $user = getUser($user_id);
 
 // Setting up connection to Exchange
