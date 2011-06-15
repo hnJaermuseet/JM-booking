@@ -67,7 +67,7 @@ function filterMakeAlternatives () {
 	filterAddAlternative ('time_end',					'date',			_('End time'));
 	filterAddAlternative ('area_id',					'select',		_('Area'));
 	filterAddAlternative ('room_id',					'select',		_('Room'));
-	filterAddAlternative ('user_assigned',				'id2',			_('Users assigned')); filterAssignTable ('user_assigned', 'users', 'user_id', 'user_name');
+	filterAddAlternative ('user_assigned',				'id2',			_('Users assigned')); // filterAssignTable ('user_assigned', 'users', 'user_id', 'user_name');
 	filterAddAlternative ('user_assigned2',				'text',			_('Manuel user assigned'));
 	filterAddAlternative ('customer_name',				'text',			_('Customer'));
 	filterAddAlternative ('customer_id',				'id',			_('Customer ID')); filterAssignTable ('customer_id', 'customer', 'customer_id', 'customer_name');
@@ -81,10 +81,10 @@ function filterMakeAlternatives () {
 	filterAddAlternative ('num_person_count',			'bool',			_('Count these numbers'));
 	filterAddAlternative ('service_description',		'text',			_('Service description'));
 	filterAddAlternative ('service_alco',				'bool',			_('Serve alcohol?'));
-	filterAddAlternative ('program_id',					'id2',			_('Fixed programs')); filterAssignTable ('program_id', 'programs', 'program_id', 'program_name');
+	filterAddAlternative ('program_id',					'id',			_('Fixed programs')); filterAssignTable ('program_id', 'programs', 'program_id', 'program_name');
 	filterAddAlternative ('program_description',		'text',			_('Program description'));
 	filterAddAlternative ('comment',					'text',			_('Comment'));
-	filterAddAlternative ('infoscreen_txt',				'text',			_h('Text on infoscreen'));
+	filterAddAlternative ('infoscreen_txt',				'text',			_('Text on infoscreen'));
 	filterAddAlternative ('invoice',					'bool',			_('Invoice'));
 	filterAddAlternative ('invoice_ref_your',			'text',			_('Invoice - Your referance'));
 	filterAddAlternative ('invoice_comment',			'text',			_('Invoice comment - to customer'));
@@ -126,6 +126,7 @@ function filterMakeAlternatives () {
 	$Q = mysql_query("select user_id, user_name from `users` order by 'user_name'");
 	while( $r_choice = mysql_fetch_assoc($Q))
 		$alternatives['user_assigned']['choice'][$r_choice['user_id']]	= $r_choice['user_name'];
+	
 	
 	$alternatives['invoice_status']['choice'] = array();
 	$alternatives['invoice_status']['choice'][0] = _('Not to be made');
