@@ -495,7 +495,37 @@ foreach($users as $user_id => $user)
 			}
 			else
 			{
-				printout($entries_new[$i] .' not created: '.print_r($ids['ResponseMessage'], true));
+				if($ids['ResponseMessage']->ResponseCode == 'ErrorCreateItemAccessDenied')
+				{
+					// Alert admin, alert user and disable sync
+					emailSend($user_id,
+					'Ikke tilgang til kalender',
+					
+					'Hei'.chr(10).chr(10).
+					
+					'Det er blitt satt opp at jeg skulle synkronisere bookinger du er satt opp på '.
+					'inn i kalenderen din i Outlook. Jeg får det ikke til fordi du ikke har gitt meg tilgang.'.chr(10).chr(10).
+					
+					'Gå inn på denne adressen for å lese hvordan du kan fikse dette:'.chr(10)
+					$systemurl.'/sync.html'.chr(10).chr(10).
+					
+					'Jeg har slått av synkroniseringen av din bruker. Det må bli slått på igjen når det er fikset.'.chr(10).chr(10).
+					
+					'Mvh. Bookingsystemet');
+					
+					mysql_query("UPDATE `users` SET `user_ews_sync` = '0' WHERE `user_id` =".$user_id);
+					
+					printout($entries_new[$i] .' not created. User '.$user_id.' has access denied error when creating items. Has disabled the sync of this user. Message from Exchange: '.$ids['ResponseMessage']->MessageText;
+					$alert_admin = true;
+					$alerts[]    = $entries_new[$i] .' not created. User '.$user_id.' has access denied error when creating items. Has disabled the sync of this user. Message from Exchange: '.$ids['ResponseMessage']->MessageText;
+				}
+				else
+				{
+					// Unknown error, alert admin
+					printout($entries_new[$i] .' not created: '.print_r($ids['ResponseMessage'], true));
+					$alert_admin = true;
+					$alerts[]    = $entries_new[$i] .' not created. Message from Exchange: '.$ids['ResponseMessage']->MessageText;
+				}
 			}
 		}
 	}
