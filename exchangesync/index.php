@@ -506,7 +506,7 @@ foreach($users as $user_id => $user)
 					'Det er blitt satt opp at jeg skulle synkronisere bookinger du er satt opp på '.
 					'inn i kalenderen din i Outlook. Jeg får det ikke til fordi du ikke har gitt meg tilgang.'.chr(10).chr(10).
 					
-					'Gå inn på denne adressen for å lese hvordan du kan fikse dette:'.chr(10)
+					'Gå inn på denne adressen for å lese hvordan du kan fikse dette:'.chr(10).
 					$systemurl.'/sync.html'.chr(10).chr(10).
 					
 					'Jeg har slått av synkroniseringen av din bruker. Det må bli slått på igjen når det er fikset.'.chr(10).chr(10).
