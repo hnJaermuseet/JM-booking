@@ -611,3 +611,11 @@ ALTER TABLE `users` ADD `deletet` BOOL NOT NULL DEFAULT '0' AFTER `user_access_u
 ALTER TABLE `users` CHANGE `deletet` `deleted` TINYINT( 1 ) NOT NULL DEFAULT '0' ;
 ALTER TABLE `users` CHANGE `deleted` `deactivated` TINYINT( 1 ) NOT NULL DEFAULT '0' ;
 ALTER TABLE `users` CHANGE `user_access_userdelete` `user_access_userdeactivate`  TINYINT( 1 ) NOT NULL DEFAULT '0' ;
+
+
+--
+-- Database upgrades - 15.06.2011
+-- Users has settings for Exchange web service (EWS) sync
+--
+ALTER TABLE `users` ADD `user_ews_sync` BOOL NOT NULL AFTER `user_areas` ,
+ADD `user_ews_sync_email` VARCHAR( 255 ) NOT NULL AFTER `user_ews_sync` ;

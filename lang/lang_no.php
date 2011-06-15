@@ -80,6 +80,10 @@ function langNo($text)
 			return 'Gå til forrige dag';
 		case 'Go to other dayview':
 			return 'Gå til den andre dagsvisningen';
+		case 'Syncronize with Exchange':
+			return 'Synkronisering med Exchange ("Outlook")';
+		case 'Main Exchange e-mail':
+			return 'Hovedadresse i Exchange ("Outlook")';
 	}
 	
 	trigger_error('No translation for: '.$text);
