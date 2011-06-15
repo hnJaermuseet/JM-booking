@@ -221,6 +221,7 @@ else
  *   located in tmeplates/wrong_ip.tpl
  */
 if (
+	isset($_SERVER['REMOTE_ADDR']) && // Not set in CLI mode
 	!in_array($_SERVER['PHP_SELF'], $ip_filter_pagesWithoutFilter) &&
 	substr($_SERVER['REMOTE_ADDR'],0,strlen($ip_filter_okeyaddresses)) != $ip_filter_okeyaddresses
 )
@@ -248,7 +249,8 @@ else
 
 // Earlier this was a setting that could be changed (MRBS etc)
 // JM-booking is not made for running as non-logged-in users
-$require_login = true;
+if(!isset($require_login))
+	$require_login = true;
 
 
 if($require_login && basename($_SERVER['PHP_SELF']) != 'login.php') {
