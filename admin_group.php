@@ -117,7 +117,8 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	
 	if($login['user_access_useredit'])
 	{
-		echo '<form action="admin_group.php?gid='.$gid.'" method="post">'.chr(10);
+		echo '<form action="admin_group.php" method="get">'.chr(10);
+		echo '<input type="hidden" name="gid" value="'.$gid.'">'.chr(10);
 		echo '<input type="text" name="group_add_user">'.chr(10);
 		echo '<input type="submit" value="'._('Add').'">'.chr(10);
 		echo ' ('._('Enter userID').')'.chr(10);
