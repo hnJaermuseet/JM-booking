@@ -350,12 +350,9 @@ th.border {
 	border: 1px solid black;
 }
 
-input[disabled], 
-select[disabled],
-textarea[disabled],
-option[disabled]
+[disabled]
 {
-	background-color: lightgray;
+	background-color: #EEEEEE;
 	color: black;
 }
 
