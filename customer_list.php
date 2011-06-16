@@ -49,6 +49,7 @@ while($R = mysql_fetch_assoc($Q))
 		$filters_serialized = filterSerialized($filter);
 		
 		echo '	<tr>'.chr(10);
+		echo '		<td><b>'.$customer['customer_id'].' </b></td>'.chr(10);
 		echo '		<td><b>'.
 			'<a href="customer.php?customer_id='.$customer['customer_id'].'">'.
 			iconHTML('group').' '.
@@ -59,8 +60,9 @@ while($R = mysql_fetch_assoc($Q))
 		_('Edit').'</a>'.
 		' -:- <a href="entry_list.php?filters='.$filters_serialized.'">'.
 		iconHTML('page_white').' '.
-		_('View entries').'</a> ('.
-		mysql_num_rows(mysql_query(genSQLFromFilters ($filter, 'entry_id'))).')'.
+		_('View entries').'</a>'.
+		//' ('.
+		//mysql_num_rows(mysql_query(genSQLFromFilters ($filter, 'entry_id'))).')'.
 		'</font></td>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 	}
