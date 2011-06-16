@@ -461,16 +461,17 @@ echo '<div style="width: 400px; margin-left: 20px; display:none; font-size: 14px
 /* ## Template fields ## */
 echo '<h2>'._h('Change the templates').'</h2>'.chr(10);
 echo '<div style="margin-left: 20px;">';
-	echo '<span id="txt_heading1">'._h('Content of PDF file').' ('._h('can be edited here').')<br></span>'.chr(10);
+	echo '<span id="txt_heading1">'.iconFiletype('pdf').' '._h('Content of PDF file').' ('._h('can be edited here').')<br></span>'.chr(10);
 	echo '<span id="txt_heading1_pdf" style="display:none;">'.
 		_h('Content of PDF file').' ('._h('can be edited here').')<br></span>'.chr(10);
 	echo '<span id="txt_heading1_nopdf" style="display:none;">'.
 		_h('Content of the e-mail').' ('._h('can be edited here').')<br></span>'.chr(10);
 	echo '<textarea cols="85" rows="10" name="confirm_tpl" id="confirm_tpl"></textarea><br><br>'.chr(10);
 	
-	echo '<label><input type="radio" name="emailTypePDF" value="1" checked="checked"> - '. iconFiletype('pdf').' Send som PDF-vedlegg (andre vedlegg også mulig)</label><br>';
-	echo '<label><input type="radio" name="emailTypePDF" value="0"> - Send som ren tekst direkte i e-posten (vedlegg ikke mulig)</label><br>';
-	echo '<br><br>'.chr(10);
+	//echo '<label><input type="radio" name="emailTypePDF" value="1" checked="checked"> - '. iconFiletype('pdf').' Send som PDF-vedlegg (andre vedlegg også mulig)</label><br>';
+	//echo '<label><input type="radio" name="emailTypePDF" value="0"> - Send som ren tekst direkte i e-posten (vedlegg ikke mulig)</label><br>';
+	//echo '<br><br>'.chr(10);
+	echo '<input type="hidden" name="emailTypePDF" value="1">'.chr(10); // Only PDF enabled
 	
 	echo '<div id="pdf_mailbody">';
 		echo _h('Content of the e-mail').' ('._h('can be edited here').')<br>';
