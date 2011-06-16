@@ -478,16 +478,32 @@ foreach ($entry_fields as $field)
 							'</td>'.chr(10);
 						
 						// Belop_hver
-						echo ' <td><input type="text" size="6" id="belop_hver'.$id.'" name="belop_hver'.$id.'" value="'.$invoice_content['belop_hver'].'" onchange="updateMva('.$id.');"'.$disabled.'></td>'.chr(10);
+						echo ' <td><input type="text" size="6" id="belop_hver'.$id.'" name="belop_hver'.$id.'" value="'.$invoice_content['belop_hver'].'" '.
+							'onchange="updateMva('.$id.');" '.
+							'onkeyup="updateMva('.$id.');" '.
+							'onclick="updateMva('.$id.');" '.
+							$disabled.'></td>'.chr(10);
 						
 						// Antall
-						echo ' <td><input type="text" size="6" id="antall'.$id.'" name="antall'.$id.'" value="'.$invoice_content['antall'].'" onchange="updateMva('.$id.');"'.$disabled.'></td>'.chr(10);
+						echo ' <td><input type="text" size="6" id="antall'.$id.'" name="antall'.$id.'" value="'.$invoice_content['antall'].'" '.
+							'onchange="updateMva('.$id.');" '.
+							'onkeyup="updateMva('.$id.');" '.
+							'onclick="updateMva('.$id.');" '.
+							$disabled.'></td>'.chr(10);
 						
 						// Mva
-						echo ' <td><input type="text" size="3" id="mva'.$id.'" name="mva'.$id.'" value="'.($invoice_content['mva']*100).'" onchange="updateMva('.$id.');"'.$disabled.'></td>'.chr(10);
+						echo ' <td><input type="text" size="3" id="mva'.$id.'" name="mva'.$id.'" value="'.($invoice_content['mva']*100).'" '.
+							'onchange="updateMva('.$id.');" '.
+							'onkeyup="updateMva('.$id.');" '.
+							'onclick="updateMva('.$id.');" '.
+							$disabled.'></td>'.chr(10);
 						
 						// Ink mva / eks mva
-						echo ' <td><input name="mva_eks'.$id.'" id="mva_eks'.$id.'" value="1" type="checkbox" onchange="updateMva('.$id.');"';
+						echo ' <td><input name="mva_eks'.$id.'" id="mva_eks'.$id.'" value="1" type="checkbox" '.
+							'onchange="updateMva('.$id.');" '.
+							'onkeyup="updateMva('.$id.');" '.
+							'onclick="updateMva('.$id.');" '
+							;
 						if($invoice_content['mva_eks'])
 							echo ' checked="checked"';
 						echo $disabled.'></td>'.chr(10);

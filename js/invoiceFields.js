@@ -29,33 +29,36 @@ function updateMva (id)
 {
 	eks_mva		= document.getElementById("mva_eks" + id);
 	
+	// Set by user
 	antall			= document.getElementById("antall" + id);
-	antall.value	= parseFloat(antall.value.replace(",", "."));
-	if(isNaN(antall.value))
-		antall.value = 0;
+	antall_value	= parseFloat(antall.value.replace(",", "."));
+	if(isNaN(antall_value))
+		antall_value = 0;
 	
+	// Set by user
 	belop_hver			= document.getElementById("belop_hver" + id);
-	belop_hver.value	= Math.round(parseFloat(belop_hver.value.replace(",", "."))*100)/100;
-	if(isNaN(belop_hver.value))
-		belop_hver.value = 0;
+	belop_hver_value	= Math.round(parseFloat(belop_hver.value.replace(",", "."))*100)/100;
+	if(isNaN(belop_hver_value))
+		belop_hver_value = 0;
 	
 	belop_delsum		= document.getElementById("belop_delsum" + id);
 	belop_delsum.value	= Math.round(parseFloat(belop_delsum.value.replace(",", "."))*100)/100;
 	if(isNaN(belop_delsum.value))
 		belop_delsum.value = 0;
 	
+	// Set by user
 	mva			= document.getElementById("mva" + id);
-	mva.value	= parseFloat(mva.value.replace(",", "."));
-	if(isNaN(mva.value))
-		mva.value = 0;
+	mva_value	= parseFloat(mva.value.replace(",", "."));
+	if(isNaN(mva_value))
+		mva_value = 0;
 	
-	mva_hver	= document.getElementById("mva_hver" + id);
-	mva_hver.value	= Math.round(parseFloat(mva_hver.value.replace(",", "."))*100)/100;
+	mva_hver        = document.getElementById("mva_hver" + id);
+	mva_hver.value  = Math.round(parseFloat(mva_hver.value.replace(",", "."))*100)/100;
 	if(isNaN(mva_hver.value))
 		mva_hver.value = 0;
 	
-	mva_sum_hver		= document.getElementById("mva_sum_hver" + id);
-	mva_sum_hver.value	= Math.round(parseFloat(mva_sum_hver.value.replace(",", "."))*100)/100;
+	mva_sum_hver        = document.getElementById("mva_sum_hver" + id);
+	mva_sum_hver.value  = Math.round(parseFloat(mva_sum_hver.value.replace(",", "."))*100)/100;
 	if(isNaN(mva_sum_hver.value))
 		mva_sum_hver.value = 0;
 	
@@ -65,15 +68,15 @@ function updateMva (id)
 		belop_hver_real.value = 0;
 	
 	if(eks_mva.checked) {
-		mva_hver.value			= Math.round((parseFloat(belop_hver.value) * (parseFloat(mva.value) / 100))*100)/100;
-		belop_hver_real.value	= Math.round(parseFloat(belop_hver.value)*100)/100;
-		mva_sum_hver.value		= Math.round((parseFloat(mva_hver.value) * parseFloat(antall.value))*100)/100;
-		belop_delsum.value		= Math.round((parseFloat(belop_hver_real.value) + parseFloat(mva_hver.value)) * parseFloat(antall.value)*100)/100;
+		mva_hver.value          = Math.round((parseFloat(belop_hver_value) * (parseFloat(mva_value) / 100))*100)/100;
+		belop_hver_real.value   = Math.round(parseFloat(belop_hver_value)*100)/100;
+		mva_sum_hver.value      = Math.round((parseFloat(mva_hver.value) * parseFloat(antall_value))*100)/100;
+		belop_delsum.value      = Math.round((parseFloat(belop_hver_real.value) + parseFloat(mva_hver.value)) * parseFloat(antall_value)*100)/100;
 	} else {
-		belop_delsum.value		= Math.round((parseFloat(belop_hver.value) * parseFloat(antall.value))*100)/100;
-		mva_hver.value			= Math.round((parseFloat(belop_hver.value) * parseFloat(mva.value) / (parseFloat(mva.value) + 100))*100)/100;
-		belop_hver_real.value	= Math.round((parseFloat(belop_hver.value) - parseFloat(mva_hver.value))*100)/100;
-		mva_sum_hver.value		= Math.round((parseFloat(mva_hver.value) * parseFloat(antall.value))*100)/100;
+		belop_delsum.value      = Math.round((parseFloat(belop_hver_value) * parseFloat(antall_value))*100)/100;
+		mva_hver.value          = Math.round((parseFloat(belop_hver_value) * parseFloat(mva_value) / (parseFloat(mva_value) + 100))*100)/100;
+		belop_hver_real.value   = Math.round((parseFloat(belop_hver_value) - parseFloat(mva_hver.value))*100)/100;
+		mva_sum_hver.value      = Math.round((parseFloat(mva_hver.value) * parseFloat(antall_value))*100)/100;
 	}
 	
 	belop_hver_real2		= document.getElementById("belop_hver_real2" + id);
@@ -163,7 +166,9 @@ function addFieldInvoiceWithValues (description, topay_each, tax)
 				'name="belop_hver'+thisvalue+'" '+
 				'value="'+topay_each+'" '+
 				'size="6" '+
-				'onchange="updateMva(\''+thisvalue+'\');"'+
+				'onchange="updateMva(\''+thisvalue+'\'); "'+
+				'onkeyup="updateMva(\''+thisvalue+'\'); "'+
+				'onclick="updateMva(\''+thisvalue+'\'); "'+
 			'>'+
 		'</td>';
 	
@@ -175,7 +180,9 @@ function addFieldInvoiceWithValues (description, topay_each, tax)
 				'name="antall'+thisvalue+'" '+
 				'value="1" '+
 				'size="6" '+
-				'onchange="updateMva(\''+thisvalue+'\');"'+
+				'onchange="updateMva(\''+thisvalue+'\'); "'+
+				'onkeyup="updateMva(\''+thisvalue+'\'); "'+
+				'onclick="updateMva(\''+thisvalue+'\'); "'+
 			'>'+
 		'</td>';
 	
@@ -187,7 +194,9 @@ function addFieldInvoiceWithValues (description, topay_each, tax)
 				'name="mva'+thisvalue+'" '+
 				'value="'+tax+'" '+
 				'size="3" '+
-				'onchange="updateMva(\''+thisvalue+'\');"'+
+				'onchange="updateMva(\''+thisvalue+'\'); "'+
+				'onkeyup="updateMva(\''+thisvalue+'\'); "'+
+				'onclick="updateMva(\''+thisvalue+'\'); "'+
 			'>'+
 		'</td>';
 	
@@ -199,7 +208,9 @@ function addFieldInvoiceWithValues (description, topay_each, tax)
 				'name="mva_eks'+thisvalue+'" '+
 				'value="1" '+
 				'checked="checked" '+
-				'onchange="updateMva(\''+thisvalue+'\');"'+
+				'onchange="updateMva(\''+thisvalue+'\'); "'+
+				'onkeyup="updateMva(\''+thisvalue+'\'); "'+
+				'onclick="updateMva(\''+thisvalue+'\'); "'+
 			'>'+
 		'</td>';
 	
