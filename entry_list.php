@@ -56,11 +56,11 @@ switch($listtype)
 		echo _('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
 		$filters = array();
 		$filters = addFilter($filters, 'user_assigned', '0');
-		$filters = addFilter($filters, 'user_assigned2', '');
+		$filters = addFilter($filters, 'user_assigned2', '', 'is');
 		$filters = addFilter($filters, 'time_start', 'current', '>');
 		if($area != '')
 			$filters = addFilter($filters, 'area_id', $area);
-		$SQL = "select entry_id from `entry` where user_assigned = ';0;' and user_assigned2 = '' and time_start > '".time()."' order by `time_start`";
+		//$SQL = "select entry_id from `entry` where user_assigned = ';0;' and user_assigned2 = '' and time_start > '".time()."' order by `time_start`";
 		//$SQL = "select entry_id from `entry` where user_assigned = ';0;' and user_assigned2 = '' order by `time_start`";
 		break;
 	

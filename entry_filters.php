@@ -147,6 +147,15 @@ foreach ($filters as $filter)
 				break;
 			}
 		case 'text':
+			echo '<select name="filtervalue2_'.$id.'">';
+			echo ' <option value="is"';	if('=' == $filter[2]) echo ' selected="selected"';
+				echo '>'._('is').'</option>';
+			
+			echo ' <option value=""';	if(!isset($filter[2]) || $filter[2] == '') echo ' selected="selected"';
+				echo '>'._('matches').'</option>';
+			
+			echo '</select>';
+			
 			echo '<input type="text" name="filtervalue1_'.$id.'" value="'.$filter[1].'">';
 			break;
 		case 'bool':
@@ -322,6 +331,20 @@ foreach ($alternatives as $var => $alternative)
 			}
 		case 'text':
 			echo '		case \''.$var.'\':'.chr(10);
+			echo '			var select=document.createElement(\'select\');'.chr(10);
+			echo '			select.name="filtervalue2_"+numID;'.chr(10);
+			echo '			span.appendChild(select);'.chr(10);
+			
+			echo '			var option=document.createElement(\'option\');'.chr(10);
+			echo '			option.value="is";'.chr(10);
+			echo '			option.innerHTML="'._('is').'";'.chr(10);
+			echo '			select.appendChild(option);'.chr(10);
+			
+			echo '			var option=document.createElement(\'option\');'.chr(10);
+			echo '			option.value="";'.chr(10);
+			echo '			option.innerHTML="'._('matches').'";'.chr(10);
+			echo '			select.appendChild(option);'.chr(10);
+			
 			echo '			var input=document.createElement(\'input\');'.chr(10);
 			echo '			input.name="filtervalue1_"+numID;'.chr(10);
 			echo '			span.appendChild(input);'.chr(10);

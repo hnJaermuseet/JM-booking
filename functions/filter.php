@@ -259,8 +259,20 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 				$thisFilter .= '='; break;
 			
 			case 'id2':
-			case 'text':
 				$thisFilter .= 'LIKE'; break;
+			
+			case 'text':
+				switch($filter[2])
+				{
+					case 'is':
+						$thisFilter .= '='; // Is
+						break;
+					
+					default:
+						$thisFilter .= 'LIKE'; // Match
+						break;
+				}
+				break;
 			
 			case 'date':
 				if($filter[1] == 'current')
@@ -273,7 +285,18 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 			case 'id2':
 				$thisFilter .= "'%;".$filter[1].";%'"; break; // Value1
 			case 'text':
-				$thisFilter .= "'%".$filter[1]."%'"; break; // Value1, matcher
+				switch($filter[2])
+				{
+					case 'is':
+						$thisFilter .= "'".$filter[1]."'"; // Is
+						break;
+					
+					default:
+						$thisFilter .= "'%".$filter[1]."%'"; // Value1, matcher
+						break;
+				}
+				break;
+			
 			case 'select':
 				if($filter[0] == 'room_id') {
 					$thisFilter .= "'%;".$filter[1].";%'"; break;
@@ -334,8 +357,19 @@ function genSQLFromFiltersDatanova ($filters, $FieldsToSelect = '*') {
 				$thisFilter .= '='; break;
 			
 			case 'id2':
-			case 'text':
 				$thisFilter .= 'LIKE'; break;
+			
+			case 'text':
+				switch($filter[2])
+				{
+					case 'is':
+						$thisFilter .= '='; // Is
+						break;
+					
+					default:
+						$thisFilter .= 'LIKE'; // Match
+						break;
+				}
 			
 			case 'date':
 				if($filter[1] == 'current')
@@ -463,8 +497,17 @@ function filterToText ($filtertable) {
 				$return .= _('contains'); break;
 			
 			case 'text':
-				$return .= _('matches');	break;
-			
+				switch($filter[2])
+				{
+					case 'is':
+						$return .= _h('is');
+						break;
+					
+					default:
+						$return .= _('matches');
+						break;
+				}
+				
 			case 'date':
 			case 'num':
 				switch($filter[2]) {
