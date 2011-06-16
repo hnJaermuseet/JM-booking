@@ -392,7 +392,7 @@ foreach($users as $user_id => $user)
 						$rooms[] = _('Whole area');
 					elseif(is_numeric($rid))
 					{
-						$rooms[] = $room[(int)$rid]['room_name'];
+						$rooms[] = $room[(int)$rid];
 					}
 				}
 			}
