@@ -208,8 +208,8 @@ foreach($users as $user_id => $user)
 		{
 			printout('getCalendarItems exception: '.$e->getMessage());
 		}
-		$alertAdmin = true;
-		$alerts[]   = array('getCalendarItems exception: '.$e->getMessage());
+		$alert_admin = true;
+		$alerts[]   = 'getCalendarItems exception: '.$e->getMessage();
 		continue;
 	}
 
@@ -217,7 +217,7 @@ foreach($users as $user_id => $user)
 	if(is_null($calendaritems))
 	{
 		printout('getCalendarItems failed: '.$cal->getError());
-		$alertAdmin = true;
+		$alert_admin = true;
 		$alerts[]   = 'getCalendarItems failed: '.$cal->getError();
 		continue;
 	}
