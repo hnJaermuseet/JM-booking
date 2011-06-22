@@ -1125,11 +1125,9 @@ function getArea($id)
 		}
 		else
 		{
-			$return = array (
-				'area_id'			=> mysql_result	($Q, '0', 'id'),
-				'area_name'			=> mysql_result ($Q, '0', 'area_name'),
-				'area_group'		=> mysql_result ($Q, '0', 'area_group')
-			);
+			$return = mysql_fetch_assoc($Q);
+			$return['area_id'] = $return['id']; unset($return['id']);
+			
 			return $return;
 		}
 	}
