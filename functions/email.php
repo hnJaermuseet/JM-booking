@@ -230,6 +230,19 @@ function template_ical ($entry)
 	return $return;
 }
 
+function emailSendDirect ($email, $subject, $message)
+{
+	global $login;
+	if(isset($login['user_email']) && $login['user_email'] != '')
+		$headers = 'From: '.$login['user_email'];
+	else
+		$headers = 'From: '.constant('EMAIL_FROM');
+	
+	$headers .= "\r\n";
+	$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
+	mail ($email, $subject, $message, $headers);
+}
+
 function emailSend ($user_id, $subject, $message)
 {
 	global $login;
