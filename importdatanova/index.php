@@ -40,7 +40,7 @@ $alert_admin = false;
 $require_login = false;
 $path_site_config = '../config/site.config.php';
 
-set_time_limit(0);
+set_time_limit(600);
 
 require_once dirname(__FILE__).'/../functions/importdatanova.php';
 
