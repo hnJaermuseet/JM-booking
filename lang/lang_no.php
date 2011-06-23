@@ -84,6 +84,20 @@ function langNo($text)
 			return 'Synkronisering med Exchange ("Outlook")';
 		case 'Main Exchange e-mail':
 			return 'Hovedadresse i Exchange ("Outlook")';
+		case 'Datanova import':
+			return 'Datanova-import';
+		case 'Shop id':
+			return 'Butikknr.';
+		case 'Alert email(s)':
+			return 'Varlingsepostadresse(r)';
+		case 'Email(s) receiving alerts when new goods are detected for this shop.':
+			return 'E-postadresse(r) som får varsling når nye varer, som systemet ikke kjenner, blir funnet for dette butikknret';
+		case 'Can be multiple emails seperated by space, comma or semicolon.':
+			return 'Kan være flere epostadresser skilt med mellomrom, komma eller semikolon.';
+		/*
+		case '':
+			return '';
+		*/
 	}
 	
 	trigger_error('No translation for: '.$text);

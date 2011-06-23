@@ -619,3 +619,31 @@ ALTER TABLE `users` CHANGE `user_access_userdelete` `user_access_userdeactivate`
 --
 ALTER TABLE `users` ADD `user_ews_sync` BOOL NOT NULL AFTER `user_areas` ,
 ADD `user_ews_sync_email` VARCHAR( 255 ) NOT NULL AFTER `user_ews_sync` ;
+
+
+--
+-- Database upgrades - 21.06.2011 & 22.06.2011
+-- Import from Datanova web reports
+--
+ALTER TABLE `mrbs_area` ADD `importdatanova_shop_id` INT NOT NULL AFTER `area_group` ,
+ADD `importdatanova_alert_email` VARCHAR( 255 ) NOT NULL AFTER `importdatanova_shop_id` ;
+CREATE TABLE `import_dn_tall_ikkeimportert` (
+`vare_nr` char( 75 ) NOT NULL ,
+`shop_id` int( 11 ) NOT NULL ,
+`dag` int( 11 ) NOT NULL ,
+`antall_barn` int( 11 ) NOT NULL ,
+`antall_voksne` int( 11 ) NOT NULL ,
+PRIMARY KEY ( `vare_nr` , `shop_id` , `dag` )
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+ALTER TABLE `import_dn_tall_ikkeimportert` DROP `dag` ;
+ALTER TABLE `import_dn_tall_ikkeimportert` DROP `antall_barn` ;
+ALTER TABLE `import_dn_tall_ikkeimportert` DROP `antall_barn` ;
+ALTER TABLE `import_dn_tall_ikkeimportert` ADD `vare_navn` VARCHAR( 255 ) NOT NULL AFTER `shop_id` ,
+ADD `vare_antall` INT( 11 ) NOT NULL AFTER `vare_navn` ,
+ADD `area_id` INT( 11 ) NOT NULL AFTER `vare_antall` ,
+ADD `vare_dager` INT NOT NULL AFTER `area_id` ;
+ALTER TABLE `import_dn_tall` ADD `shop_id` INT NOT NULL AFTER `antall_voksne` ;
+CREATE TABLE `jm-booking`.`import_dn_shops` (
+`shop_id` INT NOT NULL ,
+`shop_name` VARCHAR( 255 ) NOT NULL
+) ENGINE = InnoDB ;

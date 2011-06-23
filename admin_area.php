@@ -67,6 +67,10 @@ if(isset($_GET['editor']))
 	while($R = mysql_fetch_assoc($Q_groups))
 		$editor->addChoice('area_group', $R['group_id'], $R['group_name']);
 	
+	
+	$editor->makeNewField('importdatanova_shop_id', _('Datanova import').' - '._('Shop id'), 'text');
+	$editor->makeNewField('importdatanova_alert_email', _('Datanova import').' - '._('Alert email(s)').'*', 'text');
+	
 	$editor->getDB();
 	
 	if(isset($_POST['editor_submit']))
@@ -90,6 +94,10 @@ if(isset($_GET['editor']))
 	
 	include "include/admin_middel.php";
 	$editor->printEditor();
+	
+	echo '<br /><br />*'.
+		_('Email(s) receiving alerts when new goods are detected for this shop.').'<br />'.
+		_('Can be multiple emails seperated by space, comma or semicolon.');
 }
 else
 {

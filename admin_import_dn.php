@@ -29,45 +29,80 @@ include "include/admin_top.php";
 require "libs/editor.class.php";
 $section = 'import_dn';
 
-function no_areaid_selected () {
-	$Q = mysql_query("SELECT id as area_id FROM `mrbs_area` where area_name = 'Vitenfabrikken' limit 1");
-	if(mysql_num_rows($Q))
-		$area_id_vitenfabrikken = mysql_result($Q, 0, 'area_id');
-	else
-		$area_id_vitenfabrikken = -1;
-	
-	$Q = mysql_query("SELECT id as area_id FROM `mrbs_area` where area_name = 'Vitengarden' limit 1");
-	if(mysql_num_rows($Q))
-		$area_id_vitengarden = mysql_result($Q, 0, 'area_id');
-	else
-		$area_id_vitengarden = -1;
-	
-	
-	echo '<h1>Velg hvilket anlegg du vil endre innstillinger for</h1>';
-	echo '<div style="font-size: 1.2em">';
-	echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area_id_vitenfabrikken.'">'.
-		'Vitenfabrikken</a><br />';
-	echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area_id_vitengarden.'">'.
-		'Vitengarden</a><br />';
-	echo '</div>';
-	exit();
-}
-
-// Checking area_id
-if(!isset($_GET['area_id']))
+$area_okey = false;
+if(isset($_GET['area_id']))
 {
-	include "include/admin_middel.php";
-	no_areaid_selected ();
+	$area = getArea($_GET['area_id']);
+	if(count($area))
+	{
+		if($area['importdatanova_shop_id'] == '0')
+		{
+			echo 'Ingen butikknr satt for dette området ('.$area['area_id'].' - '.$area['area_name'].')';
+			exit;
+		}
+		$area_okey = true;
+	}
 }
 
-$area = getArea($_GET['area_id']);
-if(!count($area))
+if(isset($_GET['action']))
+	$action = $_GET['action'];
+else
+	$action = '';
+
+if($action == 'kat_list')
 {
+	// List
+	
 	include "include/admin_middel.php";
-	no_areaid_selected ();
+	
+	echo '<h1>Innstillinger for import fra kasseapparat</h1>'.chr(10).chr(10);
+	
+	echo '<h2>Kategorier (felles for hele Jærmuseet)</h2>'.chr(10);
+	
+	echo '- <a href="'.$_SERVER['PHP_SELF'].'">Tilbake</a><br /><br />'.chr(10);
+	
+	
+	if($login['user_access_importdn'])
+		echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=editor_kat">'.
+			'Ny kategori</a><br />'.chr(10);
+	
+	$QUERY = mysql_query('select * from `import_dn_kategori` '.
+		//"where area_id = '".$area['area_id']."' ".
+		'order by kat_navn');
+	$kategorier = array();
+	if(mysql_num_rows($QUERY))
+	{
+		echo '<table class="prettytable">'.chr(10).chr(10);
+		echo '	<tr>'.chr(10);
+		echo '		<th>'._('ID').'</th>'.chr(10);
+		echo '		<th>Kategorinavn</th>'.chr(10);
+		//echo '		<th>'._('Area').'</th>'.chr(10);
+		if($login['user_access_importdn'])
+			echo '		<th>'._('Options').'</th>'.chr(10);
+		echo '	</tr>'.chr(10).chr(10);
+		while($ROW = mysql_fetch_assoc($QUERY))
+		{
+			$kategorier[$ROW['kat_id']] = $ROW['kat_navn'];
+			echo '	<tr>'.chr(10);
+			echo '		<td><b>'.$ROW['kat_id'].'</b></td>'.chr(10);
+			echo '		<td>'.$ROW['kat_navn'].'</td>'.chr(10);
+			//echo '		<td>';
+			//$Q_area = mysql_query("select * from `mrbs_area` where id = '".$ROW['area_id']."'");
+			//if(!mysql_num_rows($Q_area))
+			//	echo '<i>'._('Not found').'</i>';
+			//else
+			//	echo mysql_result($Q_area, 0, 'area_name');
+			//echo '</td>'.chr(10);
+			if($login['user_access_importdn'])
+				echo '		<td><a href="'.$_SERVER['PHP_SELF'].'?action=editor_kat&amp;id='.$ROW['kat_id'].'">'._('Edit').'</td>'.chr(10);
+			echo '	</tr>'.chr(10).chr(10);
+		}
+		echo '</table>';
+	}
+	else
+		echo '<div class="notice" style="width: 600px;">Ingen import-kategorier laget</div>';
 }
-
-if(isset($_GET['editor_kat']))
+elseif($action == 'editor_kat')
 {
 	if(!$login['user_access_importdn'])
 	{
@@ -83,7 +118,7 @@ if(isset($_GET['editor_kat']))
 	
 	if($id <= 0)
 	{
-		$editor = new editor('import_dn_kategori', $_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_kat=1');
+		$editor = new editor('import_dn_kategori', $_SERVER['PHP_SELF'].'?action=editor_kat');
 		$editor->setHeading('Ny kategori'.
 			//' for '.$area['area_name']
 			'');
@@ -91,7 +126,7 @@ if(isset($_GET['editor_kat']))
 	}
 	else
 	{
-		$editor = new editor('import_dn_kategori', $_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_kat=1', $id);
+		$editor = new editor('import_dn_kategori', $_SERVER['PHP_SELF'].'?action=editor_kat', $id);
 		$editor->setHeading('Endre kategori');
 		$editor->setSubmitTxt(_('Change'));
 	}
@@ -120,7 +155,7 @@ if(isset($_GET['editor_kat']))
 			if($editor->performDBquery())
 			{
 				// Redirect
-				header('Location: '.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id']);
+				header('Location: '.$_SERVER['PHP_SELF'].'?action=kat_list');
 				exit();
 			}
 			else
@@ -135,7 +170,7 @@ if(isset($_GET['editor_kat']))
 	include "include/admin_middel.php";
 	$editor->printEditor();
 }
-elseif(isset($_GET['editor_varereg']))
+/*elseif($action == 'delete_imported' && $area_okey)
 {
 	if(!$login['user_access_importdn'])
 	{
@@ -143,19 +178,189 @@ elseif(isset($_GET['editor_varereg']))
 		exit ();
 	}
 	
+	include "include/admin_middel.php";	
 	
-	if(isset($_GET['importerfil']))
+	echo '<h2>Sletting av importerte tall fra '.$area['area_name'].'</h2>';
+	
+	echo '- <a href="'.$_SERVER['PHP_SELF'].'">Tilbake</a><br /><br />'.chr(10);
+	
+	if(isset($_GET['sure']) && $_GET['sure'] == 'yes')
 	{
-		$importerfil_redirect   = '&importerfil='.slashes(htmlspecialchars($_GET['importerfil'],ENT_QUOTES));
-		$importerfil_redirect2  = '&amp;importerfil='.slashes(htmlspecialchars($_GET['importerfil'],ENT_QUOTES));
-		$redirect_fil           = 'import-datanova.php';
+		mysql_query("delete from `import_dn_tall` where area_id = '".$area['area_id']."'");
+		$slettet = mysql_affected_rows();
+		echo mysql_error();
+		
+		mysql_query("delete from `import_dn_tall` where shop_id = '".$area['importdatanova_shop_id']."'");
+		$slettet += mysql_affected_rows();
+		echo mysql_error();
+		
+		echo '<div class="success">'.mysql_affected_rows().' importerte tall slettet (de som er lagt inn med en kategori).</div>';
+		
+		mysql_query("delete from `import_dn_tall_ikkeimportert` where shop_id = '".$area['importdatanova_shop_id']."'");
+		echo mysql_error();
+		
+		echo '<div class="success">'.mysql_affected_rows().' ikke-importerte tall slettet (de som ikke er lagt inn)</div>';
 	}
 	else
 	{
-		$importerfil_redirect   = '';
-		$importerfil_redirect2  = '';
-		$redirect_fil           = $_SERVER['PHP_SELF'];
+		echo '<b>Er du sikker på at du vil slette alle importerte tall fra '.$area['area_name'].'?</b><br />';
+		echo '<a href="'.$_SERVER['PHP_SELF'].'?action='.$action.'&amp;area_id='.$area['area_id'].'&amp;sure=yes">Ja</a> - ';
+		echo '<a href="'.$_SERVER['PHP_SELF'].'">Nei</a>';
 	}
+	
+	echo '<br /><br />'.
+		'Alle tall vil blir importert på ny neste gang importen kjøres. Dette kan brukes til å rette opp i tallene.';
+}*/
+elseif($action == 'notimported_list')
+{
+	include "include/admin_middel.php";
+	
+	echo '<h1>Innstillinger for import fra kasseapparat</h1>'.chr(10).chr(10);
+	
+	if($area_okey)
+	{
+		echo '<h2>Ikke-importerte varer fra '.$area['area_name'].' (butikknr '.$area['importdatanova_shop_id'].')</h2>'.chr(10);
+		$redirect = 'notimported';
+		$Q_notimported = mysql_query("select * from `import_dn_tall_ikkeimportert` where shop_id = '".$area['importdatanova_shop_id']."' order by `vare_nr`");
+	}
+	else
+	{
+		echo '<h2>Ikke-importerte varer fra alle butikker</h2>'.chr(10);
+		$redirect = 'notimported_all';
+		$Q_notimported = mysql_query("select * from `import_dn_tall_ikkeimportert` order by `vare_nr`");
+	}
+	
+	echo '- <a href="'.$_SERVER['PHP_SELF'].'">Tilbake</a><br /><br />'.chr(10);
+	
+	$Q_areas_with_shop = mysql_query("select id as area_id, area_name, importdatanova_shop_id from `mrbs_area` where importdatanova_shop_id != 0");
+	$areas = array();
+	while($R_area = mysql_fetch_assoc($Q_areas_with_shop))
+	{
+		$areas[$R_area['importdatanova_shop_id']] = $R_area['area_id'];
+		if(!$area_okey || $R_area['area_id'] == $area['area_id'])
+			echo 'Butikknr '.$R_area['importdatanova_shop_id'].' = '.$R_area['area_name'].'<br />';
+	}
+	
+	$Q_varer = mysql_query("select varereg.*, kat.kat_navn as kat_navn
+	from import_dn_vareregister varereg left join import_dn_kategori kat
+	on varereg.kat_id = kat.kat_id
+	");
+	$areavarer = array(); // "area_id"_"vare_nr" => array()
+	while($R_vare = mysql_fetch_assoc($Q_varer))
+	{
+		$areavarer[$R_vare['area_id'].'_'.$R_vare['vare_nr']] = $R_vare;
+	}
+	
+	$set_shop_id = false;
+	$vare_antall_tot = 0;
+	$vare_dager  = 0;
+	$vare_antall = 0;
+	echo '<table class="prettytable">';
+	echo '<tr>'.
+		'<th>Varenr</th>'.
+		'<th>Navn fra kasseapparat</th>'.
+		'<th>Butikknr</th>'.
+		'<th>Antall dager</th>'.
+		'<th>Antall besøkende</th>'.
+		'<th>Valg for å legge inn varenr</th>'.
+		'</tr>'.chr(10);
+	while($vare = mysql_fetch_assoc($Q_notimported))
+	{
+		if(!isset($areas[$vare['shop_id']]))
+		{
+			$link_nyvare = '*';
+			$set_shop_id = true;
+		}
+		else
+		{
+			// Check if it will be imported next time
+			$vare_id_primary = $vare['area_id'].'_'.$vare['vare_nr'];
+			if(isset($areavarer[$vare_id_primary]))
+			{
+				if($areavarer[$vare_id_primary]['kat_id'] == 0)
+					$link_nyvare = 'Skal ignoreres ved neste import.';
+				else
+					$link_nyvare = 'Vil importes som '.$areavarer[$vare_id_primary]['kat_navn'].' ('.$areavarer[$vare_id_primary]['kat_id'].') ved neste import';
+			}
+			else
+			{
+				$link_nyvare = '<a href="admin_import_dn.php?area_id='.$areas[$vare['shop_id']].'&amp;'.
+						'action=editor_varereg&amp;redirect='.$redirect.'&amp;vare_nr='.urlencode($vare['vare_nr']).
+						'&amp;vare_navn='.urlencode($vare['vare_navn']).
+						'">'.
+						'Legg inn vare</a>';
+			}
+		}
+		
+		echo '<tr>'.
+			'<td>'.$vare['vare_nr'].'</td>'.
+			'<td>'.$vare['vare_navn'].'</td>'.
+			'<td>'.$vare['shop_id'].'</td>'.
+			'<td>'.$vare['vare_dager'].'</td>'.
+			'<td>'.$vare['vare_antall'].'</td>'.
+			'<td>'.$link_nyvare.'</td>'.
+			'</tr>'.chr(10);
+		
+		$vare_antall_tot++;
+		$vare_dager  += $vare['vare_dager'];
+		$vare_antall += $vare['vare_antall'];
+	}
+	echo '<tr>'.
+		'<td>&nbsp;</td>'.
+		'<td>'.$vare_antall_tot.' varer totalt</td>'.
+		'<td>&nbsp;</td>'.
+		'<td>'.$vare_dager.'</td>'.
+		'<td>'.$vare_antall.'</td>'.
+		'<td>&nbsp;</td>'.
+		'</tr>'.chr(10);
+	echo '</table>';
+	
+	if($set_shop_id)
+	{
+		echo '* Butikknr må settes på det anlegget det skal kobles sammen med. Endre anlegget som butikknret fra Datanova skal kobles til (se "Anlegg" under administrasjon)';
+	}
+}
+elseif($action == 'editor_varereg' && $area_okey)
+{
+	if(!$login['user_access_importdn'])
+	{
+		showAccessDenied($day, $month, $year, $area, true);
+		exit ();
+	}
+	
+	/*
+	
+	varereg_list + area_id
+	varereg_list_all (Default)
+	notimported + area_id
+	notimported_all
+	
+	*/
+	if(isset($_GET['redirect']) && $_GET['redirect'] == 'notimported_all')
+	{
+		$redirect      = '&action=notimported_list';
+		$redirect2     = '&amp;redirect='.$_GET['redirect'];
+		$redirect_fil  = $_SERVER['PHP_SELF'];
+	}
+	elseif(isset($_GET['redirect']) && $_GET['redirect'] == 'notimported')
+	{
+		$redirect      = '&action=notimported_list&area_id='.$area['area_id'];
+		$redirect2     = '&amp;redirect='.$_GET['redirect'];
+		$redirect_fil  = $_SERVER['PHP_SELF'];
+	}
+	elseif(isset($_GET['redirect']) && $_GET['redirect'] == 'varereg_list')
+	{
+		$redirect      = '&action=varereg_list&area_id='.$area['area_id'];
+		$redirect2     = '&amp;redirect='.$_GET['redirect'];
+		$redirect_fil  = $_SERVER['PHP_SELF'];
+	}
+	else
+	{
+		$redirect      = '&action=varereg_list';
+		$redirect2     = '';
+		$redirect_fil  = $_SERVER['PHP_SELF'];
+	}
+	
 	
 	
 	$id = 0;
@@ -167,16 +372,16 @@ elseif(isset($_GET['editor_varereg']))
 	if($id <= 0)
 	{
 		$editor = new editor('import_dn_vareregister', 
-		$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_varereg=1'.
-		$importerfil_redirect2);
+		$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;action=editor_varereg'.
+		$redirect2);
 		$editor->setHeading('Ny vare for '.$area['area_name']);
 		$editor->setSubmitTxt(_('Add'));
 	}
 	else
 	{
 		$editor = new editor('import_dn_vareregister', 
-		$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_varereg=1&amp;id='.$id.
-		$importerfil_redirect2, 
+		$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;action=editor_varereg&amp;id='.$id.
+		$redirect2, 
 		array('vare_nr' => $id, 'area_id' => $area['area_id']));
 		$editor->setHeading('Endre vare for '.$area['area_name']);
 		$editor->setSubmitTxt(_('Change'));
@@ -239,7 +444,7 @@ elseif(isset($_GET['editor_varereg']))
 			{
 				// Redirect
 				header('Location: '.$redirect_fil.
-					'?area_id='.$area['area_id'].$importerfil_redirect);
+					'?'.$redirect);
 				exit();
 			}
 			else
@@ -263,71 +468,35 @@ elseif(isset($_GET['editor_varereg']))
 	}
 	
 	include "include/admin_middel.php";
+	
+	echo '<h1>Innstillinger for import fra kasseapparat</h1>'.chr(10).chr(10);
 	$editor->printEditor();
 }
-else
+elseif($action == 'varereg_list' && $area_okey)
 {
 	// List
 	
 	include "include/admin_middel.php";
 	
 	echo '<h1>Innstillinger for import fra kasseapparat - '.$area['area_name'].'</h1>'.chr(10).chr(10);
+	echo '<h2>Vareregister</h2>'.chr(10);
 	
-	echo '- <a href="import-datanova.php?area='.$area['area_id'].'">Tilbake til importering</a><br /><br />'.chr(10);
+	echo '- <a href="'.$_SERVER['PHP_SELF'].'">Tilbake</a><br /><br />'.chr(10);
 	
-	echo 'Se artikkelen '.
-		'<a href="'.wikiLink('Bookingsystemet/Import_fra_kasseapparat').'">'.
-		'import fra kasseapparat'.
-		'</a> på wikien for informasjon om import fra Datanova kasseapparat.';
+	echo 'Dette er varer fra kasseapparatet (Datanova) som bookingsystemet kjenner til og som blir koblet med en valgt kategori for anlegget. '.
+		'Hvis en svare ikke har noen kategori for dette anlegget, så blir den ignorert og varsling(er) sendt ut.<br /><br />';
 	
-	echo '<h3>Kategorier (felles for hele Jærmuseet)</h3>'.chr(10);
 	if($login['user_access_importdn'])
-		echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_kat=1">'.
-			'Ny kategori</a><br />'.chr(10);
+		echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;action=editor_varereg">'.
+			'Ny vare</a><br /><br />'.chr(10);
 	
 	$QUERY = mysql_query('select * from `import_dn_kategori` '.
-		//"where area_id = '".$area['area_id']."' ".
 		'order by kat_navn');
 	$kategorier = array();
-	if(mysql_num_rows($QUERY))
+	while($ROW = mysql_fetch_assoc($QUERY))
 	{
-		echo '<table class="prettytable">'.chr(10).chr(10);
-		echo '	<tr>'.chr(10);
-		echo '		<th>'._('ID').'</th>'.chr(10);
-		echo '		<th>Kategorinavn</th>'.chr(10);
-		//echo '		<th>'._('Area').'</th>'.chr(10);
-		if($login['user_access_importdn'])
-			echo '		<th>'._('Options').'</th>'.chr(10);
-		echo '	</tr>'.chr(10).chr(10);
-		while($ROW = mysql_fetch_assoc($QUERY))
-		{
-			$kategorier[$ROW['kat_id']] = $ROW['kat_navn'];
-			echo '	<tr>'.chr(10);
-			echo '		<td><b>'.$ROW['kat_id'].'</b></td>'.chr(10);
-			echo '		<td>'.$ROW['kat_navn'].'</td>'.chr(10);
-			//echo '		<td>';
-			//$Q_area = mysql_query("select * from `mrbs_area` where id = '".$ROW['area_id']."'");
-			//if(!mysql_num_rows($Q_area))
-			//	echo '<i>'._('Not found').'</i>';
-			//else
-			//	echo mysql_result($Q_area, 0, 'area_name');
-			//echo '</td>'.chr(10);
-			if($login['user_access_importdn'])
-				echo '		<td><a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_kat=1&amp;id='.$ROW['kat_id'].'">'._('Edit').'</td>'.chr(10);
-			echo '	</tr>'.chr(10).chr(10);
-		}
-		echo '</table>';
+		$kategorier[$ROW['kat_id']] = $ROW['kat_navn'];
 	}
-	else
-		echo '<div class="notice" style="width: 600px;">Ingen import-kategorier laget</div>';
-	
-	echo '<h3>Vareregister</h3>'.chr(10);
-	echo 'Dette er varer fra kasseapparatet (Datanova) som bookingsystemet kjenner til. '.
-		'Hvis det ikke står noe i kategori, så blir kommer det advarsel på varen ved import.<br />';
-	
-	if($login['user_access_importdn'])
-		echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_varereg=1">'.
-			'Ny vare</a>'.chr(10);
 	
 	$QUERY = mysql_query("select * from `import_dn_vareregister` where area_id = '".$area['area_id']."' order by vare_nr");
 	if(mysql_num_rows($QUERY))
@@ -336,9 +505,9 @@ else
 		echo '	<tr>'.chr(10);
 		echo '		<th>Varenr</th>'.chr(10);
 		echo '		<th>Navn*</th>'.chr(10);
-		echo '		<th>Kategori</th>'.chr(10);
-		echo '		<th>B / V</th>'.chr(10);
 		echo '		<th>'._('Area').'</th>'.chr(10);
+		echo '		<th>Importert til kategori</th>'.chr(10);
+		echo '		<th>B / V</th>'.chr(10);
 		if($login['user_access_importdn'])
 			echo '		<th>'._('Options').'</th>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
@@ -347,6 +516,14 @@ else
 			echo '	<tr>'.chr(10);
 			echo '		<td><b>'.$ROW['vare_nr'].'</b></td>'.chr(10);
 			echo '		<td>'.$ROW['navn'].'</td>'.chr(10);
+			
+			echo '		<td>';
+			$Q_area = mysql_query("select * from `mrbs_area` where id = '".$ROW['area_id']."'");
+			if(!mysql_num_rows($Q_area))
+				echo '<i>'._('Not found').'</i>';
+			else
+				echo mysql_result($Q_area, 0, 'area_name');
+			echo '</td>'.chr(10);
 			
 			if(isset($kategorier[$ROW['kat_id']]))
 				echo '		<td>'.$kategorier[$ROW['kat_id']].'</td>'.chr(10);
@@ -360,16 +537,9 @@ else
 				echo '		<td>Barn</td>'.chr(10);
 			else
 				echo '		<td>Voksen</td>'.chr(10);
-				
-			echo '		<td>';
-			$Q_area = mysql_query("select * from `mrbs_area` where id = '".$ROW['area_id']."'");
-			if(!mysql_num_rows($Q_area))
-				echo '<i>'._('Not found').'</i>';
-			else
-				echo mysql_result($Q_area, 0, 'area_name');
-			echo '</td>'.chr(10);
+			
 			if($login['user_access_importdn'])
-				echo '		<td><a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor_varereg=1&amp;id='.$ROW['vare_nr'].'">'._('Edit').'</td>'.chr(10);
+				echo '		<td><a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;action=editor_varereg&amp;id='.$ROW['vare_nr'].'">'._('Edit').'</td>'.chr(10);
 			echo '	</tr>'.chr(10).chr(10);
 		}
 		echo '</table>';
@@ -378,5 +548,87 @@ else
 	else
 		echo '<div class="notice" style="width: 600px;">Ingen varer registert</div>';
 }
-
-?>
+else
+{
+	include "include/admin_middel.php";
+	
+	echo '<h1>Innstillinger for import fra kasseapparat</h1>'.chr(10).chr(10);
+	
+	echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=kat_list">Kategori-oversikt</a> (felles kategorier for hele Jærmuseet)<br />';
+	echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=notimported_list">Alle ikke-importerte varenr</a><br />';
+	
+	$Q_areas_with_shop = mysql_query("select id as area_id, area_name, importdatanova_shop_id from `mrbs_area` where importdatanova_shop_id != 0");
+	$areas = array();
+	while($R_area = mysql_fetch_assoc($Q_areas_with_shop))
+	{
+		$areas[$R_area['importdatanova_shop_id']] = $R_area;
+	}
+	
+	function printout_shop ($shop_id, $shop_name)
+	{
+		global $areas;
+		
+		if(isset($areas[$shop_id]))
+		{
+			$area_id = 'area_id='.$areas[$shop_id]['area_id'];
+			$area_name = $areas[$shop_id]['area_name'];
+		}
+		else
+		{
+			$area_id = 'shop_id='.$shop_id;
+			$area_name = '<i>Ikke valgt</i>';
+		}
+		
+		$Q_notimported = mysql_query("select * from `import_dn_tall_ikkeimportert` where shop_id = '".$shop_id."'");
+		$Q_imported = mysql_query("select * from `import_dn_tall` where shop_id = '".$shop_id."'");
+		$visits = 0; $visit_first = null; $visit_last = null; $days = array();
+		while($R = mysql_fetch_assoc($Q_imported)) {
+			$visits += (int)($R['antall_barn'] + $R['antall_voksne']);
+			if(is_null($visit_last) || $R['dag'] > $visit_last)
+				$visit_last = $R['dag'];
+			if(is_null($visit_first) || $R['dag'] < $visit_first)
+				$visit_first = $R['dag'];
+			$days[$R['dag']] = null;
+		}
+		if(is_null($visit_first))
+			$visit_first = '-';
+		else
+			$visit_first = date('d.m.Y', $visit_first);
+		if(is_null($visit_last))
+			$visit_last = '-';
+		else
+			$visit_last = date('d.m.Y', $visit_last);
+		
+		echo 
+			'	<tr>'.chr(10).
+			'		<td>'.$shop_id.'</td>'.chr(10).
+			'		<td>'.$shop_name.'</td>'.chr(10).
+			'		<td>'.$area_name.'</td>'.chr(10).
+			'		<td><a href="'.$_SERVER['PHP_SELF'].'?'.$area_id.'&amp;action=notimported_list">'.mysql_num_rows($Q_notimported).'</td>'.chr(10).
+			'		<td>'.$visits.' / '.count($days).'</td>'.chr(10).
+			'		<td>'.$visit_first.' / '.$visit_last.'</td>'.chr(10).
+			'		<td><a href="'.$_SERVER['PHP_SELF'].'?'.$area_id.'&amp;action=varereg_list">Vis vare-kategori-koblinger</a></td>'.chr(10).
+			'	</tr>'.chr(10).chr(10);
+	}
+	
+	
+	echo '<table class="prettytable">'.chr(10);
+	echo 
+		'	<tr>'.chr(10).
+		'		<th>Butikknr.</th>'.chr(10).
+		'		<th>Butikknavn.</th>'.chr(10).
+		'		<th>'._('Area').' (bookingsystem)</th>'.chr(10).
+		'		<th>Ikke-importerte varenr</th>'.chr(10).
+		'		<th>Importerte besøkende / dager</th>'.chr(10).
+		'		<th>Første / siste tall</th>'.chr(10).
+		'		<th></th>'.chr(10).
+		'	</tr>'.chr(10).chr(10);
+	$Q_shops = mysql_query("select * from `import_dn_shops`");
+	while($R = mysql_fetch_assoc($Q_shops))
+	{
+		printout_shop ($R['shop_id'], $R['shop_name']);
+	}
+	echo '</table>';
+	echo '<br />'.
+		'* Hentes på ny neste gang importeringen kjøres. Kan brukes til å rette opp hvis noen tall er blitt feilimportert.';
+}

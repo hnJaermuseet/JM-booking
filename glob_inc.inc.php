@@ -200,18 +200,20 @@ if($systemIsInTest)
 	
 	$systemurl = 'http://infoskjerm.jaermuseet.local/jm-bookingtest';
 	
-	$exchangesync_from_clionly = false;
+	$exchangesync_from_clionly    = false;
+	$importdatanova_from_clionly  = false;
 }
 else
 {
 	$testSystem = array();
-	$testSystem['msgLogin'] = '';
-	$testSystem['bodyAttrib'] = '';
-	$testSystem['bannerExtraClass'] = '';
+	$testSystem['msgLogin']          = '';
+	$testSystem['bodyAttrib']        = '';
+	$testSystem['bannerExtraClass']  = '';
 	
 	$systemurl = 'http://booking.jaermuseet.local';
 	
-	$exchangesync_from_clionly = true;
+	$exchangesync_from_clionly    = true;
+	$importdatanova_from_clionly  = true;
 }
 
 /*

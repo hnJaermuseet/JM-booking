@@ -71,7 +71,7 @@ echo '<a href="admin_customer_merge.php"';
 if($section=="customer_merge") echo "style='color:red'";
 echo '>Kundeopprydning</a> -:- ';
 
-echo '<a href="import-datanova.php"';
+echo '<a href="admin_import_dn.php"';
 if($section=="import_dn") echo "style='color:red'";
 echo '>Statistikkimport</a> -:- ';
 

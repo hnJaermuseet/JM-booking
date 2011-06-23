@@ -1,7 +1,11 @@
 <?php
 
 /*
- * Default config
+ * ## Default config ##
+ *
+ * Please but site spesific configs in "site.config.php" 
+ * in the same folder as this file.
+ *
  */
 
 // Database settings
@@ -27,6 +31,17 @@ $chart_path = 'files/charts';
 $locale = 'nb_NO'; // Others can be de_DE, en_US
 $language = 'no'; // Simple translator, used in later versions
 
+
+// Import from Datanova Web reports
+/*
+But in site config and remove example data:
+$importdatanova_login = array(
+		'username' => '123',
+		'password' => '321',
+		'shop'     => '1',
+	);
+$importdatanova_baseurl = 'http://123.321.456.654/Webreports';
+*/
 
 /* IP filter */
 
