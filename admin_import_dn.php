@@ -557,7 +557,7 @@ else
 	echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=kat_list">Kategori-oversikt</a> (felles kategorier for hele Jærmuseet)<br />';
 	echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=notimported_list">Alle ikke-importerte varenr</a><br />';
 	
-	$Q_areas_with_shop = mysql_query("select id as area_id, area_name, importdatanova_shop_id from `mrbs_area` where importdatanova_shop_id != 0");
+	$Q_areas_with_shop = mysql_query("select id as area_id, area_name, importdatanova_shop_id, importdatanova_alert_email from `mrbs_area` where importdatanova_shop_id != 0");
 	$areas = array();
 	while($R_area = mysql_fetch_assoc($Q_areas_with_shop))
 	{
@@ -629,6 +629,16 @@ else
 		printout_shop ($R['shop_id'], $R['shop_name']);
 	}
 	echo '</table>';
-	echo '<br />'.
-		'* Hentes på ny neste gang importeringen kjøres. Kan brukes til å rette opp hvis noen tall er blitt feilimportert.';
+	
+	echo '<h2>E-post-varsling ved nye varer for anlegget</h2>';
+	echo 'Følgende får e-post hver gang serveren kjører import hvis det finnes varer som er solgt som den ikke klarer å importere.';
+	echo '<table class="prettytable">';
+	echo '<tr><th>Anlegg</th><th>E-post-adresser</th></tr>';
+	foreach($areas as $shop_id => $area)
+	{
+		$emails = splittEmails($area['importdatanova_alert_email']);
+		
+		echo '<tr><td>'.$area['area_name'].'</td><td>'.implode('<br />', $emails).'</td></tr>';
+	}
+	echo '</table>';
 }

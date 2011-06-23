@@ -131,7 +131,7 @@ try
 	// Getting shops => we are using all areas with shop_id set
 	$shops = array();
 	$areas = array();
-	$Q = mysql_query("SELECT id as area_id, area_name, importdatanova_shop_id as shop_id FROM `mrbs_area` where importdatanova_shop_id != 0 && importdatanova_shop_id != ''");
+	$Q = mysql_query("SELECT id as area_id, area_name, importdatanova_shop_id as shop_id, importdatanova_alert_email FROM `mrbs_area` where importdatanova_shop_id != 0 && importdatanova_shop_id != ''");
 	printout('Shops being imported (areas that has shop_id set):');
 	while($R = mysql_fetch_assoc($Q))
 	{
@@ -191,7 +191,45 @@ try
 			
 			printout($shop.': '.count($unknowns).' unknowns');
 			
-			// TODO: alert people!
+			// Alerting people about the unknowns
+			if(isset($shops[$shop_id]) && isset($areas[$shops[$shop_id]]))
+			{
+				$area = $areas[$shops[$shop_id]];
+				$emails = splittEmails($area['importdatanova_alert_email']);
+				
+				$unknowns_txt = '';
+				foreach($unknowns as $unknown)
+				{
+					$unknowns_txt .= '- ('.$unknown['vare_nr'].') '.$unknown['vare_navn'].chr(10);
+				}
+				
+				if(count($emails))
+				{
+					foreach($emails as $email)
+					{
+						printout('Alerting '.$email.' about unknown goods in '.$area['area_name']);
+						emailSendDirect($email,
+							'Import fra Datanova mangler kategori - Gjelder '.$area['area_name'],
+							
+							'Hei'.chr(10).chr(10).
+							
+							'I forbindelse med import fra salg i kasseapparatene (Datanova-systemene) til bookingsystemet, '.
+							'så var det noen varer som systemet ikke kjenner til og ikke vet hva den skal gjøre med:'.chr(10).chr(10).
+							
+							$unknowns_txt.chr(10).
+							
+							'Gå inn på følgende adresse for å legge inn de nye varene (eller be systemet ignorere de):'.chr(10).
+							$systemurl.'/admin_import_dn.php?action=notimported_list&area_id='.$area['area_id'].chr(10).chr(10).
+							
+							'Grunnen til at du får denne e-post, er at du er satt opp i '.
+							'bookingsystemet som en som skal varsles om slikt.'.chr(10).chr(10).
+							
+							'Mvh. Bookingsystemet');
+					}
+				}
+				else
+					printout('No alerts sent out. No email addresses set in area.');
+			}
 		}
 	}
 }
