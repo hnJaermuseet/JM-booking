@@ -266,6 +266,7 @@ else
 			'9' => 'Rettighet til å sette faktureringsklar',
 			'10' => 'Rettighet til å eksportere fakturaer til Kommfakt',
 			'11' => 'Rettighet til å deaktivere brukere',
+			'sync' => 'Synkronisering mot Exchange / Outlook påslått',
 		);
 	echo '<script src="js/jquery.hoverbox.min.js" type="text/javascript"></script>';
 	echo '<script type="text/javascript">
@@ -301,6 +302,7 @@ else
 		echo '		<th>9</th>'.chr(10);
 		echo '		<th>10</th>'.chr(10);
 		echo '		<th>11</th>'.chr(10);
+		echo '		<th>Synk</th>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 		while($R_user = mysql_fetch_assoc($Q_users))
 		{
@@ -440,6 +442,13 @@ else
 			
 			echo '		<td class="rightsHover" title="'.$rights[11].'">';
 			if($user['user_access_userdeactivate'])
+				echo 'X';
+			else
+				echo '&nbsp;';
+			echo '</td>'.chr(10);
+			
+			echo '		<td class="rightsHover" title="'.$rights['sync'].'">';
+			if($user['user_ews_sync'])
 				echo 'X';
 			else
 				echo '&nbsp;';
