@@ -499,7 +499,7 @@ foreach($users as $user_id => $user)
 				if($ids['ResponseMessage']->ResponseCode == 'ErrorCreateItemAccessDenied')
 				{
 					// Alert admin, alert user and disable sync
-					emailSend($user_id, exchangesync_getUsermsgAccessDenied($systemurl));
+					emailSend($user_id, 'Ikke tilgang til kalender', exchangesync_getUsermsgAccessDenied($systemurl));
 					
 					mysql_query("UPDATE `users` SET `user_ews_sync` = '0' WHERE `user_id` =".$user_id);
 					
@@ -527,9 +527,7 @@ foreach($users as $user_id => $user)
 
 function exchangesync_getUsermsgAccessDenied($systemurl)
 {
-	return 
-		'Ikke tilgang til kalender',
-		
+	return
 		'Hei'.chr(10).chr(10).
 		
 		'Det er blitt satt opp at jeg skulle synkronisere bookinger du er satt opp på '.
