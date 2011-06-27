@@ -457,72 +457,14 @@ foreach($users as $user_id => $user)
 		printout('No items to be created in Exchange');
 	else
 	{
-		try
-		{
-			$created_items = $cal->createCalendarItems();
-		}
-		catch (Exception $e)
-		{
-			printout('Exception - createCalendarItems: '.$e->getMessage().'<br />');
-			$created_items = array();
-			$alert_admin   = true;
-			$alerts[]      = 'createCalendarItems exception: '.$e->getMessage();
-		}
-		
-		foreach($created_items as $i => $ids)
-		{
-			if(!is_null($ids['Id'])) // Null = unsuccessful
-			{
-				$entry = $entries[$entries_new[$i]];
-				printout($entries_new[$i].' created.');
-				// Inserting in sync
-				mysql_query("INSERT INTO `entry_exchangesync` (
-					`entry_id` ,
-					`exchange_id` ,
-					`exchange_changekey`,
-					`user_id`,
-					`entry_rev`,
-					`sync_until`
-				)
-				VALUES (
-					'".$entry['entry_id']."' , 
-					'".$ids['Id']."', 
-					'".$ids['ChangeKey']."',
-					'".$user_id."',
-					'".$entry['rev_num']."',
-					'".$entry['time_end']."'
-				);");
-				printout_mysqlerror ();
-			}
-			else
-			{
-				if($ids['ResponseMessage']->ResponseCode == 'ErrorCreateItemAccessDenied')
-				{
-					// Alert admin, alert user and disable sync
-					emailSend($user_id, 'Ikke tilgang til kalender', exchangesync_getUsermsgAccessDenied($systemurl));
-					
-					mysql_query("UPDATE `users` SET `user_ews_sync` = '0' WHERE `user_id` =".$user_id);
-					
-					printout($entries_new[$i] .' not created. User '.$user_id.' has access denied error when creating items. Has disabled the sync of this user. Message from Exchange: '.$ids['ResponseMessage']->MessageText);
-					$alert_admin = true;
-					$alerts[]    = $entries_new[$i] .' not created. User '.$user_id.' has access denied error when creating items. Has disabled the sync of this user. Message from Exchange: '.$ids['ResponseMessage']->MessageText;
-				}
-				else
-				{
-					// Unknown error, alert admin
-					printout($entries_new[$i] .' not created: '.print_r($ids['ResponseMessage'], true));
-					$alert_admin = true;
-					$alerts[]    = $entries_new[$i] .' not created. Message from Exchange: '.$ids['ResponseMessage']->MessageText;
-				}
-			}
-		}
+		exchangesync_createItems ($entries, $cal, $entries_new, $user_id);
 	}
 
 
 	/**********************
 	 * ## DELETE ITEMS ## *
 	 **********************/
-	$deleted_items = $exchangesync_deleteItems($entries_delete, $cal);
+	$deleted_items = exchangesync_deleteItems($entries_delete, $cal);
 }
 
 function exchangesync_getUsermsgAccessDenied($systemurl)
@@ -541,6 +483,72 @@ function exchangesync_getUsermsgAccessDenied($systemurl)
 		'Mvh. Bookingsystemet';
 }
 
+
+function exchangesync_createItems ($entries, $cal, $entries_new, $user_id)
+{
+	global $alert_admin, $alerts;
+	global $systemurl;
+	
+	try
+	{
+		$created_items = $cal->createCalendarItems();
+	}
+	catch (Exception $e)
+	{
+		printout('Exception - createCalendarItems: '.$e->getMessage().'<br />');
+		$created_items = array();
+		$alert_admin   = true;
+		$alerts[]      = 'createCalendarItems exception: '.$e->getMessage();
+	}
+	
+	foreach($created_items as $i => $ids)
+	{
+		if(!is_null($ids['Id'])) // Null = unsuccessful
+		{
+			$entry = $entries[$entries_new[$i]];
+			printout($entries_new[$i].' created.');
+			// Inserting in sync
+			mysql_query("INSERT INTO `entry_exchangesync` (
+				`entry_id` ,
+				`exchange_id` ,
+				`exchange_changekey`,
+				`user_id`,
+				`entry_rev`,
+				`sync_until`
+			)
+			VALUES (
+				'".$entry['entry_id']."' , 
+				'".$ids['Id']."', 
+				'".$ids['ChangeKey']."',
+				'".$user_id."',
+				'".$entry['rev_num']."',
+				'".$entry['time_end']."'
+			);");
+			printout_mysqlerror ();
+		}
+		else
+		{
+			if($ids['ResponseMessage']->ResponseCode == 'ErrorCreateItemAccessDenied')
+			{
+				// Alert admin, alert user and disable sync
+				emailSend($user_id, 'Ikke tilgang til kalender', exchangesync_getUsermsgAccessDenied($systemurl));
+				
+				mysql_query("UPDATE `users` SET `user_ews_sync` = '0' WHERE `user_id` =".$user_id);
+				
+				printout($entries_new[$i] .' not created. User '.$user_id.' has access denied error when creating items. Has disabled the sync of this user. Message from Exchange: '.$ids['ResponseMessage']->MessageText);
+				$alert_admin = true;
+				$alerts[]    = $entries_new[$i] .' not created. User '.$user_id.' has access denied error when creating items. Has disabled the sync of this user. Message from Exchange: '.$ids['ResponseMessage']->MessageText;
+			}
+			else
+			{
+				// Unknown error, alert admin
+				printout($entries_new[$i] .' not created: '.print_r($ids['ResponseMessage'], true));
+				$alert_admin = true;
+				$alerts[]    = $entries_new[$i] .' not created. Message from Exchange: '.$ids['ResponseMessage']->MessageText;
+			}
+		}
+	}
+}
 /**
  * 
  * @param  array   exchangeid => entry_id
