@@ -272,6 +272,15 @@ else
 	echo '<script type="text/javascript">
 	$(document).ready(function(){
 		$(\'.rightsHover\').hoverbox();
+		
+		$(\'.prettytable tr\').hover(
+			function() {
+				$(\'td\', this).addClass(\'green\');
+			},
+			function() {
+				$(\'td\', this).removeClass(\'green\');
+			}
+		);
 	});
 	</script>
 	';
