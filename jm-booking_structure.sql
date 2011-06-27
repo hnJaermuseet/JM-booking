@@ -637,7 +637,7 @@ PRIMARY KEY ( `vare_nr` , `shop_id` , `dag` )
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 ALTER TABLE `import_dn_tall_ikkeimportert` DROP `dag` ;
 ALTER TABLE `import_dn_tall_ikkeimportert` DROP `antall_barn` ;
-ALTER TABLE `import_dn_tall_ikkeimportert` DROP `antall_barn` ;
+ALTER TABLE `import_dn_tall_ikkeimportert` DROP `antall_voksne` ;
 ALTER TABLE `import_dn_tall_ikkeimportert` ADD `vare_navn` VARCHAR( 255 ) NOT NULL AFTER `shop_id` ,
 ADD `vare_antall` INT( 11 ) NOT NULL AFTER `vare_navn` ,
 ADD `area_id` INT( 11 ) NOT NULL AFTER `vare_antall` ,
