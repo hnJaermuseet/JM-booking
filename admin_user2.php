@@ -253,6 +253,27 @@ else
 	
 	echo iconHTML('phone').' <a href="telefonliste.php">Telefonliste</a><br><br>'.chr(10);
 	
+	$rights = array(
+	
+			'1' => 'Rettighet til å administrere brukeres rettigheter',
+			'2' => 'Rettighet til å administrere brukere',
+			'3' => 'Rettighet til å endre på anlegg og rom',
+			'4' => 'Rettighet til å endre på bookingtyper',
+			'5' => 'Rettighet til å importere data fra Datanovas kassesystem',
+			'6' => 'Rettighet til å endre vareregisteret',
+			'7' => 'Rettighet til å endre program',
+			'8' => 'Rettighet til å endre systemmaler',
+			'9' => 'Rettighet til å sette faktureringsklar',
+			'10' => 'Rettighet til å eksportere fakturaer til Kommfakt',
+			'11' => 'Rettighet til å deaktivere brukere',
+		);
+	echo '<script src="js/jquery.hoverbox.min.js" type="text/javascript"></script>';
+	echo '<script type="text/javascript">
+	$(document).ready(function(){
+		$(\'.rightsHover\').hoverbox();
+	});
+	</script>
+	';
 	// List of users
 	echo '<h2>'._('List of users').'</h2>'.chr(10);
 	$Q_users = mysql_query("select user_id from `users` order by `user_name`");
@@ -347,77 +368,77 @@ else
 			}
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[1].'">';
 			if($user['user_access_changerights'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[2].'">';
 			if($user['user_access_useredit'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[3].'">';
 			if($user['user_access_areaadmin'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[4].'">';
 			if($user['user_access_entrytypeadmin'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[5].'">';
 			if($user['user_access_importdn'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[6].'">';
 			if($user['user_access_productsadmin'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[7].'">';
 			if($user['user_access_programadmin'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[8].'">';
 			if($user['user_access_templateadmin'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[9].'">';
 			if($user['user_invoice_setready'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[10].'">';
 			if($user['user_invoice'])
 				echo 'X';
 			else
 				echo '&nbsp;';
 			echo '</td>'.chr(10);
 			
-			echo '		<td>';
+			echo '		<td class="rightsHover" title="'.$rights[11].'">';
 			if($user['user_access_userdeactivate'])
 				echo 'X';
 			else
@@ -430,17 +451,17 @@ else
 		echo '</table>'.chr(10);
 		
 		echo '<ul>'.
-			'<li>1, Rettighet til å administrere brukeres rettigheter</li>'.
-			'<li>2, Rettighet til å administrere brukere</li>'.
-			'<li>3, Rettighet til å endre på anlegg og rom</li>'.
-			'<li>4, Rettighet til å endre på bookingtyper</li>'.
-			'<li>5, Rettighet til å importere data fra Datanovas kassesystem</li>'.
-			'<li>6, Rettighet til å endre vareregisteret</li>'.
-			'<li>7, Rettighet til å endre program</li>'.
-			'<li>8, Rettighet til å endre systemmaler</li>'.
-			'<li>9, Rettighet til å sette faktureringsklar</li>'.
-			'<li>10, Rettighet til å eksportere fakturaer til Kommfakt</li>'.
-			'<li>11, Rettighet til å deaktivere brukere</li>'.
+				'<li>1, '.$rights[1].'</li>'.
+				'<li>2, '.$rights[2].'</li>'.
+				'<li>3, '.$rights[3].'</li>'.
+				'<li>4, '.$rights[4].'</li>'.
+				'<li>5, '.$rights[5].'</li>'.
+				'<li>6, '.$rights[6].'</li>'.
+				'<li>7, '.$rights[7].'</li>'.
+				'<li>8, '.$rights[8].'</li>'.
+				'<li>9, '.$rights[9].'</li>'.
+				'<li>10, '.$rights[10].'</li>'.
+				'<li>11, '.$rights[11].'</li>'.
 			'</ul>';
 	}
 }
