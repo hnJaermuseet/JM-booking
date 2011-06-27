@@ -499,20 +499,7 @@ foreach($users as $user_id => $user)
 				if($ids['ResponseMessage']->ResponseCode == 'ErrorCreateItemAccessDenied')
 				{
 					// Alert admin, alert user and disable sync
-					emailSend($user_id,
-					'Ikke tilgang til kalender',
-					
-					'Hei'.chr(10).chr(10).
-					
-					'Det er blitt satt opp at jeg skulle synkronisere bookinger du er satt opp på '.
-					'inn i kalenderen din i Outlook. Jeg får det ikke til fordi du ikke har gitt meg tilgang.'.chr(10).chr(10).
-					
-					'Gå inn på denne adressen for å lese hvordan du kan fikse dette:'.chr(10).
-					$systemurl.'/sync.html'.chr(10).chr(10).
-					
-					'Jeg har slått av synkroniseringen av din bruker. Det må bli slått på igjen når det er fikset.'.chr(10).chr(10).
-					
-					'Mvh. Bookingsystemet');
+					emailSend($user_id, exchangesync_getUsermsgAccessDenied($systemurl));
 					
 					mysql_query("UPDATE `users` SET `user_ews_sync` = '0' WHERE `user_id` =".$user_id);
 					
@@ -535,6 +522,36 @@ foreach($users as $user_id => $user)
 	/**********************
 	 * ## DELETE ITEMS ## *
 	 **********************/
+	$deleted_items = $exchangesync_deleteItems($entries_delete, $cal);
+}
+
+function exchangesync_getUsermsgAccessDenied($systemurl)
+{
+	return 
+		'Ikke tilgang til kalender',
+		
+		'Hei'.chr(10).chr(10).
+		
+		'Det er blitt satt opp at jeg skulle synkronisere bookinger du er satt opp på '.
+		'inn i kalenderen din i Outlook. Jeg får det ikke til fordi du ikke har gitt meg tilgang.'.chr(10).chr(10).
+		
+		'Gå inn på denne adressen for å lese hvordan du kan fikse dette:'.chr(10).
+		$systemurl.'/sync.html'.chr(10).chr(10).
+		
+		'Jeg har slått av synkroniseringen av din bruker. Det må bli slått på igjen når det er fikset.'.chr(10).chr(10).
+		
+		'Mvh. Bookingsystemet';
+}
+
+/**
+ * 
+ * @param  array   exchangeid => entry_id
+ * @param  ???
+ */
+function exchangesync_deleteItems($entries_delete, $cal)
+{
+	global $alert_admin, $alerts;
+	
 	$deleted_items = array();
 	foreach($entries_delete as $delete_id => $entry_id)
 	{
@@ -559,6 +576,8 @@ foreach($users as $user_id => $user)
 			$alerts[]    = 'deleteItem exception';
 		}
 	}
+	
+	return $deleted_items;
 }
 
 if($alert_admin)
