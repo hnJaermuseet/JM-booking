@@ -122,173 +122,182 @@ if(php_sapi_name() != 'cli' && $exchangesync_from_clionly)
 	exit;
 }
 
-// Exchange login, user must have access to the calendars its being told to edit
-require dirname(__FILE__).'/password.php';
+try {
+	// Checking config
+	if(!isset($exchangesync_login))
+		throw new Exception('Missing in config: $exchangesync_login not set. Please put this in site config (see default.config.php for example)');
+	if(
+		!isset($exchangesync_login['username']) ||
+		!isset($exchangesync_login['password'])
+	)
+		throw new Exception('Config failed: $exchangesync_login is not correct. Please correct this in site config (see default.config.php for example)');
+	
+	
+	// Setting up connection to Exchange
+	$wsdl = dirname(__FILE__).'/Services.wsdl';
+	$client = new NTLMSoapClient($wsdl, array(
+			'login'       => $exchangesync_login['username'], 
+			'password'    => $exchangesync_login['password'],
+			'trace'       => true,
+			'exceptions'  => true,
+		)); 
+	$cal = new ExchangePHP($client);
 
-/* Syntax:
-$login = array(
-		'username' => '',
-		'password' => '',
-	);
-*/
-
-// Setting up connection to Exchange
-$wsdl = dirname(__FILE__).'/Services.wsdl';
-$client = new NTLMSoapClient($wsdl, array(
-		'login'       => $login['username'], 
-		'password'    => $login['password'],
-		'trace'       => true,
-		'exceptions'  => true,
-	)); 
-$cal = new ExchangePHP($client);
-
-// Getting areas and rooms
-$Q_area = mysql_query("select id as area_id, area_name from mrbs_area");
-$area = array();
-while($R_area = mysql_fetch_assoc($Q_area))
-{
-	$area[$R_area['area_id']] = $R_area['area_name'];
-}
-$Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` ");
-$room = array();
-while($R_room = mysql_fetch_assoc($Q_room))
-{
-	$room[$R_room['room_id']] = $R_room['room_name'];
-}
-
-/**
- * Simulation of Smarty-object
- *
- */
-class EntryTemplate 
-{
-	protected $data = array();
-	public function __get($var) {
-		return $this->data[$var];
-	}
-	public function assign($var, $value) {
-		$this->data[$var] = $value;
-	}
-}
-$entryObj = new EntryTemplate();
-
-// Building user array
-$users = array();
-$Q_users = mysql_query("select user_id from `users` where user_ews_sync = '1' and user_ews_sync_email != ''");
-while($R_users = mysql_fetch_assoc($Q_users))
-{
-	$users[$R_users['user_id']] = getUser($R_users['user_id']);
-}
-
-if(!count($users))
-{
-	printout('No users has enabled Exchange sync and has a sync email');
-}
-
-foreach($users as $user_id => $user)
-{
-	// Getting all calendar elements from Exchange
-	try
+	// Getting areas and rooms
+	$Q_area = mysql_query("select id as area_id, area_name from mrbs_area");
+	$area = array();
+	while($R_area = mysql_fetch_assoc($Q_area))
 	{
-		$calendaritems = $cal->getCalendarItems(
-			date('Y-m-d').'T00:00:00', // Today
-			date('Y-m-d',time()+61171200).'T00:00:00', // Approx 2 years, seems to be a limit
-			$user['user_ews_sync_email']
-		);
+		$area[$R_area['area_id']] = $R_area['area_name'];
 	}
-	catch (Exception $e)
+	$Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` ");
+	$room = array();
+	while($R_room = mysql_fetch_assoc($Q_room))
 	{
-		printout('Exception - getCalendarItems: '.$e->getMessage());
-		
-		if($cal->client->getError() == '401')
+		$room[$R_room['room_id']] = $R_room['room_name'];
+	}
+
+	/**
+	 * Simulation of Smarty-object
+	 *
+	 */
+	class EntryTemplate 
+	{
+		protected $data = array();
+		public function __get($var) {
+			return $this->data[$var];
+		}
+		public function assign($var, $value) {
+			$this->data[$var] = $value;
+		}
+	}
+	$entryObj = new EntryTemplate();
+
+	// Building user array
+	$users = array();
+	$Q_users = mysql_query("select user_id from `users` where user_ews_sync = '1' and user_ews_sync_email != ''");
+	while($R_users = mysql_fetch_assoc($Q_users))
+	{
+		$users[$R_users['user_id']] = getUser($R_users['user_id']);
+	}
+
+	if(!count($users))
+	{
+		printout('No users has enabled Exchange sync and has a sync email');
+	}
+
+
+	foreach($users as $user_id => $user)
+	{
+		// Getting all calendar elements from Exchange
+		try
 		{
-			// Unauthorized
-			printout('Exchange said: Wrong username and password.');
+			$calendaritems = $cal->getCalendarItems(
+				date('Y-m-d').'T00:00:00', // Today
+				date('Y-m-d',time()+61171200).'T00:00:00', // Approx 2 years, seems to be a limit
+				$user['user_ews_sync_email']
+			);
+		}
+		catch (Exception $e)
+		{
+			printout('Exception - getCalendarItems: '.$e->getMessage());
+			
+			if($cal->client->getError() == '401')
+			{
+				// Unauthorized
+				printout('Exchange said: Wrong username and password.');
+			}
+			else
+			{
+				printout('getCalendarItems exception: '.$e->getMessage());
+			}
+			$alert_admin = true;
+			$alerts[]   = 'getCalendarItems exception: '.$e->getMessage();
+			continue;
+		}
+
+		$cal_ids = array(); // Id => ChangeKey
+		if(is_null($calendaritems))
+		{
+			printout('getCalendarItems failed: '.$cal->getError());
+			$alert_admin = true;
+			$alerts[]   = 'getCalendarItems failed: '.$cal->getError();
+			continue;
 		}
 		else
 		{
-			printout('getCalendarItems exception: '.$e->getMessage());
+			// Going through existing elements
+			foreach($calendaritems as $item) {
+				if(!isset($item->Subject))
+					$item->Subject = '';
+				$cal_ids[$item->ItemId->Id] = $item->ItemId->ChangeKey;
+				printout('Existing: '.$item->Start.'   '.$item->End.'   '.$item->Subject);
+			}
 		}
-		$alert_admin = true;
-		$alerts[]   = 'getCalendarItems exception: '.$e->getMessage();
-		continue;
-	}
 
-	$cal_ids = array(); // Id => ChangeKey
-	if(is_null($calendaritems))
-	{
-		printout('getCalendarItems failed: '.$cal->getError());
-		$alert_admin = true;
-		$alerts[]   = 'getCalendarItems failed: '.$cal->getError();
-		continue;
-	}
-	else
-	{
-		// Going through existing elements
-		foreach($calendaritems as $item) {
-			if(!isset($item->Subject))
-				$item->Subject = '';
-			$cal_ids[$item->ItemId->Id] = $item->ItemId->ChangeKey;
-			printout('Existing: '.$item->Start.'   '.$item->End.'   '.$item->Subject);
+		// Getting entries for the user for the next 2 years
+		$sync_from = mktime(0,0,0,date('m'), date('d'), date('Y'));
+		$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num, entry_name
+			from `entry` where 
+			(`user_assigned` LIKE '%;".$user_id.";%') AND 
+			(`time_end` >= '".$sync_from."') AND 
+			(`time_end` <  '".mktime(0,0,0,date('m'), date('d')-50, date('Y')+2)."')");
+		$entries = array();
+		printout_mysqlerror();
+		while($R_entry = mysql_fetch_assoc($Q_next_entries))
+		{
+			$entries[$R_entry['entry_id']]             = $R_entry;
 		}
+
+		// Getting sync-data
+		$sync = array();
+		$Q = mysql_query("select * from `entry_exchangesync` 
+			WHERE
+				`user_id` = '".$user_id."' AND
+				`sync_until` >= '".$sync_from."'");
+		printout_mysqlerror ();
+		while($R_sync = mysql_fetch_assoc($Q))
+		{
+			$sync[$R_sync['entry_id']] = $R_sync;
+		}
+
+
+		// Analysing which to create
+		$entries_new     = array();
+		$entries_delete  = array();
+		exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id);
+
+		// Any entries removed from this user that is already synced
+		foreach($sync as $entry_id => $R_sync)
+		{
+			// => Delete
+			$entries_delete[$R_sync['exchange_id']] = $entry_id;
+		}
+
+
+
+		/**********************
+		 * ## CREATE ITEMS ## *
+		 **********************/
+		if(!count($entries_new))
+			printout('No items to be created in Exchange');
+		else
+		{
+			exchangesync_createItems ($entries, $cal, $entries_new, $user_id);
+		}
+
+
+		/**********************
+		 * ## DELETE ITEMS ## *
+		 **********************/
+		$deleted_items = exchangesync_deleteItems($entries_delete, $cal);
 	}
-
-	// Getting entries for the user for the next 2 years
-	$sync_from = mktime(0,0,0,date('m'), date('d'), date('Y'));
-	$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num, entry_name
-		from `entry` where 
-		(`user_assigned` LIKE '%;".$user_id.";%') AND 
-		(`time_end` >= '".$sync_from."') AND 
-		(`time_end` <  '".mktime(0,0,0,date('m'), date('d')-50, date('Y')+2)."')");
-	$entries = array();
-	printout_mysqlerror();
-	while($R_entry = mysql_fetch_assoc($Q_next_entries))
-	{
-		$entries[$R_entry['entry_id']]             = $R_entry;
-	}
-
-	// Getting sync-data
-	$sync = array();
-	$Q = mysql_query("select * from `entry_exchangesync` 
-		WHERE
-			`user_id` = '".$user_id."' AND
-			`sync_until` >= '".$sync_from."'");
-	printout_mysqlerror ();
-	while($R_sync = mysql_fetch_assoc($Q))
-	{
-		$sync[$R_sync['entry_id']] = $R_sync;
-	}
-
-
-	// Analysing which to create
-	$entries_new     = array();
-	$entries_delete  = array();
-	exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id);
-
-	// Any entries removed from this user that is already synced
-	foreach($sync as $entry_id => $R_sync)
-	{
-		// => Delete
-		$entries_delete[$R_sync['exchange_id']] = $entry_id;
-	}
-
-
-
-	/**********************
-	 * ## CREATE ITEMS ## *
-	 **********************/
-	if(!count($entries_new))
-		printout('No items to be created in Exchange');
-	else
-	{
-		exchangesync_createItems ($entries, $cal, $entries_new, $user_id);
-	}
-
-
-	/**********************
-	 * ## DELETE ITEMS ## *
-	 **********************/
-	$deleted_items = exchangesync_deleteItems($entries_delete, $cal);
+}
+catch (Exception $e)
+{
+	printout('Exception: '.$e->getMessage());
+	$alert_admin = true;
+	$alerts[] = 'Exception: '.$e->getMessage();
 }
 
 if($alert_admin)

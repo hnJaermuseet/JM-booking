@@ -32,6 +32,16 @@ $locale = 'nb_NO'; // Others can be de_DE, en_US
 $language = 'no'; // Simple translator, used in later versions
 
 
+// Sync with Exchange server
+// User must have access to the calendars its being told to edit
+/*
+But in site config and remove example data:
+$exchangesync_login = array(
+		'username' => '123',
+		'password' => '321'
+	);
+*/
+
 // Import from Datanova Web reports
 /*
 But in site config and remove example data:

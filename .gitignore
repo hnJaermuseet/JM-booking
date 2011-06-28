@@ -1,12 +1,6 @@
 .project
 .settings*
 .cache*
-test-exchange/*
 img/*-logo.jpg
 img/infoskjerm-bg.PNG
-exchangesync/Services.wsdl
-exchangesync/messages.xsd
-exchangesync/types.xsd
-exchangesync/password.php
 config/site.config.php
-import/passord-importbruker.txt
