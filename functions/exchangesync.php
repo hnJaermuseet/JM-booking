@@ -70,6 +70,37 @@ function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
 		return $cal_ids; // Exchange id => Exchange change key
 }
 
+function exchangesync_getUsersEntriesInPeriod($user_id, $sync_from, $sync_to)
+{
+	$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num, entry_name
+		from `entry` where 
+		(`user_assigned` LIKE '%;".$user_id.";%') AND 
+		(`time_end` >= '".$sync_from."') AND 
+		(`time_end` <  '".$sync_to."')");
+	$entries = array();
+	checkMysqlErrorAndThrowException(__LINE__, __FILE__);
+	while($R_entry = mysql_fetch_assoc($Q_next_entries))
+	{
+		$entries[$R_entry['entry_id']]             = $R_entry;
+	}
+	return $entries;
+}
+
+function exchangesync_getUsersSyncdata ($user_id, $sync_from)
+{
+	$sync = array();
+	$Q = mysql_query("select * from `entry_exchangesync` 
+		WHERE
+			`user_id` = '".$user_id."' AND
+			`sync_until` >= '".$sync_from."'");
+	checkMysqlErrorAndThrowException(__LINE__, __FILE__);
+	while($R_sync = mysql_fetch_assoc($Q))
+	{
+		$sync[$R_sync['entry_id']] = $R_sync;
+	}
+	return $sync;
+}
+
 function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 {
 	global $alert_admin, $alerts;

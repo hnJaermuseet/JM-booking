@@ -160,41 +160,22 @@ try {
 	foreach($users as $user_id => $user)
 	{
 		// Getting all calendar elements from Exchange
-		$cal_ids = exchangesync_getCalendarItems(
+		$cal_ids = exchangesync_getCalendarItems (
 				$cal,
 				date('Y-m-d').'T00:00:00', // Today
 				date('Y-m-d',time()+61171200).'T00:00:00', // Approx 2 years, seems to be a limit
 				$user['user_ews_sync_email']
 			);
-
-printout(print_r($cal_ids, true));
-exit; // Tmp: disabled
-
-		// Getting entries for the user for the next 2 years
-		$sync_from = mktime(0,0,0,date('m'), date('d'), date('Y'));
-		$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num, entry_name
-			from `entry` where 
-			(`user_assigned` LIKE '%;".$user_id.";%') AND 
-			(`time_end` >= '".$sync_from."') AND 
-			(`time_end` <  '".mktime(0,0,0,date('m'), date('d')-50, date('Y')+2)."')");
-		$entries = array();
-		checkMysqlErrorAndThrowException(__LINE__);
-		while($R_entry = mysql_fetch_assoc($Q_next_entries))
-		{
-			$entries[$R_entry['entry_id']]             = $R_entry;
-		}
 		
-		// Getting sync-data
-		$sync = array();
-		$Q = mysql_query("select * from `entry_exchangesync` 
-			WHERE
-				`user_id` = '".$user_id."' AND
-				`sync_until` >= '".$sync_from."'");
-		checkMysqlErrorAndThrowException(__LINE__);
-		while($R_sync = mysql_fetch_assoc($Q))
-		{
-			$sync[$R_sync['entry_id']] = $R_sync;
-		}
+		// Period to sync
+		$sync_from  = mktime(0,0,0,date('m'), date('d'), date('Y'));
+		$sync_to    = mktime(0,0,0,date('m'), date('d')-50, date('Y')+2); // Next 2 years
+		
+		// Getting the users entries
+		$entries = exchangesync_getUsersEntriesInPeriod ($user_id, $sync_from, $sync_to);
+		
+		// Getting sync-data for the user
+		$sync = exchangesync_getUsersSyncdata ($user_id, $sync_from);
 		
 		// Analysing which to create, which to delete and which not to touch
 		$entries_new     = array();
@@ -217,7 +198,7 @@ exit; // Tmp: disabled
 		}
 		
 		// Delete items
-		$deleted_items = exchangesync_deleteItems($entries_delete, $cal);
+		$deleted_items = exchangesync_deleteItems ($entries_delete, $cal);
 	}
 }
 catch (Exception $e)
@@ -227,10 +208,10 @@ catch (Exception $e)
 	$alerts[] = 'Exception: '.$e->getMessage();
 }
 
-function checkMysqlErrorAndThrowException($line)
+function checkMysqlErrorAndThrowException($line, $file)
 {
 	if(mysql_error())
-		throw new Exception('MySQL error just above line '.$line.': '.mysql_error());
+		throw new Exception('MySQL error in '.$file.' just above line '.$line.': '.mysql_error());
 }
 
 if($alert_admin)
