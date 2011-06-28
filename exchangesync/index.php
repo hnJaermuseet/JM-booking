@@ -142,51 +142,21 @@ try {
 			'exceptions'  => true,
 		)); 
 	$cal = new ExchangePHP($client);
-
+	
 	// Getting areas and rooms
-	$Q_area = mysql_query("select id as area_id, area_name from mrbs_area");
-	$area = array();
-	while($R_area = mysql_fetch_assoc($Q_area))
-	{
-		$area[$R_area['area_id']] = $R_area['area_name'];
-	}
-	$Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` ");
-	$room = array();
-	while($R_room = mysql_fetch_assoc($Q_room))
-	{
-		$room[$R_room['room_id']] = $R_room['room_name'];
-	}
-
-	/**
-	 * Simulation of Smarty-object
-	 *
-	 */
-	class EntryTemplate 
-	{
-		protected $data = array();
-		public function __get($var) {
-			return $this->data[$var];
-		}
-		public function assign($var, $value) {
-			$this->data[$var] = $value;
-		}
-	}
-	$entryObj = new EntryTemplate();
-
+	$area = exchangesync_getAllAreas();
+	$room = exchangesync_getAllRooms();
+	
+	// Fake template object
+	$entryObj = new exchangesync_EntryTemplate();
+	
 	// Building user array
-	$users = array();
-	$Q_users = mysql_query("select user_id from `users` where user_ews_sync = '1' and user_ews_sync_email != ''");
-	while($R_users = mysql_fetch_assoc($Q_users))
-	{
-		$users[$R_users['user_id']] = getUser($R_users['user_id']);
-	}
-
+	$users = exchangesync_getAllUsersWithEWSSync();
 	if(!count($users))
 	{
 		printout('No users has enabled Exchange sync and has a sync email');
 	}
-
-
+	
 	foreach($users as $user_id => $user)
 	{
 		// Getting all calendar elements from Exchange
@@ -215,7 +185,7 @@ try {
 			$alerts[]   = 'getCalendarItems exception: '.$e->getMessage();
 			continue;
 		}
-
+		
 		$cal_ids = array(); // Id => ChangeKey
 		if(is_null($calendaritems))
 		{
@@ -234,7 +204,7 @@ try {
 				printout('Existing: '.$item->Start.'   '.$item->End.'   '.$item->Subject);
 			}
 		}
-
+		
 		// Getting entries for the user for the next 2 years
 		$sync_from = mktime(0,0,0,date('m'), date('d'), date('Y'));
 		$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num, entry_name
@@ -243,53 +213,45 @@ try {
 			(`time_end` >= '".$sync_from."') AND 
 			(`time_end` <  '".mktime(0,0,0,date('m'), date('d')-50, date('Y')+2)."')");
 		$entries = array();
-		printout_mysqlerror();
+		checkMysqlErrorAndThrowException(__LINE__);
 		while($R_entry = mysql_fetch_assoc($Q_next_entries))
 		{
 			$entries[$R_entry['entry_id']]             = $R_entry;
 		}
-
+		
 		// Getting sync-data
 		$sync = array();
 		$Q = mysql_query("select * from `entry_exchangesync` 
 			WHERE
 				`user_id` = '".$user_id."' AND
-				`sync_until` >= '".$sync_from."'");
-		printout_mysqlerror ();
+				`sysnc_until` >= '".$sync_from."'");
+		checkMysqlErrorAndThrowException(__LINE__);
 		while($R_sync = mysql_fetch_assoc($Q))
 		{
 			$sync[$R_sync['entry_id']] = $R_sync;
 		}
-
-
-		// Analysing which to create
+		
+		// Analysing which to create, which to delete and which not to touch
 		$entries_new     = array();
 		$entries_delete  = array();
 		exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id);
 
-		// Any entries removed from this user that is already synced
+		// Delete any entries removed from this user that is already synced
 		foreach($sync as $entry_id => $R_sync)
 		{
 			// => Delete
 			$entries_delete[$R_sync['exchange_id']] = $entry_id;
 		}
-
-
-
-		/**********************
-		 * ## CREATE ITEMS ## *
-		 **********************/
+		
+		// Create items
 		if(!count($entries_new))
 			printout('No items to be created in Exchange');
 		else
 		{
 			exchangesync_createItems ($entries, $cal, $entries_new, $user_id);
 		}
-
-
-		/**********************
-		 * ## DELETE ITEMS ## *
-		 **********************/
+		
+		// Delete items
 		$deleted_items = exchangesync_deleteItems($entries_delete, $cal);
 	}
 }
@@ -298,6 +260,12 @@ catch (Exception $e)
 	printout('Exception: '.$e->getMessage());
 	$alert_admin = true;
 	$alerts[] = 'Exception: '.$e->getMessage();
+}
+
+function checkMysqlErrorAndThrowException($line)
+{
+	if(mysql_error())
+		throw new Exception('MySQL error just above line '.$line.': '.mysql_error());
 }
 
 if($alert_admin)

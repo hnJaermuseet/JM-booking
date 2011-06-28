@@ -322,3 +322,49 @@ function exchangesync_deleteItems($entries_delete, $cal)
 	
 	return $deleted_items;
 }
+
+function exchangesync_getAllAreas()
+{
+	$Q_area = mysql_query("select id as area_id, area_name from mrbs_area");
+	$area = array();
+	while($R_area = mysql_fetch_assoc($Q_area))
+	{
+		$area[$R_area['area_id']] = $R_area['area_name'];
+	}
+	return $area;
+}
+function exchangesync_getAllRooms()
+{
+	$Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` ");
+	$room = array();
+	while($R_room = mysql_fetch_assoc($Q_room))
+	{
+		$room[$R_room['room_id']] = $R_room['room_name'];
+	}
+	return $room;
+}
+function exchangesync_getAllUsersWithEWSSync()
+{
+	$users = array();
+	$Q_users = mysql_query("select user_id from `users` where user_ews_sync = '1' and user_ews_sync_email != ''");
+	while($R_users = mysql_fetch_assoc($Q_users))
+	{
+		$users[$R_users['user_id']] = getUser($R_users['user_id']);
+	}
+	return $users;
+}
+
+/**
+ * Simulation of Smarty-object
+ *
+ */
+class exchangesync_EntryTemplate 
+{
+	protected $data = array();
+	public function __get($var) {
+		return $this->data[$var];
+	}
+	public function assign($var, $value) {
+		$this->data[$var] = $value;
+	}
+}
