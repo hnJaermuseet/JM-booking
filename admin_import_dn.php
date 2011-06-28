@@ -605,8 +605,10 @@ else
 			'		<td>'.$shop_name.'</td>'.chr(10).
 			'		<td>'.$area_name.'</td>'.chr(10).
 			'		<td><a href="'.$_SERVER['PHP_SELF'].'?'.$area_id.'&amp;action=notimported_list">'.mysql_num_rows($Q_notimported).'</td>'.chr(10).
-			'		<td>'.$visits.' / '.count($days).'</td>'.chr(10).
-			'		<td>'.$visit_first.' / '.$visit_last.'</td>'.chr(10).
+			'		<td style="text-align: right;">'.$visits.'</td>'.chr(10).
+			'		<td style="text-align: right;">'.count($days).'</td>'.chr(10).
+			'		<td>'.$visit_first.'</td>'.chr(10).
+			'		<td>'.$visit_last.'</td>'.chr(10).
 			'		<td><a href="'.$_SERVER['PHP_SELF'].'?'.$area_id.'&amp;action=varereg_list">Vis vare-kategori-koblinger</a></td>'.chr(10).
 			'	</tr>'.chr(10).chr(10);
 	}
@@ -619,8 +621,8 @@ else
 		'		<th>Butikknavn.</th>'.chr(10).
 		'		<th>'._('Area').' (bookingsystem)</th>'.chr(10).
 		'		<th>Ikke-importerte varenr</th>'.chr(10).
-		'		<th>Importerte besøkende / dager</th>'.chr(10).
-		'		<th>Første / siste tall</th>'.chr(10).
+		'		<th colspan="2">Importerte besøkende / dager</th>'.chr(10).
+		'		<th colspan="2">Første / siste tall</th>'.chr(10).
 		'		<th></th>'.chr(10).
 		'	</tr>'.chr(10).chr(10);
 	$Q_shops = mysql_query("select * from `import_dn_shops`");
