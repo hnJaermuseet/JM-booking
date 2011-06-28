@@ -224,7 +224,7 @@ try {
 		$Q = mysql_query("select * from `entry_exchangesync` 
 			WHERE
 				`user_id` = '".$user_id."' AND
-				`sysnc_until` >= '".$sync_from."'");
+				`sync_until` >= '".$sync_from."'");
 		checkMysqlErrorAndThrowException(__LINE__);
 		while($R_sync = mysql_fetch_assoc($Q))
 		{
