@@ -320,22 +320,9 @@ function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 				printout_mysqlerror ();
 				
 				emailSend($user_id,
-					'Slettet avtale i kalender',
-					
-					'Hei'.chr(10).chr(10).
-					
-					'Det er blitt oppdaget at du har slettet en booking som '.
-					'var overført til kalenderen din.'.chr(10).chr(10).
-					
-					'Bookingnavn: '.$entry['entry_name'].chr(10).
-					'Bookingid: '.$entry['entry_id'].chr(10).
-					'Starter: '.date('H:i d.m.Y', $entry['time_start']).chr(10).chr(10).
-					
-					'Det er opprettet ny avtale i kalenderen din med oppdatert informasjon fra bookingsystemet.'.chr(10).
-					'Hvis du ønsker å slette en booking eller gjøre endringer på den, så må dette gjøres i '.chr(10).
-					'bookingsystemet og kan ikke gjøres i kalenderen.'.chr(10).chr(10).
-					
-					'Mvh. Bookingsystemet');
+						'Slettet avtale i kalender',
+						exchangesync_getUsermsgDeleted ($entry)
+					);
 				
 				$alert_admin = true;
 				$alerts[]    = 'User '.$user_id.' has deleted a calendar item.';
@@ -402,27 +389,10 @@ function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 			
 			$rooms = $entryObj->room.' ('.$area[$entry['area_id']].')';
 			
-			$description = 
-				'Visning av hele bookingen:'.chr(10).
-				$systemurl.'/entry.php?entry_id='.$entryObj->entry_id.chr(10).
-				utf8_encode('BID: '. $entryObj->entry_id).chr(10).
-				utf8_encode('Type: '. $entryObj->entry_type).chr(10).
-				utf8_encode('Kunde: '. $entryObj->customer_name).chr(10).
-				utf8_encode('Vert(er): '. $entryObj->user_assigned_names).chr(10).
-				utf8_encode('Antall voksne: '. $entryObj->num_person_adult).chr(10).
-				utf8_encode('Antall barn: '. $entryObj->num_person_child).chr(10);
-				
-			if($entryObj->program_id_name != '')
-				$description .= utf8_encode('Fast program: '. $entryObj->program_id_name).chr(10);
-			
-			$description .= chr(10).
-				utf8_encode('Programbeskrivelse:'.chr(10).
-					$entryObj->program_description);
-			
 			// Add the entry to list of items
 			$i = $cal->createCalendarItems_addItem(
 				utf8_encode($entryObj->entry_name), 
-				$description,
+				exchangesync_getEntryCalendarDescription ($systemurl, $entryObj),
 				date('c', $entryObj->time_start), 
 				date('c', $entryObj->time_end),
 					array(
@@ -442,6 +412,45 @@ function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 	}
 }
 
+function exchangesync_getEntryCalendarDescription ($systemurl, $entryObj)
+{
+	$description =
+		'Visning av hele bookingen:'.chr(10).
+		$systemurl.'/entry.php?entry_id='.$entryObj->entry_id.chr(10).
+		utf8_encode('BID: '. $entryObj->entry_id).chr(10).
+		utf8_encode('Type: '. $entryObj->entry_type).chr(10).
+		utf8_encode('Kunde: '. $entryObj->customer_name).chr(10).
+		utf8_encode('Vert(er): '. $entryObj->user_assigned_names).chr(10).
+		utf8_encode('Antall voksne: '. $entryObj->num_person_adult).chr(10).
+		utf8_encode('Antall barn: '. $entryObj->num_person_child).chr(10);
+		
+	if($entryObj->program_id_name != '')
+		$description .= utf8_encode('Fast program: '. $entryObj->program_id_name).chr(10);
+	
+	$description .= chr(10).
+		utf8_encode('Programbeskrivelse:'.chr(10).
+			$entryObj->program_description);
+	
+	return $description;
+}
+function exchangesync_getUsermsgDeleted ($entry)
+{
+	return
+		'Hei'.chr(10).chr(10).
+		
+		'Det er blitt oppdaget at du har slettet en booking som '.
+		'var overført til kalenderen din.'.chr(10).chr(10).
+		
+		'Bookingnavn: '.$entry['entry_name'].chr(10).
+		'Bookingid: '.$entry['entry_id'].chr(10).
+		'Starter: '.date('H:i d.m.Y', $entry['time_start']).chr(10).chr(10).
+		
+		'Det er opprettet ny avtale i kalenderen din med oppdatert informasjon fra bookingsystemet.'.chr(10).
+		'Hvis du ønsker å slette en booking eller gjøre endringer på den, så må dette gjøres i '.chr(10).
+		'bookingsystemet og kan ikke gjøres i kalenderen.'.chr(10).chr(10).
+		
+		'Mvh. Bookingsystemet';
+}
 function exchangesync_getUsermsgChanged ($entry)
 {
 	return
