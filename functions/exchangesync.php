@@ -25,6 +25,51 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
+function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
+{
+		global $alert_admin, $alerts;
+		global $user_id;
+		
+		try
+		{
+			$calendaritems = $cal->getCalendarItems(
+				$from,
+				$to,
+				$user_ews_sync_mail
+			);
+		}
+		catch (Exception $e)
+		{
+			if($cal->client->getError() == '401')
+			{
+				// Unauthorized
+				throw new Exception('Exchange said: Wrong username and password. Exception message: '.$e->getMessage());
+			}
+			else
+			{
+				throw new Exception ('getCalendarItems exception: '.$e->getMessage());
+			}
+		}
+		
+		$cal_ids = array(); // Id => ChangeKey
+		if(is_null($calendaritems))
+		{
+			throw new Exception('getCalendarItems failed: '.$cal->getError());
+		}
+		else
+		{
+			// Going through existing elements
+			foreach($calendaritems as $item) {
+				if(!isset($item->Subject))
+					$item->Subject = '';
+				$cal_ids[$item->ItemId->Id] = $item->ItemId->ChangeKey;
+				printout('Existing: '.$item->Start.'   '.$item->End.'   '.$item->Subject);
+			}
+		}
+		return $cal_ids; // Exchange id => Exchange change key
+}
+
 function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 {
 	global $alert_admin, $alerts;

@@ -160,51 +160,16 @@ try {
 	foreach($users as $user_id => $user)
 	{
 		// Getting all calendar elements from Exchange
-		try
-		{
-			$calendaritems = $cal->getCalendarItems(
+		$cal_ids = exchangesync_getCalendarItems(
+				$cal,
 				date('Y-m-d').'T00:00:00', // Today
 				date('Y-m-d',time()+61171200).'T00:00:00', // Approx 2 years, seems to be a limit
 				$user['user_ews_sync_email']
 			);
-		}
-		catch (Exception $e)
-		{
-			printout('Exception - getCalendarItems: '.$e->getMessage());
-			
-			if($cal->client->getError() == '401')
-			{
-				// Unauthorized
-				printout('Exchange said: Wrong username and password.');
-			}
-			else
-			{
-				printout('getCalendarItems exception: '.$e->getMessage());
-			}
-			$alert_admin = true;
-			$alerts[]   = 'getCalendarItems exception: '.$e->getMessage();
-			continue;
-		}
-		
-		$cal_ids = array(); // Id => ChangeKey
-		if(is_null($calendaritems))
-		{
-			printout('getCalendarItems failed: '.$cal->getError());
-			$alert_admin = true;
-			$alerts[]   = 'getCalendarItems failed: '.$cal->getError();
-			continue;
-		}
-		else
-		{
-			// Going through existing elements
-			foreach($calendaritems as $item) {
-				if(!isset($item->Subject))
-					$item->Subject = '';
-				$cal_ids[$item->ItemId->Id] = $item->ItemId->ChangeKey;
-				printout('Existing: '.$item->Start.'   '.$item->End.'   '.$item->Subject);
-			}
-		}
-		
+
+printout(print_r($cal_ids, true));
+exit; // Tmp: disabled
+
 		// Getting entries for the user for the next 2 years
 		$sync_from = mktime(0,0,0,date('m'), date('d'), date('Y'));
 		$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num, entry_name
