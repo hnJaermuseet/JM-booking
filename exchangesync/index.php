@@ -262,6 +262,40 @@ foreach($users as $user_id => $user)
 	// Analysing which to create
 	$entries_new     = array();
 	$entries_delete  = array();
+	exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id);
+
+	// Any entries removed from this user that is already synced
+	foreach($sync as $entry_id => $R_sync)
+	{
+		// => Delete
+		$entries_delete[$R_sync['exchange_id']] = $entry_id;
+	}
+
+
+
+	/**********************
+	 * ## CREATE ITEMS ## *
+	 **********************/
+	if(!count($entries_new))
+		printout('No items to be created in Exchange');
+	else
+	{
+		exchangesync_createItems ($entries, $cal, $entries_new, $user_id);
+	}
+
+
+	/**********************
+	 * ## DELETE ITEMS ## *
+	 **********************/
+	$deleted_items = exchangesync_deleteItems($entries_delete, $cal);
+}
+
+function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
+{
+	global $alert_admin, $alerts;
+	global $systemurl;
+	global $sync, $entryObj, $entries_new, $entries_delete;
+	
 	foreach($entries as $entry) // Running through items in database
 	{
 		// Checking for previous sync
@@ -324,22 +358,9 @@ foreach($users as $user_id => $user)
 					printout_mysqlerror ();
 					
 					emailSend($user_id,
-					'Endret avtale i kalender',
-					
-					'Hei'.chr(10).chr(10).
-					
-					'Det er blitt oppdaget at du har endret en booking som '.
-					'var overført til kalenderen din.'.chr(10).chr(10).
-					
-					'Bookingnavn: '.$entry['entry_name'].chr(10).
-					'Bookingid: '.$entry['entry_id'].chr(10).
-					'Starter: '.date('H:i d.m.Y', $entry['time_start']).chr(10).chr(10).
-					
-					'Det er opprettet ny avtale i kalenderen din med oppdatert informasjon fra bookingsystemet.'.chr(10).
-					'Hvis du ønsker å gjøre endringer på den, så må dette gjøres i bookingsystemet og kan'.chr(10).
-					'ikke gjøres i kalenderen.'.chr(10).chr(10).
-					
-					'Mvh. Bookingsystemet');
+						'Endret avtale i kalender',
+						exchangesync_getUsermsgChanged($entry)
+					);
 					
 					$alert_admin = true;
 					$alerts[]    = 'User '.$user_id.' has edited a calendar item.';
@@ -379,28 +400,7 @@ foreach($users as $user_id => $user)
 			$entry = getEntry($entry['entry_id']); // Need more information
 			templateAssignEntry('entryObj', $entry);
 			
-			// Get the name of the room
-			$rooms = array();
-			if(!count($entry['room_id']))
-				$rooms[] = _('Whole area');
-			else
-			{
-				// Single room
-				foreach ($entry['room_id'] as $rid)
-				{
-					if ($rid == '0')
-						$rooms[] = _('Whole area');
-					elseif(is_numeric($rid))
-					{
-						$rooms[] = $room[(int)$rid];
-					}
-				}
-			}
-			$rooms = trim(implode(', ', $rooms));
-			if($rooms != '')
-				$rooms .= ' ('.$area[$entry['area_id']].')';
-			else
-				$rooms = $area[$entry['area_id']];
+			$rooms = $entryObj->room.' ('.$area[$entry['area_id']].')';
 			
 			$description = 
 				'Visning av hele bookingen:'.chr(10).
@@ -440,33 +440,26 @@ foreach($users as $user_id => $user)
 		
 		unset($sync[$entry['entry_id']]);
 	}
-
-	// Any entries removed from this user that is already synced
-	foreach($sync as $entry_id => $R_sync)
-	{
-		// => Delete
-		$entries_delete[$R_sync['exchange_id']] = $entry_id;
-	}
-
-
-
-	/**********************
-	 * ## CREATE ITEMS ## *
-	 **********************/
-	if(!count($entries_new))
-		printout('No items to be created in Exchange');
-	else
-	{
-		exchangesync_createItems ($entries, $cal, $entries_new, $user_id);
-	}
-
-
-	/**********************
-	 * ## DELETE ITEMS ## *
-	 **********************/
-	$deleted_items = exchangesync_deleteItems($entries_delete, $cal);
 }
 
+function exchangesync_getUsermsgChanged ($entry)
+{
+	return
+		'Hei'.chr(10).chr(10).
+		
+		'Det er blitt oppdaget at du har endret en booking som '.
+		'var overført til kalenderen din.'.chr(10).chr(10).
+		
+		'Bookingnavn: '.$entry['entry_name'].chr(10).
+		'Bookingid: '.$entry['entry_id'].chr(10).
+		'Starter: '.date('H:i d.m.Y', $entry['time_start']).chr(10).chr(10).
+		
+		'Det er opprettet ny avtale i kalenderen din med oppdatert informasjon fra bookingsystemet.'.chr(10).
+		'Hvis du ønsker å gjøre endringer på den, så må dette gjøres i bookingsystemet og kan'.chr(10).
+		'ikke gjøres i kalenderen.'.chr(10).chr(10).
+		
+		'Mvh. Bookingsystemet';
+}
 function exchangesync_getUsermsgAccessDenied($systemurl)
 {
 	return
