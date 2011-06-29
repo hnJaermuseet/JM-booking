@@ -612,6 +612,8 @@ class Stylesheet {
 //        echo ($style);
 
       // Retrieve the nodes
+	  if($selector == '[disabled]') // Unknown for DOMXPath, ignoring...
+		continue;
       $nodes = $xp->query($query);
 
       foreach ($nodes as $node) {
