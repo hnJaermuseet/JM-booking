@@ -26,6 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	<title>Fakturagrunnlag</title>
 	<link type="text/css" href="css/jm-booking.css" rel="stylesheet">
 </head><body>
+<style type="text/css">{literal}
+@page {
+	margin: 0.5in 0.25in;
+}
+{/literal}</style>
 <div align="right">{$smarty.now|date_format:"%d-%m-%Y"}</div>
 {$invoice_address|nl2br}
 <h1 style="font-size: x-large;">Fakturagrunnlag p&aring; arrangement ved {$area} {$time_start|date_format:"%d-%m-%Y"}</h1>
