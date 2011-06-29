@@ -28,9 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 require "include/invoice_top.php";
 
 if($area_spesific)
+{
 	$redirect = 'invoice_tobemade_ready.php?area_id='.$area_invoice['area_id'];
+	$redirect_forward = 'invoiced_list.php';
+}
 else
+{
 	$redirect = 'invoice_tobemade_ready.php';
+	$redirect_forward = 'invoiced_list.php';
+}
 
 /*
  * Mark entries as invoiced
@@ -108,30 +114,33 @@ foreach($_GET['entry_id'] as $id)
 
 if(!$entry_errors)
 {
-	if(count($entries))
+	if(!count($entries))
 	{
-		mysql_query("
-			INSERT INTO `invoiced` (
-					`invoiced_id` ,
-					`created` ,
-					`emailed` ,
-					`emailed_time` ,
-					`pdf_name`
-				)
-				VALUES (
-					NULL , 
-					'".time()."', 
-					'0', 
-					'0', 
-					''
-				);");
-		$invoiced_id = mysql_insert_id();
-		
-		if($invoiced_id <= 0)
-		{
-			echo '$invoiced_id not correct. File: '.__FILE__.' Line: '.__LINE__;
-			exit;
-		}
+		header('Location: '.$redirect);
+		exit;
+	}
+	
+	mysql_query("
+		INSERT INTO `invoiced` (
+				`invoiced_id` ,
+				`created` ,
+				`emailed` ,
+				`emailed_time` ,
+				`pdf_name`
+			)
+			VALUES (
+				NULL , 
+				'".time()."', 
+				'0', 
+				'0', 
+				''
+			);");
+	$invoiced_id = mysql_insert_id();
+	
+	if($invoiced_id <= 0)
+	{
+		echo '$invoiced_id not correct. File: '.__FILE__.' Line: '.__LINE__;
+		exit;
 	}
 	
 	$pdf_invoicedata = array();
@@ -230,7 +239,6 @@ if(!$entry_errors)
 	
 	
 	// Redirect back
-	//header('Location: '.$redirect);
-	echo 'Redirect!';
+	header('Location: '.$redirect_forward.'?highlight='.$invoiced_id);
 	exit;
 }

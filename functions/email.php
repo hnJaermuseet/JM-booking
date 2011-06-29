@@ -431,4 +431,48 @@ function emailSendConfirmationPDF ($entry, $to, $confirm_pdffile, $attachments, 
 	return true;
 	//return mail ($to, $subject, "", $headers);
 }
-?>
+
+function emailSendInvoicePDF ($to, $pdffile, $message_plain, $subject)
+{
+	global $login;
+	
+	require_once 'libs/Mail/Mail.php';
+	require_once 'libs/Mail/mime.php';
+	
+	
+	// ## Get the data ##
+	
+	// From
+	if(isset($login['user_email']) && $login['user_email'] != '')
+			$from = $login['user_email'];
+	else
+		$from = constant('EMAIL_FROM');
+	
+	$crlf = "\n";
+	$hdrs = array(
+				'From'    => $from,
+				'Subject' => '=?UTF-8?B?'.base64_encode($subject).'?=',
+				'Sender'  => $from,
+				);
+	$mime = new Mail_mime($crlf);
+	
+	// Plain
+	//$mime->setTextEncoding
+	$mime->setTXTBody($message_plain);
+	
+	// HTML
+	//$mime->setHTMLBody($html);
+	
+	// PDF
+	if($pdffile != '')
+		$mime->addAttachment($pdffile, 'application/pdf');
+	
+	//do not ever try to call these lines in reverse order
+	$body = $mime->get();
+	$hdrs = $mime->headers($hdrs);
+    
+	$mail =& Mail::factory('mail');
+	$mail->send($to, $hdrs, $body);
+	
+	return true;
+}

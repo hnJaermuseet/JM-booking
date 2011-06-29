@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 function entrySetReady ($entry)
 {
+	global $invoice_sendto, $systemurl, $login;
+	
 	if(!count($entry))
 	{
 		echo _('No entry found.');
@@ -46,6 +48,42 @@ function entrySetReady ($entry)
 		echo _('Can\'t log the changes for the entry.');
 		echo '<br><br>';
 		return FALSE;
+	}
+	
+	if(isset($invoice_sendto) && is_array($invoice_sendto))
+	{
+		$entry_summary = 'Bookingid: '.$entry['entry_id'].chr(10);
+		
+		
+		$area = getArea($entry['area_id']);
+		if(count($area))
+		{
+			foreach($invoice_sendto as $email)
+			{
+				emailSendDirect($email,
+					'Booking klar til fakturering - '.$area['area_name'].', '.date('d.m.Y', $entry['time_start']).' ('.$entry['entry_id'].')',
+					
+					'Hei'.chr(10).chr(10).
+					
+					$login['user_name'].' har satt en ny booking, fra '.$area['area_name'].', klar til fakturering. Bookingen var fra '.date('d.m.Y', $entry['time_start']).'.'.chr(10).chr(10).
+					
+					'Gå inn på følgende adresse for å få tilsendt fakturagrunnlagene:'.chr(10).
+					$systemurl.'/invoice_tobemade_ready.php'.chr(10).
+					
+					'Hvis det er flere fakturaer som er klar til fakturering, så kan samtlige hentes ut på likt.'.chr(10).chr(10).
+					
+					'Oppsummert booking:'.chr(10).
+					'Bookingid: '.$entry['entry_id'].chr(10).
+					'Tittel: '.$entry['entry_title'].chr(10).
+					'Anlegg: '.$area['area_name'].chr(10).
+					'Sum eks mva: kr '.smarty_modifier_commify($entry['eks_mva_tot'], 2,',',' ').chr(10).
+					' + MVA kr '.smarty_modifier_commify($entry['faktura_belop_sum_mva'], 2,',',' ').chr(10).
+					'Sum ink. mva: kr '.smarty_modifier_commify($entry['faktura_belop_sum'], 2,',',' ').chr(10).
+					chr(10).
+					
+					'Mvh. Bookingsystemet');
+			}
+		}
 	}
 	
 	return TRUE;
