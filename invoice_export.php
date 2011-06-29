@@ -185,7 +185,11 @@ if(!$entry_errors)
 		$invoicedata[] = $smarty->fetch('file:fakturagrunnlag.tpl');
 	}
 	
-	$pdffile = 'fakturagrunnlag-'.date('Ymd-His').'-'.count($entries).'_bookinger.pdf';
+	if(count($entries) != 1)
+		$er = 'er';
+	else
+		$er = '';
+	$pdffile = 'fakturagrunnlag-'.date('Ymd-His').'-'.count($entries).'_booking'.$er.'.pdf';
 	require_once("libs/dompdf/dompdf_config.inc.php");
 	
 	$dompdf = new DOMPDF();
@@ -201,10 +205,6 @@ if(!$entry_errors)
 	// Send PDF in emails
 	$subject = 'Fakturagrunnlag - '.date('d.m.Y', $from).' til '.date('d.m.Y', $to);
 	
-	if(count($entries) != 1)
-		$er = 'er';
-	else
-		$er = '';
 	$message_plain = 'Følgende '.count($entries).' booking'.$er.' (FROM_AREA) er med i vedlagt PDF-fil med fakturagrunnlag:'.chr(10).chr(10);
 	$areas_inpdf = array();
 	foreach($entries as $entry)
