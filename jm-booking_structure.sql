@@ -647,3 +647,27 @@ CREATE TABLE `jm-booking`.`import_dn_shops` (
 `shop_id` INT NOT NULL ,
 `shop_name` VARCHAR( 255 ) NOT NULL
 ) ENGINE = InnoDB ;
+
+
+--
+-- Database upgrades - 28.06.2011
+-- Handling of invoice data
+--
+CREATE TABLE `jm-booking`.`invoiced` (
+`invoiced_id` INT NOT NULL AUTO_INCREMENT ,
+`created` BOOL NOT NULL ,
+`emailed` BOOL NOT NULL ,
+`emailed_time` INT NOT NULL ,
+`pdf_name` VARCHAR( 255 ) NOT NULL ,
+PRIMARY KEY ( `invoiced_id` )
+) ENGINE = InnoDB ;
+CREATE TABLE `jm-booking`.`entry_invoiced` (
+`entry_id` INT NOT NULL ,
+`invoiced_id` INT NOT NULL ,
+PRIMARY KEY ( `entry_id` , `invoiced_id` )
+) ENGINE = InnoDB ;
+CREATE TABLE `jm-booking`.`invoiced_emails` (
+`invoiced_id` INT NOT NULL ,
+`email_addr` VARCHAR( 255 ) NOT NULL
+) ENGINE = InnoDB ;
+ALTER TABLE `invoiced` CHANGE `created` `created` INT( 11 ) NOT NULL ;

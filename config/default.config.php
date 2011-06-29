@@ -53,6 +53,11 @@ $importdatanova_login = array(
 $importdatanova_baseurl = 'http://123.321.456.654/Webreports';
 */
 
+// Invoice
+//$invoice_sendto = array('rekneskap@jaermuseet.no'); // Can ble multiple emails
+$invoice_sendto = array('hn@jaermuseet.no', 'hallvard.nygaard@jaermuseet.no'); // Testing addresses
+$invoice_location = 'files/invoice/';
+
 /* IP filter */
 
 // Addresses allowed on all pages
