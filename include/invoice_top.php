@@ -524,7 +524,7 @@ function checkInvoicedata ($entry)
 			if(strlen($customer['customer_name']) > 30)
 				$warnings[] = 'Kundens navn er lenger enn 30 bokstaver. Dette kan være i lengste laget.';
 			if(strlen($customer['customer_name']) < 1)
-				$errors[] = 'Kundens navn er ikke lagt inn på kunden. Dette går ikke og må rettes. Kunde må endres før eksport.';
+				$errors[] = 'Kundens navn er ikke lagt inn på kunden. Dette går ikke og må rettes. Kunde må endres.';
 			
 			// Checking address
 			if($entry['invoice_address_id'] == 0)
