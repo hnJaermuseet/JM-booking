@@ -276,11 +276,11 @@ if(!$entry_add && $entry['invoice_status'] > 1)
 	echo '<tr><td colspan="4" style="border: 0px;" align="center">'.chr(10);
 	
 	echo '<div class="notice" style="text-align: center; font-size: 20px; width:600px;">';
-	echo 'Obs! Denne bookingen sin fakturadel er ';
+	echo 'Obs! Denne bookingen sin fakturadel har status som ';
 	if($entry['invoice_status'] == '2')
-		echo 'satt faktureringsklar';
+		echo 'faktureringsklar';
 	else
-		echo 'eksport til Kommfakt';
+		echo 'sendt til regnskap';
 	echo '.<br>'.
 	'<span style="font-size: 16px;">V&aelig;r obs på hva du gj&oslash;r.</span>'.chr(10);
 	

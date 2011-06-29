@@ -144,7 +144,7 @@ if(isset($_GET['editor']))
 		$editor->makeNewField('user_access_programadmin', 'Tilgang til å endre faste program', 'boolean');
 		$editor->makeNewField('user_access_templateadmin', 'Tilgang til å endre på systemmaler', 'boolean');
 		$editor->makeNewField('user_invoice_setready', 'Tilgang til å sette bookinger faktureringsklar', 'boolean');
-		$editor->makeNewField('user_invoice', 'Tilgang til eksport av faktura til Kommfakt', 'boolean');
+		$editor->makeNewField('user_invoice', 'Tilgang til å merke bookinger som sendt til regnskap', 'boolean');
 	}
 	
 	if($login['user_access_useredit'])
@@ -264,7 +264,7 @@ else
 			'7' => 'Rettighet til å endre program',
 			'8' => 'Rettighet til å endre systemmaler',
 			'9' => 'Rettighet til å sette faktureringsklar',
-			'10' => 'Rettighet til å eksportere fakturaer til Kommfakt',
+			'10' => 'Rettighet til å sette bookinger som sendt til regnskap',
 			'11' => 'Rettighet til å deaktivere brukere',
 			'sync' => 'Synkronisering mot Exchange / Outlook påslått',
 		);

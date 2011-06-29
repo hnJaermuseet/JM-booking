@@ -220,9 +220,9 @@ function templateAssignEntry($var, $entry)
 		switch($entry['invoice_status'])
 		{
 			case '0':	$$var->assign ('invoice_status2', _('not to be made'));	break;
-			case '1':	$$var->assign ('invoice_status2', 'skal lages, ikke klar');	break;
+			case '1':	$$var->assign ('invoice_status2', 'skal lages, ikke klargjort');	break;
 			case '2':	$$var->assign ('invoice_status2', 'skal lages, klar til fakturering');	break;
-			case '3':	$$var->assign ('invoice_status2', 'faktura eksportert til Kommfakt');	break;
+			case '3':	$$var->assign ('invoice_status2', 'sendt regnskap');	break;
 		}
 		$$var->assign ('invoice_electronic', $entry['invoice_electronic']);
 		if($entry['invoice_electronic'] == '1') {

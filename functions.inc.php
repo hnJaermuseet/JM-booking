@@ -1472,7 +1472,7 @@ function printEntryLog($log, $printData = FALSE, $to_return = FALSE)
 				case 'invoice_readyfor':
 					$return .= 'Booking klar til fakturering'; break;
 				case 'invoice_exported':
-					$return .= 'Fakturadel ble eksportert til Kommfakt'; break;
+					$return .= 'Bookingen ble merket som sendt til regnskap'; break;
 					
 				case 'invoice_sent': // Not in use?
 					$return .= _('Invoice is registered as sent.'); break;

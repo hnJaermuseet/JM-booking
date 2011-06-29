@@ -30,7 +30,7 @@ require "include/invoice_top.php";
 $section = 'soon';
 require "include/invoice_menu.php";
 
-echo '<h1 style="margin-bottom: 0px;">Bookinger som ikke er gjennomført enda'.chr(10).chr(10);
+echo '<h1 style="margin-bottom: 0px;">Bookinger som ikke er gjennomført enda, men som skal faktureres senere'.chr(10).chr(10);
 
 if(isset($_GET['filters']))
 {
@@ -100,4 +100,3 @@ else
 	}
 	entrylist_invoice_soon($SQL, $tamed_booking, $area_spesific);
 }
-?>

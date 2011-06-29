@@ -57,14 +57,6 @@ if($area_spesific)
 $SQL = genSQLFromFilters($filters, 'entry_id');
 $num_invoice_tobemade_ready = mysql_num_rows(mysql_query($SQL));
 
-$filters = array();
-$filters = addFilter($filters, 'invoice', '1');
-$filters = addFilter($filters, 'invoice_status', '3');
-if($area_spesific)
-	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
-$SQL = genSQLFromFilters($filters, 'entry_id');
-$num_invoice_exported = mysql_num_rows(mysql_query($SQL));
-
 unset($SQL, $filters);
 
 print_header($day, $month, $year, $area);
@@ -94,15 +86,17 @@ echo '>Ikke klargjort</a> ('.$num_invoice_tobemade.') -:- ';
 
 echo '<a href="invoice_tobemade_ready.php'.$add_to_href.'"';
 if($section=="tobemade_ready") echo "style='color:red'";
-echo '>Klar til eksportering</a> ('.$num_invoice_tobemade_ready.') -:- ';
+echo '>Klar til fakturering</a> ('.$num_invoice_tobemade_ready.') -:- ';
 
 echo '<a href="invoice_exported.php'.$add_to_href.'"';
 if($section=="exported") echo "style='color:red'";
-echo '>Allerede eksportet</a> ('.$num_invoice_exported.') -:- ';
+echo '>Sendt til regnskap</a> -:- ';
+
+echo '<a href="invoiced_list.php'.$add_to_href.'"';
+if($section=="invoiced") echo "style='color:red'";
+echo '>Fakturagrunnlag</a> -:- ';
 
 echo '<hr>'.chr(10);
 echo '</div>';
 
 echo '<div class="print" style="font-size: 8px"><i>Generert '.date('H:i:s d-m-Y').', '.$login['user_name'].'</i></div>';
-
-?>

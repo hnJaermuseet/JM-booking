@@ -130,9 +130,9 @@ function filterMakeAlternatives () {
 	
 	$alternatives['invoice_status']['choice'] = array();
 	$alternatives['invoice_status']['choice'][0] = _('Not to be made');
-	$alternatives['invoice_status']['choice'][1] = _('To be made');
-	$alternatives['invoice_status']['choice'][2] = _('Ready to be made');
-	$alternatives['invoice_status']['choice'][3] = _h('Export to Kommfakt');
+	$alternatives['invoice_status']['choice'][1] = 'skal lages, ikke klargjort';
+	$alternatives['invoice_status']['choice'][2] = 'skal lages, klar til fakturering';
+	$alternatives['invoice_status']['choice'][3] = 'sendt regnskap';
 	
 }
 

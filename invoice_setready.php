@@ -93,5 +93,3 @@ $smarty->assign('return', $return);
 $smarty->assign('return_to', $return_to);
 $smarty->assign('checkInvoice', $checkInvoice);
 $smarty->display('file:invoice_setready.tpl');
-
-?>

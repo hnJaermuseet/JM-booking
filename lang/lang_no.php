@@ -8,8 +8,6 @@ function langNo($text)
 	{
 		case 'View month':
 			return 'Vis måned';
-		case 'Export to Kommfakt';
-			return 'Eksportert til Kommfakt';
 		case 'Text on infoscreen':
 			return 'Tekst på infoskjerm';
 		case 'Customer list':

@@ -30,7 +30,7 @@ require "include/invoice_top.php";
 $section = 'exported';
 require "include/invoice_menu.php";
 
-echo '<h1 style="margin-bottom: 0px;">Bookinger eksportert til Kommfakt'.chr(10).chr(10);
+echo '<h1 style="margin-bottom: 0px;">Bookinger som er sendt til regnskap'.chr(10).chr(10);
 
 if(isset($_GET['filters']))
 {
@@ -99,4 +99,3 @@ else
 	}
 	entrylist_invoice_exported($SQL, $tamed_booking, $area_spesific);
 }
-?>

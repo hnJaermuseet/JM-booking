@@ -274,7 +274,7 @@ if($login['user_invoice'] || $login['user_invoice_setready'])
 	echo '<label><input type="radio" name="return_to" value="invoice_exported"';
 	if($return_to == 'invoice_exported')
 		echo ' checked="checked"';
-	echo '> Faktura - Eksportet til Kommfakt</label><br>'.chr(10);
+	echo '> Faktura - sendt til regnskap</label><br>'.chr(10);
 
 }
 

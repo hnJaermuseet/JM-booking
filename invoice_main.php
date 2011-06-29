@@ -39,8 +39,8 @@ echo '	<tr>'.chr(10);
 echo '		<th>'._('Area').'</th>'.chr(10);
 echo '		<th>Ikke gjennomf&oslash;rt</th>'.chr(10);
 echo '		<th>Ikke klargjort</th>'.chr(10);
-echo '		<th>Klar til eksportering</th>'.chr(10);
-echo '		<th>Allerede eksportert</th>'.chr(10);
+echo '		<th>Klar til fakturautsending</th>'.chr(10);
+echo '		<th>Sendt til regnskap</th>'.chr(10);
 echo '	</tr>'.chr(10).chr(10);
 while($R = mysql_fetch_assoc($Q_area))
 {
@@ -102,5 +102,3 @@ echo '		<td class="rightalign"><b><a href="invoice_exported.php?area_id='.$R['ar
 	$num_invoice_exported.'</a></b></td>'.chr(10);
 echo '	</tr>'.chr(10).chr(10);
 echo '</table>';
-
-?>

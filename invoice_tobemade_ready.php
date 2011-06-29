@@ -30,7 +30,7 @@ require "include/invoice_top.php";
 $section = 'tobemade_ready';
 require "include/invoice_menu.php";
 
-echo '<h1 style="margin-bottom: 0px;">Klar til &aring; eksporteres til Kommfakt';
+echo '<h1 style="margin-bottom: 0px;">Klar til fakturautsending';
 
 if(isset($_GET['filters']))
 {
@@ -99,4 +99,3 @@ else
 	}
 	entrylist_invoice_tobemade_ready($SQL, $tamed_booking, $area_spesific);
 }
-?>

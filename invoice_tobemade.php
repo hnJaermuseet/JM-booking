@@ -30,7 +30,7 @@ require "include/invoice_top.php";
 $section = 'tobemade';
 require "include/invoice_menu.php";
 
-echo '<h1 style="margin-bottom: 0px;">Ikke klargjort til eksportering/fakturering';
+echo '<h1 style="margin-bottom: 0px;">Ikke klargjort for fakturering';
 
 if(isset($_GET['filters']))
 {
@@ -114,5 +114,3 @@ else
 	
 	entrylist_invoice_tobemade($SQL);*/
 }
-
-?>

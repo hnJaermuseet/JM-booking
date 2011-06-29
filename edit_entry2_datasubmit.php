@@ -584,10 +584,10 @@ if(!count($form_errors))
 			if($entry['invoice_status'] == '2')
 				$warning_tmp .= 'godkjent for fakturautsending';
 			elseif($entry['invoice_status'] == '3')
-				$warning_tmp .= 'ekporter til Kommfakt';
+				$warning_tmp .= 'sendt til regnskap';
 			else
 				$warning_tmp .= 'ukjent';
-			$warning_tmp .= '</b> og det kan hende at endringer ikke vil bli tatt med p&aring; endelig faktura.';
+			$warning_tmp .= '</b> og det kan hende at endringer ikke vil bli tatt med p&aring; den endelige fakturaen.';
 			$warnings[] = $warning_tmp;
 		}
 		

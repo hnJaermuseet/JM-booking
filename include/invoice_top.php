@@ -141,6 +141,7 @@ function entrylist_invoice_soon ($SQL, $tamed_booking)
 function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 {
 	global $area_spesific, $area_invoice;
+	global $invoice_sendto;
 	
 	$Q = mysql_query($SQL.' order by `time_start`');
 	if(!$tamed_booking || !mysql_num_rows($Q))
@@ -254,6 +255,7 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 				echo '<a href="user.php?user_id='.$user['user_id'].'">'.$user['user_name'].'</a>';
 			else
 				echo '&nbsp;';
+			echo '<br />'.date('d.m.Y \k\l H:i', mysql_result($Q_user, '0', 'log_time'));
 			echo '</td>'.chr(10); 
 			
 			echo ' </tr>'.chr(10);
@@ -263,8 +265,11 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 		echo '<div style="font-size: 1.6em; margin-top: 20px; margin-left: 10px;">'.
 		'<a href="#" id="invoice_export_submit">'.
 		'<img src="img/Crystal_Clear_action_db_comit.png" style="border: 0px solid black;" height="32"> '.
-		'Eksporter til Kommfakt'.
-		'</a></div>';
+		'Merker som sendt til regnskap og send fakturagrunnlag på e-post'.
+		'</a>';
+		if(isset($invoice_sendto) && is_array($invoice_sendto))
+			echo '<br /><span style="display: inline-block; width: 32px">&nbsp;</span> (sendes til '.implode($invoice_sendto, ', ').')';
+		echo '</div>';
 		
 		echo '</form>';
 		echo '<script type="text/javascript">'.
@@ -384,7 +389,7 @@ function entrylist_invoice_exported ($SQL, $tamed_booking)
 		echo '<br>'.chr(10).chr(10);
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
-		echo '  <td style="border: 1px solid black;"><b>Eksportert</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>Sendt til regnskap</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Arrangementsdato</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>'._('Name').'</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>'._('Area').'</b></td>'.chr(10);
@@ -475,7 +480,7 @@ function checkInvoicedata ($entry)
 			// Checking amount
 			if($line['antall'] < 0)
 			{
-				$errors[] = 'Fakturalinje nr '.$line_num.' har minus i antall. Dette kan ikke eksporteres til Kommfakt. Pris per stykk kan være minus.';
+				$warnings[] = 'Fakturalinje nr '.$line_num.' har minus i antall. Pris per stykk kan være minus.';
 			}
 			elseif($line['antall'] == 0)
 			{
@@ -515,7 +520,7 @@ function checkInvoicedata ($entry)
 			// We have got the customer
 			
 			if(strlen($customer['customer_name']) > 30)
-				$warnings[] = 'Kundens navn er lenger enn 30 bokstaver. Dette vil bli kuttet ned til 30 bokstaver ved eksport til Kommfakt.';
+				$warnings[] = 'Kundens navn er lenger enn 30 bokstaver. Dette kan være i lengste laget.';
 			if(strlen($customer['customer_name']) < 1)
 				$errors[] = 'Kundens navn er ikke lagt inn på kunden. Dette går ikke og må rettes. Kunde må endres før eksport.';
 			
@@ -536,25 +541,15 @@ function checkInvoicedata ($entry)
 					// We got a address
 					if($address['address_line_1'] == $customer['customer_name'])
 					{
-						$warnings[] = 'Navnet på kunden står på første linje i adressen. Ved eksport til Kommfakt, så vil det da stå kundens navn to ganger.';
+						$warnings[] = 'Navnet på kunden står på første linje i adressen. Ved utskrift, så vil det da stå kundens navn to ganger.';
 					}
 					if(strlen($address['address_line_1']) > 30)
 					{
-						$warnings[] = 'Adresselinje nr 1 er mer enn 30 bokstaver. Dette vil bli kuttet ned til 30 bokstaver ved eksport til Kommfakt.';
+						$warnings[] = 'Adresselinje nr 1 er mer enn 30 bokstaver. Er det mulig å dele det opp i flere linjer?';
 					}
 					if(strlen($address['address_line_2']) > 30)
 					{
-						$warnings[] = 'Adresselinje nr 2 er mer enn 30 bokstaver. Dette vil bli kuttet ned til 30 bokstaver ved eksport til Kommfakt.';
-					}
-					if(
-						$address['address_line_3'] != '' ||
-						$address['address_line_4'] != '' ||
-						$address['address_line_5'] != '' ||
-						//$address['address_line_6'] != '' ||
-						$address['address_line_7'] != ''
-					)
-					{
-						$warnings[] = 'Det er flere enn 2 adresselinjer. Ved eksport til Kommfakt, så vil dette bli kuttet ned til 2 linjer.';
+						$warnings[] = 'Adresselinje nr 2 er mer enn 30 bokstaver. Er det mulig å dele det opp i flere linjer?';
 					}
 					if($address['address_postalnum'] == '')
 					{
