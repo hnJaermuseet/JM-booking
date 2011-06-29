@@ -61,18 +61,35 @@ if(!isset($_GET['entry_id']) || !is_array($_GET['entry_id']))
 	exit;
 }
 
+if(count($_GET['entry_id']) > 50)
+{
+	$section = 'tobemade_ready';
+	include "include/invoice_menu.php";
+	echo '<div class="error">Du forsøker å sende mer enn 50 bookinger til regnskap på likt. '.
+		'Dette blir sannsynligvis for mye for bookingsystemet (klarer ikke så mange i en PDF), så forsøket er blitt stoppet.<br /><br />'.
+		
+		'Velg et mindre antall og forsøk igjen.</div>';
+	
+	exit;
+}
+
+$ignore_errors = false;
+if(isset($_GET['ignore_errors']) && $_GET['ignore_errors'] == '1')
+	$ignore_errors = true;
+
 $entry_errors = false;
 $entries = array();
+$entry_ids_url = array();
 foreach($_GET['entry_id'] as $id)
 {
 	$tmp_entry = getEntry($id);
 	$id = $tmp_entry['entry_id'];
 	$entries[$id] = $tmp_entry;
-	
+	$entry_ids_url[] = 'entry_id[]='.$id;
 	
 	$checkInvoice = checkInvoicedata($tmp_entry);
 	
-	if(count($checkInvoice[0]))
+	if(count($checkInvoice[0]) && !$ignore_errors)
 	{
 		if(!$entry_errors)
 		{
@@ -110,6 +127,16 @@ foreach($_GET['entry_id'] as $id)
 		}
 		echo '</ul></div>';
 	}
+}
+
+if($entry_errors)
+{
+	echo '<h1>Feilmeldingene over må rettes før det kan sendes til regnskap</h1>';
+	echo '<p style="font-size: 1.4em; margin: 10px;">'.iconHTML('arrow_right').' Endre bookingen(e) (trykk på bookingnr over)</p>';
+	echo '<p style="font-size: 1.4em; margin: 10px;">'.iconHTML('arrow_right').' <a href="'.$redirect.'">Gå tilbake til listen over faktureringsklare bookinger</a></p><br />';
+	
+	echo 'Du kan også sette den klar til fakturering, men det blir kanskje bare å skyve problemene videre på noen andre/utsette de<br />';
+	echo '- <a href="'.$_SERVER['PHP_SELF'].'?'.implode('&amp;', $entry_ids_url).'&amp;ignore_errors=1">Sett til status "sendt til regnskap"</a><br>';
 }
 
 if(!$entry_errors)
