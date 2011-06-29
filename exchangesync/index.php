@@ -183,7 +183,7 @@ try {
 			$entries_new     = array();
 			$entries_delete  = array();
 			exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id);
-
+			
 			// Delete any entries removed from this user that is already synced
 			foreach($sync as $entry_id => $R_sync)
 			{

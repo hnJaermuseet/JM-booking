@@ -55,7 +55,19 @@ function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
 		$cal_ids = array(); // Id => ChangeKey
 		if(is_null($calendaritems))
 		{
-			throw new Exception('getCalendarItems failed. ResponseClass: '.$cal->getResponseClass().'. ResponseCode: '.$cal->getResponseCode().'. Message: '.$cal->getError());
+			if($cal->getResponseCode() == 'ErrorNonPrimarySmtpAddress')
+			{
+				// Alert admin, alert user and disable sync
+				emailSend($user_id, 'Feil i oppsett for kalendersynkronisering', exchangesync_getUsermsgNonPrimarySmtpAddress($systemurl));
+				
+				mysql_query("UPDATE `users` SET `user_ews_sync` = '0' WHERE `user_id` =".$user_id);
+				
+				throw new Exception('User '.$user_id.' has non primary stmp address given. Has disabled the sync of this user. Message from Exchange: '.$cal->getError());
+			}
+			else
+			{
+				throw new Exception('getCalendarItems failed. ResponseClass: '.$cal->getResponseClass().'. ResponseCode: '.$cal->getResponseCode().'. Message: '.$cal->getError());
+			}
 		}
 		else
 		{
@@ -295,7 +307,22 @@ function exchangesync_getUsermsgAccessDenied($systemurl)
 		
 		'Mvh. Bookingsystemet';
 }
-
+function exchangesync_getUsermsgNonPrimarySmtpAddress($systemurl)
+{
+	return
+		'Hei'.chr(10).chr(10).
+		
+		'Det er blitt satt opp at jeg skulle synkronisere bookinger du er satt opp på '.
+		'inn i kalenderen din i Outlook. Jeg får det ikke til fordi jeg ikke har fått '.
+		'den fulle e-postadressen din (f.eks. ola.nordmann@jaermuseet.no, ikke on@jaermuseet.no).'.chr(10).chr(10).
+		
+		'Gå inn på denne adressen for å lese hvordan du kan fikse dette (steg 7 til 9):'.chr(10).
+		$systemurl.'/sync.html'.chr(10).chr(10).
+		
+		'Jeg har slått av synkroniseringen av din bruker. Det må bli slått på igjen når det er fikset.'.chr(10).chr(10).
+		
+		'Mvh. Bookingsystemet';
+}
 
 function exchangesync_createItems ($entries, $cal, $entries_new, $user_id)
 {
