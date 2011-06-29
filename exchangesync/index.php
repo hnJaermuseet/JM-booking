@@ -159,46 +159,55 @@ try {
 	
 	foreach($users as $user_id => $user)
 	{
-		// Getting all calendar elements from Exchange
-		$cal_ids = exchangesync_getCalendarItems (
-				$cal,
-				date('Y-m-d').'T00:00:00', // Today
-				date('Y-m-d',time()+61171200).'T00:00:00', // Approx 2 years, seems to be a limit
-				$user['user_ews_sync_email']
-			);
-		
-		// Period to sync
-		$sync_from  = mktime(0,0,0,date('m'), date('d'), date('Y'));
-		$sync_to    = mktime(0,0,0,date('m'), date('d')-50, date('Y')+2); // Next 2 years
-		
-		// Getting the users entries
-		$entries = exchangesync_getUsersEntriesInPeriod ($user_id, $sync_from, $sync_to);
-		
-		// Getting sync-data for the user
-		$sync = exchangesync_getUsersSyncdata ($user_id, $sync_from);
-		
-		// Analysing which to create, which to delete and which not to touch
-		$entries_new     = array();
-		$entries_delete  = array();
-		exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id);
+		try
+		{
+			// Getting all calendar elements from Exchange
+			$cal_ids = exchangesync_getCalendarItems (
+					$cal,
+					date('Y-m-d').'T00:00:00', // Today
+					date('Y-m-d',time()+61171200).'T00:00:00', // Approx 2 years, seems to be a limit
+					$user['user_ews_sync_email']
+				);
+			
+			// Period to sync
+			$sync_from  = mktime(0,0,0,date('m'), date('d'), date('Y'));
+			$sync_to    = mktime(0,0,0,date('m'), date('d')-50, date('Y')+2); // Next 2 years
+			
+			// Getting the users entries
+			$entries = exchangesync_getUsersEntriesInPeriod ($user_id, $sync_from, $sync_to);
+			
+			// Getting sync-data for the user
+			$sync = exchangesync_getUsersSyncdata ($user_id, $sync_from);
+			
+			// Analysing which to create, which to delete and which not to touch
+			$entries_new     = array();
+			$entries_delete  = array();
+			exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id);
 
-		// Delete any entries removed from this user that is already synced
-		foreach($sync as $entry_id => $R_sync)
-		{
-			// => Delete
-			$entries_delete[$R_sync['exchange_id']] = $entry_id;
+			// Delete any entries removed from this user that is already synced
+			foreach($sync as $entry_id => $R_sync)
+			{
+				// => Delete
+				$entries_delete[$R_sync['exchange_id']] = $entry_id;
+			}
+			
+			// Create items
+			if(!count($entries_new))
+				printout('No items to be created in Exchange');
+			else
+			{
+				exchangesync_createItems ($entries, $cal, $entries_new, $user_id);
+			}
+			
+			// Delete items
+			$deleted_items = exchangesync_deleteItems ($entries_delete, $cal);
 		}
-		
-		// Create items
-		if(!count($entries_new))
-			printout('No items to be created in Exchange');
-		else
+		catch (Exception $e)
 		{
-			exchangesync_createItems ($entries, $cal, $entries_new, $user_id);
+			printout('Exception: '.$e->getMessage());
+			$alert_admin = true;
+			$alerts[] = 'Exception: '.$e->getMessage();
 		}
-		
-		// Delete items
-		$deleted_items = exchangesync_deleteItems ($entries_delete, $cal);
 	}
 }
 catch (Exception $e)

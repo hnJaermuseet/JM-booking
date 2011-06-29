@@ -48,7 +48,7 @@ function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
 			}
 			else
 			{
-				throw new Exception ('getCalendarItems exception: '.$e->getMessage());
+				throw new Exception ('getCalendarItems (error '.$cal->client->getError().') exception: '.$e->getMessage());
 			}
 		}
 		
