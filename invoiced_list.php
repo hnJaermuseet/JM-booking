@@ -88,7 +88,12 @@ if(mysql_num_rows($Q_invoiced))
 			$pdf_link = '<a href="'.$invoice_location.$R_invoiced['pdf_name'].'">'.iconFiletype('pdf').' '.$R_invoiced['pdf_name'].'</a>';
 		}
 		
-		echo '<tr>'.
+		// Highlight
+		$highlighted = '';
+		if(isset($_GET['highlight']) && $_GET['highlight'] == $R_invoiced['invoiced_id'])
+			$highlighted = ' class="notice"';
+		
+		echo '<tr'.$highlighted.'>'.
 				'<td>'.date('d-m-Y H:i:s', $R_invoiced['created']).'</td>'.
 				'<td>'.$entries.'</td>'.
 				'<td>'.$pdf_link.'</td>'.

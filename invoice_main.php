@@ -32,6 +32,15 @@ require "include/invoice_menu.php";
 
 echo '<h1>'._('Main page').'</h1>'.chr(10).chr(10);
 
+$filters = array();
+$filters = addFilter($filters, 'invoice', '1');
+$filters = addFilter($filters, 'invoice_status', '3');
+if($area_spesific)
+	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
+$SQL = genSQLFromFilters($filters, 'entry_id');
+$num_invoice_exported = mysql_num_rows(mysql_query($SQL));
+
+
 $Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
 
 echo '<table class="prettytable">'.chr(10);

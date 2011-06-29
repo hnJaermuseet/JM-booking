@@ -539,10 +539,10 @@ function checkInvoicedata ($entry)
 				else
 				{
 					// We got a address
-					if($address['address_line_1'] == $customer['customer_name'])
-					{
-						$warnings[] = 'Navnet på kunden står på første linje i adressen. Ved utskrift, så vil det da stå kundens navn to ganger.';
-					}
+					//if($address['address_line_1'] == $customer['customer_name'])
+					//{
+					//	$warnings[] = 'Navnet på kunden står på første linje i adressen. Ved utskrift, så vil det da stå kundens navn to ganger.';
+					//}
 					if(strlen($address['address_line_1']) > 30)
 					{
 						$warnings[] = 'Adresselinje nr 1 er mer enn 30 bokstaver. Er det mulig å dele det opp i flere linjer?';

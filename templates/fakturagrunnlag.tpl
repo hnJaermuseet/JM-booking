@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  <tr>
   <th width="50px" align="center"><b>Lnr</b></th>
   <th align="left"><b>Beskrivelse</b></th>
-  <th width="80px" align: right;"><b>Stk.pris<br />eks. mva</b></th>
+  <th width="80px" align="right"><b>Stk.pris<br />eks. mva</b></th>
   <th width="50px" align="center"><b>Antall</b></th>
   <th width="80px" align="right"><b>Sum eks.mva</b></th>
   <th width="50px" align="right"><b>MVA<br />-sats</b></th>
