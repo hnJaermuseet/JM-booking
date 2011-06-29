@@ -255,7 +255,8 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 				echo '<a href="user.php?user_id='.$user['user_id'].'">'.$user['user_name'].'</a>';
 			else
 				echo '&nbsp;';
-			echo '<br />'.date('d.m.Y \k\l H:i', mysql_result($Q_user, '0', 'log_time'));
+			if(mysql_num_rows($Q_user))
+				echo '<br />'.date('d.m.Y \k\l H:i', mysql_result($Q_user, '0', 'log_time'));
 			echo '</td>'.chr(10); 
 			
 			echo ' </tr>'.chr(10);
@@ -281,6 +282,7 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 function entrylist_invoice_tobemade ($SQL, $tamed_booking, $area_spesific = false)
 {
 	$Q = mysql_query($SQL.' order by `time_start`');
+	
 	if(!$tamed_booking || !mysql_num_rows($Q))
 	{
 		echo _('No entries found.');
