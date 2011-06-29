@@ -55,7 +55,7 @@ function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
 		$cal_ids = array(); // Id => ChangeKey
 		if(is_null($calendaritems))
 		{
-			throw new Exception('getCalendarItems failed: '.$cal->getError());
+			throw new Exception('getCalendarItems failed. ResponseClass: '.$cal->getResponseClass.'. ResponseCode: '.$cal->getResponseCode.'. Message: '.$cal->getError());
 		}
 		else
 		{
