@@ -74,7 +74,7 @@ function entrySetReady ($entry)
 					
 					'Oppsummert booking:'.chr(10).
 					'Bookingid: '.$entry['entry_id'].chr(10).
-					'Tittel: '.$entry['entry_title'].chr(10).
+					'Tittel: '.html_entity_decode($entry['entry_name']).chr(10).
 					'Anlegg: '.$area['area_name'].chr(10).
 					'Sum eks mva: kr '.smarty_modifier_commify($entry['eks_mva_tot'], 2,',',' ').chr(10).
 					' + MVA kr '.smarty_modifier_commify($entry['faktura_belop_sum_mva'], 2,',',' ').chr(10).

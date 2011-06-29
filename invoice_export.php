@@ -210,7 +210,7 @@ if(!$entry_errors)
 	foreach($entries as $entry)
 	{
 		
-		$message_plain .= '- ('.$entry['entry_id'].') '.html_entity_decode($entry['entry_title']).chr(10);
+		$message_plain .= '- ('.$entry['entry_id'].') '.html_entity_decode($entry['entry_name']).chr(10);
 		
 		$area = getArea ($entry['area_id']);
 		if(count($area))
