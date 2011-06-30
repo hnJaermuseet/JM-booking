@@ -130,7 +130,7 @@ function entrylist_invoice_soon ($SQL, $tamed_booking)
 			echo '</td>'.chr(10);
 			
 			// Invoice
-			echo '  <td style="border: 1px solid black;">kr '.smarty_modifier_commify($entry['faktura_belop_sum'],2,","," ").'</td>'.chr(10);
+			echo '  <td style="border: 1px solid black;">kr&nbsp;'.smarty_modifier_commify($entry['faktura_belop_sum'],2,",","&nbsp;").'</td>'.chr(10);
 			
 			echo ' </tr>'.chr(10);
 		}
@@ -235,12 +235,12 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 			echo '</td>'.chr(10);
 			
 			// Invoice
-			echo '  <td style="border: 1px solid black; text-align: right;">kr '.smarty_modifier_commify($entry['faktura_belop_sum'],2,","," ").'</td>'.chr(10);
+			echo '  <td style="border: 1px solid black; text-align: right;">kr&nbsp;'.smarty_modifier_commify($entry['faktura_belop_sum'],2,",","&nbsp;").'</td>'.chr(10);
 			
 			echo '  <td style="border: 1px solid black;">';
 			echo '<a href="entry_invoice.php?entry_id='.$entry['entry_id'].'">';
-			echo iconHTML('coins').' ';
-			echo 'Vis fakturagrunnlag</a>';
+			echo iconHTML('coins').'&nbsp;';
+			echo 'Vis&nbsp;fakturagrunnlag</a>';
 			echo '</td>'.chr(10); 
 			
 			// Searching for who did set the entry ready for invoice
