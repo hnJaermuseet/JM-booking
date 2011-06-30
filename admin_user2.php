@@ -121,8 +121,8 @@ if(isset($_GET['editor']))
 	while($R_area = mysql_fetch_assoc($Q_area))
 		$editor->addChoice('user_area_default', $R_area['area_id'], $R_area['area_name']);
 	
-	$editor->makeNewField('user_ews_sync', _('Syncronize with Exchange'), 'boolean');
-	$editor->makeNewField('user_ews_sync_email', _('Main Exchange e-mail'), 'text');
+	$editor->makeNewField('user_ews_sync', _h('Syncronize with Exchange'), 'boolean');
+	$editor->makeNewField('user_ews_sync_email', _h('Main Exchange e-mail'), 'text');
 	
 	if($login['user_access_userdeactivate'])
 	{
