@@ -68,8 +68,8 @@ if(isset($_GET['editor']))
 		$editor->addChoice('area_group', $R['group_id'], $R['group_name']);
 	
 	
-	$editor->makeNewField('importdatanova_shop_id', _('Datanova import').' - '._('Shop id'), 'text');
-	$editor->makeNewField('importdatanova_alert_email', _('Datanova import').' - '._('Alert email(s)').'*', 'text');
+	$editor->makeNewField('importdatanova_shop_id', _h('Datanova import').' - '._h('Shop id'), 'text');
+	$editor->makeNewField('importdatanova_alert_email', _h('Datanova import').' - '._h('Alert email(s)').'*', 'text');
 	
 	$editor->getDB();
 	
