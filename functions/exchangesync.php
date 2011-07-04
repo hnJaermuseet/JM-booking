@@ -30,6 +30,7 @@ function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
 {
 		global $alert_admin, $alerts;
 		global $user_id;
+		global $systemurl;
 		
 		try
 		{
