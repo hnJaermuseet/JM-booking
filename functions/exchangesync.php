@@ -146,7 +146,7 @@ function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 			if(!isset($cal_ids[$this_sync['exchange_id']])) // $cal_ids: exchange_id = exchange_changeid
 			{
 				// So, the user or somebody has deleted the element in Exchange
-				printout('Err! Calendar element is deleted in Exchange! Alerting user and creates a new one.');
+				printout('Err! Calendar element for entry '.$entry['entry_id'].' is deleted in Exchange! Alerting user and creates a new one.');
 				$entry_sync = true;
 				
 				// Deleting from sync, this will keep the changed appointment in the users Exchange calendar but also create a new one
@@ -172,7 +172,7 @@ function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 				if($cal_ids[$this_sync['exchange_id']] != $this_sync['exchange_changekey'])
 				{
 					// So, the user or something has changed the element in Exchange
-					printout('Err! Calendar element is changed in Exchange! Alerting user and creates a new one.');
+					printout('Err! Calendar element for entry '.$entry['entry_id'].' is changed in Exchange! Alerting user and creates a new one.');
 					$entry_sync = true;
 					
 					// Deleting from sync, this will keep the changed appointment in the users Exchange calendar but also create a new one
