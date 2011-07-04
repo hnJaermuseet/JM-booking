@@ -328,24 +328,28 @@ function exchangesync_syncItems ($cal, $user, $user_id, $entries_sync)
 	$delete_where = array();
 	foreach($entries_sync as $entry_id => $entry)
 	{
-		//$entry = getEntry($entry['entry_id']); // Need more information
-		templateAssignEntry('entryObj', $entry);
-		
-		$rooms = $entryObj->room.' ('.$area[$entry['area_id']].')';
-		
-		// Add the entry to list of items
-		$i = $cal->createCalendarItems_addItem(
-			utf8_encode($entryObj->entry_name), 
-			exchangesync_getEntryCalendarDescription ($systemurl, $entryObj),
-			date('c', $entryObj->time_start), 
-			date('c', $entryObj->time_end),
-				array(
-					'ReminderIsSet' => false,
-					'Location' => utf8_encode($rooms),
-				),
-			$user['user_ews_sync_email']
-			);
-		$entries_new[$i] = $entry['entry_id'];
+		// Only create new if the user is still assigned to entry
+		if(isset($entry['user_assigned'][$user_id]))
+		{
+			//$entry = getEntry($entry['entry_id']); // Need more information
+			templateAssignEntry('entryObj', $entry);
+			
+			$rooms = $entryObj->room.' ('.$area[$entry['area_id']].')';
+			
+			// Add the entry to list of items
+			$i = $cal->createCalendarItems_addItem(
+				utf8_encode($entryObj->entry_name), 
+				exchangesync_getEntryCalendarDescription ($systemurl, $entryObj),
+				date('c', $entryObj->time_start), 
+				date('c', $entryObj->time_end),
+					array(
+						'ReminderIsSet' => false,
+						'Location' => utf8_encode($rooms),
+					),
+				$user['user_ews_sync_email']
+				);
+			$entries_new[$i] = $entry['entry_id'];
+		}
 		
 		// Delete this entry for this user
 		$delete_where[] = '(`entry_id` = \''.$entry['entry_id'].'\' && `user_id` = \''.$user_id.'\')';
@@ -378,14 +382,17 @@ function exchangesync_syncItems ($cal, $user, $user_id, $entries_sync)
 	
 	
 	// Create the new items
+	$created_items = array();
 	try
 	{
-		$created_items = $cal->createCalendarItems();
+		if(count($entries_new))
+			$created_items = $cal->createCalendarItems();
+		else
+			printout('No calendar items to be created');
 	}
 	catch (Exception $e)
 	{
 		printout('Exception - createCalendarItems: '.$e->getMessage().'<br />');
-		$created_items = array();
 		$alert_admin   = true;
 		$alerts[]      = 'createCalendarItems exception: '.$e->getMessage();
 	}
