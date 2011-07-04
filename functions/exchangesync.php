@@ -76,19 +76,24 @@ function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
 				if(!isset($item->Subject))
 					$item->Subject = '';
 				$cal_ids[$item->ItemId->Id] = $item->ItemId->ChangeKey;
-				printout('Existing: '.$item->Start.'   '.$item->End.'   '.$item->Subject);
+				// Debug:
+				//printout('Existing: '.$item->Start.'   '.$item->End.'   '.$item->Subject);
 			}
 		}
 		return $cal_ids; // Exchange id => Exchange change key
 }
 
-function exchangesync_getUsersEntriesInPeriod($user_id, $sync_from, $sync_to)
+function exchangesync_getUsersEntriesInPeriod($user_id, $start, $end)
 {
 	$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num, entry_name
 		from `entry` where 
-		(`user_assigned` LIKE '%;".$user_id.";%') AND 
-		(`time_end` >= '".$sync_from."') AND 
-		(`time_end` <  '".$sync_to."')");
+		(
+			(time_start <= '$start' and time_end > '$start') or 
+			(time_start < '$end' and time_end >= '$end') or
+			(time_start > '$start' and time_end < '$end')
+		)
+		and (`user_assigned` LIKE '%;".$user_id.";%')");
+	
 	$entries = array();
 	checkMysqlErrorAndThrowException(__LINE__, __FILE__);
 	while($R_entry = mysql_fetch_assoc($Q_next_entries))
@@ -98,13 +103,17 @@ function exchangesync_getUsersEntriesInPeriod($user_id, $sync_from, $sync_to)
 	return $entries;
 }
 
-function exchangesync_getUsersSyncdata ($user_id, $sync_from)
+function exchangesync_getUsersSyncdata ($user_id, $start, $end)
 {
 	$sync = array();
 	$Q = mysql_query("select * from `entry_exchangesync` 
 		WHERE
-			`user_id` = '".$user_id."' AND
-			`sync_until` >= '".$sync_from."'");
+				(
+				(sync_from <= '$start' and sync_to > '$start') or 
+				(sync_from < '$end' and sync_to >= '$end') or
+				(sync_from > '$start' and sync_to < '$end')
+			)
+			and `user_id` = '".$user_id."'");
 	checkMysqlErrorAndThrowException(__LINE__, __FILE__);
 	while($R_sync = mysql_fetch_assoc($Q))
 	{
@@ -117,7 +126,8 @@ function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 {
 	global $alert_admin, $alerts;
 	global $systemurl;
-	global $sync, $entryObj, $entries_new, $entries_delete;
+	global $sync, $entryObj, $entries_sync;
+	global $area;
 	
 	foreach($entries as $entry) // Running through items in database
 	{
@@ -132,21 +142,22 @@ function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 			{
 				// So, the user or somebody has deleted the element in Exchange
 				printout('Err! Calendar element is deleted in Exchange! Alerting user and creates a new one.');
-				$create_new  = true;
-				$delete      = false;
+				$entry_sync = true;
 				
-				// Deleting from sync
+				// Deleting from sync, this will keep the changed appointment in the users Exchange calendar but also create a new one
 				mysql_query("DELETE FROM `entry_exchangesync`
 					WHERE
 						`exchange_id` = '".$this_sync['exchange_id']."'
 					");
 				printout_mysqlerror ();
 				
+				// Alert user
 				emailSend($user_id,
 						'Slettet avtale i kalender',
 						exchangesync_getUsermsgDeleted ($entry)
 					);
 				
+				// Alert admin
 				$alert_admin = true;
 				$alerts[]    = 'User '.$user_id.' has deleted a calendar item.';
 			}
@@ -157,21 +168,22 @@ function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 				{
 					// So, the user or something has changed the element in Exchange
 					printout('Err! Calendar element is changed in Exchange! Alerting user and creates a new one.');
-					$create_new  = true;
-					$delete      = false;
+					$entry_sync = true;
 					
-					// Deleting from sync
+					// Deleting from sync, this will keep the changed appointment in the users Exchange calendar but also create a new one
 					mysql_query("DELETE FROM `entry_exchangesync`
 						WHERE
 							`exchange_id` = '".$this_sync['exchange_id']."'
 						");
 					printout_mysqlerror ();
 					
+					// Alert user
 					emailSend($user_id,
 						'Endret avtale i kalender',
 						exchangesync_getUsermsgChanged($entry)
 					);
 					
+					// Alert admin
 					$alert_admin = true;
 					$alerts[]    = 'User '.$user_id.' has edited a calendar item.';
 				}
@@ -185,52 +197,31 @@ function exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id)
 					{
 						// Create a new calendar element and delete the old one
 						// (no updates)
-						$create_new  = true;
-						$delete      = true;
-						$delete_id   = $this_sync['exchange_id'];
+						$entry_sync = true;
 					}
 					else
 					{
 						// No changes anywhere, do nothing
-						$create_new  = false;
-						$delete      = false;
+						$entry_sync = false;
 					}
 				}
 			}
 		}
 		else
 		{
-			// Never synced before, create a new one
-			$create_new  = true;
-			$delete      = false;
+			// Not synced in this period of time before
+			// => check the others too
+			$entry_sync = true;
 		}
 		
-		if($create_new)
+		/*
+		*/
+		if($entry_sync)
 		{
-			$entry = getEntry($entry['entry_id']); // Need more information
-			templateAssignEntry('entryObj', $entry);
-			
-			$rooms = $entryObj->room.' ('.$area[$entry['area_id']].')';
-			
-			// Add the entry to list of items
-			$i = $cal->createCalendarItems_addItem(
-				utf8_encode($entryObj->entry_name), 
-				exchangesync_getEntryCalendarDescription ($systemurl, $entryObj),
-				date('c', $entryObj->time_start), 
-				date('c', $entryObj->time_end),
-					array(
-						'ReminderIsSet' => false,
-						'Location' => utf8_encode($rooms),
-					),
-				$user['user_ews_sync_email']
-				);
-			$entries_new[$i] = $entry['entry_id'];
-		}
-		if($delete)
-		{
-			$entries_delete[$delete_id] = $entry['entry_id'];
+			$entries_sync[$entry['entry_id']] = getEntry($entry['entry_id']);
 		}
 		
+		unset($entry_sync);
 		unset($sync[$entry['entry_id']]);
 	}
 }
@@ -324,11 +315,68 @@ function exchangesync_getUsermsgNonPrimarySmtpAddress($systemurl)
 		'Mvh. Bookingsystemet';
 }
 
-function exchangesync_createItems ($entries, $cal, $entries_new, $user_id)
+function exchangesync_syncItems ($cal, $user, $user_id, $entries_sync)
 {
 	global $alert_admin, $alerts;
 	global $systemurl;
+	global $entryObj;
+	global $created_items, $deleted_items; // "Returns"
+	global $area;
 	
+	// Build where statement for query and add items that needs to be created
+	$entries_new = array();
+	$delete_where = array();
+	foreach($entries_sync as $entry_id => $entry)
+	{
+		//$entry = getEntry($entry['entry_id']); // Need more information
+		templateAssignEntry('entryObj', $entry);
+		
+		$rooms = $entryObj->room.' ('.$area[$entry['area_id']].')';
+		
+		// Add the entry to list of items
+		$i = $cal->createCalendarItems_addItem(
+			utf8_encode($entryObj->entry_name), 
+			exchangesync_getEntryCalendarDescription ($systemurl, $entryObj),
+			date('c', $entryObj->time_start), 
+			date('c', $entryObj->time_end),
+				array(
+					'ReminderIsSet' => false,
+					'Location' => utf8_encode($rooms),
+				),
+			$user['user_ews_sync_email']
+			);
+		$entries_new[$i] = $entry['entry_id'];
+		
+		$delete_where[] = '`entry_id` = \''.$entry['entry_id'].'\'';
+	}
+	
+	// Delete in Exchange
+	$Q_sync = mysql_query("select * from `entry_exchangesync`
+		WHERE ".implode(' || ', $delete_where));
+	$deleted_items = array();
+	while($R_sync = mysql_fetch_assoc($Q_sync))
+	{
+		try
+		{
+			$deleted_item = $cal->deleteItem($R_sync['exchange_id']);
+			$deleted_items[$R_sync['entry_id']] = $deleted_item;
+			printout($R_sync['entry_id'].' deleted');
+		}
+		catch (Exception $e)
+		{
+			printout('Exception - deleteItem - '.$R_sync['entry_id'].': '.$e->getMessage());
+			$alert_admin = true;
+			$alerts[]    = 'deleteItem exception';
+		}
+	}
+	
+	// Delete all the exchangesync data
+	$Q_sync = mysql_query("delete from `entry_exchangesync`
+		WHERE ".implode(' || ', $delete_where));
+	printout_mysqlerror ();
+	
+	
+	// Create the new items
 	try
 	{
 		$created_items = $cal->createCalendarItems();
@@ -345,8 +393,9 @@ function exchangesync_createItems ($entries, $cal, $entries_new, $user_id)
 	{
 		if(!is_null($ids['Id'])) // Null = unsuccessful
 		{
-			$entry = $entries[$entries_new[$i]];
+			$entry = $entries_sync[$entries_new[$i]];
 			printout($entries_new[$i].' created.');
+			
 			// Inserting in sync
 			mysql_query("INSERT INTO `entry_exchangesync` (
 				`entry_id` ,
@@ -354,7 +403,8 @@ function exchangesync_createItems ($entries, $cal, $entries_new, $user_id)
 				`exchange_changekey`,
 				`user_id`,
 				`entry_rev`,
-				`sync_until`
+				`sync_from`,
+				`sync_to`
 			)
 			VALUES (
 				'".$entry['entry_id']."' , 
@@ -362,6 +412,7 @@ function exchangesync_createItems ($entries, $cal, $entries_new, $user_id)
 				'".$ids['ChangeKey']."',
 				'".$user_id."',
 				'".$entry['rev_num']."',
+				'".$entry['time_start']."',
 				'".$entry['time_end']."'
 			);");
 			printout_mysqlerror ();
@@ -389,42 +440,7 @@ function exchangesync_createItems ($entries, $cal, $entries_new, $user_id)
 		}
 	}
 }
-/**
- * 
- * @param  array   exchangeid => entry_id
- * @param  ???
- */
-function exchangesync_deleteItems($entries_delete, $cal)
-{
-	global $alert_admin, $alerts;
-	
-	$deleted_items = array();
-	foreach($entries_delete as $delete_id => $entry_id)
-	{
-		try
-		{
-			//$sync[$entry['entry_id']]['exchange_id']
-			$deleted_item = $cal->deleteItem($delete_id);
-			$deleted_items[$entry_id] = $deleted_item;
-			printout($entry_id.' deleted');
-			
-			// Deleting from sync
-			mysql_query("DELETE FROM `entry_exchangesync`
-				WHERE
-					`exchange_id` = '".$delete_id."'
-				");
-			printout_mysqlerror ();
-		}
-		catch (Exception $e)
-		{
-			printout('Exception - deleteItem - '.$entry_id.': '.$e->getMessage());
-			$alert_admin = true;
-			$alerts[]    = 'deleteItem exception';
-		}
-	}
-	
-	return $deleted_items;
-}
+
 
 function exchangesync_getAllAreas()
 {

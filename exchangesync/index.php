@@ -87,23 +87,28 @@ CREATE TABLE `entry_exchangesync` (
 */
 
 $alert_admin = false;
-$require_login = false;
-$path_site_config = '../config/site.config.php';
-
-require_once dirname(__FILE__).'/../libs/ExchangePHP/ExchangePHP.php';
-require_once dirname(__FILE__).'/../functions/exchangesync.php';
-
+function alertAdmin($alerts = array())
+{
+	emailSendAdmin ('Problems in exchangesync', 
+		'Please see log around '. date('H:i d-m-Y').chr(10).
+		'Alerts:'.chr(10).implode(chr(10), $alerts));
+}
 function printout ($txt)
 {
-	global $user_id;
+	global $user_id, $sync_from, $sync_to;
+	if(isset($sync_from) && isset($sync_to))
+		$sync = '['.date('Y-m-d', $sync_from).'-'.date('Y-m-d', $sync_to).'] ';
+	else
+		$sync = '';
+	
 	if(php_sapi_name() == 'cli') // Command line
 	{
-		echo date('Y-m-d H:i:s').' [user '.$user_id.'] '.$txt."\r\n";
+		echo date('Y-m-d H:i:s', time()).' [user '.$user_id.'] '.$sync.$txt."\r\n";
 	}
 	else
 	{
 		echo str_replace(' ', '&nbsp;', 
-			date('Y-m-d H:i:s').' [user '.$user_id.'] '.$txt).'<br />'.chr(10);
+			date('Y-m-d H:i:s', time()).' [user '.$user_id.'] '.$sync.$txt).'<br />'.chr(10);
 	}
 }
 function printout_mysqlerror ()
@@ -112,17 +117,38 @@ function printout_mysqlerror ()
 		printout(mysql_error());
 }
 
-// MySQL and other stuff, using the same as the rest of the system
-require_once dirname(__FILE__).'/../glob_inc.inc.php';
-
-if(php_sapi_name() != 'cli' && $exchangesync_from_clionly)
+function checkMysqlErrorAndThrowException($line, $file)
 {
-	echo 'Only accessable from command line.';
-	alertAdmin(array($_SERVER['REMOTE_ADDR'].' tried to access exchangesync from web.'));
-	exit;
+	if(mysql_error())
+		throw new Exception('MySQL error in '.$file.' just above line '.$line.': '.mysql_error());
 }
 
-try {
+try
+{
+	set_time_limit(600);
+	error_reporting(E_ALL);
+	function error_handler($err_no, $err_str, $err_file, $err_line)
+	{
+		throw new Exception('Errorno '.$err_no.chr(10).$err_str.chr(10).'File: '.$err_file.':'.$err_line);
+	}
+	set_error_handler('error_handler');
+	
+	$require_login = false;
+	$path_site_config = '../config/site.config.php';
+	
+	require_once dirname(__FILE__).'/../libs/ExchangePHP/ExchangePHP.php';
+	require_once dirname(__FILE__).'/../functions/exchangesync.php';
+	
+	// MySQL and other stuff, using the same as the rest of the system
+	require_once dirname(__FILE__).'/../glob_inc.inc.php';
+
+	if(php_sapi_name() != 'cli' && $exchangesync_from_clionly)
+	{
+		echo 'Only accessable from command line.';
+		alertAdmin(array($_SERVER['REMOTE_ADDR'].' tried to access exchangesync from web.'));
+		exit;
+	}
+
 	// Checking config
 	if(!isset($exchangesync_login))
 		throw new Exception('Missing in config: $exchangesync_login not set. Please put this in site config (see default.config.php for example)');
@@ -159,48 +185,64 @@ try {
 	
 	foreach($users as $user_id => $user)
 	{
+		if($user_id != 6) // Disable all users except user with id 6
+			continue;
+		
 		try
 		{
-			// Getting all calendar elements from Exchange
-			$cal_ids = exchangesync_getCalendarItems (
-					$cal,
-					date('Y-m-d').'T00:00:00', // Today
-					date('Y-m-d',time()+61171200).'T00:00:00', // Approx 2 years, seems to be a limit
-					$user['user_ews_sync_email']
-				);
-			
-			// Period to sync
-			$sync_from  = mktime(0,0,0,date('m'), date('d'), date('Y'));
-			$sync_to    = mktime(0,0,0,date('m'), date('d')-50, date('Y')+2); // Next 2 years
-			
-			// Getting the users entries
-			$entries = exchangesync_getUsersEntriesInPeriod ($user_id, $sync_from, $sync_to);
-			
-			// Getting sync-data for the user
-			$sync = exchangesync_getUsersSyncdata ($user_id, $sync_from);
-			
-			// Analysing which to create, which to delete and which not to touch
-			$entries_new     = array();
-			$entries_delete  = array();
-			exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id);
-			
-			// Delete any entries removed from this user that is already synced
-			foreach($sync as $entry_id => $R_sync)
+			for($year = 2008; $year <= date('Y')-2; $year++) // TODO: fix not only date('Y')-2
 			{
-				// => Delete
-				$entries_delete[$R_sync['exchange_id']] = $entry_id;
+				// Period to sync
+				$sync_from  = mktime(0,0,0,01, 01, $year);
+				$sync_to    = mktime(0,0,0,date('m'), date('d')-50, $year+2); // Next 2 years
+				//$sync_to2   = $sync_from+(708*60*60*24);
+				$sync_to    = mktime(0,0,0,01, 01, $year+1)-1; // Next year
+				$sync_to2   = $sync_to+(5*24*60*60); // + 5 days
+				
+				$sync_from2 = $sync_from-(5*24*60*60); // - 5 days
+				
+				// Getting all calendar elements from Exchange
+				if(($sync_to2 - $sync_from) > (2*365*24*60*60)) // Not more than 2 years
+					throw new Exception ('Exchange will not return more than 2 years. '.
+						'Tried to retrive from '.
+							date('d-m-Y H:i:s', $sync_from).
+						' to '.
+							date('d-m-Y H:i:s', $sync_to2));
+					// TODO: put exception in exchangesync_getCalendarItems instead
+				$cal_ids = exchangesync_getCalendarItems (
+						$cal,
+						date('Y-m-d', $sync_from2).'T00:00:00',
+						date('Y-m-d', $sync_to2).'T00:00:00',
+						$user['user_ews_sync_email']
+					);
+				printout('Number of items in Exchange (+/- 5 days): '.(count($cal_ids)));
+				
+				// Getting the users entries
+				$entries = exchangesync_getUsersEntriesInPeriod ($user_id, $sync_from, $sync_to);
+				printout('Number of entries in period: '.(count($entries)));
+				
+				// Getting sync-data for the user
+				$sync = exchangesync_getUsersSyncdata ($user_id, $sync_from, $sync_to);
+				printout('Number of entries already synced in period: '.(count($sync)));
+				
+				// Analysing which to sync and which not to touch
+				$entries_sync = array();
+				exchangesync_analyzeSync ($entries, $cal_ids, $cal, $user, $user_id);
+				
+				// Sync any entries removed from this user that has been synced earlier
+				foreach($sync as $entry_id => $R_sync)
+				{
+					// => Sync
+					$entries_sync[$entry_id] = getEntry($entry_id);
+				}
+				
+				// Sync items
+				printout(count($entries_sync).' items to be synced to Exchange');
+				if(count($entries_sync))
+				{
+					exchangesync_syncItems ($cal, $user, $user_id, $entries_sync);
+				}
 			}
-			
-			// Create items
-			if(!count($entries_new))
-				printout('No items to be created in Exchange');
-			else
-			{
-				exchangesync_createItems ($entries, $cal, $entries_new, $user_id);
-			}
-			
-			// Delete items
-			$deleted_items = exchangesync_deleteItems ($entries_delete, $cal);
 		}
 		catch (Exception $e)
 		{
@@ -217,18 +259,5 @@ catch (Exception $e)
 	$alerts[] = 'Exception: '.$e->getMessage();
 }
 
-function checkMysqlErrorAndThrowException($line, $file)
-{
-	if(mysql_error())
-		throw new Exception('MySQL error in '.$file.' just above line '.$line.': '.mysql_error());
-}
-
 if($alert_admin)
 	alertAdmin($alerts);
-
-function alertAdmin($alerts = array())
-{
-	emailSendAdmin ('Problems in exchangesync', 
-		'Please see log around '. date('H:i d-m-Y').chr(10).
-		'Alerts:'.chr(10).implode(chr(10), $alerts));
-}

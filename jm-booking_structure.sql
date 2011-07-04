@@ -671,3 +671,13 @@ CREATE TABLE `jm-booking`.`invoiced_emails` (
 `email_addr` VARCHAR( 255 ) NOT NULL
 ) ENGINE = InnoDB ;
 ALTER TABLE `invoiced` CHANGE `created` `created` INT( 11 ) NOT NULL ;
+
+
+
+--
+-- Database upgrades - 01.07.2011
+-- Exchangesync handles all entries, not just the future
+--
+ALTER TABLE `entry_exchangesync` DROP `sync_until` ;
+ALTER TABLE `entry_exchangesync` ADD `sync_from` INT NOT NULL AFTER `exchange_changekey` ,
+ADD `sync_to` INT NOT NULL AFTER `sync_from` ;
