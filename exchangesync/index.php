@@ -190,7 +190,7 @@ try
 		
 		try
 		{
-			for($year = 2008; $year <= date('Y')-2; $year++) // TODO: fix not only date('Y')-2
+			for($year = 2008; $year <= date('Y')+2; $year++)
 			{
 				// Period to sync
 				$sync_from  = mktime(0,0,0,01, 01, $year);
