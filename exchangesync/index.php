@@ -185,7 +185,7 @@ try
 	
 	foreach($users as $user_id => $user)
 	{
-		if($user_id != 6) // Disable all users except user with id 6
+		if($user_id != 6 && $user_id != 48) // Disable all users except user with id 6 and 48
 			continue;
 		
 		try
