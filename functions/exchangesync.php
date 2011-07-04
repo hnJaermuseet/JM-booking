@@ -75,6 +75,11 @@ function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
 			foreach($calendaritems as $item) {
 				if(!isset($item->Subject))
 					$item->Subject = '';
+				if(!isset($item->ItemId))
+				{
+					printout(__FILE__.':'.__LINE__.' - $item->ItemId not set, var_dump is:');
+					var_dump($item);
+				}
 				$cal_ids[$item->ItemId->Id] = $item->ItemId->ChangeKey;
 				// Debug:
 				//printout('Existing: '.$item->Start.'   '.$item->End.'   '.$item->Subject);
