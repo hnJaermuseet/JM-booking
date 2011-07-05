@@ -84,8 +84,8 @@ if(isset($_POST['WEBAUTH_USER']))
 
 if(isLoggedIn())
 {
-	echo _("You're already logged in.").'<br><br>';
-	echo "<a href=\"logout.php\">"._("Log out").'</a>';
+	echo _('You\'re already logged in.').'<br><br>';
+	echo '<a href="logout.php">'._('Log out').'</a>';
 	exit();
 }
 else
@@ -95,69 +95,78 @@ else
 	else
 		$user = '';
 	
-	echo '<HTML>
-    <HEAD>
-    <TITLE>';
-	echo _("JM-booking"); 
-	echo ' - ';
-	echo _("Log in"); 
-	echo '</TITLE>
-<LINK REL="stylesheet" href="css/jm-booking.css" type="text/css">
-<META HTTP-EQUIV="Content-Type" content="text/html; charset=iso-8859-1">
-<script type="text/javascript" src="js/browser_detection.js"></script>
-    </HEAD>
-	';
-	echo "<br><br><br><br>";
-	//echo '<script>if(!moz||!moz_brow==\'Firefox\') alert(\'Du kjører ikke Firefox. Det er ikke anbefalt og det kan hende at enkelte funksjoner ikke fungerer. Ta helst å bytt over til Firefox!\');</script>';
+	echo '<html>'.chr(10).'<head>'.chr(10).
+		'	<title>'._('JM-booking').' - '._('Log in').'</title>'.chr(10).
+		'	<link rel="stylesheet" href="css/jm-booking.css" type="text/css">'.chr(10).
+		'	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">'.chr(10).
+		'	<script type="text/javascript" src="js/browser_detection.js"></script>'.chr(10).
+		'</head>'.chr(10).
+		'<body>'.chr(10);
+	
+	echo '<br><br><br><br>'.chr(10).chr(10);
 	echo $testSystem['msgLogin'];
-	//echo "<div style=\"border:1px solid #0000ff;\">";
 	
-	//echo "</div>";
+	echo 
+		'<table '.
+			'style="border:0px solid #0000ff; border-collapse:collapse;" '.
+			'align="center" '.
+			'cellspacing="0" '.
+			'cellpadding="0">'.chr(10);
+			'	<tr>'.chr(10);
 	
-	//echo "<br><br>";
-	echo '<table style="border:0px solid #0000ff; border-collapse:collapse;" align=center cellspacing=0 cellpadding=0>';
-	
-	echo '<tr>';
-	
-	echo '<td align="center" style="border:1px solid #0000ff; padding: 30px;">';
-	echo '<form method=POST action="'.$_SERVER['PHP_SELF'].'">';
+	echo '		<td align="center" style="border:1px solid #0000ff; padding: 30px;">'.chr(10);
+	echo '			<form method="POST" action="'.$_SERVER['PHP_SELF'].'">'.chr(10);
 	if(isset($_GET['redirect']))
 		echo '<input type="hidden" name="redirect" value="'.$_GET['redirect'].'">'.chr(10);
-	echo "<table width=300 border=0 align=center cellspacing=0 cellpadding=1>";
-	echo '<tr><td colspan="2" style="text-align:center; font-size:18px; padding: 10px;"><b>Innlogging til booking</b></td></tr>';
+	echo chr(10).
+		'<table width="300" border="0" align="center" cellspacing="0" cellpadding="1">'.chr(10).
+		'	<tr>'.chr(10).
+		'		<td colspan="2" style="text-align:center; font-size:18px; padding: 10px;"><b>Innlogging til booking</b></td>'.chr(10).
+		'	</tr>'.chr(10).chr(10);
 	if(!$deactivated && isset($_POST['WEBAUTH_USER'])) {
-		echo '<tr><td colspan="2"" align="center"><div class="error">'.
+		echo '	<tr><td colspan="2"" align="center"><div class="error">'.
 		_("Username and/or password is wrong").
-		'</div></td></tr>';
+		'</div></td></tr>'.chr(10).chr(10);
 	}
 	if($deactivated) {
-		echo '<tr><td colspan="2" align="center"><div class="error">'.
+		echo '	<tr><td colspan="2" align="center"><div class="error">'.
 		_('The account is disabled').
-		'</div></td></tr>';
+		'</div></td></tr>'.chr(10).chr(10);
 	}
-	echo "<tr><td>", _("Username"), "</td>";
-	echo "<td><input id=\"dofocus\" type=\"text\" value=\"".$user."\" name=\"WEBAUTH_USER\"></td></tr>";
+	echo '	<tr>'.chr(10).
+		'		<td>'._('Username').'</td>'.chr(10).
+		'		<td><input id="dofocus" type="text" value="'.$user.'" name="WEBAUTH_USER"></td>'.chr(10).
+		'	</tr>'.chr(10).chr(10);
 	
-	echo "<tr><td>", _("Password"), "</td>";
-	echo "<td><input id=\"dofocus2\" type=\"password\" name=\"WEBAUTH_PW\"></td></tr>";
+	echo '	<tr>'.chr(10).
+		'		<td>'._('Password').'</td>'.chr(10).
+		'		<td><input id="dofocus2" type="password" name="WEBAUTH_PW"></td>'.chr(10).
+		'	</tr>'.chr(10).chr(10);
 	
-	echo "<tr><td>&nbsp;</td><td><input type=\"submit\" value=\"", _("Log in"), "\"></td>";
-	//echo "<td><a href=\"javascript:history.back()\">", _("Back"), "</a></td>";
-	echo "</tr></table>";
-	echo "</form>";
-	echo '</td>';
+	echo '	<tr>'.chr(10).
+		'		<td>&nbsp;</td>'.chr(10).
+		'		<td><input type="submit" value="'._('Log in').'"></td>'.chr(10).
+		'	</tr>'.chr(10).chr(10);
+	echo '</table>'.chr(10).chr(10);
+	echo '			</form>'.chr(10);
+	echo '		</td>'.chr(10);
 	
-	echo '<td style="text-align: center; vertical-align:middle; border:1px solid #0000ff; padding: 30px; width: 300px;">'.
-	'<a href="/wiki/" style="font-size: 28px">Wiki</a><br>'.
-	'Wiki for opplæring og rutiner på Vitenfabrikken</td>';
-	echo "</tr></table>";
+	echo 
+	'		<td style="text-align: center; vertical-align:middle; border:1px solid #0000ff; padding: 30px; width: 300px;">'.chr(10).
+	'			<a href="/wiki/" style="font-size: 28px">Wiki</a><br>'.chr(10).
+	'			Wiki for opplæring og rutiner på Vitenfabrikken'.chr(10).
+	'		</td>'.chr(10).
+	'	</tr>'.chr(10).
+	'</table>'.chr(10).chr(10);
 	
 	if(isset($_POST['WEBAUTH_USER']))
-		echo "<script language=JavaScript>document.getElementById('dofocus2').focus();</script>";
+		echo '<script language="javascript">document.getElementById(\'dofocus2\').focus();</script>';
 	else
-		echo "<script language=JavaScript>document.getElementById('dofocus').focus();</script>";
+		echo '<script language="javascript">document.getElementById(\'dofocus\').focus();</script>';
 	
-	echo "</body></html>";
+	echo chr(10).
+		'</body>'.chr(10).
+		'</html>';
 	
 	exit();
 }
