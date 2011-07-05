@@ -48,7 +48,7 @@ if(isset($_GET['editor']))
 				return 'NoT_jEt_sEt';
 			}
 			else
-				return md5($input);
+				return getPasswordHash ($input);
 		}
 		
 		function checkInput_password ($var) {

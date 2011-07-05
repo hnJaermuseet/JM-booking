@@ -45,7 +45,7 @@ if(isset($_POST['WEBAUTH_USER']))
 	else
 	{
 		$user	= slashes(htmlspecialchars(strip_tags($user),ENT_QUOTES)); // Username
-		$pass	= md5($pass); // md5 hash of the password
+		$pass	= getPasswordHash ($pass);
 		
 		// Checking against database
 		$Q_login = mysql_query("select user_id, deactivated from `users` where user_name_short = '".$user."' and user_password = '".$pass."' limit 1");

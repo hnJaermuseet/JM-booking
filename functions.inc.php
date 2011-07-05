@@ -2311,6 +2311,16 @@ function checkUser ($user_id = '0')
 	}
 }
 
+/**
+ * Returns a hash of the password
+ * 
+ * @return string
+ */
+function getPasswordHash ($password)
+{
+	// TODO: add salt
+	return md5($password);
+}
 
 // From auth_sql.inc.php
 function getUserName(){
@@ -2340,8 +2350,8 @@ function isLoggedIn ()
 {
 	global $login;
 	// $login['user_id'], $login['user_password']
-	// password is in md5()
-	
+	// password is a hash (from getPasswordHash ())
+		
 	if(!isset($login['user_id']) || $login['user_id'] == '' || $login['user_id'] == '0' || $login['user_password'] == '')
 	{
 		return FALSE;
