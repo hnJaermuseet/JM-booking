@@ -234,7 +234,7 @@ function print_header($day, $month, $year, $area){
 			
 			// By default, use the current area when going into the invoice part
 			if(!$login['user_invoice'])
-				echo '?area_id='.$area['area_id'];
+				echo '?area_id='.$area;
 			echo '">'.
 			iconHTML('coins').' '.
 			_('Invoice').'</a>'.chr(10);
