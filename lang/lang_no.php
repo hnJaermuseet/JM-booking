@@ -6,6 +6,8 @@ function langNo($text)
 {
 	switch($text)
 	{
+		case 'The area you tried to access does not exist. Viewing data for all areas instead.':
+			return 'Anlegget du forsøkte å se på eksisterer ikke. Viser derfor data for alle anlegg i stedet.';
 		case 'View month':
 			return 'Vis måned';
 		case 'Text on infoscreen':

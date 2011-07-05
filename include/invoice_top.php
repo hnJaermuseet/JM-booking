@@ -41,20 +41,26 @@ if(!$login['user_invoice'] && !$login['user_invoice_setready'])
 	exit();
 }
 
-
+$area_failed = false;
 if(isset($_GET['area_id']) && $_GET['area_id'] != '')
 {
 	$area_invoice = getArea($_GET['area_id']);
-	if(!count($area_invoice))
+	if(count($area_invoice))
 	{
-		echo _('Can\'t find the area you want data from.');
-		exit;
+		$area_spesific = true;
 	}
-	
-	$area_spesific = true;
+	else
+	{
+		$area_spesific  = false;
+		$area_failed    = true;
+		unset($_GET['area_id']);
+		unset($area_invoice);
+	}
 }
 else
+{
 	$area_spesific = false;
+}
 
 
 /* Functions for printing of bookinglists */

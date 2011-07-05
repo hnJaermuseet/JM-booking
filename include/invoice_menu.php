@@ -72,6 +72,10 @@ if($area_spesific)
 	echo ' - viser '.$area_invoice['area_name'];
 echo '</h2>'.chr(10);
 
+if(!$area_spesific && $area_failed)
+{
+	echo '<div class="notice">'._h('The area you tried to access does not exist. Viewing data for all areas instead.').'</div>';
+}
 echo '<a href="invoice_main.php"';
 if($section=="main") echo "style='color:red'";
 echo '>'._('Main page').'</a> -:- ';
