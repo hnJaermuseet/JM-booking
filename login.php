@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	JM-booking - login
 */
 
-include "glob_inc.inc.php";
+include 'glob_inc.inc.php';
 
 $deactivated = false;
 if(isset($_POST['WEBAUTH_USER']))

@@ -124,14 +124,14 @@ if (!defined('LC_MESSAGES'))
 	define('LC_MESSAGES', 6); // windows workaround for LC_MESSAGES
 
 //putenv ("LANGUAGE=nb_NO");
-putenv ("LANG=".$locale); 
+putenv ('LANG='.$locale); 
 
 //setlocale(LC_MESSAGES, $locale);
-bindtextdomain("arbs", "./lang");
+bindtextdomain('arbs', './lang');
 
-textdomain("arbs");
+textdomain('arbs');
 
-setlocale(LC_TIME, "");
+setlocale(LC_TIME, '');
 
 
 /* ## Database connection ## */
@@ -144,7 +144,8 @@ debugAddToLog(__FILE__, __LINE__, 'Connecting to database server');
 $db_c = mysql_connect($db_host, $db_login, $db_password);
 
 if (!$db_c || !mysql_select_db ($db_database)){
-	echo "\n<p>\n", _("FATAL ERROR: Couldn't connect to database."), "\n";
+	echo chr(10).'<p>'.chr(10).
+		_("FATAL ERROR: Couldn't connect to database.").chr(10);
 	exit;
 }
 
@@ -152,9 +153,9 @@ if (!$db_c || !mysql_select_db ($db_database)){
 #also, all changeing code for language selection is at config.inc.php
 #sometimes, script include other stand-alone scripts -> include_once
 debugAddToLog(__FILE__, __LINE__, 'Including functions');
-include_once "functions.inc.php";
+include_once 'functions.inc.php';
 debugAddToLog(__FILE__, __LINE__, 'Including auth_sql.inc.php');
-include_once "auth_sql.inc.php";
+include_once 'auth_sql.inc.php';
 
 /* showAccessDenied()
  * 
