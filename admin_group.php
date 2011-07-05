@@ -53,7 +53,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	$gusers2 = '';
 	foreach ($gusers as $user_id)
 	{
-		$the_user = getUserinfo ($user_id);
+		$the_user = getUser($user_id);
 		if(count($the_user))
 		{
 			if(!isset($gusers1[$user_id]))

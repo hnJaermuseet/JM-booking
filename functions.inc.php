@@ -2311,4 +2311,60 @@ function checkUser ($user_id = '0')
 	}
 }
 
-?>
+
+// From auth_sql.inc.php
+function getUserName(){
+    if(isset($_SESSION['WEBAUTH_VALID'])){
+        return $_SESSION['WEBAUTH_USER'];
+    }
+	elseif(isset($_POST['WEBAUTH_USER'])) {
+		return $_POST['WEBAUTH_USER'];
+	}
+	else
+		return '';
+}
+
+// From auth_sql.inc.php
+function getUserPassword(){
+    if(isset($_SESSION['WEBAUTH_VALID'])){
+        return $_SESSION['WEBAUTH_PW'];
+    }
+	elseif(isset($_POST['WEBAUTH_PW']))
+		return $_POST['WEBAUTH_PW'];
+	else
+		return '';
+}
+
+// From auth_sql.inc.php
+function isLoggedIn ()
+{
+	global $login;
+	// $login['user_id'], $login['user_password']
+	// password is in md5()
+	
+	if(!isset($login['user_id']) || $login['user_id'] == '' || $login['user_id'] == '0' || $login['user_password'] == '')
+	{
+		return FALSE;
+	}
+	else
+	{
+		$Q_login = mysql_query("select user_id from `users` where user_id = '".$login['user_id']."' and user_password = '".$login['user_password']."' limit 1");
+		if(mysql_num_rows($Q_login) > '0')
+		{
+			return TRUE;
+		}
+		else
+			return FALSE;
+	}
+	return FALSE;
+}
+
+// From auth_sql.inc.php
+function getUserinfoLoggedin ()
+{
+	global $login;
+	global $userinfo;
+	
+	$userinfo = getUser($login['user_id']);
+	$login = $userinfo;
+}

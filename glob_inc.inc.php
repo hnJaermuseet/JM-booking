@@ -154,8 +154,6 @@ if (!$db_c || !mysql_select_db ($db_database)){
 #sometimes, script include other stand-alone scripts -> include_once
 debugAddToLog(__FILE__, __LINE__, 'Including functions');
 include_once 'functions.inc.php';
-debugAddToLog(__FILE__, __LINE__, 'Including auth_sql.inc.php');
-include_once 'auth_sql.inc.php';
 
 /* showAccessDenied()
  * 
