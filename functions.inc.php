@@ -37,7 +37,7 @@ require_once 'lang/lang.php';
 
 function print_header($day, $month, $year, $area){
 	global $lang, $search_str,$nrbs_pageheader,$session_selected_language,$header_links;
-	global $userinfo, $testSystem;
+	global $testSystem;
 	global $selected_room;
 	global $login;
 	
@@ -183,7 +183,7 @@ function print_header($day, $month, $year, $area){
 		echo '				</td>'.chr(10);
 		
 		echo '				<td class="banner'.$testSystem['bannerExtraClass'].'" align="center">'.chr(10);
-		echo '					'._("Logged in as").' <a href="user.php?user_id='.$userinfo['user_id'].'">'.$userinfo['user_name'].'</a><br>'.chr(10);
+		echo '					'._("Logged in as").' <a href="user.php?user_id='.$login['user_id'].'">'.$login['user_name'].'</a><br>'.chr(10);
 		echo '					<a href="logout.php">'.
 			iconHTML('bullet_delete').' '.
 			_("Log out").'</a><br>'.chr(10);
@@ -2363,8 +2363,6 @@ function isLoggedIn ()
 function getUserinfoLoggedin ()
 {
 	global $login;
-	global $userinfo;
 	
-	$userinfo = getUser($login['user_id']);
-	$login = $userinfo;
+	$login = getUser($login['user_id']);
 }
