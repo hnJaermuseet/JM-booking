@@ -82,46 +82,6 @@ if(isset($_POST['WEBAUTH_USER']))
 	}
 }
 
-if(isset($_GET['sendepost']) &&
-	isset($_POST['sendepost_navn']) &&
-	isset($_POST['sendepost_epost']) &&
-	isset($_POST['sendepost_melding']))
-{
-	require "libs/mail.class.php";
-	$epostform_feilfunnet = false;
-	
-	$_POST['sendepost_navn']	= htmlspecialchars(strip_tags($_POST['sendepost_navn']),ENT_QUOTES);
-	$_POST['sendepost_epost']	= htmlspecialchars(strip_tags($_POST['sendepost_epost']),ENT_QUOTES);
-	$_POST['sendepost_melding']	= htmlspecialchars(strip_tags($_POST['sendepost_melding']),ENT_QUOTES);
-	if($_POST['sendepost_navn'] == '' || $_POST['sendepost_epost'] == '' || $_POST['sendepost_melding'] == '')
-	{
-		$epostform_feilfunnet = true;
-	}
-	else
-	{
-		// Sender epost med spørsmål
-		$mail = new mail();
-		$mail->AddReplyTo($_POST['sendepost_epost'], $_POST['sendepost_navn']);
-		$mail->AddAddress('hn@jaermuseet.no');
-		$mail->Subject	= "JM-booking - Loginmelding";
-		
-		$smarty = new Smarty;
-		$smarty->assign('navn', $_POST['sendepost_navn']);
-		$smarty->assign('epost', $_POST['sendepost_epost']);
-		$smarty->assign('melding', $_POST['sendepost_melding']);
-		$mail->Body = $smarty->fetch('epost/loginmelding.tpl');
-		
-		if(!$mail->Send())
-		{
-			echo 'Det oppsto en feil ved sendingen av e-posten.<br>'.chr(10);
-			echo '<b>Error:</b> '.$mail->ErrorInfo;
-			exit();
-		}
-		
-		header('Location: '.$_SERVER['PHP_SELF'].'?melding_sendt=1');
-		exit();
-	}
-}
 if(isLoggedIn())
 {
 	echo _("You're already logged in.").'<br><br>';
@@ -134,13 +94,6 @@ else
 		$user = slashes(htmlspecialchars(strip_tags($_POST['WEBAUTH_USER']),ENT_QUOTES));
 	else
 		$user = '';
-	
-	if(!isset($_POST['sendepost_navn']))
-		$_POST['sendepost_navn'] = '';
-	if(!isset($_POST['sendepost_epost']))
-		$_POST['sendepost_epost'] = '';
-	if(!isset($_POST['sendepost_melding']))
-		$_POST['sendepost_melding'] = '';
 	
 	echo '<HTML>
     <HEAD>
@@ -198,35 +151,6 @@ else
 	'<a href="/wiki/" style="font-size: 28px">Wiki</a><br>'.
 	'Wiki for opplæring og rutiner på Vitenfabrikken</td>';
 	echo "</tr></table>";
-	
-	echo '<br><br>';
-	echo '<form method=POST action="'.$_SERVER['PHP_SELF'].'?sendepost=1">';
-	echo '<div style="text-align: center;">';
-	echo '<div style="border:1px solid #0000ff; padding: 30px; width:450px; margin-left: auto; margin-right: auto;">';
-	echo '<table width="400" align="center" cellspacing="0" cellpadding="0">'.chr(10);
-	echo '	<tr>'.chr(10);
-	echo '		<td colspan="2" align=center><b>Sliter du med passordet eller har ikke bruker?</b><br>Send beskjed til Hallvard da vel.</td></tr>';
-	if(isset($_GET['sendepost'])) {
-		echo "<tr><td colspan=2 align=center bgcolor=#ff0000><font color=#ffffff>Du må taste inn i alle feltene under.</font></td></tr>";
-	}
-	if(isset($_GET['melding_sendt'])) {
-		echo '<tr><td colspan=2 align=center bgcolor=#ff0000><font color=#ffffff>Melding sendt!</font></td></tr>';
-	}
-	echo "<tr><td>Ditt navn</td>";
-	echo "<td><input type=\"text\" value=\"".$_POST['sendepost_navn']."\" name=\"sendepost_navn\"></td></tr>";
-	
-	echo "<tr><td>Din epost</td>";
-	echo "<td><input type=\"text\" value=\"".$_POST['sendepost_epost']."\" name=\"sendepost_epost\"></td></tr>";
-	
-	echo "<tr><td>Melding</td>";
-	echo '<td><textarea row="10" cols="20" name="sendepost_melding">'.$_POST['sendepost_melding'].'</textarea></td></tr>';
-	
-	echo "<tr><td>&nbsp;</td><td><input type=\"submit\" value=\"Send melding\"></td>";
-	echo '</tr>'.chr(10).
-	'</table>'.
-	'</div>'.
-	'</div>'.
-	'</form>';
 	
 	if(isset($_POST['WEBAUTH_USER']))
 		echo "<script language=JavaScript>document.getElementById('dofocus2').focus();</script>";
