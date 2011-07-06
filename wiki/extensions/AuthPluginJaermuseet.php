@@ -113,6 +113,11 @@ class AuthPluginJaermuseet extends AuthPlugin
 			echo 'authenticate<br>';
 		$username = addslashes($username);
 		$password = addslashes($password);
+		
+		if(isset($GLOBALS['authpluginjmTillatteBrukere']) && !in_array(strtolower($username), $GLOBALS['authpluginjmTillatteBrukere'])) {
+			return false;
+		}
+		
 		$find_user_query = "SELECT user_id FROM users WHERE lower(user_name_short)=lower('{$username}') AND user_password = MD5('{$password}')";
 		$find_result = mysql_query($find_user_query, $this->database);
 		if (mysql_num_rows($find_result) == 1) {
