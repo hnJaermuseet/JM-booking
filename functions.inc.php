@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 /* New functions structure: */
-require_once "functions/filter.php";
-require_once "functions/template.php";
-require_once "functions/email.php";
-require_once "functions/postal_number.php";
-require_once "functions/entry.php";
+require_once 'functions/filter.php';
+require_once 'functions/template.php';
+require_once 'functions/email.php';
+require_once 'functions/postal_number.php';
+require_once 'functions/entry.php';
 
 /* Language */
 require_once 'lang/lang.php';
@@ -48,13 +48,13 @@ function print_header($day, $month, $year, $area){
 
 	# If we dont know the right date then make it up 
 	if(!$day)
-		$day   = date("d");
+		$day   = date('d');
 	if(!$month)
-		$month = date("m");
+		$month = date('m');
 	if(!$year)
-		$year  = date("Y");
+		$year  = date('Y');
 	if (empty($search_str))
-		$search_str = "";
+		$search_str = '';
 	
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">'.chr(10);
@@ -62,7 +62,7 @@ function print_header($day, $month, $year, $area){
 	echo '<head>'.chr(10);
 	echo '	<title>JM-booking</title>'.chr(10);
 	
-	include("style.inc.php");
+	include('style.inc.php');
 	
 	echo '	<link type="text/css" href="css/ui-lightness/jquery-ui-1.7.2.custom.css" '.
 		'rel="stylesheet" />'.chr(10);
@@ -269,87 +269,60 @@ function parseDate($date){
 	$s = array();
 	$r = array();
 	
-	$s[]="Monday";			$r[]=_("Monday");
-	$s[]="Tuesday";			$r[]=_("Tuedsay");
-	$s[]="Wednesday";		$r[]=_("Wednesday");
-	$s[]="Thursday";		$r[]=_("Thursday");
-	$s[]="Friday";			$r[]=_("Friday");
-	$s[]="Saturday";		$r[]=_("Saturday");
-	$s[]="Sunday";			$r[]=_("Sunday");
+	$s[]='Monday';			$r[]=_('Monday');
+	$s[]='Tuesday';			$r[]=_('Tuedsay');
+	$s[]='Wednesday';		$r[]=_('Wednesday');
+	$s[]='Thursday';		$r[]=_('Thursday');
+	$s[]='Friday';			$r[]=_('Friday');
+	$s[]='Saturday';		$r[]=_('Saturday');
+	$s[]='Sunday';			$r[]=_('Sunday');
 	
-	$s[]="Mon";				$r[]=_("Mon");
-	$s[]="Tue";				$r[]=_("Tue");
-	$s[]="Wed";				$r[]=_("Wed");
-	$s[]="Thu";				$r[]=_("Thu");
-	$s[]="Fri";				$r[]=_("Fri");
-	$s[]="Sat";				$r[]=_("Sat");
-	$s[]="Sun";				$r[]=_("Sun");
+	$s[]='Mon';				$r[]=_('Mon');
+	$s[]='Tue';				$r[]=_('Tue');
+	$s[]='Wed';				$r[]=_('Wed');
+	$s[]='Thu';				$r[]=_('Thu');
+	$s[]='Fri';				$r[]=_('Fri');
+	$s[]='Sat';				$r[]=_('Sat');
+	$s[]='Sun';				$r[]=_('Sun');
 	
-	$s[]="January";			$r[]=_("January");
-	$s[]="February";		$r[]=_("February");
-	$s[]="March";			$r[]=_("March");
-	$s[]="April";			$r[]=_("April");
-	$s[]="May";				$r[]=_("May");
-	$s[]="June";			$r[]=_("June");
-	$s[]="July";			$r[]=_("July");
-	$s[]="August";			$r[]=_("August");
-	$s[]="September";		$r[]=_("September");
-	$s[]="October";			$r[]=_("October");
-	$s[]="November";		$r[]=_("November");
-	$s[]="December";		$r[]=_("December");
+	$s[]='January';			$r[]=_('January');
+	$s[]='February';		$r[]=_('February');
+	$s[]='March';			$r[]=_('March');
+	$s[]='April';			$r[]=_('April');
+	$s[]='May';				$r[]=_('May');
+	$s[]='June';			$r[]=_('June');
+	$s[]='July';			$r[]=_('July');
+	$s[]='August';			$r[]=_('August');
+	$s[]='September';		$r[]=_('September');
+	$s[]='October';			$r[]=_('October');
+	$s[]='November';		$r[]=_('November');
+	$s[]='December';		$r[]=_('December');
 	
-	$s[]="Jan";				$r[]=_("Jan");
-	$s[]="Feb";				$r[]=_("Feb");
-	$s[]="Mar";				$r[]=_("Mar");
-	$s[]="Apr";				$r[]=_("Apr");
-	$s[]="May";				$r[]=_("May");
-	$s[]="Jun";				$r[]=_("Jun");
-	$s[]="Jul";				$r[]=_("Jul");
-	$s[]="Aug";				$r[]=_("Aug");
-	$s[]="Sep";				$r[]=_("Sep");
-	$s[]="Oct";				$r[]=_("Oct");
-	$s[]="Nov";				$r[]=_("Nov");
-	$s[]="Dec";				$r[]=_("Dec");
+	$s[]='Jan';				$r[]=_('Jan');
+	$s[]='Feb';				$r[]=_('Feb');
+	$s[]='Mar';				$r[]=_('Mar');
+	$s[]='Apr';				$r[]=_('Apr');
+	$s[]='May';				$r[]=_('May');
+	$s[]='Jun';				$r[]=_('Jun');
+	$s[]='Jul';				$r[]=_('Jul');
+	$s[]='Aug';				$r[]=_('Aug');
+	$s[]='Sep';				$r[]=_('Sep');
+	$s[]='Oct';				$r[]=_('Oct');
+	$s[]='Nov';				$r[]=_('Nov');
+	$s[]='Dec';				$r[]=_('Dec');
 	
 	
 	
 	return str_replace($s, $r, $date);
 }
 
-#functions creates two select fields: hour,minute
-#timerange is determined by config values $resolution,$norningstarts,$eveningends
-#parameter:
-#$label_hour,$label_minute: set name of select fields
-#optional:
-#$history_hour,$history_minute: preselect an option
-function genTimeSelector($label_hour,$label_minute,$history_hour=-1,$history_minute=-1){
-	global $resolution,$morningstarts,$eveningends,$lastBookingHour;
-
-	#hack to disallow booking 4 hours before
-        if($label_hour=="hour"){
-                $end=$lastBookingHour;
-        }
-	else
-		$end=$eveningends;
-	echo "<select name=$label_hour>";
-	for($n=$morningstarts;$n<=$end;$n++){
-		echo "<option value=\"$n\"",($history_hour==$n?" selected":""),">",(strlen($n)==1?"0$n":$n),"</option>";
-	}
-	echo "</select> : <select name=\"$label_minute\">";
-	#resolution is defined in seconds
-	for($n=0;$n<60;$n+=($resolution/60)){
-		echo "<option value=\"$n\"",($history_minute==$n?" selected":""),">",(strlen($n)==1?"0$n":$n),"</option>";
-	}
-	echo "</select>";
-}
-
-function genDateSelector($prefix, $day, $nonth, $year,$history=0,$id_prefix=""){
+function genDateSelector($prefix, $day, $nonth, $year,$history=0,$id_prefix=''){
 	if($day   == 0)
-		$day = date("d");
+		$day = date('d');
 	if($nonth == 0) 
-		$nonth = date("m");
+		$nonth = date('m');
 	if($year  == 0)
-		$year = date("Y");
+		$year = date('Y');
 	
 	echo '<select id="'.$id_prefix.'day" NAME="'.$prefix.'day">';
 	
