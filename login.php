@@ -479,10 +479,13 @@ else
 	'	</tr>'.chr(10).
 	'</table>'.chr(10).chr(10);
 	
-	if(isset($_POST['WEBAUTH_USER']))
-		echo '<script language="javascript">document.getElementById(\'dofocus2\').focus();</script>';
-	else
-		echo '<script language="javascript">document.getElementById(\'dofocus\').focus();</script>';
+	if(!(isset($_GET['forgot_pw']) && $_GET['forgot_pw'] == '1'))
+	{
+		if(isset($_POST['WEBAUTH_USER']))
+			echo '<script language="javascript">document.getElementById(\'dofocus2\').focus();</script>';
+		else
+			echo '<script language="javascript">document.getElementById(\'dofocus\').focus();</script>';
+	}
 	
 	echo chr(10).
 		'</body>'.chr(10).
