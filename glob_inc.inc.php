@@ -236,27 +236,6 @@ if (
 	## LOGIN ##
 	If not logged in, redirect to login.php
 */
-debugAddToLog(__FILE__, __LINE__, 'Checking login settings');
-if(!isset($login_internal_addresses) || !is_array($login_internal_addresses)) {
-	echo '$login_internal_addresses not set in config or is not array.';
-	exit;
-}
-if(!isset($login_password_external_complex)) {
-	echo '$login_password_external_complex not set in config.';
-	exit;
-}
-if(!isset($login_password_external_minchar)) {
-	echo '$login_password_external_minchar not set in config.';
-	exit;
-}
-if(!isset($login_password_external_maxage)) {
-	echo '$login_password_external_maxage not set in config.';
-	exit;
-}
-if(!isset($login_password_external_new_notamonglast3)) {
-	echo '$login_password_external_new_notamonglast3 not set in config.';
-	exit;
-}
 debugAddToLog(__FILE__, __LINE__, 'Checking login status');
 $login = array();
 if(isset($_SESSION['user_id']))

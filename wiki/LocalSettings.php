@@ -19,6 +19,10 @@ $authpluginjmTillatteBrukere = array
 	);
 */
 
+// Location of JM-booking
+$jmbooking_location = '..';
+$jmbooking_siteconfig = '/config/site.config.php'; // Inside $jmbooking_location
+
 /* Authentication */
-require_once("extensions/AuthPluginJaermuseet.php");
+require_once('extensions/AuthPluginJaermuseet.php');
 $wgAuth = new AuthPluginJaermuseet();

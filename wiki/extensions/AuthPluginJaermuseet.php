@@ -15,6 +15,12 @@ Some of the code is based on IPBAuth version 1.1 and Auth_phpBB 3.0.3.
 
 require_once("AuthPlugin.php");
 
+// Include the jm-booking site.config.php
+require_once($jmbooking_location.'/config/site.config.php');
+
+// Include the jm-booking login functions
+require_once $jmbooking_location.'/functions/login.php';
+
 class AuthPluginJaermuseet extends AuthPlugin 
 {
 	
@@ -63,7 +69,7 @@ class AuthPluginJaermuseet extends AuthPlugin
 		}
 		 mysql_query("SET NAMES 'utf8'", $this->database);
 		
-		$this->debug = false;
+		$this->debug = true;
 	}
 	
 	/**
@@ -108,29 +114,62 @@ class AuthPluginJaermuseet extends AuthPlugin
 	 * @return bool
 	 * @public
 	 */
-	function authenticate( $username, $password ) {
+	function authenticate( $user, $pass ) {
 		if($this->debug)
 			echo 'authenticate<br>';
-		$username = addslashes($username);
-		$password = addslashes($password);
+		$user	= strtolower(addslashes(htmlspecialchars(strip_tags($user),ENT_QUOTES))); // Username
+		$pass	= getPasswordHash ($pass);
 		
 		if(isset($GLOBALS['authpluginjmTillatteBrukere']) && !in_array(strtolower($username), $GLOBALS['authpluginjmTillatteBrukere'])) {
 			return false;
 		}
 		
-		$find_user_query = "SELECT user_id FROM users WHERE lower(user_name_short)=lower('{$username}') AND user_password = MD5('{$password}')";
-		$find_result = mysql_query($find_user_query, $this->database);
-		if (mysql_num_rows($find_result) == 1) {
-			//$ipb_userinfo = mysql_fetch_assoc($ipb_find_result);
-			//mysql_free_result($ipb_find_result);
-			// Only registered and admins. Banned and unregistered don't belong here.
-			//if (in_array($ipb_userinfo['mgroup'], $this->allowed_usergroups)) {
-			//	$this->passwordchange = true;
-			echo 'auth=true<br>';
+		$is_external = isExternal();
+		
+		if($this->debug)
+			echo 'is_external='.$is_external.'<br>';
+		
+		// Checking against database
+		$Q_login = mysql_query("select user_id, deactivated, user_password_complex, user_password_lastchanged from `users` where lower(user_name_short) = '".$user."' and user_password = '".$pass."' limit 1", $this->database);
+		if(mysql_num_rows($Q_login) > '0')
+		{
+			if($is_external)
+			{
+				try {
+					$user_login = array('user_password_lastchanged' => mysql_result($Q_login, 0, 'user_password_lastchanged'));
+					loginPWcheckAge($user_login);
+				} catch (Exception $e) {
+					if($this->debug)
+						echo 'auth failed, password to old for external user<br>';
+					return false;
+				}
+			}
+			
+			if(mysql_result($Q_login,0,'deactivated'))
+			{
+				if($this->debug)
+					echo 'auth failed, user deactivated<br>';
+				return false;
+			}
+			elseif($is_external && !mysql_result($Q_login, 0, 'user_password_complex'))
+			{
+				if($this->debug)
+					echo 'auth failed, password not complex for external user<br>';
+				return false;
+			}
+			elseif(!$external_failed)
+			{
+				if($this->debug)
+					echo 'auth=true<br>';
 				return true;
-			//}
+			}
 		}
-		return false;
+		else
+		{
+			if($this->debug)
+				echo 'auth failed, user not found ('.$user.', '.$pass.')<br>';
+			return false;
+		}
 	}
  
  
