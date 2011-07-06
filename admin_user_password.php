@@ -112,7 +112,7 @@ else
 {
 	echo '<form action="'.$_SERVER['PHP_SELF'].'?id='.$user['user_id'].'" method="post">'.chr(10);
 	echo '<b>'._h('New password').':</b><br />'.chr(10);
-	echo '<input type="text" name="password_new" value="'.$pw.'"><br /><br />'.chr(10).chr(10);
+	echo '<input type="password" name="password_new" value="'.$pw.'"><br /><br />'.chr(10).chr(10);
 	
 	if(!isset($_POST['password_new']))
 	{
@@ -121,15 +121,15 @@ else
 	elseif($failed)
 	{
 		echo '<script type="text/javascript">
-		$("input[type=text][name=password_new]").keyup(function() {
+		$("input[type=password][name=password_new]").keyup(function() {
 			$("#failed_msg").slideUp();
 			$("input[type=hidden][name=ignore_msg]").attr("value", "0");
 		});
-		$("input[type=text][name=password_new]").change(function() {
+		$("input[type=password][name=password_new]").change(function() {
 			$("#failed_msg").slideUp();
 			$("input[type=hidden][name=ignore_msg]").attr("value", "0");
 		});
-		$("input[type=text][name=password_new]").click(function() {
+		$("input[type=password][name=password_new]").click(function() {
 			$("#failed_msg").slideUp();
 			$("input[type=hidden][name=ignore_msg]").attr("value", "0");
 		}); 
