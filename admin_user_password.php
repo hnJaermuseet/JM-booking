@@ -54,12 +54,24 @@ if(!count($user))
 }
 
 $failed_msg = ''; $pw = ''; $failed = false;
+$serious_failed = false;
 if(isset($_POST['password_new']))
 {
 	$user2 = $user;
 	$user2['user_password_lastchanged'] = time(); // All new
 	$pw = $_POST['password_new'];
 	try {
+		if(
+			$id == $login['user_id'] && 
+			(
+				!isset($_POST['password_old']) || 
+				getPasswordHash($_POST['password_old']) != $user['user_password']
+			)
+		)
+		{
+			$serious_failed = true;
+			throw new Exception('Old password is not correct.');
+		}
 		loginPWcheckExternal ($user2, $pw);
 		loginPWcheckSetNew ($user2, $pw);
 	}
@@ -70,8 +82,11 @@ if(isset($_POST['password_new']))
 	}
 	
 	if(
-		!$failed ||
-		($failed && isset($_POST['ignore_msg']) && $_POST['ignore_msg'] == '1')
+		!$serious_failed && 
+		(
+			!$failed ||
+			($failed && isset($_POST['ignore_msg']) && $_POST['ignore_msg'] == '1')
+		)
 	)
 	{
 		$sql = 
@@ -110,6 +125,16 @@ if(isset($_GET['ok']) && $_GET['ok'] == '1')
 else
 {
 	echo '<form action="'.$_SERVER['PHP_SELF'].'?id='.$user['user_id'].'" method="post">'.chr(10);
+	
+	if($id == $login['user_id'])
+	{
+		if($serious_failed)
+			echo '<div class="error" style="width: 400px;">'.$failed_msg.'</div>';
+		
+		echo '<b>'._h('Old password').':</b><br />'.chr(10);
+		echo '<input type="password" name="password_old" value=""><br /><br />'.chr(10).chr(10);
+	}
+	
 	echo '<b>'._h('New password').':</b><br />'.chr(10);
 	echo '<input type="password" name="password_new" value="'.$pw.'"><br /><br />'.chr(10).chr(10);
 	
@@ -117,7 +142,7 @@ else
 	{
 		echo '<input type="submit" value="'._h('Save password').'">'.chr(10);
 	}
-	elseif($failed)
+	elseif($failed && !$serious_failed)
 	{
 		echo '<script type="text/javascript">
 		$("input[type=password][name=password_new]").keyup(function() {
@@ -145,6 +170,8 @@ else
 		echo '<input type="hidden" value="1" name="ignore_msg">';
 		echo '<input type="submit" value="'._h('Save password').'">'.chr(10);
 	}
+	elseif($serious_failed)
+		echo '<input type="submit" value="'._h('Save password').'">'.chr(10);
 	/*
 	elseif($failed_msg != '')
 	{

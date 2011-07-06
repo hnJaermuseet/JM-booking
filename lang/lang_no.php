@@ -146,6 +146,10 @@ function langNo($text)
 			'Log in from internal computers will still be possible.':
 			return 'Passordet du valgte kan ikke bli brukt hvis du vil kunne logge på eksternt. '.
 				'Innlogging fra Jærmuseets maskiner er mulig. Rett følgende hvis du vil kunne logge inn eksternt:';
+		case 'Old password':
+			return 'Nåværende passord';
+		case 'Old password is not correct.':
+			return 'Nåværende passord er ikke korrekt';
 		/*
 		case '':
 			return '';
