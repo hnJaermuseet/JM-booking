@@ -70,7 +70,7 @@ if(isset($_POST['password_new']))
 		)
 		{
 			$serious_failed = true;
-			throw new Exception('Old password is not correct.');
+			throw new Exception(_h('Old password is not correct.'));
 		}
 		loginPWcheckExternal ($user2, $pw);
 		loginPWcheckSetNew ($user2, $pw);
