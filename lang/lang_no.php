@@ -94,6 +94,42 @@ function langNo($text)
 			return 'E-postadresse(r) som får varsling når nye varer, som systemet ikke kjenner, blir funnet for dette butikknret';
 		case 'Can be multiple emails seperated by space, comma or semicolon.':
 			return 'Kan være flere epostadresser skilt med mellomrom, komma eller semikolon.';
+		case 'Change password for':
+			return 'Endre passord for';
+		case 'New password':
+			return 'Nytt passord';
+		case 'Check password':
+			return 'Sjekk passord';
+		case 'Password is too old.':
+			return 'Passordet er for gammelt.';
+		case 'Password not complex enough. Must contain lower and upper case characters and a number.':
+			return 'Passordet er ikke komplekst nok. Må inneholde små og store bokstaver samt tall.';
+		case 'Password can not be used if you want the user to be able to log in externally. '.
+			'Log in from internal computers will still be possible.':
+			return 'Passordet kan ikke bli benyttet hvis du vil at brukeren skal kunne logge inn eksternt. '.
+				'Innlogging fra interne maskiner vil fremdeles være mulig.';
+		case 'Save password':
+			return 'Lagre passord';
+		case 'Password too short. Must be at least ':
+			return 'Passordet er for kort. Må være minst ';
+		case 'characters':
+			return 'tegn';
+		case 'Press "Save password" again to use the choosen password.':
+			return 'Trykk "Lagre passord" igjen for å lagre det valge passordet.';
+		case 'New password can not be the same as one of the last 3 passwords.':
+			return 'Det nye passordet kan ikke være det samme som de tre siste passordene.';
+		case 'Password has been changed.':
+			return 'Passordet er blitt endret.';
+		case 'You do not have access to the system because your password is not complex enough for external login.':
+			return 'Du har ikke tilgang til bookingsystemet eksternt på grunn av passordet ditt er for enkelt.';
+		case 'You do not have access to the system because your password is too old for external login.':
+			return 'Du har ikke tilgang til bookingsystemet eksternt på grunn av passordet ditt er for gammelt.';
+		case 'Please get yourself a new password or use an internal computer instead. '.
+			'Your password will still work when using internal computers.':
+			return 'Vennligst bytt passord eller bruk en av Jærmuseets interne maskiner eller pålogget terminalserver. '.
+				'Passordet ditt vil fremdeles fungere fint når du er på en intern maskin selv om det ikke er godt nok for ekstern pålogging.';
+		case 'Your password has been changed. Please log in again.':
+			return 'Passordet ditt er endret. Vennligst logg inn igjen med det nye passordet.';
 		/*
 		case '':
 			return '';

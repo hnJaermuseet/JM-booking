@@ -57,7 +57,10 @@ if($login['user_access_useredit'] || $login['user_id'] == $user['user_id'])
 {
 	echo '<a href="admin_user2.php?editor=1&amp;id='.$user['user_id'].'">'.
 		iconHTML('user_edit').
-		' Endre bruker</a><br /><br />'.chr(10).chr(10);
+		' Endre bruker</a><br />'.chr(10).chr(10);
+	echo '<a href="admin_user_password.php?id='.$user['user_id'].'">'.
+		iconHTML('lock_edit').
+		' Endre passord</a><br /><br />'.chr(10).chr(10);
 }
 
 echo '<b>'._('UserID').':</b> '.$user['user_id'].'<br>'.chr(10);

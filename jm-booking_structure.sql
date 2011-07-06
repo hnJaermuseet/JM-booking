@@ -681,3 +681,17 @@ ALTER TABLE `invoiced` CHANGE `created` `created` INT( 11 ) NOT NULL ;
 ALTER TABLE `entry_exchangesync` DROP `sync_until` ;
 ALTER TABLE `entry_exchangesync` ADD `sync_from` INT NOT NULL AFTER `exchange_changekey` ,
 ADD `sync_to` INT NOT NULL AFTER `sync_from` ;
+
+
+--
+-- Database upgrades - 05.07.2011
+-- New password policies
+--
+ALTER TABLE `users` ADD `user_password_lastchanged` INT NOT NULL AFTER `user_password` ,
+ADD `user_password_1` VARCHAR( 255 ) NOT NULL AFTER `user_password_lastchanged` ,
+ADD `user_password_2` VARCHAR( 255 ) NOT NULL AFTER `user_password_1` ,
+ADD `user_password_3` VARCHAR( 255 ) NOT NULL AFTER `user_password_2` ;
+UPDATE `users` SET `user_password_1` = `user_password`;
+UPDATE `users` SET `user_password_2` = `user_password`;
+UPDATE `users` SET `user_password_3` = `user_password`;
+ALTER TABLE `users` ADD `user_password_complex` BOOL NOT NULL AFTER `user_password` ;

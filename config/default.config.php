@@ -58,6 +58,16 @@ $importdatanova_baseurl = 'http://123.321.456.654/Webreports';
 $invoice_sendto = array('hn@jaermuseet.no', 'hallvard.nygaard@jaermuseet.no'); // Testing addresses
 $invoice_location = 'files/invoice/';
 
+/* External login */
+// Add to site.config.php:
+/*
+$login_internal_addresses = array('192.168.', '127.0.'); // Starts with one of these
+$login_password_external_complex           = true; // According to http://technet.microsoft.com/en-us/library/cc786468%28WS.10%29.aspx
+$login_password_external_minchar           = 123;
+$login_password_external_maxage            = 123*24*60*60; // in seconds
+$login_password_external_new_notamonglast3 = true;
+*/
+
 /* IP filter */
 
 // Addresses allowed on all pages

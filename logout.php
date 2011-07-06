@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 session_start();
 
 session_destroy();
-header("Location: index.php");
 
-?>
+if(isset($_GET['newpw_ok']))
+	header('Location: login.php?newpw_ok=1');
+else
+	header('Location: index.php');

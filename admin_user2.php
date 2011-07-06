@@ -36,31 +36,6 @@ include "include/admin_top.php";
 
 if(isset($_GET['editor']))
 {
-	// Editor extention
-	class editor_user extends editor
-	{
-		function processInput_password ($var, $input) {
-			if($input == '')
-				return '';
-			elseif($input == 'NoT_jEt_sEt')
-			{
-				$this->vars[$var]['DBQueryPerform'] = false;
-				return 'NoT_jEt_sEt';
-			}
-			else
-				return getPasswordHash ($input);
-		}
-		
-		function checkInput_password ($var) {
-			if($var['value'] == '') {
-				$this->error_input[] = _('No password was supplied.');
-				return false;
-			} else {
-				return true;
-			}
-		}
-	}
-	
 	$id = 0;
 	if(isset($_GET['id']) && is_numeric($_GET['id']))
 		$id = (int)$_GET['id'];
@@ -69,8 +44,7 @@ if(isset($_GET['editor']))
 	
 	if($id <= 0)
 	{
-		$editor = new editor_user('users', $_SERVER['PHP_SELF'].'?editor=1');
-		//$editor->setHeading(_('New user'));
+		$editor = new editor('users', $_SERVER['PHP_SELF'].'?editor=1');
 		$editor->setHeading('Ny bruker');
 		$editor->setSubmitTxt(_('Add'));
 		if(!$login['user_access_useredit'])
@@ -81,8 +55,7 @@ if(isset($_GET['editor']))
 	}
 	else
 	{
-		$editor = new editor_user('users', $_SERVER['PHP_SELF'].'?editor=1', $id);
-		//$editor->setHeading(_('Edit user'));
+		$editor = new editor('users', $_SERVER['PHP_SELF'].'?editor=1', $id);
 		$editor->setHeading('Endre bruker');
 		$editor->setSubmitTxt(_('Change'));
 		
@@ -108,9 +81,6 @@ if(isset($_GET['editor']))
 		$editor->vars['user_name_short']['DBQueryPerform'] = false;
 	}
 	
-	$editor->makeNewField('user_password', _('Password').'*', 'password', array('defaultValue' => 'NoT_jEt_sEt', 'noDB' => true));
-	$editor->setFieldProcessor ('user_password', 'password');
-	$editor->setFieldChecker ('user_password', 'password');
 	$editor->makeNewField('user_name', 'Navn', 'text');
 	$editor->makeNewField('user_email', _('E-mail'), 'text');
 	$editor->makeNewField('user_phone', _('Phone'), 'text');
@@ -267,6 +237,7 @@ else
 			'10' => 'Rettighet til å sette bookinger som sendt til regnskap',
 			'11' => 'Rettighet til å deaktivere brukere',
 			'sync' => 'Synkronisering mot Exchange / Outlook påslått',
+			'external' => 'Passord tilfredstiller krav til pålogging eksternt',
 		);
 	echo '<script src="js/jquery.hoverbox.min.js" type="text/javascript"></script>';
 	echo '<script type="text/javascript">
@@ -312,6 +283,7 @@ else
 		echo '		<th>10</th>'.chr(10);
 		echo '		<th>11</th>'.chr(10);
 		echo '		<th>Synk</th>'.chr(10);
+		echo '		<th>Ekstern tilgang</th>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 		while($R_user = mysql_fetch_assoc($Q_users))
 		{
@@ -359,7 +331,10 @@ else
 			{
 				echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$user['user_id'].'" class="'.$deactivated2.'">'.
 					iconHTML('user_edit').' '.
-					'Endre</a>';
+					'Endre&nbsp;bruker</a><br />';
+				echo '<a href="admin_user_password.php?id='.$user['user_id'].'" class="'.$deactivated2.'">'.
+					iconHTML('lock_edit').' '.
+					'Endre&nbsp;passord</a>';
 			}
 			else
 				echo '&nbsp;';
@@ -461,6 +436,22 @@ else
 				echo 'X';
 			else
 				echo '&nbsp;';
+			echo '</td>'.chr(10);
+			
+			echo '		<td class="rightsHover" title="'.$rights['external'].'">';
+			try
+			{
+				if($user['user_password_complex'] != '1')
+					throw new Exception('');
+				
+				loginPWcheckAge($user);
+				
+				echo 'X';
+			}
+			catch (Exception $e)
+			{
+				echo '&nbsp;';
+			}
 			echo '</td>'.chr(10);
 			
 			echo '	</tr>'.chr(10).chr(10);

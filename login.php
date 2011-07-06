@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 include 'glob_inc.inc.php';
 
 $deactivated = false;
+$external_failed = false; $complex_failed = false; $age_failed = false;
+$is_external = isExternal();
 if(isset($_POST['WEBAUTH_USER']))
 {
 	$user = getUserName();
@@ -48,14 +50,30 @@ if(isset($_POST['WEBAUTH_USER']))
 		$pass	= getPasswordHash ($pass);
 		
 		// Checking against database
-		$Q_login = mysql_query("select user_id, deactivated from `users` where user_name_short = '".$user."' and user_password = '".$pass."' limit 1");
+		$Q_login = mysql_query("select user_id, deactivated, user_password_complex, user_password_lastchanged from `users` where user_name_short = '".$user."' and user_password = '".$pass."' limit 1");
 		if(mysql_num_rows($Q_login) > '0')
 		{
+			if($is_external)
+			{
+				try {
+					$user_login = array('user_password_lastchanged' => mysql_result($Q_login, 0, 'user_password_lastchanged'));
+					loginPWcheckAge($user_login);
+				} catch (Exception $e) {
+					$external_failed = true;
+					$age_failed = true;
+				}
+			}
+			
 			if(mysql_result($Q_login,0,'deactivated'))
 			{
 				$deactivated = true;
 			}
-			else
+			elseif($is_external && !mysql_result($Q_login, 0, 'user_password_complex'))
+			{
+				$external_failed = true;
+				$complex_failed = true;
+			}
+			elseif(!$external_failed)
 			{
 				session_register('WEBAUTH_VALID');
 		        session_register('WEBAUTH_USER');
@@ -123,14 +141,39 @@ else
 		'	<tr>'.chr(10).
 		'		<td colspan="2" style="text-align:center; font-size:18px; padding: 10px;"><b>Innlogging til booking</b></td>'.chr(10).
 		'	</tr>'.chr(10).chr(10);
-	if(!$deactivated && isset($_POST['WEBAUTH_USER'])) {
-		echo '	<tr><td colspan="2"" align="center"><div class="error">'.
-		_("Username and/or password is wrong").
+	
+	if(isset($_GET['newpw_ok']) && $_GET['newpw_ok'] == '1')
+	{
+		echo '	<tr><td colspan="2" align="center"><div class="success" style="width: 400px;">'.
+		_h('Your password has been changed. Please log in again.').
 		'</div></td></tr>'.chr(10).chr(10);
 	}
 	if($deactivated) {
 		echo '	<tr><td colspan="2" align="center"><div class="error">'.
 		_('The account is disabled').
+		'</div></td></tr>'.chr(10).chr(10);
+	}
+	elseif($external_failed && $complex_failed) {
+		echo '	<tr><td colspan="2" align="center"><div class="error">'.
+		_h('You do not have access to the system because your password is not complex enough for external login.').' '.
+		_h(
+			'Please get yourself a new password or use an internal computer instead. '.
+			'Your password will still work when using internal computers.'
+		).
+		'</div></td></tr>'.chr(10).chr(10);
+	}
+	elseif($external_failed && $age_failed) {
+		echo '	<tr><td colspan="2" align="center"><div class="error">'.
+		_h('You do not have access to the system because your password is too old for external login.').' '.
+		_h(
+			'Please get yourself a new password the next time you are using an internal computer. '.
+			'Your password will still work when using internal computers.'
+		).
+		'</div></td></tr>'.chr(10).chr(10);
+	}
+	elseif(isset($_POST['WEBAUTH_USER'])) {
+		echo '	<tr><td colspan="2"" align="center"><div class="error">'.
+		_('Username and/or password is wrong').
 		'</div></td></tr>'.chr(10).chr(10);
 	}
 	echo '	<tr>'.chr(10).
@@ -168,5 +211,13 @@ else
 		'</body>'.chr(10).
 		'</html>';
 	
+	if($is_external)
+	{
+		echo '<!-- External -->';
+	}
+	else
+	{
+		echo '<!-- Internal -->';
+	}
 	exit();
 }
