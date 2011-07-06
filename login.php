@@ -145,7 +145,8 @@ else
 	if(isset($_GET['newpw_ok']) && $_GET['newpw_ok'] == '1')
 	{
 		echo '	<tr><td colspan="2" align="center"><div class="success" style="width: 400px;">'.
-		_h('Your password has been changed. Please log in again.').
+		'<b>'._h('Your password has been changed.').'</b><br /><br />'.
+		_h('Please log in again.').
 		'</div></td></tr>'.chr(10).chr(10);
 	}
 	if($deactivated) {

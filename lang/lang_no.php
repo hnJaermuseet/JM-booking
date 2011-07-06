@@ -128,8 +128,10 @@ function langNo($text)
 			'Your password will still work when using internal computers.':
 			return 'Vennligst bytt passord eller bruk en av Jærmuseets interne maskiner eller pålogget terminalserver. '.
 				'Passordet ditt vil fremdeles fungere fint når du er på en intern maskin selv om det ikke er godt nok for ekstern pålogging.';
-		case 'Your password has been changed. Please log in again.':
-			return 'Passordet ditt er endret. Vennligst logg inn igjen med det nye passordet.';
+		case 'Your password has been changed.':
+			return 'Passordet ditt er endret.';
+		case 'Please log in again.';
+			return 'Vennligst logg inn igjen med det nye passordet.';
 		/*
 		case '':
 			return '';
