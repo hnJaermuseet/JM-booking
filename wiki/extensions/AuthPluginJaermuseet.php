@@ -69,7 +69,7 @@ class AuthPluginJaermuseet extends AuthPlugin
 		}
 		 mysql_query("SET NAMES 'utf8'", $this->database);
 		
-		$this->debug = true;
+		$this->debug = false;
 	}
 	
 	/**
