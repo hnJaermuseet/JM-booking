@@ -695,3 +695,11 @@ UPDATE `users` SET `user_password_1` = `user_password`;
 UPDATE `users` SET `user_password_2` = `user_password`;
 UPDATE `users` SET `user_password_3` = `user_password`;
 ALTER TABLE `users` ADD `user_password_complex` BOOL NOT NULL AFTER `user_password` ;
+
+
+--
+-- Database upgrades - 06.07.2011
+-- Forgot my password feature
+--
+ALTER TABLE `users` ADD `user_newpassword_key` VARCHAR( 255 ) NOT NULL AFTER `user_password_3` ,
+ADD `user_newpassword_validto` INT NOT NULL AFTER `user_newpassword_key` ;

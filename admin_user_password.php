@@ -84,7 +84,6 @@ if(isset($_POST['password_new']))
 				'`user_password_complex`      = \''.!$failed.'\''.
 			' WHERE `user_id` = '.$user['user_id'].' LIMIT 1 ;';
 		mysql_query($sql);
-		echo $sql;
 		if(mysql_error())
 		{
 			echo 'Error<br>';
@@ -139,7 +138,7 @@ else
 			'Password can not be used if you want the user to be able to log in externally. '.
 			'Log in from internal computers will still be possible.'
 		).'<br /><br />'.
-		'- '.$failed_msg.'<br /><br />'.
+		'<b>- '.$failed_msg.'</b><br /><br />'.
 		
 		_h('Press "Save password" again to use the choosen password.').
 		'</div>';

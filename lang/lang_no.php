@@ -132,6 +132,20 @@ function langNo($text)
 			return 'Passordet ditt er endret.';
 		case 'Please log in again.';
 			return 'Vennligst logg inn igjen med det nye passordet.';
+		case 'Forgot password':
+			return 'Glemt passord';
+		case 'E-mail':
+			return 'E-post';
+		case 'Send e-mail with code':
+			return 'Send e-post med kode';
+		case 'Did not find any user with that username or with that email address.':
+			return 'Fant ingen bruker med det brukernavnet eller med den epost-adressen.';
+		case 'Please try again.':
+			return 'Vennligst prøv igjen.';
+		case 'Password can not be used if you want to be able to log in externally. '.
+			'Log in from internal computers will still be possible.':
+			return 'Passordet du valgte kan ikke bli brukt hvis du vil kunne logge på eksternt. '.
+				'Innlogging fra Jærmuseets maskiner er mulig. Rett følgende hvis du vil kunne logge inn eksternt:';
 		/*
 		case '':
 			return '';

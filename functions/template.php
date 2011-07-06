@@ -261,13 +261,16 @@ function templateAssignSystemvars($var)
 	global $$var, $systemurl, $login;
 	
 	$$var->assign ('systemurl', $systemurl);
-	$$var->assign ('user_name', $login['user_name']);
-	$$var->assign ('user_name_short', $login['user_name_short']);
-	$$var->assign ('user_email', $login['user_email']);
-	$$var->assign ('user_phone', $login['user_phone']);
-	$$var->assign ('user_position', $login['user_position']);
-	$$var->assign ('user_invoice', $login['user_invoice']);
-	$$var->assign ('user_invoice_setready', $login['user_invoice_setready']);
+	if(count($login))
+	{
+		$$var->assign ('user_name', $login['user_name']);
+		$$var->assign ('user_name_short', $login['user_name_short']);
+		$$var->assign ('user_email', $login['user_email']);
+		$$var->assign ('user_phone', $login['user_phone']);
+		$$var->assign ('user_position', $login['user_position']);
+		$$var->assign ('user_invoice', $login['user_invoice']);
+		$$var->assign ('user_invoice_setready', $login['user_invoice_setready']);
+	}
 	$$var->compile_check = true;
 	#$$var->debugging = true;
 	$$var->debugging = false;
