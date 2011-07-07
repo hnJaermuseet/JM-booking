@@ -150,6 +150,7 @@ if($open)
 echo '</div>';
 echo '<script type="text/javascript">
 $(\'#products\').dialog({ 
+	modal: true,
 	autoOpen: false,
 	minHeight: 200,
 	height: 400,
