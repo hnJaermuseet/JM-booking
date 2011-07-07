@@ -315,6 +315,8 @@ function addFieldInvoiceWithProducts(description, topay_each, tax)
 	// => If it does exist, we just add one more of it
 	
 	found_match = false;
+	found_empty = 0;
+	found_empty_lastrow = null;
 	$('#invoicerows tr').each(function () {
 		
 		if(!found_match)
@@ -326,7 +328,15 @@ function addFieldInvoiceWithProducts(description, topay_each, tax)
 			
 			// Checking each row
 			$(this).find('input').each(function() {
-				if($(this).attr('name').substr(0,10) == 'belop_hver')
+				if($(this).attr('name').substr(0,15) == 'belop_hver_real')
+				{
+				
+				}
+				else if($(this).attr('name').substr(0,18) == 'belop_hver_withtax')
+				{
+				
+				}
+				else if($(this).attr('name').substr(0,10) == 'belop_hver')
 				{
 					this_topay_each   = $(this).val();
 				}
@@ -364,9 +374,25 @@ function addFieldInvoiceWithProducts(description, topay_each, tax)
 				$('#antall'+this_id).val(new_amount);
 				updateMva(this_id);
 			}
+			// Checking for empty rows
+			else if (
+				this_description == "" &&
+				this_topay_each == 0 &&
+				this_tax == 0 &&
+				this_id != 0
+			)
+			{
+				found_empty++;
+				found_empty_lastrow = this_id;
+			}
 		}
 	});
 	
 	if(!found_match)
+	{
+		if(found_empty == 1) {
+			removeInvoiceField(found_empty_lastrow);
+		}
 		addFieldInvoiceWithValues(description, topay_each, tax);
+	}
 }
