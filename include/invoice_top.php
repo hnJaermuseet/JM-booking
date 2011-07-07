@@ -471,18 +471,18 @@ function checkInvoicedata ($entry)
 			}
 			else
 			{
-				$text_split = explode(chr(10), $line['name']);
-				foreach($text_split as $this_text)
-				{
-					$this_text = trim($this_text);
-					if(strlen($this_text) > 50)
-					{
-						$warnings[] = 
-							'Fakturalinje nr '.$line_num.' har beskrivelse som har bredd lenger enn 50 bokstaver. '.
-							'Ved eksport blir teksten kuttet til 50 bokstaver. '.
-							'Du kan fikse dette ved å fordele teksten på to linjer i beskrivelsesfeltet.';
-					}
-				}
+				//$text_split = explode(chr(10), $line['name']);
+				//foreach($text_split as $this_text)
+				//{
+				//	$this_text = trim($this_text);
+				//	if(strlen($this_text) > 50)
+				//	{
+				//		$warnings[] = 
+				//			'Fakturalinje nr '.$line_num.' har beskrivelse som har bredd lenger enn 50 bokstaver. '.
+				//			'Ved eksport blir teksten kuttet til 50 bokstaver. '.
+				//			'Du kan fikse dette ved å fordele teksten på to linjer i beskrivelsesfeltet.';
+				//	}
+				//}
 			}
 			
 			// Checking amount
@@ -527,8 +527,8 @@ function checkInvoicedata ($entry)
 		{
 			// We have got the customer
 			
-			if(strlen($customer['customer_name']) > 30)
-				$warnings[] = 'Kundens navn er lenger enn 30 bokstaver. Dette kan være i lengste laget.';
+			//if(strlen($customer['customer_name']) > 30)
+			//	$warnings[] = 'Kundens navn er lenger enn 30 bokstaver. Dette kan være i lengste laget.';
 			if(strlen($customer['customer_name']) < 1)
 				$errors[] = 'Kundens navn er ikke lagt inn på kunden. Dette går ikke og må rettes. Kunde må endres.';
 			
@@ -551,14 +551,14 @@ function checkInvoicedata ($entry)
 					//{
 					//	$warnings[] = 'Navnet på kunden står på første linje i adressen. Ved utskrift, så vil det da stå kundens navn to ganger.';
 					//}
-					if(strlen($address['address_line_1']) > 30)
-					{
-						$warnings[] = 'Adresselinje nr 1 er mer enn 30 bokstaver. Er det mulig å dele det opp i flere linjer?';
-					}
-					if(strlen($address['address_line_2']) > 30)
-					{
-						$warnings[] = 'Adresselinje nr 2 er mer enn 30 bokstaver. Er det mulig å dele det opp i flere linjer?';
-					}
+					//if(strlen($address['address_line_1']) > 30)
+					//{
+					//	$warnings[] = 'Adresselinje nr 1 er mer enn 30 bokstaver. Er det mulig å dele det opp i flere linjer?';
+					//}
+					//if(strlen($address['address_line_2']) > 30)
+					//{
+					//	$warnings[] = 'Adresselinje nr 2 er mer enn 30 bokstaver. Er det mulig å dele det opp i flere linjer?';
+					//}
 					if($address['address_postalnum'] == '')
 					{
 						$warnings[] = 'Det er ikke valgt noe postnummer/poststed for adressen.';
