@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 $section = 'template';
 
 include "include/admin_top.php";
-require "libs/invoice.class.php";
 
 $template_types = array(
 	'confirm' => _('E-mail confirmation')
@@ -121,34 +120,6 @@ $vars_entrychanges = array(
 		'log_user'					=> _('User that changed'),
 		'log_changes'				=> _('Changes').' '._('Table*')
 	);
-$invoice = new invoice ();
-$vars_invoice = array();
-foreach ($invoice->variables_to_template as $thisvar) {
-	$vars_invoice[$thisvar] = '...';
-}
-	$vars_invoice['invoice_id'] = 'Fakturaid';
-	$vars_invoice['invoice_time_created'] = 'Opprettelsestid'.' '._('Unixtime*');
-	$vars_invoice['invoice_time'] = 'Fakturadato'.' '._('YYYYDDMM*');
-	$vars_invoice['invoice_time2'] = 'Fakturadato'.' '._('array-time*');
-	$vars_invoice['invoice_time_due'] = 'Forfallsdato'.' '._('YYYYDDMM*');
-	$vars_invoice['invoice_time_due2'] = 'Forfallsdato'.' '._('array-time*');
-	$vars_invoice['invoice_time_payed'] = 'Tidspunkt betalt'.' '._('Unixtime*');
-	$vars_invoice['invoice_payment_info'] = '(Ikke i bruk)';
-	$vars_invoice['invoice_content'] = 'Produktinnhold'.' '._('array');
-	$vars_invoice['invoice_topay_total'] = 'Å betalte';
-	$vars_invoice['invoice_topay_total_net'] = 'Netto-beløp';
-	$vars_invoice['invoice_topay_total_tax'] = 'MVA-beløp';
-	$vars_invoice['invoice_payed'] = 'Betalt'.' '._('(0/1)');
-	$vars_invoice['invoice_payed2'] = 'Betalt'.' '._('(no/yes)');
-	$vars_invoice['invoice_to_line1'] = 'Adresselinje 1';
-	$vars_invoice['invoice_to_line2'] = 'Adresselinje 2';
-	$vars_invoice['invoice_to_line3'] = 'Adresselinje 3';
-	$vars_invoice['invoice_to_line4'] = 'Adresselinje 4';
-	$vars_invoice['invoice_to_line5'] = 'Adresselinje 5';
-	$vars_invoice['invoice_to_line6'] = 'Adresselinje 6';
-	$vars_invoice['invoice_to_line7'] = 'Adresselinje 7';
-	$vars_invoice['invoice_to_lines'] = 'Adresselinjer (hele adresse)';
-	$vars_invoice['invoice_to_email'] = 'E-postadresse';
 
 $Q_template = mysql_query("select * from `template` order by `template_name`");
 $temp = array();
@@ -244,17 +215,6 @@ $allowed_templatefiles['mail-entry-summary.tpl'] = array(
 		'mail-entry-summary.tpl',
 		array_merge (
 			$vars_entry,
-			$vars_system),
-		'sys',
-		'layout.png',
-		false,
-		'user_access_templateadmin'
-	);
-$allowed_templatefiles['invoice.tpl'] = array(
-		_('Invoice'), 
-		'invoice.tpl',
-		array_merge (
-			$vars_invoice,
 			$vars_system),
 		'sys',
 		'layout.png',

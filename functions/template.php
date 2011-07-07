@@ -344,39 +344,6 @@ function templateAssignEntryChanges ($var, $entry, $rev_num, $remove_invoice = f
 	}
 }
 
-function templateAssignInvoice($var, $invoice)
-{
-	global $$var;
-	
-	foreach ($invoice->variables_to_template as $thisvar) {
-		$$var->assign ($thisvar, $invoice->$thisvar);
-	}
-	/*
-	$$var->assign ('invoice_id', $invoice->invoice_id);
-	$$var->assign ('invoice_time_created', $invoice->invoice_time_created);
-	$$var->assign ('invoice_time', $invoice->invoice_time);
-	$$var->assign ('invoice_time2', $invoice->invoice_time2);
-	$$var->assign ('invoice_time_due', $invoice->invoice_time_due);
-	$$var->assign ('invoice_time_due2', $invoice->invoice_time_due2);
-	$$var->assign ('invoice_time_payed', $invoice->invoice_time_payed);
-	$$var->assign ('invoice_payment_info', $invoice->invoice_payment_info);
-	$$var->assign ('invoice_content', $invoice->invoice_content);
-	$$var->assign ('invoice_topay_total', $invoice->invoice_topay_total);
-	$$var->assign ('invoice_topay_total_net', $invoice->invoice_topay_total_net);
-	$$var->assign ('invoice_topay_total_tax', $invoice->invoice_topay_total_tax);
-	$$var->assign ('invoice_payed', $invoice->invoice_payed);
-	$$var->assign ('invoice_payed2', $invoice->invoice_payed2);
-	$$var->assign ('invoice_to_line1', $invoice->invoice_to_line1);
-	$$var->assign ('invoice_to_line2', $invoice->invoice_to_line2);
-	$$var->assign ('invoice_to_line3', $invoice->invoice_to_line3);
-	$$var->assign ('invoice_to_line4', $invoice->invoice_to_line4);
-	$$var->assign ('invoice_to_line5', $invoice->invoice_to_line5);
-	$$var->assign ('invoice_to_line6', $invoice->invoice_to_line6);
-	$$var->assign ('invoice_to_line7', $invoice->invoice_to_line7);
-	$$var->assign ('invoice_to_lines', $invoice->invoice_to_lines);
-	$$var->assign ('invoice_to_email', $invoice->invoice_to_email);*/
-}
-
 function templateFetchFromVariable ($var, $tpl)
 {
 	global $$var;

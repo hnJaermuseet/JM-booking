@@ -90,7 +90,6 @@ function filterMakeAlternatives () {
 	filterAddAlternative ('invoice_comment',			'text',			_('Invoice comment - to customer'));
 	filterAddAlternative ('invoice_internal_comment',	'text',			_('Invoice comment - internal'));
 	filterAddAlternative ('invoice_address_id',			'text',			_('Invoice address ID'));
-	//filterAddAlternative ('invoice_content',			'text',			_('Invoice info'));
 	filterAddAlternative ('invoice_electronic',			'bool',			_('Electronic invoice'));
 	filterAddAlternative ('invoice_email',				'text',			_('E-mail for electronic invoice'));
 	filterAddAlternative ('invoice_status',				'select',		_('Status of invoice'));
