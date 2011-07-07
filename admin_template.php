@@ -466,7 +466,7 @@ if(isset($_GET['preview']))
 		templateAssignEntry('smarty', $entry);
 		templateAssignEntryChanges('smarty', $entry, $entry['rev_num']);
 		templateAssignSystemvars('smarty');
-		echo nl2br($smarty->fetch($template[1]));
+		echo $smarty->fetch($template[1]);
 		exit();
 	}
 }
@@ -669,5 +669,3 @@ else
 	</script>
 	';
 }
-
-?>
