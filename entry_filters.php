@@ -270,7 +270,7 @@ if($login['user_invoice'] || $login['user_invoice_setready'])
 	echo '<label><input type="radio" name="return_to" value="invoice_tobemade_ready"';
 	if($return_to == 'invoice_tobemade_ready')
 		echo ' checked="checked"';
-	echo '> Faktura - Klar til å lages</label><br>'.chr(10);
+	echo '> Faktura - Klar til &aring; lages</label><br>'.chr(10);
 	echo '<label><input type="radio" name="return_to" value="invoice_exported"';
 	if($return_to == 'invoice_exported')
 		echo ' checked="checked"';

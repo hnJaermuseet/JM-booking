@@ -435,7 +435,7 @@ else
 echo '<table width="100%" height="100%" style="border: 1px solid black;">'.chr(10);
 echo '<tr><td align="center" height="40">'.chr(10);
 echo '<h1>'._('Choose address from').' '.$customer['customer_name'].'</h1>'.chr(10);
-echo 'En kunde kan i systemet vårt kan ha mange adresser koblet til seg.';
+echo 'En kunde kan i systemet v&aring;rt kan ha mange adresser koblet til seg.';
 echo '</td></tr>';
 
 echo '<tr><td>'.chr(10);

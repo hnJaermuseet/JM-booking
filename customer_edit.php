@@ -580,7 +580,7 @@ else
 					
 					<body>';
 					echo '<h1>Kunde med samme navn eksisterer</h1>';
-					echo 'Det ble funnet en eller flere kunder i databasen som har samme navn som den du prøver å opprette. Vil du velge en av de?<br><br>';
+					echo 'Det ble funnet en eller flere kunder i databasen som har samme navn som den du prøver &aring; opprette. Vil du velge en av de?<br><br>';
 					echo '<script language="javascript">
 				
 					function chooseCustomer (id)

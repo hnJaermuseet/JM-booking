@@ -272,7 +272,7 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 		echo '<div style="font-size: 1.6em; margin-top: 20px; margin-left: 10px;">'.
 		'<a href="#" id="invoice_export_submit">'.
 		'<img src="img/Crystal_Clear_action_db_comit.png" style="border: 0px solid black;" height="32"> '.
-		'Merker som sendt til regnskap og send fakturagrunnlag på e-post'.
+		'Merker som sendt til regnskap og send fakturagrunnlag p&aring; e-post'.
 		'</a>';
 		if(isset($invoice_sendto) && is_array($invoice_sendto))
 			echo '<br /><span style="display: inline-block; width: 32px">&nbsp;</span> (sendes til '.implode($invoice_sendto, ', ').')';
@@ -457,7 +457,7 @@ function checkInvoicedata ($entry)
 	// Any invoice content?
 	if(!count($entry['invoice_content']))
 	{
-		$errors[] = 'Ingen fakturalinjer er lagt inn på bookingen. Det må være fakturalinjer for at fakturering skal kunne finne sted.';
+		$errors[] = 'Ingen fakturalinjer er lagt inn p&aring; bookingen. Det m&aring; være fakturalinjer for at fakturering skal kunne finne sted.';
 	}
 	else
 	{
@@ -480,7 +480,7 @@ function checkInvoicedata ($entry)
 				//		$warnings[] = 
 				//			'Fakturalinje nr '.$line_num.' har beskrivelse som har bredd lenger enn 50 bokstaver. '.
 				//			'Ved eksport blir teksten kuttet til 50 bokstaver. '.
-				//			'Du kan fikse dette ved å fordele teksten på to linjer i beskrivelsesfeltet.';
+				//			'Du kan fikse dette ved &aring; fordele teksten p&aring; to linjer i beskrivelsesfeltet.';
 				//	}
 				//}
 			}
@@ -498,15 +498,15 @@ function checkInvoicedata ($entry)
 			// Checking a few export limits
 			if($line['belop_hver'] > 99999999)
 			{
-				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort beløp per stykk. Maks er 99 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved å dele opp i flere fakturalinjer.';
+				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort beløp per stykk. Maks er 99 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved &aring; dele opp i flere fakturalinjer.';
 			}
 			if($line['belop_sum_netto'] > 9999999999)
 			{
-				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort beløp totalt. Maks er 9999 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved å dele opp i flere fakturalinjer.';
+				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort beløp totalt. Maks er 9999 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved &aring; dele opp i flere fakturalinjer.';
 			}
 			if($line['antall'] > 99999999)
 			{
-				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort antall. Maks er 99 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved å dele opp i flere fakturalinjer.';
+				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort antall. Maks er 99 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved &aring; dele opp i flere fakturalinjer.';
 			}
 		}
 	}
@@ -530,7 +530,7 @@ function checkInvoicedata ($entry)
 			//if(strlen($customer['customer_name']) > 30)
 			//	$warnings[] = 'Kundens navn er lenger enn 30 bokstaver. Dette kan være i lengste laget.';
 			if(strlen($customer['customer_name']) < 1)
-				$errors[] = 'Kundens navn er ikke lagt inn på kunden. Dette går ikke og må rettes. Kunde må endres.';
+				$errors[] = 'Kundens navn er ikke lagt inn p&aring; kunden. Dette g&aring;r ikke og m&aring; rettes. Kunde m&aring; endres.';
 			
 			// Checking address
 			if($entry['invoice_address_id'] == 0)
@@ -549,15 +549,15 @@ function checkInvoicedata ($entry)
 					// We got a address
 					//if($address['address_line_1'] == $customer['customer_name'])
 					//{
-					//	$warnings[] = 'Navnet på kunden står på første linje i adressen. Ved utskrift, så vil det da stå kundens navn to ganger.';
+					//	$warnings[] = 'Navnet p&aring; kunden st&aring;r p&aring; første linje i adressen. Ved utskrift, s&aring; vil det da st&aring; kundens navn to ganger.';
 					//}
 					//if(strlen($address['address_line_1']) > 30)
 					//{
-					//	$warnings[] = 'Adresselinje nr 1 er mer enn 30 bokstaver. Er det mulig å dele det opp i flere linjer?';
+					//	$warnings[] = 'Adresselinje nr 1 er mer enn 30 bokstaver. Er det mulig &aring; dele det opp i flere linjer?';
 					//}
 					//if(strlen($address['address_line_2']) > 30)
 					//{
-					//	$warnings[] = 'Adresselinje nr 2 er mer enn 30 bokstaver. Er det mulig å dele det opp i flere linjer?';
+					//	$warnings[] = 'Adresselinje nr 2 er mer enn 30 bokstaver. Er det mulig &aring; dele det opp i flere linjer?';
 					//}
 					if($address['address_postalnum'] == '')
 					{

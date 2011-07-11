@@ -360,7 +360,7 @@ function emailSendConfirmation ($entry, $to, $message)
 	else
 		$area_name = '';
 	
-	$subject = 'Bekreftelse på booking - '.date('d.m.Y', $entry['time_start']).$area_name;
+	$subject = 'Bekreftelse booking - '.date('d.m.Y', $entry['time_start']).$area_name;
 	
 	
 	// TODO: Add HTML
@@ -394,7 +394,7 @@ function emailSendConfirmationPDF ($entry, $to, $confirm_pdffile, $attachments, 
 		$area_name = '';
 	
 	// Subject
-	$subject = 'Bekreftelse på booking - '.date('d.m.Y', $entry['time_start']).$area_name;
+	$subject = 'Bekreftelse booking - '.date('d.m.Y', $entry['time_start']).$area_name;
 	
 	
 	$crlf = "\n";

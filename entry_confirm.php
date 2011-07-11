@@ -275,7 +275,7 @@ if(isset($_POST['confirm_tpl']))
 
 print_header($day, $month, $year, $area);
 
-echo '<h1>Send bekreftelse på '.$entry['entry_name'].'</h1>'.chr(10).chr(10);
+echo '<h1>Send bekreftelse p&aring; '.$entry['entry_name'].'</h1>'.chr(10).chr(10);
 
 echo '- <a href="entry.php?entry_id='.$entry['entry_id'].'">'._('Back to entry').'</a> ('._('Will not send a confirmation').')<br><br>';
 
@@ -316,7 +316,7 @@ echo '<form name="entry_confirm" method="post" action="'.$_SERVER['PHP_SELF'].'?
 echo '<h2>'._('Send to').'</h2>'.chr(10);
 echo '<div style="margin-left: 20px;">';
 echo '<table width="600"><tr><td>';
-echo 'Hvis ingen epost-adresser er avkrysset eller rutene er tomme, så vil bookingen bare bli merkert med bekreftelse sendt, men ingen eposter sendes ut.';
+echo 'Hvis ingen epost-adresser er avkrysset eller rutene er tomme, s&aring; vil bookingen bare bli merkert med bekreftelse sendt, men ingen eposter sendes ut.';
 echo '<br><br>';
 echo '</td></tr></table>'.chr(10);
 
@@ -383,8 +383,8 @@ echo '
 /* ## VEDLEGG ## */
 echo '<h2>Vedlegg</h2>';
 echo '<div style="margin-left: 20px;" id="emailAttachment">';
-echo 'Filene må lastes opp fra egen side under <i>Administrasjon</i>. '.
-	'Du kan velge filer under, eller få disse fra bookingtype eller faste program.<br><br>';
+echo 'Filene m&aring; lastes opp fra egen side under <i>Administrasjon</i>. '.
+	'Du kan velge filer under, eller f&aring; disse fra bookingtype eller faste program.<br><br>';
 
 echo '<div style="border:2px solid #DDDDDD; margin-bottom:1em; padding:0.8em; width: 699px;">';
 echo '<div id="noAttachmentsSelected" style="display: none; padding: 5px;"><i>Ingen vedlegg valgt</i></div>';
@@ -455,7 +455,7 @@ echo '</div>';
 
 // Disabled:
 echo '<div style="width: 400px; margin-left: 20px; display:none; font-size: 14px;" class="error" id="emailAttachmentDisabled">'.
-	'Vedlegg er ikke mulig når sendingstype er ren tekst.<br>Velg PDF for vedlegg.</div>';
+	'Vedlegg er ikke mulig n&aring;r sendingstype er ren tekst.<br>Velg PDF for vedlegg.</div>';
 
 
 /* ## Template fields ## */
@@ -468,7 +468,7 @@ echo '<div style="margin-left: 20px;">';
 		_h('Content of the e-mail').' ('._h('can be edited here').')<br></span>'.chr(10);
 	echo '<textarea cols="85" rows="10" name="confirm_tpl" id="confirm_tpl"></textarea><br><br>'.chr(10);
 	
-	//echo '<label><input type="radio" name="emailTypePDF" value="1" checked="checked"> - '. iconFiletype('pdf').' Send som PDF-vedlegg (andre vedlegg også mulig)</label><br>';
+	//echo '<label><input type="radio" name="emailTypePDF" value="1" checked="checked"> - '. iconFiletype('pdf').' Send som PDF-vedlegg (andre vedlegg ogs&aring; mulig)</label><br>';
 	//echo '<label><input type="radio" name="emailTypePDF" value="0"> - Send som ren tekst direkte i e-posten (vedlegg ikke mulig)</label><br>';
 	//echo '<br><br>'.chr(10);
 	echo '<input type="hidden" name="emailTypePDF" value="1">'.chr(10); // Only PDF enabled
@@ -476,7 +476,7 @@ echo '<div style="margin-left: 20px;">';
 	echo '<div id="pdf_mailbody">';
 		echo _h('Content of the e-mail').' ('._h('can be edited here').')<br>';
 		echo '<textarea cols="85" rows="10" name="confirm_tpl_mainbody" id="confirm_tpl_mainbody">'.
-			htmlentities(utf8_decode(file_get_contents('templates/mail-entry-confirm-pdfbody.tpl')), ENT_QUOTES).'</textarea><br>'.chr(10);
+			htmlentities(file_get_contents('templates/mail-entry-confirm-pdfbody.tpl'), ENT_QUOTES).'</textarea><br>'.chr(10);
 		echo '<br><br>'.chr(10);
 	echo '</div>';
 echo '</div>'.chr(10).chr(10);

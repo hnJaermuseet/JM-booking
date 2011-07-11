@@ -227,7 +227,7 @@ function attSearch ()
 
 
 <div id="dialog" title="Velg fil(er)">
-	<i>Klikk på et vedlegg for å velge dette.</i>
+	<i>Klikk p&aring; et vedlegg for &aring; velge dette.</i>
 <?php
 /* Getting the attachments */
 $Q_att = mysql_query("

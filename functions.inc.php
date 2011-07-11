@@ -182,7 +182,9 @@ function print_header($day, $month, $year, $area){
 		echo '				</td>'.chr(10);
 		
 		echo '				<td class="banner'.$testSystem['bannerExtraClass'].'" align="center">'.chr(10);
-		echo '					'._("Logged in as").' <a href="user.php?user_id='.$login['user_id'].'">'.$login['user_name'].'</a><br>'.chr(10);
+		echo '					'._("Logged in as").' <a href="user.php?user_id='.$login['user_id'].'">'.
+									htmlentities($login['user_name'], ENT_QUOTES).
+								'</a><br>'.chr(10);
 		echo '					<a href="logout.php">'.
 			iconHTML('bullet_delete').' '.
 			_("Log out").'</a><br>'.chr(10);

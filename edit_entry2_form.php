@@ -261,8 +261,8 @@ if($copy_entry)
 	echo '<tr><td colspan="4" style="border: 0px;" align="center">'.chr(10);
 	
 	echo '<div class="notice" style="text-align: center; font-size: 20px; width:500px;">';
-	echo 'Obs! Du kopierer nå en booking.<br>'.
-	'<span style="font-size: 16px;">Hvis du skulle endre heller, så trykk tilbakeknappen.</span>'.chr(10);
+	echo 'Obs! Du kopierer n&aring; en booking.<br>'.
+	'<span style="font-size: 16px;">Hvis du skulle endre heller, s&aring; trykk tilbakeknappen.</span>'.chr(10);
 	
 	echo '</div>';
 	echo '</td></tr>'.chr(10);
@@ -283,7 +283,7 @@ if(!$entry_add && $entry['invoice_status'] > 1)
 	else
 		echo 'sendt til regnskap';
 	echo '.<br>'.
-	'<span style="font-size: 16px;">V&aelig;r obs på hva du gj&oslash;r.</span>'.chr(10);
+	'<span style="font-size: 16px;">V&aelig;r obs p&aring; hva du gj&oslash;r.</span>'.chr(10);
 	
 	echo '</div>';
 	echo '</td></tr>'.chr(10);
