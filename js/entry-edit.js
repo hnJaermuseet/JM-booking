@@ -182,6 +182,7 @@ function selectCustomer (customer_id)
 						document.getElementById("invoice_address_id2").value = '';
 						document.getElementById("invoice_address").value = '';
 					}
+					checkCustomerButton ();
 				}
 			} catch (e) {
 				//document.getElementById("ajax_output").innerHTML 
@@ -266,6 +267,19 @@ function tabInTaxField (e)
 	}
 }
 
+function checkCustomerButton ()
+{
+	customer_id = $('#customer_id').val();
+	if(customer_id != "")
+	{
+		$('#customer_edit_button img').attr('src', './img/icons/group_edit.png');
+	}
+	else
+	{
+		$('#customer_edit_button img').attr('src', './img/icons/group_add.png');
+	}
+}
+
 $(document).ready(function(){
 	$('#time_start').datepicker({
 			dateFormat: 'dd-mm-yy',
@@ -336,4 +350,6 @@ $(document).ready(function(){
 	$("input[type=text][name=contact_person_email]").click(function() {
 		checkEmailAndAlert_editentry($(this));
 	});
+	
+	checkCustomerButton();
 });

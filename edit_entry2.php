@@ -93,7 +93,7 @@ addField ('customer_name',		'text',			_('Customer'),				_('Type in parts for the
 	addID ('customer_name', 'customer_name');
 	addAfterField ('customer_name', '&nbsp;'.
 	'<input size="1" type="text" name="customer_id2" disabled="disabled" id="customer_id2">'.
-	'&nbsp;<input type="button" value="+" onclick="new_customer(); return false;" style="width: 25px">');
+	'&nbsp;<button type="button" onclick="new_customer(); return false;" id="customer_edit_button">'.iconHTML('group').'</button>');
 addField ('customer_id',		'hidden',		'');
 	addID ('customer_id',	'customer_id');
 addField ('customer_municipal',	'text',			_('Municipal'),				_('The municipal which the customer belong to.'));
