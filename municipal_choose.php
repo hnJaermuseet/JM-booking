@@ -49,7 +49,7 @@ $name = slashes(htmlspecialchars($_GET['name'],ENT_QUOTES));
 
 echo '<HTML>
 <HEAD>
-<TITLE>JM-booking</TITLE><LINK REL="stylesheet" href="default/mrbs.css" type="text/css">
+<TITLE>JM-booking</TITLE><LINK REL="stylesheet" href="css/jm-booking.css" type="text/css">
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=iso-8859-1">
 
 <script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3_comp-municipal.js"></script>
