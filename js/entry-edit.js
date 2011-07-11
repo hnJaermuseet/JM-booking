@@ -109,6 +109,7 @@ function new_customer ()
 
 function chooseMunicipal (id, name)
 {
+	/* THIS METHOD IS NOT IN USE AS OF 11.07.2011 */
 	wMunicipal = window.open("municipal_choose.php?id=" + id + "&name=" + name + "&id2=1", "wMunicipal", "width=450,height=610");
 	wMunicipal.focus();
 }

@@ -93,7 +93,8 @@ addField ('customer_name',		'text',			_('Customer'),				_('Type in parts for the
 	addID ('customer_name', 'customer_name');
 	addAfterField ('customer_name', '&nbsp;'.
 	'<input size="1" type="text" name="customer_id2" disabled="disabled" id="customer_id2">'.
-	'&nbsp;<button type="button" onclick="new_customer(); return false;" id="customer_edit_button">'.iconHTML('group').'</button>');
+	'&nbsp;<button type="button" onclick="new_customer(); return false;" id="customer_edit_button">'.iconHTML('group').'</button>'
+	);
 addField ('customer_id',		'hidden',		'');
 	addID ('customer_id',	'customer_id');
 addField ('customer_municipal',	'text',			_('Municipal'),				_('The municipal which the customer belong to.'));
@@ -101,7 +102,9 @@ addField ('customer_municipal',	'text',			_('Municipal'),				_('The municipal wh
 	disableField ('customer_municipal');
 	addAfterField ('customer_municipal', '&nbsp;'.
 	'<input size="1" type="text" name="customer_municipal_num2" disabled="disabled" id="customer_municipal_num2">'.
-	'<input type="button" value="'._('Choose').'" onclick="chooseMunicipal(\'customer_municipal_num\', \'customer_municipal\'); return false;">');
+	//'<input type="button" value="'._('Choose').'" onclick="chooseMunicipal(\'customer_municipal_num\', \'customer_municipal\'); return false;">'
+	'&nbsp;<button type="button" onclick="new_customer(); return false;" id="customer_municial_button">'.iconHTML('map_edit').'</button>'
+	);
 addField ('customer_municipal_num',		'hidden',		'');
 	addID ('customer_municipal_num',	'customer_municipal_num');
 addField ('contact_person_name',	'text',			_('Contact person'),		_('The contact person of the customer.'));
