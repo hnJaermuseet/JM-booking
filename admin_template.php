@@ -221,6 +221,47 @@ $allowed_templatefiles['mail-entry-summary.tpl'] = array(
 		false,
 		'user_access_templateadmin'
 	);
+$allowed_templatefiles['mail-forgot_pw.tpl'] = array(
+		'Epost - Glemt passord', 
+		'mail-forgot_pw.tpl',
+		array_merge (
+			$vars_system),
+		'sys',
+		'layout.png',
+		false,
+		'user_access_templateadmin'
+	);
+$allowed_templatefiles['entry-confirm-include-topp.tpl'] = array(
+		'Epost - Bekreftelse - Topptekst', 
+		'entry-confirm-include-topp.tpl',
+		array_merge (
+			$vars_system),
+		'sys',
+		'layout.png',
+		false,
+		'user_access_templateadmin'
+	);
+$allowed_templatefiles['entry-confirm-include-bunn.tpl'] = array(
+		'Epost - Bekreftelse - Bunntekst', 
+		'entry-confirm-include-bunn.tpl',
+		array_merge (
+			$vars_system),
+		'sys',
+		'layout.png',
+		false,
+		'user_access_templateadmin'
+	);
+$allowed_templatefiles['mail-entry-confirm-pdfbody.tpl'] = array(
+		'Epost - Bekreftelse - Innhold i selve eposten', 
+		'mail-entry-confirm-pdfbody.tpl',
+		array_merge (
+			$vars_entry,
+			$vars_system),
+		'sys',
+		'layout.png',
+		false,
+		'user_access_templateadmin'
+	);
 $allowed_templatefiles['fakturagrunnlag.tpl'] = array(
 		'Fakturagrunnlag', 
 		'fakturagrunnlag.tpl',
