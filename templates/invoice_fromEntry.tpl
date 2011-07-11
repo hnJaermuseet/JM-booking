@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 			<tr{if !$invoice2} class="invoiceGray"{/if}>
 				<td class="border"><b>Linjenr</b></td>
 				<td class="border"><b>Beskrivelse</b></td>
-				<td class="border"><b>Stk.pris</b></td>
+				<td class="border"><b>Stk.pris&nbsp;eks.mva</b></td>
 				<td class="border"><b>Antall</b></td>
 				<td class="border"><b>Sum&nbsp;eks.mva</b></td>
 				<td class="border"><b>MVA-sats</b></td>
