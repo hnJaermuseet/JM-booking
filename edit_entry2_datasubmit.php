@@ -368,7 +368,7 @@ foreach ($entry_fields as $field)
 					$thisone['name']		= '';
 					//$thisone['id_type']		= 0;
 					//$thisone['id_ekstra']	= 0;
-					$thisone['mva_eks']		= true;
+					//$thisone['mva_eks']		= true;
 					
 					if(isset($_POST['type'.$id]) && is_numeric($_POST['type'.$id]))
 						$thisone['type']		= $_POST['type'.$id];
@@ -380,12 +380,17 @@ foreach ($entry_fields as $field)
 						$thisone['mva']			= $_POST['mva'.$id];
 					if(isset($_POST['name'.$id]))
 						$thisone['name']		= $_POST['name'.$id];
+					if(isset($_POST['mva_eks'.$id]) && $_POST['mva_eks'.$id] == 1)
+						$thisone['mva_eks']     = true;
+					else
+						$thisone['mva_eks']     = false;
 					
 					$thisone['mva'] = ((float)$thisone['mva'])/100;
 					
 					${$field['var']}[$i] = $thisone;
 				}
 			}
+			
 			$$field['var'] = invoiceContentNumbers($$field['var']);
 			addValueArray($field['var'], $$field['var']);
 			break;

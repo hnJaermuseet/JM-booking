@@ -479,6 +479,8 @@ foreach ($entry_fields as $field)
 							'</td>'.chr(10);
 						
 						// Belop_hver
+						if(!$invoice_content['mva_eks'])
+							$invoice_content['belop_hver'] = round($invoice_content['belop_hver']*(1+$invoice_content['mva']),2);
 						echo ' <td><input type="text" size="6" id="belop_hver'.$id.'" name="belop_hver'.$id.'" value="'.$invoice_content['belop_hver'].'" '.
 							'onchange="updateMva('.$id.');" '.
 							'onkeyup="updateMva('.$id.');" '.
