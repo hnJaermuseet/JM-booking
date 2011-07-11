@@ -612,5 +612,3 @@ if($entry_fields['customer_id']['value'] != '')
 }*/
 
 require ( 'edit_entry2_form.php' );
-
-?>

@@ -102,6 +102,7 @@ _b.AutoSuggest=function(b,c, idfield, idfield2) {
 				break;
 			default:
 				this.getSuggestions(this.fld.value)
+				checkCustomerButton ();
 		}
 		return e
 	};

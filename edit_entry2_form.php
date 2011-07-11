@@ -600,5 +600,3 @@ echo '</script>'.chr(10);
 echo '<script type="text/javascript">
 '.$after_run.'
 </script>'.chr(10);
-
-?>

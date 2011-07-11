@@ -271,7 +271,7 @@ function tabInTaxField (e)
 function checkCustomerButton ()
 {
 	customer_id = $('#customer_id').val();
-	if(customer_id != "")
+	if(customer_id != "" && customer_id != "0")
 	{
 		$('#customer_edit_button img').attr('src', './img/icons/group_edit.png');
 	}
