@@ -232,14 +232,17 @@ if(mysql_error())
 }
 
 // Alerting
-foreach ($entry['user_assigned'] as $user_id)
+if(isset($_GET['alert']) && $_GET['alert'] == '1')
 {
-	if($user_id != $login['user_id'])
+	foreach ($entry['user_assigned'] as $user_id)
 	{
-		if($action_delete)
-			emailSendEntryDeleted($entry, $user_id);
-		else
-			emailSendEntryUndeleted($entry, $user_id);
+		if($user_id != $login['user_id'])
+		{
+			if($action_delete)
+				emailSendEntryDeleted($entry, $user_id);
+			else
+				emailSendEntryUndeleted($entry, $user_id);
+		}
 	}
 }
 
