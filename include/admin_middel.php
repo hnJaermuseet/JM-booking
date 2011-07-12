@@ -75,6 +75,9 @@ echo '<a href="admin_import_dn.php"';
 if($section=="import_dn") echo "style='color:red'";
 echo '>Statistikkimport</a> -:- ';
 
+echo '<a href="entry_list.php?listtype=deleted"';
+echo '>Slettede bookinger</a> -:- ';
+
 echo '<hr>'.chr(10);
 
 	

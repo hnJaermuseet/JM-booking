@@ -100,6 +100,9 @@ function filterMakeAlternatives () {
 	filterAddAlternative ('tamed_datanova',             'bool',        'Ta med fra Datanova');
 	filterAddAlternative ('dn_kategori_id',             'id',          'Datanova-kategorier'); filterAssignTable ('dn_kategori_id', 'import_dn_kategori', 'kat_id', 'kat_navn');
 	
+	// Deleted entries
+	filterAddAlternative ('deleted',                    'bool',        'Slettede bookinger');
+	
 	// TODO: Add status of invoice choices
 	
 	// Area_id
@@ -233,8 +236,9 @@ function addFilter ($filtertable, $filtertype, $value1, $value2 = '') {
 function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 	global $alternatives;
 	
-	$SQL = "select $FieldsToSelect from `entry` where 1";
+	$SQL = "select $FieldsToSelect from `GET_FROM_TABLE` where 1";
 	$used_filtertypes = array();
+	$get_deleted = false;
 	foreach ($filters as $filter)
 	{
 		if(
@@ -243,6 +247,13 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 			$filter[0] == 'dn_kategori_id'
 		)
 		{
+			continue;
+		}
+		
+		if($filter[0] == 'deleted')
+		{
+			if($filter[1] == '1')
+				$get_deleted = true;
 			continue;
 		}
 		
@@ -319,6 +330,13 @@ function genSQLFromFilters ($filters, $FieldsToSelect = '*') {
 	// Adding the room_id=0, all rooms
 	//$SQL = str_replace(" AND (`room_id`", " AND (`room_id` LIKE '%;0;%' OR `".$filter[0]."`", $SQL);
 	// => disabled, gives some undesirable effects
+	
+	
+	if(!$get_deleted)
+		$SQL = str_replace('`GET_FROM_TABLE`', '`entry`', $SQL);
+	else
+		$SQL = str_replace('`GET_FROM_TABLE`', '`entry_deleted`', $SQL);
+	
 	return $SQL;
 }
 
@@ -568,4 +586,3 @@ function filterToText ($filtertable) {
 function filterPrint ($filtertable) {
 	echo filterToText($filtertable);
 }
-?>

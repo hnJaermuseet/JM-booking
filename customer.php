@@ -120,7 +120,7 @@ filterMakeAlternatives();
 $filters = array();
 $filters = addFilter($filters, 'customer_id', $customer['customer_id']);
 filterLink($filters);	echo '<br><br>'.chr(10).chr(10);
-$SQL = genSQLFromFilters($filters, 'entry_id').' order by time_start';
+$SQL = genSQLFromFilters($filters, '*').' order by time_start';
 $Q_next_entries = mysql_query($SQL);
 
 if(!mysql_num_rows($Q_next_entries))
@@ -136,9 +136,9 @@ else
 	echo '  <td class="border"><b>'._('Phone').'</b></td>'.chr(10);
 	echo '  <td class="border"><b>'._('E-mail').'</b></td>'.chr(10);
 	echo ' </tr>'.chr(10);
-	while($R_entry = mysql_fetch_assoc($Q_next_entries))
+	while($R = mysql_fetch_assoc($Q_next_entries))
 	{
-		$entry = getEntry($R_entry['entry_id']);
+		$entry = getEntryParseDatabaseArray($R);
 		if(count($entry))
 		{
 			echo ' <tr>'.chr(10);
@@ -171,4 +171,59 @@ else
 	echo '</table>'.chr(10);
 }
 
-?>
+
+
+$filters = array();
+$filters = addFilter($filters, 'customer_id', $customer['customer_id']);
+$filters = addFilter($filters, 'deleted', true);
+$SQL = genSQLFromFilters($filters, '*').' order by time_start';
+$Q_next_entries = mysql_query($SQL);
+
+if(mysql_num_rows($Q_next_entries))
+{
+	echo '<h2>Slettede bookinger knyttet til '.$customer['customer_name'].'</h2>'.chr(10);
+	filterLink($filters);	echo '<br><br>'.chr(10).chr(10);
+	
+	echo '<table style="border-collapse: collapse;">'.chr(10);
+	echo ' <tr>'.chr(10);
+	echo '  <td class="border"><b>'._('Starts').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'._('Name').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'._('Where').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'._('Contact person').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'._('Phone').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'._('E-mail').'</b></td>'.chr(10);
+	echo ' </tr>'.chr(10);
+	while($R = mysql_fetch_assoc($Q_next_entries))
+	{
+		$entry = getEntryParseDatabaseArray($R);
+		if(count($entry))
+		{
+			echo ' <tr>'.chr(10);
+			echo '  <td class="border"><b>'.date('d-m-Y H:i', $entry['time_start']).'</b></td>'.chr(10);
+			echo '  <td class="border"><a href="entry.php?entry_id='.$entry['entry_id'].'">'.$entry['entry_name'].'</a></td>'.chr(10);
+			echo '  <td class="border">';
+			$area = getArea($entry['area_id']);
+			if(count($area))
+				echo $area['area_name'].' - ';
+			$rooms = array();
+			foreach ($entry['room_id'] as $rid)
+			{
+				if($rid == '0')
+					$rooms[] = _('Whole area');
+				else
+				{
+					$room = getRoom($rid);
+					if(count($room))
+						$rooms[] = $room['room_name'];
+				}
+			}
+			echo implode(', ', $rooms);
+			echo '</td>'.chr(10);
+			echo '  <td class="border">'.$entry['contact_person_name'].'</td>'.chr(10);
+			echo '  <td class="border">'.$entry['contact_person_phone'].'</td>'.chr(10);
+			echo '  <td class="border">'.$entry['contact_person_email'].'</td>'.chr(10);
+			echo ' </tr>'.chr(10);
+		}
+	}
+	echo '</table>'.chr(10);
+}

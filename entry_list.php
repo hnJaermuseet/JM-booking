@@ -97,6 +97,23 @@ switch($listtype)
 		
 		$return_to = 'customer_list';
 		break;
+	
+	case 'deleted':
+		echo '<h1>Slettede bookinger</h1>';
+		if(!isset($_GET['filters']))
+			$_GET['filters'] = '';
+		
+		$filters = filterGetFromSerialized($_GET['filters']);
+		if(!$filters)
+		{
+			$filters = array();
+			$filters = addFilter($filters, 'deleted', true);
+		}
+		
+		break;
+		
+		$return_to = 'customer_list';
+		break;
 		
 	default:
 		echo '<h1>'._('Entry list').'</h1>';
@@ -111,7 +128,7 @@ switch($listtype)
 		break;
 }
 
-$SQL = genSQLFromFilters($filters, 'entry_id');
+$SQL = genSQLFromFilters($filters, '*');
 $SQL .= " order by `time_start`".$addAdfterSQL;
 
 echo '<div class="hiddenprint">';
@@ -168,7 +185,7 @@ else
 	
 	while($R = mysql_fetch_assoc($Q))
 	{
-		$entry = getEntry($R['entry_id']);
+		$entry = getEntryParseDatabaseArray($R);
 		
 		if($listtype == 'customer_list')
 		{

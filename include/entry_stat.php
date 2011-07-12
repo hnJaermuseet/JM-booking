@@ -37,7 +37,7 @@ $filters = filterGetFromSerialized($_GET['filters']);
 if(!$filters)
 	$filters = array();
 
-$SQL = genSQLFromFilters($filters, 'entry_id');
+$SQL = genSQLFromFilters($filters, '*');
 $SQL .= " order by `time_start`";
 
 $SQL_datanova = genSQLFromFiltersDatanova ($filters);
@@ -102,7 +102,7 @@ if($tamed_datanova)
  */
 while($tamed_booking && $R = mysql_fetch_assoc($Q))
 {
-	$entry = getEntry($R['entry_id']);
+	$entry = getEntryParseDatabaseArray($R);
 	
 	/* Municipals */
 	if($entry['customer_municipal_num'] == '')
