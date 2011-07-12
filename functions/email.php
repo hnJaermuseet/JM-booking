@@ -345,6 +345,42 @@ function emailSendEntryUserDeleted ($entry, $rev_num, $user_id)
 	}
 }
 
+function emailSendEntryDeleted ($entry, $user_id)
+{
+	global $smarty;
+	
+	if(!isUserDeactivated($user_id))
+	{
+		$smarty = new Smarty;
+		
+		templateAssignEntry('smarty', $entry);
+		templateAssignSystemvars('smarty');
+		$message = $smarty->fetch('file:mail-entry-deleted.tpl');
+		$subject = "[booking]".$entry['entry_id'].' '.
+		date('d.m.Y', $entry['time_start']).' Slettet';
+		
+		emailSend($user_id, $subject, $message);
+	}
+}
+
+function emailSendEntryUndeleted ($entry, $user_id)
+{
+	global $smarty;
+	
+	if(!isUserDeactivated($user_id))
+	{
+		$smarty = new Smarty;
+		
+		templateAssignEntry('smarty', $entry);
+		templateAssignSystemvars('smarty');
+		$message = $smarty->fetch('file:mail-entry-undeleted.tpl');
+		$subject = "[booking]".$entry['entry_id'].' '.
+		date('d.m.Y', $entry['time_start']).' Gjenopprettet';
+		
+		emailSend($user_id, $subject, $message);
+	}
+}
+
 function emailSendConfirmation ($entry, $to, $message)
 {
 	global $login;

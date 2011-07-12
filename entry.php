@@ -51,9 +51,18 @@ debugAddToLog(__FILE__, __LINE__, 'Getting entry');
 $entry = getEntry ($entry_id);
 if (!count($entry))
 {
-	echo _('Can\'t find entry');
-	exit();
+	// Not found, checking for deleted
+	$entry = getEntryDeleted ($entry_id);
+	if(!count($entry))
+	{
+		echo _('Can\'t find entry');
+		exit();
+	}
+	else
+		$deleted = true;
 }
+else
+	$deleted = false;
 
 
 $day	= date('d', $entry['time_start']);
@@ -70,6 +79,8 @@ $smarty = new Smarty;
 
 templateAssignEntry('smarty', $entry);
 templateAssignSystemvars('smarty');
+
+$smarty->assign('deleted', $deleted);
 
 debugAddToLog(__FILE__, __LINE__, 'Displaying template (entry_view.tpl)');
 $smarty->display('file:entry_view.tpl');
@@ -99,6 +110,10 @@ foreach($entry_log as $thislog)
 	$thislog['log_action2'] != 'invoice_exported' && 
 	$thislog['log_action2'] != 'invoice_payed')
 	{
+		if($thislog['log_action2'] == 'entry_deleted')
+			echo 'F&oslash;lgende data var tilstede ved sletting:<br />';
+		if($thislog['log_action2'] == 'entry_undeleted')
+			echo 'F&oslash;lgende data var tilstede ved gjenoppretting:<br />';
 		echo '<a href="javascript:switchView('.$thislog['log_id'].');" id="switchlink'.$thislog['log_id'].'">'._("hide").'</a>'.chr(10);
 		echo '<div id="log'.$thislog['log_id'].'">'.chr(10);
 		echo ' <ul>'.chr(10);
@@ -113,8 +128,23 @@ foreach($entry_log as $thislog)
 }
 echo '</table>'.chr(10);
 
+
+echo '<h2>Handlinger</h2>';
+echo '<span style="font-size: 16px;">';
+
+if(!$deleted)
+	echo
+		'<a href="entry_delete.php?entry_id='.$entry['entry_id'].'">'.
+			iconHTML('page_white_delete').' Slett booking</a></span><br>'.
+		'&nbsp;&nbsp;&nbsp;(Dette er ikke permanent. Den legges kun i et eget arkiv for slettede bookinger. Kan gjenopprettes igjen.)';
+else
+	echo 
+		'<a href="entry_delete.php?entry_id='.$entry['entry_id'].'&amp;undelete=1">'.
+			iconHTML('page_white_get').' Gjenopprett booking</a></span><br>';
+
 echo '</td></tr></table>';
+
+
 
 debugAddToLog(__FILE__, __LINE__, 'entry.php finished');
 debugPrintLog();
-?>

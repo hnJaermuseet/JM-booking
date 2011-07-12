@@ -1009,6 +1009,27 @@ function getEntryType($id)
 	}
 }
 
+function getEntryDeleted($id)
+{
+	if(!is_numeric($id) || $id == '0')
+	{
+		return array();
+	}
+	else
+	{
+		$id = (int)$id;
+		$Q = mysql_query("select * from `entry_deleted` where entry_id = '".$id."' limit 1");
+		if(!mysql_num_rows($Q))
+		{
+			return array();
+		}
+		else
+		{
+			return getEntryParseDatabaseArray (mysql_fetch_assoc($Q));
+		}
+	}
+}
+
 function getEntry($id)
 {
 	if(!is_numeric($id) || $id == '0')
@@ -1025,62 +1046,67 @@ function getEntry($id)
 		}
 		else
 		{
-			$return = mysql_fetch_assoc($Q);
-			$return['room_id']					= splittIDs($return['room_id']);
-			$return['edit_by']					= splittIDs($return['edit_by']);
-			$return['user_assigned']			= splittIDs($return['user_assigned']);
-			$return['contact_person_email2']	= splittEmails($return['contact_person_email']);
-			if($return['invoice_content'] == '' )
-				$return['invoice_content'] = array();
-			else
-			{
-				$return['invoice_content']			= unserialize($return['invoice_content']);
-				if(!is_array($return['invoice_content']))
-					$return['invoice_content'] = array();
-			}
-			
-			
-			$return['mva']	= array();
-			$return['mva_grunnlag']	= array();
-			$return['mva_grunnlag_sum'] = 0;
-			$return['faktura_belop_sum'] = 0;
-			$return['faktura_belop_sum_mva'] = 0;
-			$return['eks_mva_tot'] = 0;
-			foreach ($return['invoice_content'] as $linjenr => $vars)
-			{
-				$return['faktura_belop_sum_mva']	+= $vars['mva_sum'];
-				$return['faktura_belop_sum']		+= $vars['belop_sum'];
-				$return['eks_mva_tot']				+= $vars['belop_sum_netto'];
-				$vars['mva'] *= 100;
-				if($vars['mva'] > 0)
-				{
-					if(isset($return['mva'][$vars['mva']]))
-						$return['mva'][$vars['mva']] += $vars['mva_sum'];
-					else
-						$return['mva'][$vars['mva']] = $vars['mva_sum'];
-					
-					$return['mva_grunnlag_sum'] += $vars['belop_sum_netto'];
-					if(isset($return['mva_grunnlag'][$vars['mva']]))
-						$return['mva_grunnlag'][$vars['mva']] += $vars['belop_sum_netto'];
-					else
-						$return['mva_grunnlag'][$vars['mva']] = $vars['belop_sum_netto'];
-				}
-			}
-			$return['grunnlag_mva_tot'] = 0;
-			if(count($return['mva']))
-			{
-				foreach ($return['mva'] as $mvaen => $mva_delsum)
-				{
-					$return['grunnlag_mva_tot'] += $return['mva_grunnlag'][$mvaen];
-				}
-				$return['mva_vis'] = true;
-			}
-			else
-				$return['mva_vis'] = false;
-			
-			return $return;
+			return getEntryParseDatabaseArray (mysql_fetch_assoc($Q));
 		}
 	}
+}
+
+function getEntryParseDatabaseArray ($return)
+{
+	$return['room_id']					= splittIDs($return['room_id']);
+	$return['edit_by']					= splittIDs($return['edit_by']);
+	$return['user_assigned']			= splittIDs($return['user_assigned']);
+	$return['contact_person_email2']	= splittEmails($return['contact_person_email']);
+	if($return['invoice_content'] == '' )
+		$return['invoice_content'] = array();
+	else
+	{
+		$return['invoice_content']			= unserialize($return['invoice_content']);
+		if(!is_array($return['invoice_content']))
+			$return['invoice_content'] = array();
+	}
+	
+	
+	$return['mva']	= array();
+	$return['mva_grunnlag']	= array();
+	$return['mva_grunnlag_sum'] = 0;
+	$return['faktura_belop_sum'] = 0;
+	$return['faktura_belop_sum_mva'] = 0;
+	$return['eks_mva_tot'] = 0;
+	
+	foreach ($return['invoice_content'] as $linjenr => $vars)
+	{
+		$return['faktura_belop_sum_mva']	+= $vars['mva_sum'];
+		$return['faktura_belop_sum']		+= $vars['belop_sum'];
+		$return['eks_mva_tot']				+= $vars['belop_sum_netto'];
+		$vars['mva'] *= 100;
+		if($vars['mva'] > 0)
+		{
+			if(isset($return['mva'][$vars['mva']]))
+				$return['mva'][$vars['mva']] += $vars['mva_sum'];
+			else
+				$return['mva'][$vars['mva']] = $vars['mva_sum'];
+			
+			$return['mva_grunnlag_sum'] += $vars['belop_sum_netto'];
+			if(isset($return['mva_grunnlag'][$vars['mva']]))
+				$return['mva_grunnlag'][$vars['mva']] += $vars['belop_sum_netto'];
+			else
+				$return['mva_grunnlag'][$vars['mva']] = $vars['belop_sum_netto'];
+		}
+	}
+	$return['grunnlag_mva_tot'] = 0;
+	if(count($return['mva']))
+	{
+		foreach ($return['mva'] as $mvaen => $mva_delsum)
+		{
+			$return['grunnlag_mva_tot'] += $return['mva_grunnlag'][$mvaen];
+		}
+		$return['mva_vis'] = true;
+	}
+	else
+		$return['mva_vis'] = false;
+	
+	return $return;
 }
 
 function getArea($id)
@@ -1464,6 +1490,12 @@ function printEntryLog($log, $printData = FALSE, $to_return = FALSE)
 					$return .= _('Icalendar element is sent to');
 					$emails = true;
 					break;
+				case 'entry_deleted':
+					$return .= 'Bookingen slettet';
+					break;
+				case 'entry_undeleted';
+					$return .= 'Bookingen reaktivert';
+					break;
 				case '':
 					$return .= _('Entry was edited.');
 					break;
@@ -1508,6 +1540,8 @@ function readEntryLog ($log)
 	
 	if($log['log_action'] == 'add')
 		$middlestring = _('set to');
+	elseif($log['log_action2'] == 'entry_deleted' || $log['log_action2'] == 'entry_undeleted')
+		$middlestring = 'var';
 	else
 		$middlestring = _('changed to');
 		
@@ -1518,6 +1552,10 @@ function readEntryLog ($log)
 		{
 			switch($index)
 			{
+				case 'customer_municipal':
+					// Ignore
+					break;
+				
 				case 'entry_name':
 					if($value == '')
 						$return[] = _('Entry name').' <i>'._('not set').'</i>';
@@ -1538,6 +1576,21 @@ function readEntryLog ($log)
 					
 				case 'time_end':
 					$return[] = _('End time').' '.$middlestring.' <i>'.date('H:i d-m-Y', $value).'</i>';
+					break;
+					
+				case 'time_created':
+					$return[] = 'Opprettet <i>'.date('H:i d-m-Y', $value).'</i>';
+					break;
+					
+				case 'time_last_edit':
+					$return[] = 'Sist endret <i>'.date('H:i d-m-Y', $value).'</i>';
+					break;
+				
+				case 'confirm_email':
+					if($value == '1')
+						$return[] = 'Bekreftelse var sendt';
+					else
+						$return[] = 'Bekreftelse var ikke sendt';
 					break;
 					
 				case 'area_id':
@@ -1567,6 +1620,39 @@ function readEntryLog ($log)
 							}
 						}
 						$return[] = _('Room').' '.$middlestring.' <i>'.implode(', ', $values).'</i>';
+					}
+					break;
+					
+				case 'created_by':
+					$thisone = getUser($value);
+					if(count($thisone))
+						$return[] = 'Opprettet av '.$thisone['user_name'];
+					break;
+				
+				case 'user_last_edit':
+					$thisone = getUser($value);
+					if(count($thisone))
+						$return[] = 'Sist endret av '.$thisone['user_name'];
+					break;
+					
+				case 'edit_by':
+					if(!count($value))
+						$return[] = 'Har vært endret av <i>'._('Nobody').'</i>';
+					else
+					{
+						$values = array();
+						foreach ($value as $id)
+						{
+							if($id == '0')
+								$values[] = _('Nobody');
+							else
+							{
+								$thisone = getUser($id);
+								if(count($thisone))
+									$values[] = $thisone['user_name'];
+							}
+						}
+						$return[] = 'Har vært endret av <i>'.implode(', ', $values).'</i>';
 					}
 					break;
 					
@@ -1863,6 +1949,8 @@ function newEntryLog($entry_id, $log_action, $log_action2, $rev_num, $log_data)
 				case 'invoice_sent':
 				case 'invoice_payed':
 				case 'confirm':
+				case 'entry_deleted':
+				case 'entry_undeleted':
 					break;
 				case 'confirm_email':
 				case 'ical_sent':

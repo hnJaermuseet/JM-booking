@@ -703,3 +703,62 @@ ALTER TABLE `users` ADD `user_password_complex` BOOL NOT NULL AFTER `user_passwo
 --
 ALTER TABLE `users` ADD `user_newpassword_key` VARCHAR( 255 ) NOT NULL AFTER `user_password_3` ,
 ADD `user_newpassword_validto` INT NOT NULL AFTER `user_newpassword_key` ;
+
+
+
+--
+-- Database upgrade - 12.07.2011
+-- Entries can be moved to a "deleted" state
+--
+CREATE TABLE `entry_deleted` (
+  `entry_id` int(11) NOT NULL,
+  `entry_name` varchar(255) NOT NULL,
+  `entry_title` varchar(255) NOT NULL,
+  `confirm_email` tinyint(1) NOT NULL,
+  `entry_type_id` int(11) NOT NULL,
+  `num_person_child` double NOT NULL,
+  `num_person_adult` double NOT NULL,
+  `num_person_count` tinyint(1) NOT NULL default '1',
+  `program_id` int(11) NOT NULL,
+  `program_description` text NOT NULL,
+  `service_alco` enum('0','1') NOT NULL,
+  `service_description` text NOT NULL,
+  `comment` text NOT NULL,
+  `infoscreen_txt` varchar(255) NOT NULL,
+  `rev_num` int(11) NOT NULL,
+  `time_start` int(11) NOT NULL,
+  `time_end` int(11) NOT NULL,
+  `time_day` varchar(2) NOT NULL,
+  `time_month` varchar(2) NOT NULL,
+  `time_year` varchar(5) NOT NULL,
+  `time_hour` varchar(2) NOT NULL,
+  `time_min` varchar(2) NOT NULL,
+  `time_created` int(11) NOT NULL,
+  `time_last_edit` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `customer_name` varchar(255) NOT NULL,
+  `customer_municipal_num` varchar(10) NOT NULL,
+  `customer_municipal` varchar(255) NOT NULL,
+  `contact_person_name` varchar(255) NOT NULL,
+  `contact_person_phone` varchar(25) NOT NULL,
+  `contact_person_email` varchar(255) NOT NULL,
+  `room_id` varchar(255) NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `created_by` varchar(255) NOT NULL,
+  `edit_by` varchar(255) NOT NULL,
+  `user_assigned` varchar(255) NOT NULL,
+  `user_assigned2` varchar(255) NOT NULL,
+  `user_last_edit` int(11) NOT NULL,
+  `invoice` tinyint(1) NOT NULL,
+  `invoice_ref_your` varchar(255) NOT NULL,
+  `invoice_comment` text NOT NULL,
+  `invoice_internal_comment` text NOT NULL,
+  `invoice_address_id` int(11) NOT NULL,
+  `invoice_content` text NOT NULL,
+  `invoice_status` enum('0','1','2','3','4') NOT NULL,
+  `invoice_locked` tinyint(1) NOT NULL default '0',
+  `invoice_electronic` tinyint(1) NOT NULL default '0',
+  `invoice_email` varchar(255) NOT NULL,
+  `invoice_exported_time` int(11) NOT NULL,
+  PRIMARY KEY  (`entry_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;

@@ -33,10 +33,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <h1>Viser booking</h1>
 
 <span style="font-size: 16px;">
-<a href="edit_entry2.php?entry_id={$entry_id}" style="font-weight: bold;">
-{iconHTML ico="page_white_edit"} Endre denne bookingen</a>
-&nbsp;&nbsp;-:- &nbsp;&nbsp;<a href="edit_entry2.php?copy_entry_id={$entry_id}">
-{iconHTML ico="page_white_copy"} Kopier denne bookingen</a>
+{if !$deleted}
+	<a href="edit_entry2.php?entry_id={$entry_id}" style="font-weight: bold;">
+	{iconHTML ico="page_white_edit"} Endre denne bookingen</a>
+	&nbsp;&nbsp;-:- &nbsp;&nbsp;<a href="edit_entry2.php?copy_entry_id={$entry_id}">
+	{iconHTML ico="page_white_copy"} Kopier denne bookingen</a>
+{else}
+	<div class="notice" style="width: 400px;"><b>Denne bookingen er slettet.</b><br /><br />Den kan gjenopprettes eller kopieres hvis innholdet i bookingen skal brukes videre.</div>
+	<a href="entry_delete.php?entry_id={$entry_id}&amp;undelete=1" style="font-weight: bold;">
+	{iconHTML ico="page_white_get"} Gjenopprett booking</a>
+	&nbsp;&nbsp;-:- &nbsp;&nbsp;<a href="edit_entry2.php?copy_entry_id={$entry_id}">
+	{iconHTML ico="page_white_copy"} Kopier denne slettede bookingen til en ny</a>
+{/if}
 </span>
 <br><br><br></span>
 

@@ -210,6 +210,28 @@ $allowed_templatefiles['mail-entry-changes.tpl'] = array(
 		false,
 		'user_access_templateadmin'
 	);
+$allowed_templatefiles['mail-entry-deleted.tpl'] = array(
+		'Epost - Slettet booking', 
+		'mail-entry-deleted.tpl',
+			array_merge (
+				$vars_entry,
+				$vars_system),
+		'sys',
+		'layout.png',
+		false,
+		'user_access_templateadmin'
+	);
+$allowed_templatefiles['mail-entry-undeleted.tpl'] = array(
+		'Epost - Gjenopprettet booking', 
+		'mail-entry-undeleted.tpl',
+			array_merge (
+				$vars_entry,
+				$vars_system),
+		'sys',
+		'layout.png',
+		false,
+		'user_access_templateadmin'
+	);
 $allowed_templatefiles['mail-entry-summary.tpl'] = array(
 		_('Mail - Summary of entry'), 
 		'mail-entry-summary.tpl',

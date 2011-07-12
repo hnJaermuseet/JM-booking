@@ -342,25 +342,39 @@ addChoice ('invoice_electronic', array ('1' => _('Yes'), '0' => _('No')));
 addChoice ('service_alco', array ('1' => _('Yes'), '0' => _('No')));
 addChoice ('num_person_count', array ('1' => _('Yes'), '0' => _('No')));
 
+
+
 /* ### GETTING DATA FROM ENTRY OR DEFAULTS ### */
 $entry_add = TRUE;
 $copy_entry = false;
 if ($entry_id != 0 || isset($_GET['copy_entry_id'])) {
 	if($entry_id != 0)
 	{
-		$entry = getEntry ($entry_id);
 		$entry_add = FALSE;
 	}
 	else
 	{
-		$entry = getEntry ($_GET['copy_entry_id']);
+		$entry_id = $_GET['copy_entry_id'];
 		$copy_entry = true;
 	}
+	
+	$entry = getEntry ($entry_id);
 	if (!count($entry))
 	{
-		echo _('Can\'t find entry');
-		exit();
+		$entry = getEntryDeleted($entry_id);
+		if(!count($entry))
+		{
+			echo _('Can\'t find entry');
+			exit();
+		}
+		else
+		{
+			$copy_entry  = true;
+			$deleted     = true;
+		}
 	}
+	else
+		$deleted = false;
 	
 	// Add the values to $entry_fields
 	addValue('entry_id',				$entry['entry_id']);

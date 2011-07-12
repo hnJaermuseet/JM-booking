@@ -261,8 +261,12 @@ if($copy_entry)
 	echo '<tr><td colspan="4" style="border: 0px;" align="center">'.chr(10);
 	
 	echo '<div class="notice" style="text-align: center; font-size: 20px; width:500px;">';
-	echo 'Obs! Du kopierer n&aring; en booking.<br>'.
-	'<span style="font-size: 16px;">Hvis du skulle endre heller, s&aring; trykk tilbakeknappen.</span>'.chr(10);
+	
+	if(!$deleted)
+		echo 'Obs! Du kopierer n&aring; en booking.<br>'.
+			'<span style="font-size: 16px;">Hvis du skulle endre heller, s&aring; trykk tilbakeknappen.</span>'.chr(10);
+	else
+		echo 'Du kopierer n&aring; en slettet booking.'.chr(10);
 	
 	echo '</div>';
 	echo '</td></tr>'.chr(10);
