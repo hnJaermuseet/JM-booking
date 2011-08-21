@@ -358,7 +358,7 @@ function exchangesync_syncItems ($cal, $user, $user_id, $entries_sync)
 		}
 		
 		// Delete this entry for this user
-		$delete_where[] = '(`entry_id` = \''.$entry['entry_id'].'\' && `user_id` = \''.$user_id.'\')';
+		$delete_where[] = '(`entry_id` = \''.$entry_id.'\' && `user_id` = \''.$user_id.'\')';
 	}
 	
 	// Delete in Exchange
