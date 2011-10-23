@@ -243,9 +243,25 @@ try
 		}
 		catch (Exception $e)
 		{
-			printout('Exception: '.$e->getMessage());
-			$alert_admin = true;
-			$alerts[] = 'Exception: '.$e->getMessage();
+			if($e->getMessage() == 'getCalendarItems failed. ResponseClass: Error. ResponseCode: ErrorFolderNotFound. Message: The specified folder could not be found in the store.')
+			{
+				// Alert admin, alert user and disable sync
+				emailSend($user_id, 'Ikke tilgang til kalender', exchangesync_getUsermsgAccessDenied($systemurl));
+				
+				mysql_query("UPDATE `users` SET `user_ews_sync` = '0' WHERE `user_id` =".$user_id);
+				
+				$msg = 'User '.$user_id.' has access denied error when getting calendar items. Has disabled the sync of this user. Message from Exchange: '.$e->getMessage();
+				printout($msg);
+				$alert_admin = true;
+				$alerts[]    = $msg;
+			}
+			else
+			{
+				// Unknown error, alert admin
+				printout('Exception during user '.$user_id.': '.$e->getMessage());
+				$alert_admin = true;
+				$alerts[]    = 'Exception during user '.$user_id.': '.$e->getMessage();
+			}
 		}
 	}
 }
