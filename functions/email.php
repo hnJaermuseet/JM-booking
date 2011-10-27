@@ -234,13 +234,15 @@ function emailSendDirect ($email, $subject, $message)
 {
 	global $login;
 	if(isset($login['user_email']) && $login['user_email'] != '')
-		$headers = 'From: '.$login['user_email'];
+		$from = $login['user_email'];
 	else
-		$headers = 'From: '.constant('EMAIL_FROM');
+		$from = constant('EMAIL_FROM');
+	
+	$headers = 'From: '.$from;
 	
 	$headers .= "\r\n";
 	$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
-	mail ($email, $subject, $message, $headers);
+	mail ($email, $subject, $message, $headers, '-f '.$from);
 }
 
 function emailSend ($user_id, $subject, $message)
@@ -251,13 +253,15 @@ function emailSend ($user_id, $subject, $message)
 	if(count($user))
 	{
 		if(isset($login['user_email']) && $login['user_email'] != '')
-			$headers = 'From: '.$login['user_email'];
+			$from = $login['user_email'];
 		else
-			$headers = 'From: '.constant('EMAIL_FROM');
+			$from = constant('EMAIL_FROM');
+	
+		$headers = 'From: '.$from;
 		
 		$headers .= "\r\n";
 		$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
-		mail ($user['user_email'], $subject, $message, $headers);
+		mail ($user['user_email'], $subject, $message, $headers, '-f '.$from);
 	}
 }
 
@@ -267,7 +271,7 @@ function emailSendAdmin ($subject, $message)
 		
 	$headers .= "\r\n";
 	$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
-	mail (constant('EMAIL_FROM'), $subject, $message, $headers);
+	mail (constant('EMAIL_FROM'), $subject, $message, $headers, '-f '.constant('EMAIL_FROM'));
 }
 
 function emailSendEntryChanges ($entry, $rev_num, $user_id)
