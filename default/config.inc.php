@@ -73,9 +73,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #Mailing rules
 #note: there is no sendmail_adm_on_update/delete. most likely the administrator knows when he has changed something
 ################################
-$mrbs_robot_email = "hn@jaermuseet.no"; #adress in the "FROM" header of auto-mails
+$mrbs_robot_email = "rekneskap@jaermuseet.no"; #adress in the "FROM" header of auto-mails
 define('EMAIL_FROM', $mrbs_robot_email);
-$mrbs_admin_email = "hallvard.nygaard@jaermuseet.no"; #adress where notifications are beeing send to
+$mrbs_admin_email = "rekneskap@jaermuseet.no"; #adress where notifications are beeing send to
 
 
 ###################
