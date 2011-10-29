@@ -241,8 +241,9 @@ function emailSendDirect ($email, $subject, $message)
 	$headers = 'From: '.$from;
 	
 	$headers .= "\r\n";
+	$headers .= 'Return-Path: '.$from."\r\n";
 	$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
-	mail ($email, $subject, $message, $headers, '-f '.$from);
+	mail ($email, $subject, $message, $headers);
 }
 
 function emailSend ($user_id, $subject, $message)
@@ -260,8 +261,9 @@ function emailSend ($user_id, $subject, $message)
 		$headers = 'From: '.$from;
 		
 		$headers .= "\r\n";
+		$headers .= 'Return-Path: '.$from."\r\n";
 		$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
-		mail ($user['user_email'], $subject, $message, $headers, '-f '.$from);
+		mail ($user['user_email'], $subject, $message, $headers);
 	}
 }
 
@@ -270,8 +272,9 @@ function emailSendAdmin ($subject, $message)
 	$headers = 'From: '.constant('EMAIL_FROM');
 		
 	$headers .= "\r\n";
+	$headers .= 'Return-Path: '.constant('EMAIL_FROM')."\r\n";
 	$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
-	mail (constant('EMAIL_FROM'), $subject, $message, $headers, '-f '.constant('EMAIL_FROM'));
+	mail (constant('EMAIL_FROM'), $subject, $message, $headers);
 }
 
 function emailSendEntryChanges ($entry, $rev_num, $user_id)
@@ -405,6 +408,7 @@ function emailSendConfirmation ($entry, $to, $message)
 	
 	// TODO: Add HTML
 	$headers = 'From: ' . $from . "\r\n";
+	$headers .= 'Return-Path: '.$from."\r\n";
 	$headers .= 'Content-type: text/plain; charset=iso-8859-1' . "\r\n";
 	$headers .= 'Sender: '. $from . "\r\n";
 	return mail ($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
@@ -439,9 +443,10 @@ function emailSendConfirmationPDF ($entry, $to, $confirm_pdffile, $attachments, 
 	
 	$crlf = "\n";
 	$hdrs = array(
-				'From'    => $from,
-				'Subject' => '=?UTF-8?B?'.base64_encode($subject).'?=',
-				'Sender'  => $from,
+				'From'        => $from,
+				'Subject'     => '=?UTF-8?B?'.base64_encode($subject).'?=',
+				'Sender'      => $from,
+				'Return-Path' => $from,
 				);
 	$mime = new Mail_mime($crlf);
 	
@@ -490,9 +495,10 @@ function emailSendInvoicePDF ($to, $pdffile, $message_plain, $subject)
 	
 	$crlf = "\n";
 	$hdrs = array(
-				'From'    => $from,
-				'Subject' => '=?UTF-8?B?'.base64_encode($subject).'?=',
-				'Sender'  => $from,
+				'From'        => $from,
+				'Subject'     => '=?UTF-8?B?'.base64_encode($subject).'?=',
+				'Sender'      => $from,
+				'Return-Path' => $from,
 				);
 	$mime = new Mail_mime($crlf);
 	
