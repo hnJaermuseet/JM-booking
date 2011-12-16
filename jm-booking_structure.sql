@@ -3,17 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Vert: localhost
--- Generert den: 21. Mai, 2010 klokka 17:44 PM
+-- Generert den: 16. Des, 2011 klokka 18:27 PM
 -- Tjenerversjon: 5.0.51
--- PHP-Versjon: 5.2.6
+-- PHP-Versjon: 5.3.0
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `jm-booking`
@@ -139,6 +133,7 @@ CREATE TABLE `entry` (
   `invoice_locked` tinyint(1) NOT NULL default '0',
   `invoice_electronic` tinyint(1) NOT NULL default '0',
   `invoice_email` varchar(255) NOT NULL,
+  `invoice_exported_time` int(11) NOT NULL,
   PRIMARY KEY  (`entry_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
@@ -194,6 +189,94 @@ CREATE TABLE `entry_confirm_usedatt` (
   `att_id` int(11) NOT NULL,
   `timeused` varchar(20) NOT NULL,
   PRIMARY KEY  (`confirm_id`,`att_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `entry_deleted`
+--
+
+CREATE TABLE `entry_deleted` (
+  `entry_id` int(11) NOT NULL,
+  `entry_name` varchar(255) NOT NULL,
+  `entry_title` varchar(255) NOT NULL,
+  `confirm_email` tinyint(1) NOT NULL,
+  `entry_type_id` int(11) NOT NULL,
+  `num_person_child` double NOT NULL,
+  `num_person_adult` double NOT NULL,
+  `num_person_count` tinyint(1) NOT NULL default '1',
+  `program_id` int(11) NOT NULL,
+  `program_description` text NOT NULL,
+  `service_alco` enum('0','1') NOT NULL,
+  `service_description` text NOT NULL,
+  `comment` text NOT NULL,
+  `infoscreen_txt` varchar(255) NOT NULL,
+  `rev_num` int(11) NOT NULL,
+  `time_start` int(11) NOT NULL,
+  `time_end` int(11) NOT NULL,
+  `time_day` varchar(2) NOT NULL,
+  `time_month` varchar(2) NOT NULL,
+  `time_year` varchar(5) NOT NULL,
+  `time_hour` varchar(2) NOT NULL,
+  `time_min` varchar(2) NOT NULL,
+  `time_created` int(11) NOT NULL,
+  `time_last_edit` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `customer_name` varchar(255) NOT NULL,
+  `customer_municipal_num` varchar(10) NOT NULL,
+  `customer_municipal` varchar(255) NOT NULL,
+  `contact_person_name` varchar(255) NOT NULL,
+  `contact_person_phone` varchar(25) NOT NULL,
+  `contact_person_email` varchar(255) NOT NULL,
+  `room_id` varchar(255) NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `created_by` varchar(255) NOT NULL,
+  `edit_by` varchar(255) NOT NULL,
+  `user_assigned` varchar(255) NOT NULL,
+  `user_assigned2` varchar(255) NOT NULL,
+  `user_last_edit` int(11) NOT NULL,
+  `invoice` tinyint(1) NOT NULL,
+  `invoice_ref_your` varchar(255) NOT NULL,
+  `invoice_comment` text NOT NULL,
+  `invoice_internal_comment` text NOT NULL,
+  `invoice_address_id` int(11) NOT NULL,
+  `invoice_content` text NOT NULL,
+  `invoice_status` enum('0','1','2','3','4') NOT NULL,
+  `invoice_locked` tinyint(1) NOT NULL default '0',
+  `invoice_electronic` tinyint(1) NOT NULL default '0',
+  `invoice_email` varchar(255) NOT NULL,
+  `invoice_exported_time` int(11) NOT NULL,
+  PRIMARY KEY  (`entry_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `entry_exchangesync`
+--
+
+CREATE TABLE `entry_exchangesync` (
+  `user_id` int(11) NOT NULL,
+  `entry_id` int(11) NOT NULL,
+  `entry_rev` int(11) NOT NULL,
+  `exchange_id` varchar(255) NOT NULL,
+  `exchange_changekey` varchar(255) NOT NULL,
+  `sync_from` int(11) NOT NULL,
+  `sync_to` int(11) NOT NULL,
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `entry_invoiced`
+--
+
+CREATE TABLE `entry_invoiced` (
+  `entry_id` int(11) NOT NULL,
+  `invoiced_id` int(11) NOT NULL,
+  PRIMARY KEY  (`entry_id`,`invoiced_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -287,6 +370,17 @@ CREATE TABLE `import_dn_kategori` (
 -- --------------------------------------------------------
 
 --
+-- Tabellstruktur for tabell `import_dn_shops`
+--
+
+CREATE TABLE `import_dn_shops` (
+  `shop_id` int(11) NOT NULL,
+  `shop_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellstruktur for tabell `import_dn_tall`
 --
 
@@ -297,7 +391,24 @@ CREATE TABLE `import_dn_tall` (
   `kat_id` int(11) NOT NULL,
   `antall_barn` int(11) NOT NULL,
   `antall_voksne` int(11) NOT NULL,
+  `shop_id` int(11) NOT NULL,
   PRIMARY KEY  (`vare_nr`,`area_id`,`dag`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `import_dn_tall_ikkeimportert`
+--
+
+CREATE TABLE `import_dn_tall_ikkeimportert` (
+  `vare_nr` char(75) NOT NULL,
+  `shop_id` int(11) NOT NULL,
+  `vare_navn` varchar(255) NOT NULL,
+  `vare_antall` int(11) NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `vare_dager` int(11) NOT NULL,
+  PRIMARY KEY  (`vare_nr`,`shop_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -318,57 +429,28 @@ CREATE TABLE `import_dn_vareregister` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur for tabell `invoice`
+-- Tabellstruktur for tabell `invoiced`
 --
 
-CREATE TABLE `invoice` (
-  `invoice_id` int(11) NOT NULL auto_increment,
-  `invoice_time_created` int(11) NOT NULL default '0',
-  `invoice_time` int(11) NOT NULL default '0',
-  `invoice_time_due` int(11) NOT NULL default '0',
-  `invoice_time_payed` int(11) NOT NULL default '0',
-  `invoice_content` text NOT NULL,
-  `invoice_topay_total` double NOT NULL default '0',
-  `invoice_topay_total_net` double NOT NULL,
-  `invoice_topay_total_tax` double NOT NULL,
-  `invoice_payed` tinyint(1) NOT NULL default '0',
-  `invoice_payed_amount` double NOT NULL,
-  `invoice_idlinks` varchar(255) NOT NULL default '',
-  `invoice_to_customer_id` int(11) NOT NULL,
-  `invoice_to_address_id` int(11) NOT NULL,
-  `invoice_to_line1` varchar(255) NOT NULL,
-  `invoice_to_line2` varchar(255) NOT NULL default '',
-  `invoice_to_line3` varchar(255) NOT NULL default '',
-  `invoice_to_line4` varchar(255) NOT NULL default '',
-  `invoice_to_line5` varchar(255) NOT NULL default '',
-  `invoice_to_line6` varchar(255) NOT NULL,
-  `invoice_to_line7` varchar(255) NOT NULL default '',
-  `invoice_to_email` varchar(255) NOT NULL default '',
-  `invoice_electronic` enum('0','1') NOT NULL default '0',
-  `invoice_comment` text NOT NULL,
-  `invoice_internal_comment` text NOT NULL,
-  `invoice_ref_your` varchar(255) NOT NULL,
-  `invoice_created_by_id` int(11) NOT NULL,
-  PRIMARY KEY  (`invoice_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+CREATE TABLE `invoiced` (
+  `invoiced_id` int(11) NOT NULL auto_increment,
+  `created` int(11) NOT NULL,
+  `emailed` tinyint(1) NOT NULL,
+  `emailed_time` int(11) NOT NULL,
+  `pdf_name` varchar(255) NOT NULL,
+  PRIMARY KEY  (`invoiced_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur for tabell `invoice_log`
+-- Tabellstruktur for tabell `invoiced_emails`
 --
 
-CREATE TABLE `invoice_log` (
-  `log_id` int(11) NOT NULL auto_increment,
-  `invoice_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `log_action` enum('add','edit') NOT NULL,
-  `log_action2` varchar(255) NOT NULL,
-  `log_time` int(11) NOT NULL,
-  `rev_num` int(11) NOT NULL,
-  `log_data` text NOT NULL,
-  PRIMARY KEY  (`log_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+CREATE TABLE `invoiced_emails` (
+  `invoiced_id` int(11) NOT NULL,
+  `email_addr` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -380,6 +462,8 @@ CREATE TABLE `mrbs_area` (
   `id` int(11) NOT NULL auto_increment,
   `area_name` varchar(30) default NULL,
   `area_group` int(11) NOT NULL,
+  `importdatanova_shop_id` int(11) NOT NULL,
+  `importdatanova_alert_email` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `id` (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
@@ -426,7 +510,7 @@ CREATE TABLE `mrbs_entry` (
   PRIMARY KEY  (`id`),
   KEY `idxStartTime` (`start_time`),
   KEY `idxEndTime` (`end_time`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -571,194 +655,29 @@ CREATE TABLE `users` (
   `user_phone` varchar(255) NOT NULL,
   `user_position` varchar(60) NOT NULL,
   `user_password` varchar(255) NOT NULL default '',
+  `user_password_complex` tinyint(1) NOT NULL,
+  `user_password_lastchanged` int(11) NOT NULL,
+  `user_password_1` varchar(255) NOT NULL,
+  `user_password_2` varchar(255) NOT NULL,
+  `user_password_3` varchar(255) NOT NULL,
+  `user_newpassword_key` varchar(255) NOT NULL,
+  `user_newpassword_validto` int(11) NOT NULL,
   `user_accesslevel` int(11) NOT NULL default '1',
   `user_invoice` tinyint(1) NOT NULL default '0',
   `user_invoice_setready` enum('0','1') NOT NULL,
   `user_area_default` int(11) NOT NULL,
   `user_areas` varchar(255) NOT NULL,
+  `user_ews_sync` tinyint(1) NOT NULL,
+  `user_ews_sync_email` varchar(255) NOT NULL,
+  `user_access_useredit` tinyint(1) NOT NULL default '0',
+  `user_access_areaadmin` tinyint(1) NOT NULL default '0',
+  `user_access_entrytypeadmin` tinyint(1) NOT NULL default '0',
+  `user_access_importdn` tinyint(1) NOT NULL default '0',
+  `user_access_productsadmin` tinyint(1) NOT NULL default '0',
+  `user_access_programadmin` tinyint(1) NOT NULL default '0',
+  `user_access_templateadmin` tinyint(1) NOT NULL default '0',
+  `user_access_changerights` tinyint(1) NOT NULL default '0',
+  `user_access_userdeactivate` tinyint(1) NOT NULL default '0',
+  `deactivated` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
-
-
-
-
--- --------------------------------------------------------
-
---
--- Database upgrades - 17.06.2010
--- Export of invoice data
---
-ALTER TABLE `entry` ADD `invoice_exported_time` INT NOT NULL AFTER `invoice_email` ;
-DROP TABLE `invoice` , `invoice_log` ;
-
-
---
--- Database upgrades - 22.06.2010
--- Users accesslevel is not longer in use
---
-ALTER TABLE `users` ADD `user_access_useredit` BOOL NOT NULL DEFAULT '0' AFTER `user_areas` ,
-ADD `user_access_changerights` BOOL NOT NULL DEFAULT '0' AFTER `user_access_useredit` ;
-
-ALTER TABLE `users` ADD `user_access_areaadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_useredit`  ,
-ADD `user_access_entrytypeadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_areaadmin` ,
-ADD `user_access_importdn` BOOL NOT NULL DEFAULT '0' AFTER `user_access_entrytypeadmin` ,
-ADD `user_access_productsadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_importdn` ,
-ADD `user_access_programadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_productsadmin` ,
-ADD `user_access_templateadmin` BOOL NOT NULL DEFAULT '0' AFTER `user_access_programadmin` ;
-
-ALTER TABLE `users` ADD `user_access_userdelete` BOOL NOT NULL DEFAULT '0' AFTER `user_access_changerights`  ;
-ALTER TABLE `users` ADD `deletet` BOOL NOT NULL DEFAULT '0' AFTER `user_access_userdelete` ;
-ALTER TABLE `users` CHANGE `deletet` `deleted` TINYINT( 1 ) NOT NULL DEFAULT '0' ;
-ALTER TABLE `users` CHANGE `deleted` `deactivated` TINYINT( 1 ) NOT NULL DEFAULT '0' ;
-ALTER TABLE `users` CHANGE `user_access_userdelete` `user_access_userdeactivate`  TINYINT( 1 ) NOT NULL DEFAULT '0' ;
-
-
---
--- Database upgrades - 15.06.2011
--- Users has settings for Exchange web service (EWS) sync
---
-ALTER TABLE `users` ADD `user_ews_sync` BOOL NOT NULL AFTER `user_areas` ,
-ADD `user_ews_sync_email` VARCHAR( 255 ) NOT NULL AFTER `user_ews_sync` ;
-
-
---
--- Database upgrades - 21.06.2011 & 22.06.2011
--- Import from Datanova web reports
---
-ALTER TABLE `mrbs_area` ADD `importdatanova_shop_id` INT NOT NULL AFTER `area_group` ,
-ADD `importdatanova_alert_email` VARCHAR( 255 ) NOT NULL AFTER `importdatanova_shop_id` ;
-CREATE TABLE `import_dn_tall_ikkeimportert` (
-`vare_nr` char( 75 ) NOT NULL ,
-`shop_id` int( 11 ) NOT NULL ,
-`dag` int( 11 ) NOT NULL ,
-`antall_barn` int( 11 ) NOT NULL ,
-`antall_voksne` int( 11 ) NOT NULL ,
-PRIMARY KEY ( `vare_nr` , `shop_id` , `dag` )
-) ENGINE = InnoDB DEFAULT CHARSET = latin1;
-ALTER TABLE `import_dn_tall_ikkeimportert` DROP `dag` ;
-ALTER TABLE `import_dn_tall_ikkeimportert` DROP `antall_barn` ;
-ALTER TABLE `import_dn_tall_ikkeimportert` DROP `antall_voksne` ;
-ALTER TABLE `import_dn_tall_ikkeimportert` ADD `vare_navn` VARCHAR( 255 ) NOT NULL AFTER `shop_id` ,
-ADD `vare_antall` INT( 11 ) NOT NULL AFTER `vare_navn` ,
-ADD `area_id` INT( 11 ) NOT NULL AFTER `vare_antall` ,
-ADD `vare_dager` INT NOT NULL AFTER `area_id` ;
-ALTER TABLE `import_dn_tall` ADD `shop_id` INT NOT NULL AFTER `antall_voksne` ;
-CREATE TABLE `jm-booking`.`import_dn_shops` (
-`shop_id` INT NOT NULL ,
-`shop_name` VARCHAR( 255 ) NOT NULL
-) ENGINE = InnoDB ;
-
-
---
--- Database upgrades - 28.06.2011
--- Handling of invoice data
---
-CREATE TABLE `jm-booking`.`invoiced` (
-`invoiced_id` INT NOT NULL AUTO_INCREMENT ,
-`created` BOOL NOT NULL ,
-`emailed` BOOL NOT NULL ,
-`emailed_time` INT NOT NULL ,
-`pdf_name` VARCHAR( 255 ) NOT NULL ,
-PRIMARY KEY ( `invoiced_id` )
-) ENGINE = InnoDB ;
-CREATE TABLE `jm-booking`.`entry_invoiced` (
-`entry_id` INT NOT NULL ,
-`invoiced_id` INT NOT NULL ,
-PRIMARY KEY ( `entry_id` , `invoiced_id` )
-) ENGINE = InnoDB ;
-CREATE TABLE `jm-booking`.`invoiced_emails` (
-`invoiced_id` INT NOT NULL ,
-`email_addr` VARCHAR( 255 ) NOT NULL
-) ENGINE = InnoDB ;
-ALTER TABLE `invoiced` CHANGE `created` `created` INT( 11 ) NOT NULL ;
-
-
-
---
--- Database upgrades - 01.07.2011
--- Exchangesync handles all entries, not just the future
---
-ALTER TABLE `entry_exchangesync` DROP `sync_until` ;
-ALTER TABLE `entry_exchangesync` ADD `sync_from` INT NOT NULL AFTER `exchange_changekey` ,
-ADD `sync_to` INT NOT NULL AFTER `sync_from` ;
-
-
---
--- Database upgrades - 05.07.2011
--- New password policies
---
-ALTER TABLE `users` ADD `user_password_lastchanged` INT NOT NULL AFTER `user_password` ,
-ADD `user_password_1` VARCHAR( 255 ) NOT NULL AFTER `user_password_lastchanged` ,
-ADD `user_password_2` VARCHAR( 255 ) NOT NULL AFTER `user_password_1` ,
-ADD `user_password_3` VARCHAR( 255 ) NOT NULL AFTER `user_password_2` ;
-UPDATE `users` SET `user_password_1` = `user_password`;
-UPDATE `users` SET `user_password_2` = `user_password`;
-UPDATE `users` SET `user_password_3` = `user_password`;
-ALTER TABLE `users` ADD `user_password_complex` BOOL NOT NULL AFTER `user_password` ;
-
-
---
--- Database upgrades - 06.07.2011
--- Forgot my password feature
---
-ALTER TABLE `users` ADD `user_newpassword_key` VARCHAR( 255 ) NOT NULL AFTER `user_password_3` ,
-ADD `user_newpassword_validto` INT NOT NULL AFTER `user_newpassword_key` ;
-
-
-
---
--- Database upgrade - 12.07.2011
--- Entries can be moved to a "deleted" state
---
-CREATE TABLE `entry_deleted` (
-  `entry_id` int(11) NOT NULL,
-  `entry_name` varchar(255) NOT NULL,
-  `entry_title` varchar(255) NOT NULL,
-  `confirm_email` tinyint(1) NOT NULL,
-  `entry_type_id` int(11) NOT NULL,
-  `num_person_child` double NOT NULL,
-  `num_person_adult` double NOT NULL,
-  `num_person_count` tinyint(1) NOT NULL default '1',
-  `program_id` int(11) NOT NULL,
-  `program_description` text NOT NULL,
-  `service_alco` enum('0','1') NOT NULL,
-  `service_description` text NOT NULL,
-  `comment` text NOT NULL,
-  `infoscreen_txt` varchar(255) NOT NULL,
-  `rev_num` int(11) NOT NULL,
-  `time_start` int(11) NOT NULL,
-  `time_end` int(11) NOT NULL,
-  `time_day` varchar(2) NOT NULL,
-  `time_month` varchar(2) NOT NULL,
-  `time_year` varchar(5) NOT NULL,
-  `time_hour` varchar(2) NOT NULL,
-  `time_min` varchar(2) NOT NULL,
-  `time_created` int(11) NOT NULL,
-  `time_last_edit` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `customer_name` varchar(255) NOT NULL,
-  `customer_municipal_num` varchar(10) NOT NULL,
-  `customer_municipal` varchar(255) NOT NULL,
-  `contact_person_name` varchar(255) NOT NULL,
-  `contact_person_phone` varchar(25) NOT NULL,
-  `contact_person_email` varchar(255) NOT NULL,
-  `room_id` varchar(255) NOT NULL,
-  `area_id` int(11) NOT NULL,
-  `created_by` varchar(255) NOT NULL,
-  `edit_by` varchar(255) NOT NULL,
-  `user_assigned` varchar(255) NOT NULL,
-  `user_assigned2` varchar(255) NOT NULL,
-  `user_last_edit` int(11) NOT NULL,
-  `invoice` tinyint(1) NOT NULL,
-  `invoice_ref_your` varchar(255) NOT NULL,
-  `invoice_comment` text NOT NULL,
-  `invoice_internal_comment` text NOT NULL,
-  `invoice_address_id` int(11) NOT NULL,
-  `invoice_content` text NOT NULL,
-  `invoice_status` enum('0','1','2','3','4') NOT NULL,
-  `invoice_locked` tinyint(1) NOT NULL default '0',
-  `invoice_electronic` tinyint(1) NOT NULL default '0',
-  `invoice_email` varchar(255) NOT NULL,
-  `invoice_exported_time` int(11) NOT NULL,
-  PRIMARY KEY  (`entry_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
