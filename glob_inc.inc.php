@@ -145,7 +145,8 @@ $db_c = mysql_connect($db_host, $db_login, $db_password);
 
 if (!$db_c || !mysql_select_db ($db_database)){
 	echo chr(10).'<p>'.chr(10).
-		_("FATAL ERROR: Couldn't connect to database.").chr(10);
+		_("FATAL ERROR: Couldn't connect to database OR could not access database.").chr(10);
+	echo '<br />'.mysql_error();
 	exit;
 }
 
