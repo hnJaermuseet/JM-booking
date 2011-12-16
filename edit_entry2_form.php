@@ -60,6 +60,43 @@ echo '<script src="js/jquery.blockUI.js" type="text/javascript"></script>'.chr(1
 echo '<script src="js/jquery.hoverbox.min.js" type="text/javascript"></script>'.chr(10);
 echo '<script type="text/javascript">
 
+var resourcenum_length = new Array();
+resourcenum_length[0] = 0;
+';
+foreach ($entry_type_resourcenum_length as $entry_type_id => $length) {
+	echo 'resourcenum_length['.$entry_type_id.'] = '.$length.';'.chr(10);
+}
+echo '
+$(document).ready(function(){
+    $("input[name=resourcenum]").keyup(function() {
+        updateResourcenum();
+    });
+    $("select[name=entry_type_id]").change(function() {
+        updateResourcenum();
+    });
+
+    function updateResourcenum () {
+        var value = $("input[name=resourcenum]").val();
+        var entry_type_id = $("select[name=entry_type_id]").val();
+        var required_length = resourcenum_length[entry_type_id];
+
+        $("#resourcenum_count").html(required_length);
+
+        if(required_length <= 0) {
+            $("input[name=resourcenum]").parent().parent().hide();
+        }
+        else if (value.length != required_length) {
+            $("input[name=resourcenum]").parent().parent().show();
+            $("input[name=resourcenum]").addClass("error");
+        }
+        else {
+            $("input[name=resourcenum]").parent().parent().show();
+            $("input[name=resourcenum]").removeClass("error");
+        }
+    }
+    updateResourcenum();
+});
+
 var grouparray = new Array();
 ';
 foreach ($area_group as $area_id => $users) {

@@ -1905,6 +1905,13 @@ function readEntryLog ($log)
 				case 'confirm_comment':
 					$return[] = _('Comment').': '.$value;
 					break;
+
+                case 'resourcenum':
+					if($value == '')
+						$return[] = 'Ressursnummer <i>'._('not set').'</i>';
+					else
+						$return[] = 'Ressursnummer '.$middlestring.' "'.$value.'"';
+                    break;
 				
 				default:
 					if(substr($index, 0, 11) == 'email_faild') {

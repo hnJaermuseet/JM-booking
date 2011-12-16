@@ -394,6 +394,15 @@ foreach ($entry_fields as $field)
 			$$field['var'] = invoiceContentNumbers($$field['var']);
 			addValueArray($field['var'], $$field['var']);
 			break;
+
+        case 'resourcenum':
+			if(isset($_POST[$field['var']]))
+			{
+				$$field['var'] = $_POST[$field['var']];
+			}
+
+			addValue($field['var'], $$field['var']);
+            break;
 		
 		case 'empty':
 		case 'submit1':
@@ -611,7 +620,16 @@ if(!count($form_errors))
 					's&aring; finner du vedkommende ved &aring; trykke p&aring; <b>vis alle</b>';
 			}
 		}
-	}
+
+        // Check if resourcenum is required and not set
+        if($entry_type_id != 0 && $entry_type_resourcenum_length[$entry_type_id] > 0) {
+            if(strlen($resourcenum) != $entry_type_resourcenum_length[$entry_type_id]) {
+                $warnings[] = '<b>Ressursnummer</b> er et p&aring;krevd felt for <b>'.$entry_fields['entry_type_id']['choice'][$entry_type_id].'</b>' .
+                        ' Det m&aring; v&aelig;re <b>' . $entry_type_resourcenum_length[$entry_type_id] . '</b> siffer, '.
+                        ' men du tastet kun inn <b>'.strlen($resourcenum) .'</b> siffer.';
+            }
+        }
+	} // END if (!$ignore_warnings)
 	
 	if(!count($warnings))
 	{
@@ -677,7 +695,8 @@ if(!count($form_errors))
 					`invoice_internal_comment` ,
 					`invoice_ref_your` ,
 					`invoice_address_id` ,
-					`invoice_content`
+					`invoice_content` ,
+					`resourcenum`
 				)
 				VALUES (
 					NULL,
@@ -727,7 +746,8 @@ if(!count($form_errors))
 					'$invoice_internal_comment',
 					'$invoice_ref_your',
 					'$invoice_address_id',
-					'".serialize($invoice_content)."'
+					'".serialize($invoice_content)."',
+					'$resourcenum'
 				);";
 			
 			mysql_query($SQL);
@@ -767,6 +787,7 @@ if(!count($form_errors))
 			$log_data['invoice_ref_your']		= $invoice_ref_your;
 			$log_data['invoice_address_id']		= $invoice_address_id;
 			$log_data['invoice_content']		= $invoice_content;
+			$log_data['resourcenum']			= $resourcenum;
 			
 			if(!newEntryLog($entry_id, 'add', '', $rev_num, $log_data))
 			{
@@ -872,6 +893,8 @@ if(!count($form_errors))
 				$changed[] = 'invoice_address_id';
 			if(serialize($entry['invoice_content']) != serialize($invoice_content))
 				$changed[] = 'invoice_content';
+			if($entry['resourcenum'] != $resourcenum)
+				$changed[] = 'resourcenum';
 			
 			//}
 			

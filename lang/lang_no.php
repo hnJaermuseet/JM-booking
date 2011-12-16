@@ -150,6 +150,14 @@ function langNo($text)
 			return 'Nåværende passord';
 		case 'Old password is not correct.':
 			return 'Nåværende passord er ikke korrekt';
+		case 'Length of resource number':
+			return 'Lengde på ressursnummer';
+		case 'If zero, resource number will not be required':
+			return 'Hvis null, så blir ikke ressursnummer et påkrevd felt';
+		case 'Resource number':
+			return 'Ressursnummer';
+		case 'Required number':
+			return 'Påkrevd nummer';
 		/*
 		case '':
 			return '';

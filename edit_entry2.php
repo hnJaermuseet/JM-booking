@@ -74,6 +74,8 @@ addField ('entry_id', 				'hidden',		_('Entry ID')); $entry_fields['entry_id']['
 addField ('submit1',				'submit',		_('Save entry'));
 addField ('entry_title',			'text',			_('Entry title'),			_('What this is. Can be empty. Entryname is generated from the title and some other values.'));
 addField ('entry_type_id',			'select',		_('Entry type'),			_('What type of entry this is.'));
+addField ('resourcenum',			'text',					_h('Resource number'),		_h('Required number'));
+	addAfterField  ('resourcenum', '<br />M&aring; v&aelig;re <b><span id="resourcenum_count"></span>&nbsp;siffer</b>');
 addField ('empty',					'',				'');
 addField ('time_start',				'date',			_('Start time'),			_('When does this event start. Should be set in the calendar.'));
 	addID ('time_start', 'time_start');
@@ -230,10 +232,13 @@ addOnchange ('area_id', 'choose_area(this.options[this.selectedIndex].value);');
 /* Making choices */
 
 // Entry_type_id
-$Q_entry_type = mysql_query("select entry_type_id, entry_type_name from `entry_type` order by entry_type_name");
+$Q_entry_type = mysql_query("select entry_type_id, entry_type_name, resourcenum_length from `entry_type` order by entry_type_name");
 $choices = array('0' => _('Non selected'));
-while( $r_choice = mysql_fetch_assoc($Q_entry_type))
+$entry_type_resourcenum_length = array();
+while( $r_choice = mysql_fetch_assoc($Q_entry_type)) {
 	$choices[$r_choice['entry_type_id']] = $r_choice['entry_type_name'];
+    $entry_type_resourcenum_length[$r_choice['entry_type_id']] = $r_choice['resourcenum_length'];
+}
 addChoice ('entry_type_id', $choices);
 
 // Area_id
@@ -402,6 +407,7 @@ if ($entry_id != 0 || isset($_GET['copy_entry_id'])) {
 	addValue('service_description',		$entry['service_description']);
 	addValue('comment',					$entry['comment']);
 	addValue('infoscreen_txt',			$entry['infoscreen_txt']);
+	addValue('resourcenum',		    	$entry['resourcenum']);
 	
 	// Disabled of invoice_status is 2, 3 or 4
 	/*

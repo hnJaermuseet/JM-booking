@@ -681,3 +681,10 @@ CREATE TABLE `users` (
   `deactivated` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+
+
+
+-- 2011-12-16, new field: resourcenum
+ALTER TABLE  `entry` ADD  `resourcenum` VARCHAR( 255 ) NOT NULL AFTER  `invoice_exported_time`;
+ALTER TABLE  `entry_deleted` ADD  `resourcenum` VARCHAR( 255 ) NOT NULL AFTER  `invoice_exported_time`;
+ALTER TABLE  `entry_type` ADD  `resourcenum_length` INT NOT NULL AFTER  `day_end`;

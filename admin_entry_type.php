@@ -61,6 +61,7 @@ if(isset($_GET['editor']))
 	
 	$editor->makeNewField('entry_type_name', _('Entrytype name'), 'text');
 	$editor->makeNewField('entry_type_name_short', _('Short entrytype name'), 'text');
+	$editor->makeNewField('resourcenum_length', _h('Length of resource number').'<br />('._h('If zero, resource number will not be required').')', 'text');
 	
 	$editor->getDB();
 	

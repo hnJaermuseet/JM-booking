@@ -253,6 +253,7 @@ function templateAssignEntry($var, $entry)
 		$$var->assign ('faktura_belop_sum_mva', $entry['faktura_belop_sum_mva']);
 		$$var->assign ('eks_mva_tot', $entry['eks_mva_tot']);
 		$$var->assign ('grunnlag_mva_tot', $entry['grunnlag_mva_tot']);
+		$$var->assign ('resourcenum', $entry['resourcenum']);
 	}
 }
 
