@@ -86,8 +86,8 @@ addField ('area_id',				'select',		_('Area'));
 addID ('area_id', 'selected_area_id');
 addField ('room_id',				'checkbox',		_('Room'));
 addField ('empty',					'',				'');
-addField ('user_assigned',			'checkbox',		_('Users assigned'),		'Brukere som skal være vert p&aring; arrangementet '.
-																				'eller skal være tilknyttet p&aring; en eller annen m&aring;te.');
+addField ('user_assigned',			'checkbox',		_('Users assigned'),		'Brukere som skal v&aelig;re vert p&aring; arrangementet '.
+																				'eller skal v&aelig;re tilknyttet p&aring; en eller annen m&aring;te.');
 addField ('user_assigned2',			'text',			_('Manuel user assigned'),	_('If someone other than the normal users are assigned. Use this field to add his or her name.'));
 addField ('empty',					'',				'');
 

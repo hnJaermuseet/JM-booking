@@ -164,11 +164,11 @@ elseif(isset($_GET['entry_type_id']) && isset($_GET['area_id']))
 	$_SERVER['PHP_SELF'].'?entry_type_id='.$entry_type['entry_type_id'].
 	'&amp;area_id='.$area['area_id'].'" method="POST">'.chr(10);
 	echo '<input type="hidden" name="attSave" value="1">'.chr(10);
-	echo 'Filene må lastes opp fra egen side under <i>Administrasjon</i><br><br>';
+	echo 'Filene m&aring; lastes opp fra egen side under <i>Administrasjon</i><br><br>';
 	
 	echo '<h2>Vedlegg valgt:</h2>';
 	if($saved)
-		echo '<div class="notice">Vedleggene er nå lagret og vil automatisk valgt ved bookinger med dette programmet.</div>'.chr(10);
+		echo '<div class="notice">Vedleggene er n&aring; lagret og vil automatisk valgt ved bookinger med dette programmet.</div>'.chr(10);
 	echo '<input type="button" id="velgVedlegg" class="ui-button ui-state-default ui-corner-all" value="Velg fil(er)">';
 	echo '<div style="border:2px solid #DDDDDD; margin-bottom:1em; padding:0.8em; margin-top:1em;">';
 	echo '<div id="noAttachmentsSelected" style="display: none; padding: 5px;"><i>Ingen vedlegg valgt</i></div>';
@@ -205,7 +205,7 @@ else
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.
 		iconHTML('page_white_stack_add').' '._('New entrytype').'</a><br><br>'.chr(10);
 		
-	echo '<a href="javascript:void();" class="showAll">Vis vedlegg på alle / Ikke vis vedlegg på alle</a>';
+	echo '<a href="javascript:void();" class="showAll">Vis vedlegg p&aring; alle / Ikke vis vedlegg p&aring; alle</a>';
 	echo '<table class="prettytable">'.chr(10).chr(10);
 	echo '	<tr>'.chr(10);
 	echo '		<th>'._('ID').'</th>'.chr(10);

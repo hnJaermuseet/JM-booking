@@ -190,12 +190,12 @@ if($systemIsInTest)
 {
 	$testSystem = array();
 	$testSystem['msgLogin']
-		= '<h1 align="center">Du er inne på TEST-VERSJONEN av bookingen. '.
+		= '<h1 align="center">Du er inne p&aring; TEST-VERSJONEN av bookingen. '.
 		'Ingen data her er reelle.</h1>'.
-		'<div align="center">Her inne kan du prøve ut ALT du ikke tørr å gjøre ellers. Slå deg løs!<br><br>'.
-		'Se også <a href="http://booking.jaermuseet.local/wiki/index.php/Bookingsystemet/Testomr%C3%A5de">'.
-			'informasjon om testområdet på wikien</a><br><br>'.
-		'Bruk følgende for innlogging:<br>Brukernavn: test<br>Passord: test<br><br></div>';
+		'<div align="center">Her inne kan du pr&oslash;ve ut ALT du ikke t&oslash;rr &aring; gj&oslash;re ellers. Sl&aring; deg l&oslash;s!<br><br>'.
+		'Se ogs&aring; <a href="http://booking.jaermuseet.local/wiki/index.php/Bookingsystemet/Testomr%C3%A5de">'.
+			'informasjon om testomr&aring;det p&aring; wikien</a><br><br>'.
+		'Bruk f&oslash;lgende for innlogging:<br>Brukernavn: test<br>Passord: test<br><br></div>';
 	$testSystem['bodyAttrib'] = ' background="img/bg-test.GIF"';
 	$testSystem['bannerExtraClass'] = ' testbanner';
 	

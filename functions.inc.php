@@ -1477,7 +1477,7 @@ function printEntryLog($log, $printData = FALSE, $to_return = FALSE)
 				case 'invoice_sent': // Not in use?
 					$return .= _('Invoice is registered as sent.'); break;
 				case 'invoice_payed':
-					$return .= 'Betaling er register på faktura'; break;
+					$return .= 'Betaling er register p&aring; faktura'; break;
 				case 'confirm':
 				case 'comfirm':
 					$return .= _('Confirmation was sent.'); break;
@@ -1637,7 +1637,7 @@ function readEntryLog ($log)
 					
 				case 'edit_by':
 					if(!count($value))
-						$return[] = 'Har vært endret av <i>'._('Nobody').'</i>';
+						$return[] = 'Har v&aelig;rt endret av <i>'._('Nobody').'</i>';
 					else
 					{
 						$values = array();
@@ -1652,7 +1652,7 @@ function readEntryLog ($log)
 									$values[] = $thisone['user_name'];
 							}
 						}
-						$return[] = 'Har vært endret av <i>'.implode(', ', $values).'</i>';
+						$return[] = 'Har v&aelig;rt endret av <i>'.implode(', ', $values).'</i>';
 					}
 					break;
 					
