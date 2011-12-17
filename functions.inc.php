@@ -919,8 +919,23 @@ function getAddress ($id)
 	}
 }
 
+$cache_getUser = array();
+/**
+ * Get a user from database or cache. Returns empty array when user is not found
+ *
+ * Caches a user after retriving it.
+ *
+ * @param  int   $id
+ * @param  bool $getGroups
+ * @return array
+ */
 function getUser ($id, $getGroups = false)
 {
+    global $cache_getUser;
+
+    if(isset($cache_getUser[$id]) && !$getGroups) {
+        return $cache_getUser[$id];
+    }
 	if(!is_numeric($id) || $id == '0')
 	{
 		return array();
@@ -931,7 +946,8 @@ function getUser ($id, $getGroups = false)
 		$Q = mysql_query("select * from `users` where user_id = '".$id."' limit 1");
 		if(!mysql_num_rows($Q))
 		{
-			return array();
+            $cache_getUser[$id] = array();
+			return $cache_getUser[$id];
 		}
 		else
 		{
@@ -961,7 +977,9 @@ function getUser ($id, $getGroups = false)
 				while($R_group = mysql_fetch_assoc($Q_groups))
 					$return['groups'][$R_group['group_id']] = $R_group ['group_id'];
 			}
-			return $return;
+
+            $cache_getUser[$id] = $return;
+			return $cache_getUser[$id];
 		}
 	}
 }
@@ -980,33 +998,49 @@ function isUserDeactivated ($id)
 	}
 }
 
-function getEntryType($id)
-{
-	if(!is_numeric($id) || $id == '0')
-	{
-		return array();
-	}
-	else
-	{
-		$id = (int)$id;
-		$Q = mysql_query("select * from `entry_type` where entry_type_id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
-		{
-			return array();
-		}
-		else
-		{
-			$return = array (
-				'entry_type_id'			=> mysql_result	($Q, '0', 'entry_type_id'),
-				'entry_type_name'		=> mysql_result ($Q, '0', 'entry_type_name'),
-				'entry_type_name_short'	=> mysql_result ($Q, '0', 'entry_type_name_short'),
-				'group_id'				=> mysql_result ($Q, '0', 'group_id'),
-				'day_start'				=> mysql_result ($Q, '0', 'day_start'),
-				'day_end'				=> mysql_result ($Q, '0', 'day_end')
-			);
-			return $return;
-		}
-	}
+$cache_getEntryType = array();
+
+/**
+ * Get entry type from database or cache.
+ *
+ * Returns empty array if not found
+ *
+ * @param  int $id
+ * @return array
+ */
+function getEntryType ( $id ) {
+
+    if ( isset($cache_getEntryType[$id]) ) {
+        return $cache_getEntryType[$id];
+    }
+
+    if ( !is_numeric( $id ) || $id == '0' ) {
+        return array();
+    }
+    else
+    {
+        $id = (int)$id;
+        $Q = mysql_query( "select * from `entry_type` where entry_type_id = '" . $id . "' limit 1" );
+        if ( !mysql_num_rows( $Q ) ) {
+            // -> No entry found, return empty array
+            $cache_getEntryType[$id] = array();
+            return array();
+        }
+        else
+        {
+            $return = array(
+                'entry_type_id' => mysql_result( $Q, '0', 'entry_type_id' ),
+                'entry_type_name' => mysql_result( $Q, '0', 'entry_type_name' ),
+                'entry_type_name_short' => mysql_result( $Q, '0', 'entry_type_name_short' ),
+                'group_id' => mysql_result( $Q, '0', 'group_id' ),
+                'day_start' => mysql_result( $Q, '0', 'day_start' ),
+                'day_end' => mysql_result( $Q, '0', 'day_end' )
+            );
+
+            $cache_getEntryType[$id] = $return;
+            return $cache_getEntryType[$id];
+        }
+    }
 }
 
 function getEntryDeleted($id)
@@ -1109,83 +1143,96 @@ function getEntryParseDatabaseArray ($return)
 	return $return;
 }
 
-function getArea($id)
-{
-	if(!is_numeric($id) || $id == '0')
-	{
-		return array();
-	}
-	else
-	{
-		$id = (int)$id;
-		$Q = mysql_query("select * from `mrbs_area` where id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
-		{
-			return array();
-		}
-		else
-		{
-			$return = mysql_fetch_assoc($Q);
-			$return['area_id'] = $return['id']; unset($return['id']);
-			
-			return $return;
-		}
-	}
+$cache_getArea = array();
+
+function getArea ( $id ) {
+    global $cache_getArea;
+    if ( isset($cache_getArea[$id]) ) {
+        return $cache_getArea[$id];
+    }
+
+    if ( !is_numeric( $id ) || $id == '0' ) {
+        return array();
+    }
+    else
+    {
+        $id = (int)$id;
+        $Q = mysql_query( "select * from `mrbs_area` where id = '" . $id . "' limit 1" );
+        if ( !mysql_num_rows( $Q ) ) {
+            $cache_getArea[$id] = array();
+            return array();
+        }
+        else
+        {
+            $return = mysql_fetch_assoc( $Q );
+            $return['area_id'] = $return['id'];
+            unset($return['id']);
+
+            $cache_getArea[$id] = $return;
+            return $cache_getArea[$id];
+        }
+    }
 }
 
-function getRoom($id)
-{
-	if(!is_numeric($id) || $id == '0')
-	{
-		return array();
-	}
-	else
-	{
-		$id = (int)$id;
-		$Q = mysql_query("select * from `mrbs_room` where id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
-		{
-			return array();
-		}
-		else
-		{
-			$return = array (
-				'room_id'			=> mysql_result	($Q, '0', 'id'),
-				'room_name'			=> mysql_result ($Q, '0', 'room_name'),
-				'area_id'			=> mysql_result ($Q, '0', 'area_id')
-			);
-			return $return;
-		}
-	}
+$cache_getRoom = array();
+function getRoom ( $id ) {
+    global $cache_getRoom;
+
+    if ( isset($cache_getRoom[$id]) ) {
+        return $cache_getRoom[$id];
+    }
+
+    if ( !is_numeric( $id ) || $id == '0' ) {
+        return array();
+    }
+    else
+    {
+        $id = (int)$id;
+        $Q = mysql_query( "select * from `mrbs_room` where id = '" . $id . "' limit 1" );
+        if ( !mysql_num_rows( $Q ) ) {
+            $cache_getRoom[$id] = array();
+            return array();
+        }
+        else
+        {
+            $return = array(
+                'room_id' => mysql_result( $Q, '0', 'id' ),
+                'room_name' => mysql_result( $Q, '0', 'room_name' ),
+                'area_id' => mysql_result( $Q, '0', 'area_id' )
+            );
+
+            $cache_getRoom[$id] = $return;
+            return $cache_getRoom[$id];
+        }
+    }
 }
 
-function getProgram($id)
-{
-	if(!is_numeric($id) || $id == '0')
-	{
-		return array();
-	}
-	else
-	{
-		$id = (int)$id;
-		$Q = mysql_query("select * from `programs` where program_id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
-		{
-			return array();
-		}
-		else
-		{
-			/*$return = array (
-				'program_id'		=> mysql_result	($Q, '0', 'program_id'),
-				'program_name'		=> mysql_result ($Q, '0', 'program_name'),
-				'area_id'			=> mysql_result ($Q, '0', 'area_id')
-			);*/
-			
-			//$return = mysql_fetch_assoc($Q);
-			//return $return;
-			return mysql_fetch_assoc($Q);
-		}
-	}
+
+$cache_getProgram = array();
+function getProgram ( $id ) {
+    global $cache_getProgram;
+
+    if ( isset($cache_getProgram[$id]) ) {
+        return $cache_getProgram[$id];
+    }
+
+    if ( !is_numeric( $id ) || $id == '0' ) {
+        return array();
+    }
+    else
+    {
+        $id = (int)$id;
+        $Q = mysql_query( "select * from `programs` where program_id = '" . $id . "' limit 1" );
+        if ( !mysql_num_rows( $Q ) ) {
+            $cache_getProgram[$id] = array();
+            return array();
+        }
+        else
+        {
+            $cache_getProgram[$id] = mysql_fetch_assoc( $Q );
+            return $cache_getProgram[$id];
+        }
+    }
 }
 
 function getProgramDefaultAttachment($id)
