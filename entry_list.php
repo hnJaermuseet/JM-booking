@@ -25,111 +25,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-include_once("glob_inc.inc.php");
-
-filterMakeAlternatives();
+require 'include/entry_list.php';
 
 print_header($day, $month, $year, $area);
 
-if(!isset($_GET['listtype']))
-	$listtype = '';
-else
-	$listtype = $_GET['listtype'];
-$addAdfterSQL = '';
-$return_to = 'entry_list';
-switch($listtype)
-{
-	case 'not_confirmed':
-		echo '<h1>'._('Entries without confirmation sent').'</h1>';
-		echo _('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
-		$filters = array();
-		$filters = addFilter($filters, 'confirm_email', '0');
-		$filters = addFilter($filters, 'time_start', 'current', '>');
-		if($area != '')
-			$filters = addFilter($filters, 'area_id', $area);
-		$SQL = "select entry_id from `entry` where confirm_email = '0' and time_start > '".time()."' order by `time_start`";
-		//$SQL = "select entry_id from `entry` where confirm_email = '0' order by `time_start`";
-		break;
-	
-	case 'no_user_assigned':
-		echo '<h1>'._('Entries without any assigned user').'</h1>';
-		echo _('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
-		$filters = array();
-		$filters = addFilter($filters, 'user_assigned', '0');
-		$filters = addFilter($filters, 'user_assigned2', '', 'is');
-		$filters = addFilter($filters, 'time_start', 'current', '>');
-		if($area != '')
-			$filters = addFilter($filters, 'area_id', $area);
-		//$SQL = "select entry_id from `entry` where user_assigned = ';0;' and user_assigned2 = '' and time_start > '".time()."' order by `time_start`";
-		//$SQL = "select entry_id from `entry` where user_assigned = ';0;' and user_assigned2 = '' order by `time_start`";
-		break;
-	
-	case 'next_100':
-		echo '<h1>'._('Next 100 entries').'</h1>';
-		echo _('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
-		$filters = array();
-		$filters = addFilter($filters, 'time_start', 'current', '>');
-		if($area != '')
-			$filters = addFilter($filters, 'area_id', $area);
-		$addAdfterSQL = ' limit 100';
-		$SQL = "select entry_id from `entry` where time_start > '".time()."' order by `time_start` limit 100";
-		break;
-	
-	case 'servering':
-		echo '<h1>Bookinger med servering fremover</h1>';
-		echo _('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
-		$filters = array();
-		$filters = addFilter($filters, 'time_start', 'current', '>');
-		$filters = addFilter($filters, 'service_description', '_%');
-		if($area != '')
-			$filters = addFilter($filters, 'area_id', $area);
-		$SQL = "select entry_id from `entry` where time_start > '".time()."' order by `time_start` limit 100";
-		break;
-	
-	case 'customer_list':
-		echo '<h1>Kundeliste</h1>';
-		if(!isset($_GET['filters']))
-			$_GET['filters'] = '';
-		
-		$filters = filterGetFromSerialized($_GET['filters']);
-		if(!$filters)
-			$filters = array();
-		
-		$return_to = 'customer_list';
-		break;
-	
-	case 'deleted':
-		echo '<h1>Slettede bookinger</h1>';
-		if(!isset($_GET['filters']))
-			$_GET['filters'] = '';
-		
-		$filters = filterGetFromSerialized($_GET['filters']);
-		if(!$filters)
-		{
-			$filters = array();
-			$filters = addFilter($filters, 'deleted', true);
-		}
-		
-		break;
-		
-		$return_to = 'customer_list';
-		break;
-		
-	default:
-		echo '<h1>'._('Entry list').'</h1>';
-		if(!isset($_GET['filters']))
-			$_GET['filters'] = '';
-		
-		$filters = filterGetFromSerialized($_GET['filters']);
-		if(!$filters)
-			$filters = array();
-		
-		$return_to = 'entry_list';
-		break;
-}
+echo '<h1>'.$entry_list_heading.'</h1>'.chr(10);
+echo $entry_list_ingress;
 
-$SQL = genSQLFromFilters($filters, '*');
-$SQL .= " order by `time_start`".$addAdfterSQL;
 
 echo '<div class="hiddenprint">';
 filterLink($filters, $return_to);	echo '</div>'.chr(10);
@@ -146,7 +48,6 @@ foreach($filters as $filter) {
 	}
 }
 
-$Q = mysql_query($SQL);
 if(!$tamed_booking || !mysql_num_rows($Q))
 {
 	echo _('No entries found.');
