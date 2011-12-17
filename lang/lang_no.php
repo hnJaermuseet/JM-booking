@@ -158,6 +158,8 @@ function langNo($text)
 			return 'Ressursnummer';
 		case 'Required number':
 			return 'Påkrevd nummer';
+		case 'Entry list in Excel':
+			return 'Bookingliste i Excel';
 		/*
 		case '':
 			return '';

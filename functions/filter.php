@@ -481,6 +481,9 @@ function filterLink ($filtertable, $return_to = '') {
 	
 	echo '<img height="12" src="./img/icons/group.png" style="border: 0px solid black; vertical-align: middle;"> '.
 	'<a href="entry_list.php?listtype=customer_list&amp;filters='.$filtertable_serialized.'">'._h('Customer list').'</a> ';
+
+	echo '<img height="12" src="./img/icons/icon-file-excel.gif" style="border: 0px solid black; vertical-align: middle;"> '.
+	'<a href="entry_list_export_excel.php?filters='.$filtertable_serialized.'">'._h('Entry list in Excel').'</a> ';
 	
 	echo '</font> ]';
 }
