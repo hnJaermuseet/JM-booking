@@ -66,6 +66,9 @@ if(isset($_GET['editor']))
 	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
 	while($R_area = mysql_fetch_assoc($Q_area))
 		$editor->addChoice('area_id', $R_area['area_id'], $R_area['area_name']);
+	$editor->makeNewField('program_inactive', _l('Inactive'), 'select');
+		$editor->addChoice('program_inactive', 0, _l('No'));
+		$editor->addChoice('program_inactive', 1, _l('Yes'));
 	
 	$editor->getDB();
 	
@@ -208,14 +211,14 @@ else
 	echo '	</tr>'.chr(10).chr(10);
 	while($R_program = mysql_fetch_assoc($Q_programs))
 	{
-		echo '	<tr>'.chr(10);
+		echo '	<tr'.($R_program['program_inactive']?' class="strike graytext"':'').'>'.chr(10);
 		echo '		<td><b>'.$R_program['program_id'].'</b></td>'.chr(10);
 		echo '		<td>'.
 			iconHTML('package').' '.
 			$R_program['program_name'].
 		'</td>'.chr(10);
 		echo '		<td>'.nl2br($R_program['program_desc']).'</td>'.chr(10);
-		echo '		<td>';
+		echo '		<td style="white-space: nowrap;">';
 		$Q_area = mysql_query("select * from `mrbs_area` where id = '".$R_program['area_id']."'");
 		if(!mysql_num_rows($Q_area))
 			echo '<i>'._('Not found').'</i>';
@@ -243,7 +246,7 @@ else
 		
 		
 		// Options
-		echo '		<td>';
+		echo '		<td style="white-space: nowrap;">';
 		if($login['user_access_programadmin'])
 		{
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$R_program['program_id'].'">'.

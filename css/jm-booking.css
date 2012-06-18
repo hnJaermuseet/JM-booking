@@ -543,10 +543,15 @@ a.infoicon {
 }
 
 
-td.strike, span.strike {
+tr.strike,
+td.strike, 
+span.strike {
 	text-decoration: line-through;
 }
-td.graytext, a.graytext, span.graytext {
+tr.graytext,
+td.graytext, 
+a.graytext, 
+span.graytext {
 	color: gray;
 }
 
@@ -582,4 +587,12 @@ table.entry_invoice th {
 }
 table.entry_invoice td {
 	border: 1px solid black;
+}
+
+span.program_inactive {
+	display: none;
+	color: gray;
+}
+span.program_inactive.program_selected {
+	display: inline;
 }

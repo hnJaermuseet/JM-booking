@@ -26,6 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+// :: Check if the fixed program is inactive
+if($entry_fields['program_id']['value'] && isset($entry_fields['program_id']['choice_before'][$entry_fields['program_id']['value']])) {
+	$entry_fields['program_id']['choice_before'][$entry_fields['program_id']['value']] 
+		= str_replace(
+			'<span class="program_inactive">',
+			'<span class="program_inactive program_selected">',
+			$entry_fields['program_id']['choice_before'][$entry_fields['program_id']['value']]);
+}
+
+
 print_header($day, $month, $year, $area);
 
 $icon = array();

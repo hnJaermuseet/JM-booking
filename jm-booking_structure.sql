@@ -688,3 +688,7 @@ CREATE TABLE `users` (
 ALTER TABLE  `entry` ADD  `resourcenum` VARCHAR( 255 ) NOT NULL AFTER  `invoice_exported_time`;
 ALTER TABLE  `entry_deleted` ADD  `resourcenum` VARCHAR( 255 ) NOT NULL AFTER  `invoice_exported_time`;
 ALTER TABLE  `entry_type` ADD  `resourcenum_length` INT NOT NULL AFTER  `day_end`;
+
+
+-- 2012-06-15, new field in program: program_inactive
+ALTER TABLE  `programs` ADD  `program_inactive` BOOLEAN NOT NULL AFTER  `program_desc`;

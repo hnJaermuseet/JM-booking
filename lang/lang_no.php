@@ -160,6 +160,12 @@ function langNo($text)
 			return 'Påkrevd nummer';
 		case 'Entry list in Excel':
 			return 'Bookingliste i Excel';
+		case 'Inactive':
+			return 'Inaktiv';
+		case 'Yes':
+			return 'Ja';
+		case 'No':
+			return 'Nei';
 		/*
 		case '':
 			return '';

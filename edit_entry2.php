@@ -304,10 +304,11 @@ addChoiceBeforeAndAfter ('user_assigned', $before, $after);
 addBeforeChoices ('user_assigned', '<span id="user_id0" style="display: none;"><a href="javascript:show_all_users();">Vis alle</a><br></span>');
 
 // Program_id
-$Q_programs = mysql_query("select program_id, program_name, area_id, program_desc from `programs` order by area_id, program_name");
+$Q_programs = mysql_query("select program_id, program_name, area_id, program_desc, program_inactive from `programs` order by area_id, program_name");
 $choices = array('0' => _('Non selected'));
 $area_id = 0;		$last_id = 0;
 $before = array();	$after = array();
+$inactive_programs = array();
 if(mysql_num_rows($Q_programs))
 {
 	while( $r_choice = mysql_fetch_assoc($Q_programs))
@@ -330,11 +331,29 @@ if(mysql_num_rows($Q_programs))
 		}
 		$choices[$r_choice['program_id']] = 
 			'<span class="programHover" title="'.nl2br($r_choice['program_desc']).'">'.
-			$r_choice['program_name'].'</span>';
+				$r_choice['program_name'].
+			'</span>';
 		$last_id = $r_choice['program_id'];
+
+		if($r_choice['program_inactive']) {
+			$inactive_programs[] = $r_choice['program_id'];
+		}
 	}
 	$after[$last_id] = '</span>';
 }
+
+// :: Hide all programs that are inactive and is not selected
+foreach($inactive_programs as $program_id) {
+	if(!isset($before[$program_id])) {
+		$before[$program_id] = '';
+	}
+	if(!isset($after[$program_id])) {
+		$after[$program_id] = '';
+	}
+	$before[$program_id] = $before[$program_id].'<span class="program_inactive">';
+	$after[$program_id] = '</span>'.$after[$program_id];
+}
+
 addChoice ('program_id', $choices);
 addChoiceBeforeAndAfter ('program_id', $before, $after);
 
@@ -571,6 +590,7 @@ else
 		addValueArray('room_id', array((int)$_GET['room'] => (int)$_GET['room']));
 	}
 }
+
 
 /*
 if($entry_add)
