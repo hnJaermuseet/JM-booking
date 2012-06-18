@@ -71,7 +71,7 @@ class editor {
 	 	* [choiceid] = choiceid
 	 */
 	var $vars			= array();
-	var $heading_before	= "<table class=\"editor\">\n\t<tr>\n\t\t<td colspan=\"4\" align=\"center\"><h1>";
+	var $heading_before	= "<table class=\"editor\">\n\t<tr>\n\t\t<td colspan=\"3\" align=\"center\"><h1>";
 	var $heading		= 'Editor';
 	var $heading_after	= "</h1></td>\n\t</tr>";
 	var $fields_before	= "\n";
@@ -485,7 +485,7 @@ class editor {
 		// Errors or warnings?
 		if(count($this->error_input))
 		{
-			echo '<tr><td colspan="4" style="border: 1px black solid;">'.chr(10);
+			echo '<tr><td colspan="3" style="border: 1px black solid;">'.chr(10);
 			
 			echo '<div class="error">'._('One or more errors occured in the data submited').'</div>'.chr(10);
 			echo '<ul>'.chr(10);
@@ -497,11 +497,11 @@ class editor {
 			echo '</td></tr>'.chr(10);
 			
 			// Make some space
-			echo '<tr><td colspan="4">&nbsp;</td></tr>'.chr(10).chr(10);
+			echo '<tr><td colspan="3">&nbsp;</td></tr>'.chr(10).chr(10);
 		}
 		if(count($this->warnings))
 		{
-			echo '<tr><td colspan="4" style="border: 1px black solid;">'.chr(10);
+			echo '<tr><td colspan="3" style="border: 1px black solid;">'.chr(10);
 			
 			echo '<center><font color="red" size="5">'._('One or more warnings where generated.').'</font></center>'.chr(10);
 			echo '<ul>'.chr(10);
@@ -517,16 +517,16 @@ class editor {
 			echo '</td></tr>'.chr(10);
 			
 			// Make some space
-			echo '<tr><td colspan="4">&nbsp;</td></tr>'.chr(10).chr(10);
+			echo '<tr><td colspan="3">&nbsp;</td></tr>'.chr(10).chr(10);
 		}
 		if($this->error_code != '')
 		{
-			echo '<tr><td colspan="4" style="border: 1px black solid;">'.chr(10);
+			echo '<tr><td colspan="3" style="border: 1px black solid;">'.chr(10);
 			echo '<div class="error">Feil oppsto:<br>'.$this->error_code.'</div>'.chr(10);
 			echo '</td></tr>'.chr(10);
 			
 			// Make some space
-			echo '<tr><td colspan="4">&nbsp;</td></tr>'.chr(10).chr(10);
+			echo '<tr><td colspan="3">&nbsp;</td></tr>'.chr(10).chr(10);
 		}
 		
 		if($this->showid && $this->id != '') {
