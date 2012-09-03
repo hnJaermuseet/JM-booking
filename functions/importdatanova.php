@@ -620,29 +620,53 @@ function datanova_databaseinsert ($tall_nye)
 				'\''.$vare['antall_voksne'].'\','.
 				'\''.$vare['shop_id'].'\'';
 		}
-		$query = 
-			'insert into `import_dn_tall` (
-				`vare_nr`,
-				`area_id`,
-				`dag`,
-				`kat_id`,
-				`antall_barn`,
-				`antall_voksne`,
-				`shop_id`
-			) VALUES ('.implode('),(', $tall_nye2).');';
-		mysql_query($query);
+
+
+		// Make batches of 100 and 100 inserts
+		$tall_nye3 = array(0 => array());
+		$i = 0;
+		foreach($tall_nye2 as $tall) {
+			if(count($tall_nye3[$i]) >= 100) {
+				$i++;
+				$tall_nye3[$i] = array();
+			}
+			$tall_nye3[$i][] = $tall;
+		}
+
+		$total_count = 0;
+		foreach($tall_nye3 as $tall_nye4) {
+			if(count($tall_nye4)) {
+				// -> There are numbers in this batch
+				$total_count += count($tall_nye4);
+				
+				$query = 
+					'insert into `import_dn_tall` (
+						`vare_nr`,
+						`area_id`,
+						`dag`,
+						`kat_id`,
+						`antall_barn`,
+						`antall_voksne`,
+						`shop_id`
+					) VALUES ('.implode('),(', $tall_nye4).');';
+				mysql_query($query);
 		
-		if(mysql_error())
-		{
-			throw new Exception(
-				'MySQL error when inserting new numbers to database: '.
-					mysql_error().'. '.
-				'Query: '.$query);
+				if(mysql_error())
+				{
+					throw new Exception(
+						'MySQL error when inserting new numbers to database: '.
+							mysql_error().'. '.
+						'Query: '.$query);
+				}
+			}
 		}
-		else
-		{
-			return count($tall_nye2);
+
+		// Make sure the splitting has gone okey
+		if(count($tall_nye2) != $total_count) {
+			throw new Exception('$tall_nye2 ('.$tall_nye2.') is not the same as $total_count ('.$total_count.')');
 		}
+		
+		return $total_count;
 	}
 	else
 	{
