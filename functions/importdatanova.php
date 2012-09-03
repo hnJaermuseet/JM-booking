@@ -620,19 +620,24 @@ function datanova_databaseinsert ($tall_nye)
 				'\''.$vare['antall_voksne'].'\','.
 				'\''.$vare['shop_id'].'\'';
 		}
-		mysql_query('insert into `import_dn_tall` (
-			`vare_nr`,
-			`area_id`,
-			`dag`,
-			`kat_id`,
-			`antall_barn`,
-			`antall_voksne`,
-			`shop_id`
-		) VALUES ('.implode('),(', $tall_nye2).');');
+		$query = 
+			'insert into `import_dn_tall` (
+				`vare_nr`,
+				`area_id`,
+				`dag`,
+				`kat_id`,
+				`antall_barn`,
+				`antall_voksne`,
+				`shop_id`
+			) VALUES ('.implode('),(', $tall_nye2).');';
+		mysql_query($query);
 		
 		if(mysql_error())
 		{
-			throw new Exception('MySQL error when inserting new numbers to database: '.mysql_error());
+			throw new Exception(
+				'MySQL error when inserting new numbers to database: '.
+					mysql_error().'. '.
+				'Query: '.$query);
 		}
 		else
 		{
