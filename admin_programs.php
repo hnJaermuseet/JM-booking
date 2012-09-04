@@ -119,9 +119,12 @@ elseif(isset($_GET['program_id']))
 			if(count($att))
 			{
 				if(!isset($program_defaultattachment[$att['att_id']]))
-					$att_new[$att['att_id']] = $att['att_id'];
-				else
+				{
+					$att_new[$att['att_id']] = $att;
+				}
+				else {
 					unset($att_deleted[$att['att_id']]);
+				}
 			}
 		}
 		
