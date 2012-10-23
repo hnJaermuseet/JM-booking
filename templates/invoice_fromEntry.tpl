@@ -102,7 +102,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				<td class="border" align="center">{$linjenr}</td>
 				<td class="border" align="center">{$innhold.name|nl2br}</td>
 				<td class="border" align="right">kr&nbsp;{$innhold.belop_hver|commify:2:",":" "}</td>
-				<td class="border" align="center">{$innhold.antall}</td>
+				<td class="border" align="center">{$innhold.antall|commify:2:",":" "}</td>
 				<td class="border" align="right">kr&nbsp;{$innhold.belop_sum_netto|commify:2:",":" "}</td>
 				<td class="border" align="center">{math equation="x*100" x=$innhold.mva}&nbsp;%</td>
 				<td class="border" align="right"><b>kr&nbsp;{$innhold.belop_sum|commify:2:",":" "}</b></td>

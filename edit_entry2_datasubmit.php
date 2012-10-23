@@ -363,27 +363,46 @@ foreach ($entry_fields as $field)
 					$thisone = array();
 					$thisone['type']		= 'belop';
 					$thisone['belop_hver']	= 0;
-					$thisone['antall']		= 1;
+					$thisone['antall']		= 0;
 					$thisone['mva']			= 0;
 					$thisone['name']		= '';
 					//$thisone['id_type']		= 0;
 					//$thisone['id_ekstra']	= 0;
 					//$thisone['mva_eks']		= true;
 					
-					if(isset($_POST['type'.$id]) && is_numeric($_POST['type'.$id]))
-						$thisone['type']		= $_POST['type'.$id];
-					if(isset($_POST['belop_hver_real'.$id]) && is_numeric($_POST['belop_hver_real'.$id]))
-						$thisone['belop_hver']	= $_POST['belop_hver_real'.$id];
-					if(isset($_POST['antall'.$id]) && is_numeric($_POST['antall'.$id]))
-						$thisone['antall']		= $_POST['antall'.$id];
-					if(isset($_POST['mva'.$id]) && is_numeric($_POST['mva'.$id]))
-						$thisone['mva']			= $_POST['mva'.$id];
-					if(isset($_POST['name'.$id]))
-						$thisone['name']		= $_POST['name'.$id];
-					if(isset($_POST['mva_eks'.$id]) && $_POST['mva_eks'.$id] == 1)
+					if(isset($_POST['type'.$id])) {
+						$value = str_replace(',', '.', $_POST['type'.$id]);
+						if(is_numeric($value)) {
+							$thisone['type']		= $value;
+						}
+					}
+					if(isset($_POST['belop_hver_real'.$id])) {
+						$value = str_replace(',', '.', $_POST['belop_hver_real'.$id]);
+						if(is_numeric($value)) {
+							$thisone['belop_hver']	= $value;
+						}
+					}
+					if(isset($_POST['antall'.$id])) {
+						$value = str_replace(',', '.', $_POST['antall'.$id]);
+						if(is_numeric($value)) {
+							$thisone['antall']		= $value;
+						}
+					}
+					if(isset($_POST['mva'.$id])) {
+						$value = str_replace(',', '.', $_POST['mva'.$id]);
+						if(is_numeric($value)) {
+							$thisone['mva']			= $value;
+						}
+					}
+					if(isset($_POST['name'.$id])) {
+						$thisone['name']		= str_replace(',', '.', $_POST['name'.$id]);
+					}
+					if(isset($_POST['mva_eks'.$id]) && $_POST['mva_eks'.$id] == 1) {
 						$thisone['mva_eks']     = true;
-					else
+					}
+					else {
 						$thisone['mva_eks']     = false;
+					}
 					
 					$thisone['mva'] = ((float)$thisone['mva'])/100;
 					

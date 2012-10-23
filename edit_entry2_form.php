@@ -532,14 +532,14 @@ foreach ($entry_fields as $field)
 						// Belop_hver
 						if(!$invoice_content['mva_eks'])
 							$invoice_content['belop_hver'] = round($invoice_content['belop_hver']*(1+$invoice_content['mva']),2);
-						echo ' <td><input type="text" size="6" id="belop_hver'.$id.'" name="belop_hver'.$id.'" value="'.$invoice_content['belop_hver'].'" '.
+						echo ' <td><input type="text" size="6" id="belop_hver'.$id.'" name="belop_hver'.$id.'" value="'.str_replace('.', ',', $invoice_content['belop_hver']).'" '.
 							'onchange="updateMva('.$id.');" '.
 							'onkeyup="updateMva('.$id.');" '.
 							'onclick="updateMva('.$id.');" '.
 							$disabled.'></td>'.chr(10);
 						
 						// Antall
-						echo ' <td><input type="text" size="6" id="antall'.$id.'" name="antall'.$id.'" value="'.$invoice_content['antall'].'" '.
+						echo ' <td><input type="text" size="6" id="antall'.$id.'" name="antall'.$id.'" value="'.str_replace('.', ',', $invoice_content['antall']).'" '.
 							'onchange="updateMva('.$id.');" '.
 							'onkeyup="updateMva('.$id.');" '.
 							'onclick="updateMva('.$id.');" '.
