@@ -89,8 +89,10 @@ function datanova_webreport_getreport ($baseurl, $username, $password, $shop, $y
 	
 	// Get viewstate and eventvalidation (needed in this ASP.NET application to verify the origin of the form)
 	preg_match_all("#<input.*?name=\"__viewstate\".*?value=\"(.*?)\".*?>.*?<input.*?name=\"__eventvalidation\".*?value=\"(.*?)\".*?>#mis", $result, $arr_viewstate);
-	if(!isset($arr_viewstate[1][0]) || !isset($arr_viewstate[2][0]))
-		throw new Exception ('Viewstate/Eventvalidation not found in result from dnrepparam.aspx in first request after login. HTML fetching failed.');
+	if(!isset($arr_viewstate[1][0]) || !isset($arr_viewstate[2][0])) {
+		throw new Exception ('Viewstate/Eventvalidation not found in result from dnrepparam.aspx in first request after login. HTML fetching failed.'.
+			chr(10).'HTML body: '.chr(10).$result);
+	}
 	$viewstate = $arr_viewstate[1][0];
 	$eventvalidation = $arr_viewstate[2][0];
 	
@@ -319,10 +321,15 @@ function datanova_webreport_parser ($result)
 	
 	// Get table headings
 	preg_match_all('/<tr class="HeadingRow">(.*?)<\/[\s]*tr>/s', $result, $tableheadingdata);
-	if(count($tableheadingdata) != 2)
-		throw new Exception('No HeadingRow found');
-	if(count($tableheadingdata[1]) != 1)
-		throw new Exception('No HeadingRow found');
+	if((count($tableheadingdata) != 2) || (count($tableheadingdata[1]) != 1)) {
+		throw new Exception(
+			'No HeadingRow found'.chr(10).
+			"---------- RESULT ----------".chr(10).
+			$result.chr(10).
+			"---------- tableheadingdata ----------".chr(10).
+			print_r($tableheadingdata, true)
+		);
+	}
 	
 	preg_match_all('/<td class="HeadingCell HeadingCellText">(.*?)<\/[\s]*td>/', $tableheadingdata[1][0], $th_matches);
 	for($i=0; $i<count($th_matches[1]); $i++)
