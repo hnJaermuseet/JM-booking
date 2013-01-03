@@ -318,6 +318,11 @@ function datanova_webreport_parser ($result)
 	$heading = array();
 	$row = array();
 	$controlamount = 0;
+
+	// No result found (typically before opening in January)
+	if(strpos($result, '<script language="javascript">alert("Ingen data er funnet.")</script>')) {
+		return array();
+	}
 	
 	// Get table headings
 	preg_match_all('/<tr class="HeadingRow">(.*?)<\/[\s]*tr>/s', $result, $tableheadingdata);
