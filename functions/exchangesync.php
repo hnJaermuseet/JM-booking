@@ -41,7 +41,7 @@ function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
 			);
 			
 			if($cal->getResponseCode() == 'ErrorServerBusy') {
-				printout('Server busy. Sleeping 5 seconds and trying again')
+				printout('Server busy. Sleeping 5 seconds and trying again');
 				sleep(5);
 				$calendaritems = $cal->getCalendarItems(
 					$from,
