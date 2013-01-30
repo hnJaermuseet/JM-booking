@@ -1431,7 +1431,7 @@ function getGroup($id)
 			foreach($return['users'] as $key => $user_id)
 			{
 				$user = getUser($user_id);
-				if($user['deactivated'])
+				if(isset($user['deactivated']) && $user['deactivated'])
 					unset($return['users'][$key]);
 			}
 			return $return;
