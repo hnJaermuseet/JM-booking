@@ -517,7 +517,7 @@ function emailSendInvoicePDF ($to, $pdffile, $message_plain, $subject)
 	$body = $mime->get();
 	$hdrs = $mime->headers($hdrs);
     
-	$mail =& Mail::factory('mail');
+	$mail = Mail::factory('mail');
 	$mail->send($to, $hdrs, $body);
 	
 	return true;
