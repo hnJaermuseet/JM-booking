@@ -75,9 +75,6 @@ if(isset($_POST['WEBAUTH_USER']))
 			}
 			elseif(!$external_failed)
 			{
-				session_register('WEBAUTH_VALID');
-		        session_register('WEBAUTH_USER');
-		        session_register('WEBAUTH_PW');
 		        $_SESSION['WEBAUTH_VALID']=true;
 		        $_SESSION['WEBAUTH_USER']=$user;
 		        $_SESSION['WEBAUTH_PW']=$pass;
