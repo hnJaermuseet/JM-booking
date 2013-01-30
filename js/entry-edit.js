@@ -78,11 +78,13 @@ function hide_all_areas ()
 function show_all_users ()
 {
 	var spans = document.getElementsByTagName('span');
-	for (var i=0;i<spans.length;i++) {
-		if(spans[i].id.substr(0,7) == 'user_id') {
-			spans[i].style.display = 'inline';
+	$('span[id^=user_id]').each(function() {
+		if(!$(this).hasClass('graytext') || $('input', this).is(':checked')) {
+			// -> Not a disabled user OR it is checked
+			$(this).show();
 		}
-	}
+	});
+	
 	if(document.getElementById('user_id0') != undefined)
 		document.getElementById('user_id0').style.display = 'none';
 }
