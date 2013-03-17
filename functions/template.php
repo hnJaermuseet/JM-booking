@@ -285,6 +285,8 @@ function templateAssignSystemvars($var)
 	$$var->register_function ('iconHTML', 'templateIconHtml');
 	$$var->register_modifier('commify', 'smarty_modifier_commify');
 	$$var->register_modifier('file_size', 'smarty_modifier_file_size');
+    $$var->register_function ('ukedag_bokmaal', 'ukedag_bokmaal');
+    $$var->register_function ('ukedag_nynorsk', 'ukedag_nynorsk');
 }
 
 function templateAssignEntryChanges ($var, $entry, $rev_num, $remove_invoice = false)
@@ -552,4 +554,43 @@ function wikiLink ($article) {
 	return 'http://booking.jaermuseet.local/wiki/index.php/'.$article;
 }
 
-?>
+function ukedag_bokmaal($time) {
+    switch(date('N', $time)) {
+        case '1':
+            return 'mandag';
+        case '2':
+            return 'tirsdag';
+        case '3':
+            return 'onsdag';
+        case '4':
+            return 'torsdag';
+        case '5':
+            return 'fredag';
+        case '6':
+            return 'l&oslash;rdag';
+        case '7':
+            return 's&oslash;ndag';
+    }
+
+    throw new Exception('Ukjent ukedagnr: '.date('N', $time));
+}
+function ukedag_nynorsk($time) {
+    switch(date('N', $time)) {
+        case '1':
+            return 'mandag';
+        case '2':
+            return 'tysdag';
+        case '3':
+            return 'onsdag';
+        case '4':
+            return 'torsdag';
+        case '5':
+            return 'fredag';
+        case '6':
+            return 'laurdag';
+        case '7':
+            return 'sundag';
+    }
+
+    throw new Exception('Ukjent ukedagnr: '.date('N', $time));
+}
