@@ -98,21 +98,34 @@ try
 	for($year = 2008; $year <= date('Y'); $year++)
 	{
 		// Get HTML and analyze
-		printout('Retriving webreport from baseurl '.$importdatanova_baseurl);
-		$webreport =
-			datanova_webreport_getreport (
-				$importdatanova_baseurl, 
-				$importdatanova_login['username'], 
-				$importdatanova_login['password'], 
-				$importdatanova_login['shop'],
-				$year);
-		printout('Webreport retrived.');
+        $varegrupper = array(
+            array(400, 499),
+            array(503, 503)
+        );
+        foreach($varegrupper as $varegruppe_fratil) {
+            $varegruppe_fra = $varegruppe_fratil[0];
+            $varegruppe_til = $varegruppe_fratil[1];
+            $printout_prefix = '[varegruppe '.$varegruppe_fra.'-'.$varegruppe_til.']';
 
-		printout('Parsing retrived HTML.');
-		$data_rows_year = datanova_webreport_parser($webreport);
-		
-		$data_rows = array_merge_recursive($data_rows, $data_rows_year);
-		printout('Datarows parsed: '.count($data_rows_year) .' (total: '.count($data_rows).')');
+            printout($printout_prefix.' Retriving webreport from baseurl '.$importdatanova_baseurl);
+            $webreport =
+                datanova_webreport_getreport (
+                    $importdatanova_baseurl,
+                    $importdatanova_login['username'],
+                    $importdatanova_login['password'],
+                    $importdatanova_login['shop'],
+                    $year,
+                    $varegruppe_fra,
+                    $varegruppe_til
+                );
+            printout($printout_prefix.' Webreport retrived.');
+
+            printout($printout_prefix.' Parsing retrived HTML.');
+            $data_rows_year = datanova_webreport_parser($webreport);
+
+            $data_rows = array_merge_recursive($data_rows, $data_rows_year);
+            printout($printout_prefix.' Datarows parsed: '.count($data_rows_year) .' (total: '.count($data_rows).')');
+        }
 	}
 	
 	unset($year); // Not year spesific any more, this fixes printout

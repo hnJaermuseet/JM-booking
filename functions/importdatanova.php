@@ -62,7 +62,7 @@ function datanova_webreport_logout ($baseurl, &$ch)
 }
 */
 
-function datanova_webreport_getreport ($baseurl, $username, $password, $shop, $year)
+function datanova_webreport_getreport ($baseurl, $username, $password, $shop, $year, $varegruppe_fra, $varegruppe_til)
 {
 	/* Init */
 	$cookie = 'datanova_webreport.txt';
@@ -95,12 +95,12 @@ function datanova_webreport_getreport ($baseurl, $username, $password, $shop, $y
 	}
 	$viewstate = $arr_viewstate[1][0];
 	$eventvalidation = $arr_viewstate[2][0];
-	
+
 	// Set up post data
 	$post = array(
 		'B11[]=1-Garborgsenteret','B11[]=3-Vitenfabrikken','B11[]=4-Vitengarden','B11[]=5-Garborgstova',
 		'D1='.$year,'D2='.$year,
-		'P13=400','P14=499',
+		'P13='.$varegruppe_fra,'P14='.$varegruppe_til,
 		
 		'D10=','D21=','D22=','D23=','D24=','D25=','D26=','D27=','D28=','D29=','D3=','D30=','D4=','D5=','D6=','D9=',
 		'DropDownListGraphic=Sylinder',
@@ -131,7 +131,7 @@ function datanova_webreport_getreport ($baseurl, $username, $password, $shop, $y
 		'hdnGraphField=1',
 		'hdnGraphOption=',
 		'hdnLanguage=NOR',
-		'hdnMQry=select%20%20coshopno%2C(select%20coshopname%20from%20tashop%20where%20copkshopno%3Dcoshopno)%20as%20coshopname%2C%20coitemname%2Ccoitemno%2CN_cofkitemgroupno%2CCodate%2Csalesqty%2CMRP%2CGrossSalesVal%2Ccodiscamt%2CCoPuramt%2CTurnoverExDisc%2Ccosaleswovat%2Cvatamt%2CcoActivitySalesAmt%2CcoCredSalesAmt%2Ccogrossprofitamt%2CGrossProfitPercent%2CBudGrossProfitPercent%2CVariance%2CCoWeekno%2CCoSupplierNo%2C(select%20t1.cosupitemno%20from%20talinkitem_supplier%20t1%20join%20talinkitem_profile%20t2%20%20on%20%20copfksupprofileno%3Dcopfkprofileno%20and%20t1.copfksupplierno%3Dt2.cofkactivesupplierno%20and%20t1.copfkitemno%3Dt2.copfkitemno%20%20where%20t1.copfkitemno%3DViDnRepItemDailySales_FSM.coItemNo%20and%20copfksupprofileno%3Ddbo.profile())%20as%20suppitemno%2Ccocolourname%20as%20Farge%2C%20CONVERT(VARCHAR(30)%2Ccosizename)%20as%20~St%C3%B8rrelse~%2C%20comodelname%20as%20Modell%2C(select%20cofkmanufno%20from%20taelectrical%20where%20copfkitemno%20%3Dcoitemno)%20as%20%20copkmanufno%20%20from%20%20ViDnRepItemDailySales_FSM%20%20where%20coyear%3E%3D\'2011\'%20and%20%20coyear%3C%3D\'2011\'%20and%20%20coshopno%20in%20(1%2C3%2C4%2C5)%20and%20%20n_cofkitemgroupno%3E%3D\'400\'%20and%20%20n_cofkitemgroupno%3C%3D\'499\'%20order%20by%20N_cofkitemgroupno%2CCoitemname%2CCodate',
+		'hdnMQry=select%20%20coshopno%2C(select%20coshopname%20from%20tashop%20where%20copkshopno%3Dcoshopno)%20as%20coshopname%2C%20coitemname%2Ccoitemno%2CN_cofkitemgroupno%2CCodate%2Csalesqty%2CMRP%2CGrossSalesVal%2Ccodiscamt%2CCoPuramt%2CTurnoverExDisc%2Ccosaleswovat%2Cvatamt%2CcoActivitySalesAmt%2CcoCredSalesAmt%2Ccogrossprofitamt%2CGrossProfitPercent%2CBudGrossProfitPercent%2CVariance%2CCoWeekno%2CCoSupplierNo%2C(select%20t1.cosupitemno%20from%20talinkitem_supplier%20t1%20join%20talinkitem_profile%20t2%20%20on%20%20copfksupprofileno%3Dcopfkprofileno%20and%20t1.copfksupplierno%3Dt2.cofkactivesupplierno%20and%20t1.copfkitemno%3Dt2.copfkitemno%20%20where%20t1.copfkitemno%3DViDnRepItemDailySales_FSM.coItemNo%20and%20copfksupprofileno%3Ddbo.profile())%20as%20suppitemno%2Ccocolourname%20as%20Farge%2C%20CONVERT(VARCHAR(30)%2Ccosizename)%20as%20~St%C3%B8rrelse~%2C%20comodelname%20as%20Modell%2C(select%20cofkmanufno%20from%20taelectrical%20where%20copfkitemno%20%3Dcoitemno)%20as%20%20copkmanufno%20%20from%20%20ViDnRepItemDailySales_FSM%20%20where%20coyear%3E%3D\'2011\'%20and%20%20coyear%3C%3D\'2011\'%20and%20%20coshopno%20in%20(1%2C3%2C4%2C5)%20and%20%20n_cofkitemgroupno%3E%3D\''.$varegruppe_fra.'\'%20and%20%20n_cofkitemgroupno%3C%3D\''.$varegruppe_til.'\'%20order%20by%20N_cofkitemgroupno%2CCoitemname%2CCodate',
 		'hdnMemberId=1003',
 		'hdnPreview=0',
 		'hdnReportName=6.04%20Salg%20pr.%20vare%20pr.%20dag%20(%20spesifisert%20)',
@@ -238,7 +238,7 @@ function datanova_webreport_getreport ($baseurl, $username, $password, $shop, $y
 		'ImageButton1.x=32',
 		'ImageButton1.y=24',
 		'L7=','L8=',
-		'P13=400','P14=499',
+		'P13='.$varegruppe_fra,'P14='.$varegruppe_til,
 		'P15=','P16=','P17=','P18=','P19=','P20=','T18=1',
 		'__EVENTARGUMENT=',
 		'__EVENTTARGET=',
