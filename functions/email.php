@@ -77,7 +77,7 @@ function send_iCal($entry_id)
 		
 		$rand = md5(time());
 		$mime_boundary = "==Multipart_Boundary_x{$rand}x";
-		$subject = 'Booking - '.date('d-m-Y', $entry['time_start']).': '.$entry['entry_name'];
+		$subject = 'Stadfesting av bestilling - '.date('d-m-Y', $entry['time_start']).': '.$entry['entry_name'];
 		if(isset($login['user_email']) && $login['user_email'] != '')
 			$headers = 'From: '.$login['user_email'];
 		else
@@ -403,7 +403,7 @@ function emailSendConfirmation ($entry, $to, $message)
 	else
 		$area_name = '';
 	
-	$subject = 'Bekreftelse booking - '.date('d.m.Y', $entry['time_start']).$area_name;
+	$subject = 'Stadfesting av bestilling - '.date('d.m.Y', $entry['time_start']).$area_name;
 	
 	
 	// TODO: Add HTML
@@ -438,7 +438,7 @@ function emailSendConfirmationPDF ($entry, $to, $confirm_pdffile, $attachments, 
 		$area_name = '';
 	
 	// Subject
-	$subject = 'Bekreftelse booking - '.date('d.m.Y', $entry['time_start']).$area_name;
+	$subject = 'Stadfesting av bestilling - '.date('d.m.Y', $entry['time_start']).$area_name;
 	
 	
 	$crlf = "\n";

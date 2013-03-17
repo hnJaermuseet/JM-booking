@@ -98,7 +98,7 @@ if(isset($_POST['confirm_tpl']))
 		// Make PDF and save
 		if($confirm_pdf_txt != '')
 		{
-			$confirm_pdffile = 'bekreftelse-'.date('Ymd-His').'-'.$entry['entry_id'].'.pdf';
+			$confirm_pdffile = 'stadfesting-'.date('Ymd-His').'-'.$entry['entry_id'].'.pdf';
 			/*
 			$pdf = new HTML2FPDF();
 			$pdf->DisplayPreferences('HideWindowUI');
