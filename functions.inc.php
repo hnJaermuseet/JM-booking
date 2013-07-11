@@ -259,60 +259,6 @@ function print_header($day, $month, $year, $area){
 	debugAddToLog(__FILE__, __LINE__, 'Finished printing header');
 }
 
-function parseDate($date){
-	/* $s means "search";
-	 * $r means "replace";
-	 */
-	$s = array();
-	$r = array();
-	
-	$s[]='Monday';			$r[]=__('Monday');
-	$s[]='Tuesday';			$r[]=__('Tuedsay');
-	$s[]='Wednesday';		$r[]=__('Wednesday');
-	$s[]='Thursday';		$r[]=__('Thursday');
-	$s[]='Friday';			$r[]=__('Friday');
-	$s[]='Saturday';		$r[]=__('Saturday');
-	$s[]='Sunday';			$r[]=__('Sunday');
-	
-	$s[]='Mon';				$r[]=__('Mon');
-	$s[]='Tue';				$r[]=__('Tue');
-	$s[]='Wed';				$r[]=__('Wed');
-	$s[]='Thu';				$r[]=__('Thu');
-	$s[]='Fri';				$r[]=__('Fri');
-	$s[]='Sat';				$r[]=__('Sat');
-	$s[]='Sun';				$r[]=__('Sun');
-	
-	$s[]='January';			$r[]=__('January');
-	$s[]='February';		$r[]=__('February');
-	$s[]='March';			$r[]=__('March');
-	$s[]='April';			$r[]=__('April');
-	$s[]='May';				$r[]=__('May');
-	$s[]='June';			$r[]=__('June');
-	$s[]='July';			$r[]=__('July');
-	$s[]='August';			$r[]=__('August');
-	$s[]='September';		$r[]=__('September');
-	$s[]='October';			$r[]=__('October');
-	$s[]='November';		$r[]=__('November');
-	$s[]='December';		$r[]=__('December');
-	
-	$s[]='Jan';				$r[]=__('Jan');
-	$s[]='Feb';				$r[]=__('Feb');
-	$s[]='Mar';				$r[]=__('Mar');
-	$s[]='Apr';				$r[]=__('Apr');
-	$s[]='May';				$r[]=__('May');
-	$s[]='Jun';				$r[]=__('Jun');
-	$s[]='Jul';				$r[]=__('Jul');
-	$s[]='Aug';				$r[]=__('Aug');
-	$s[]='Sep';				$r[]=__('Sep');
-	$s[]='Oct';				$r[]=__('Oct');
-	$s[]='Nov';				$r[]=__('Nov');
-	$s[]='Dec';				$r[]=__('Dec');
-	
-	
-	
-	return str_replace($s, $r, $date);
-}
-
 function genDateSelector($prefix, $day, $nonth, $year,$history=0,$id_prefix=''){
 	if($day   == 0)
 		$day = date('d');
@@ -332,9 +278,8 @@ function genDateSelector($prefix, $day, $nonth, $year,$history=0,$id_prefix=''){
 	echo '<select id="'.$id_prefix.'month" name="'.$prefix.'month">';
 	
 	for($i = 1; $i <= 12; $i++){
-		$n = parseDate(strftime("%b", mktime(0, 0, 0, $i, 1, $year)));
-		
-		echo '<option value="'.$i.'" '. ($i == $nonth ? ' selected' : '') . '>'.$n.'</option>';
+		$n = __(strftime("%b", mktime(0, 0, 0, $i, 1, $year)));
+        echo '<option value="'.$i.'" '. ($i == $nonth ? ' selected' : '') . '>'.$n.'</option>';
 	}
 	
 	echo "</select>";

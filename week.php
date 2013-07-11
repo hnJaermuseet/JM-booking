@@ -159,8 +159,8 @@ foreach ($weekdays as $daynum => $weekday)
 		echo ' <td>'.chr(10);
     }
 	echo '<a class="graybg" href="day.php?year='.date('Y',$weekday).'&amp;month='.date('m',$weekday).'&amp;day='.date('d',$weekday).'&amp;area='.$area.'&amp;room='.$room.'">';
-	echo '<b>'.ucfirst(strtolower(parseDate(strftime('%A', $weekday)))).'</b>';
-	echo '<br>'. ucfirst(strtolower(parseDate(strftime('%d. %B', $weekday))));
+	echo '<b>'.__(strftime('%A', $weekday)).'</b>';
+	echo '<br>'. date('j', $weekday).'. '.strtolower(__(date('F', $weekday)));
 	echo '</td>'.chr(10);
 	if($daynum == 6 || $daynum == 7) {
 		?>

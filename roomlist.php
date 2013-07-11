@@ -162,7 +162,7 @@ else {
             $heading = ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.strtolower(__(date('F', $am7))).' '.date('Y', $am7);
         }
         elseif($thisFile == 'month.php') {
-            $heading = ucfirst(strtolower(parseDate(strftime("%B %Y", $monthstart))));
+            $heading = __(strftime("%B", $monthstart)).' '.date('Y', $monthstart);
         }
         else {
             $heading = __('Week').' '.$thisWeek;
@@ -196,8 +196,8 @@ echo '<tr><td>&nbsp;</td></tr>'.chr(10);
 
 echo '<tr><td>';
 if($thisFile == 'week.php')	{       echo '<h1>'.__('Week').' '.$thisWeek.':</h1>'; }
-elseif($thisFile == 'day.php') {    echo '<h1>'.parseDate(strftime("%A", $am7)).', '.date('j', $am7). '. '. strtolower(parseDate(strftime("%B %Y", $am7))).':</h1>'; }
-elseif($thisFile == 'month.php') {  echo '<h1>'.ucfirst(strtolower(parseDate(strftime("%B %Y", $monthstart)))).':</h1>'.chr(10); }
+elseif($thisFile == 'day.php') {    echo '<h1>'.__(strftime("%A", $am7)).', '.date('j', $am7). '. '. strtolower(__(strftime("%B", $am7))).' '.date('Y', $am7).':</h1>'; }
+elseif($thisFile == 'month.php') {  echo '<h1>'.__(strftime("%B", $monthstart)).' '.date('Y', $monthstart).':</h1>'.chr(10); }
 echo '</td></tr>'.chr(10);
 
 echo '</table>';
