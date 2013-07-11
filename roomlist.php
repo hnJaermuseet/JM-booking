@@ -94,8 +94,6 @@ if (mysql_num_rows($res)) {
 }
 
 echo "<br>";
-//print_company_image();
-//echo "<br><br>",$startpage;
 
 ?>
 <br><br>
@@ -143,7 +141,7 @@ elseif($thisFile == 'day.php')
 {
 	// Headings:
 	echo '</td><td style="padding: 10px 10px 10px 10px;">'.chr(10);
-	echo '<h1 align=center>'.ucfirst(strftime("%A", $am7)).', '.strtolower(strftime("%d %B %Y", $am7)).'</h1>'.chr(10);
+	echo '<h1 align=center>'.ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.__(strtolower(date('F', $am7))).' '.date('Y', $am7).'</h1>'.chr(10);
 	echo '<h3 align=center>'.$this_area_name.' - '.$theROOM['room_name'].'</h3>'.chr(10);
 }
 elseif($thisFile == 'month.php')
@@ -182,9 +180,8 @@ echo '<tr><td>&nbsp;</td></tr>'.chr(10);
 
 echo '<tr><td>';
 if($thisFile == 'week.php')			echo '<h1>'.__('Week').' '.$thisWeek.':</h1>';
-elseif($thisFile == 'day.php')		echo '<h1>'.parseDate(strftime("%A", $am7)).' '.strtolower(parseDate(strftime("%d %B %Y", $am7))).':</h1>';
+elseif($thisFile == 'day.php')		echo '<h1>'.parseDate(strftime("%A", $am7)).', '.date('j', $am7). '. '. strtolower(parseDate(strftime("%B %Y", $am7))).':</h1>';
 elseif($thisFile == 'month.php')	echo '<h1>'.ucfirst(strtolower(parseDate(strftime("%B %Y", $monthstart)))).':</h1>'.chr(10);
 echo '</td></tr>'.chr(10);
 
 echo '</table>';
-?>
