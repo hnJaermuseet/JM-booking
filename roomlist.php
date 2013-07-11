@@ -102,31 +102,30 @@ if ( $pview != 1) {
         echo "</td>\n";
 }
 $cID=0;
-echo "<td width=\"200\"><u>".
-'<img src="./img/icons/shape_square.png" style="border: 0px solid black; vertical-align: middle;"> '.
-__("Device"), "</u><br>";
+?>
+    <td width="200">
+        <img src="./img/icons/shape_square.png" style="border: 0px solid black; vertical-align: middle;">
 
-echo "<a href=\"".$thisFile."?year=$year&month=$month&day=$day&area=$area&room=0\">";
-if($room == 0)
-	echo '<font color="red">'.__('Whole area').'</font>';
-else
-	echo __('Whole area');
-echo '</a><br>'.chr(10);
+        <span style="text-decoration: underline"><?=__("Device")?></span><br>
+
+    <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=0"
+        <?=($room == 0)?' style="color: red;"':''?>><?=__('Whole area')?></a><br>
+<?php
 
 $i = 1;
 $Q_room = mysql_query("SELECT id, room_name FROM mrbs_room WHERE area_id=$area AND hidden='false' ORDER BY room_name");
 while($R_room = mysql_fetch_assoc($Q_room))
 {
-	if ($pview!=1 && $i>0&&$i%6==0)
+	if ($pview != 1 && $i>0 && $i%6==0) {
 		echo "</td><td width=200><br>";
-	
-	echo "<a href=\"".$thisFile."?year=$year&month=$month&day=$day&area=$area&room=".$R_room['id']."\">";
-	
-	$this_room_name = htmlspecialchars($R_room['room_name']);
-	if ($R_room['id'] == $room)
-		echo "<font color=\"red\">$this_room_name</font></a><br>\n";
-	else
-		echo $this_room_name. "</a><br>\n";
+    }
+
+    $this_room_name = htmlspecialchars($R_room['room_name']);
+    ?>
+	<a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=<?=$R_room['id']?>"
+        <?=($R_room['id'] == $room)?' style="color: red;"':''?>><?=$this_room_name?></a><br>
+
+    <?php
 	$i++;
 }
 
