@@ -29,100 +29,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <style type="text/css">
 {fetch file="css/entry-confirm_pdf.css"}
 </style>
-{if 
 
-
-$area_id == '6'}
-<div class="box3"><img src="img/Vitenfabrikken-logo.jpg" width="220"></div>
-<div class="box4"><br>
-<b>Bes&oslash;ksadresse:</b><br>
-<br>
-<b>Postadresse:</b><br>
-<br>
-<b>Org.nr.:</b><br>
-<b>E-post:</b><br>
-<b>Sentralbord:</b><br>
-<b>Telefaks:</b><br>
-<b>Nettside:</b></div>
-<div class="box5"><br>
-Storgata 28,<br>
-4307 Sandnes<br>
-Postboks 366,<br>
-4303 Sandnes<br>
-NO 971 098 767 MVA<br>
-sandnes@jaermuseet.no<br>
-(+47) 51 97 25 40<br>
-(+47) 51 97 25 49<br>
-http://www.jaermuseet.no/<br>
-http://www.vitenfabrikken.no/
-</div>
-{elseif 
-
-
-
-$area_id == '12'}
-<div class="box3"><img src="img/Vitengarden-logo.jpg" width="220"></div>
-<div class="box4"><br><br><br>
-<b>Bes&oslash;ksadresse:</b><br>
-<br>
-<b>Postadresse:</b><br>
-<br>
-<b>Org.nr.:</b><br>
-<b>E-post:</b><br>
-<b>Sentralbord:</b><br>
-<b>Telefaks:</b><br>
-<b>Nettside:</b></div>
-<div class="box5"><br><br><br>
-Kviavegen 99,<br>
-4367 N&aelig;rb&oslash;<br>
-Postboks 250,<br>
-4367 N&aelig;rb&oslash;<br>
-NO 971 098 767 MVA<br>
-post@jaermuseet.no<br>
-(+47) 51 79 94 20<br>
-(+47) 51 79 94 21<br>
-http://www.jaermuseet.no/<br>
-http://www.vitengarden.no/
-</div>
-{else
-
-
-}
-    <div class="box3">
-    {if $area_id == '11'}
-        <img src="img/logo-flyhistorisk_museum-220x101.png" width="220">
-    {elseif $area_id == '16'}
-        <img src="img/logo-garborgsenteret-220x78.png" width="220">
-    {elseif $area_id == '9'}
-        <img src="img/logo-grodaland-220x98.jpg" width="220">
-    {elseif $area_id == '8'}
-        <img src="img/logo-haugabakka-220x98.jpg" width="220">
-    {elseif $area_id == '17'}
-        <img src="img/logo-krigshistorisk_museum-220x101.png" width="220">
-    {elseif $area_id == '7'}
-        <img src="img/logo-limagarden-220x98.jpg" width="220">
-    {elseif $area_id == '15'}
-        <img src="img/logo-vistnestunet-220x81.jpg" width="220">
-    {else}
-        <img src="img/JM-logo.jpg" width="220">
-    {/if}
-    </div>
-
-<div class="box4"><br>
-<b>Postadresse:</b><br>
-<br>
-<b>Org.nr.:</b><br>
-<b>E-post:</b><br>
-<b>Sentralbord:</b><br>
-<b>Telefaks:</b><br>
-<b>Nettside:</b></div>
-<div class="box5"><br>
-Postboks 250,<br>
-4367 N&aelig;rb&oslash;<br>
-NO 971 098 767 MVA<br>
-post@jaermuseet.no<br>
-(+47) 51 79 94 20<br>
-(+47) 51 79 94 21<br>
-http://www.jaermuseet.no/
-</div>
+<div class="box3">
+{if $area_id == '6'}
+    <img src="img/Vitenfabrikken-logo.jpg" width="220">
+{elseif $area_id == '12'}
+    <img src="img/Vitengarden-logo.jpg" width="220">
+{elseif $area_id == '11'}
+    <img src="img/logo-flyhistorisk_museum-220x101.png" width="220">
+{elseif $area_id == '16'}
+    <img src="img/logo-garborgsenteret-220x78.png" width="220">
+{elseif $area_id == '9'}
+    <img src="img/logo-grodaland-220x98.jpg" width="220">
+{elseif $area_id == '8'}
+    <img src="img/logo-haugabakka-220x98.jpg" width="220">
+{elseif $area_id == '17'}
+    <img src="img/logo-krigshistorisk_museum-220x101.png" width="220">
+{elseif $area_id == '7'}
+    <img src="img/logo-limagarden-220x98.jpg" width="220">
+{elseif $area_id == '15'}
+    <img src="img/logo-vistnestunet-220x81.jpg" width="220">
+{else}
+    <img src="img/JM-logo.jpg" width="220">
 {/if}
+</div>
