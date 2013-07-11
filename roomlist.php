@@ -55,39 +55,36 @@ else
 	$thisFile = 'week.php';
 
 # Table with areas, rooms, minicals.
-echo '<table height="140" width="100%" class="hiddenprint"><tr>';
+?>
+<table height="140" width="100%" class="hiddenprint">
+    <tr>
+<?php
 $this_area_name = "";
 $this_room_name = "";
 $infolink="";
-# Show all areas
-echo "<td width=\"200\">".
-'<img src="./img/icons/house.png" style="border: 0px solid black; vertical-align: middle;"> '.
-"<u>" . __("Areas") . "</u><br>";
+?>
+        <!-- All areas -->
+        <td width="200">
+            <img src="./img/icons/house.png" style="border: 0px solid black; vertical-align: middle;">
+                <span style="text-decoration: underline"><?=__("Areas") ?></span><br>
+                <?php
 
-$sql = "select id as area_id, area_name from mrbs_area order by area_name";
-$res = mysql_query($sql);
+$res = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
 if (mysql_num_rows($res)) {
 	while($row = mysql_fetch_assoc($res))
 	{
-        echo '<a href="'.$thisFile.'?year='.$year.'&month='.$month.'&day='.$day.'&area='.$row['area_id'].'">';
-
-		if ($row['area_id'] == $area) {
-			$this_area_name = htmlspecialchars($row['area_name']);
-            echo "<font color=\"red\">$this_area_name</font></a><br>\n";
-		}
-		else
-		{
-			echo htmlspecialchars($row['area_name']) . "</a><br>\n";
-		}
+        $this_area_name = htmlspecialchars($row['area_name']);
+        ?>
+            <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$row['area_id']?>"
+                <?=($row['area_id'] == $area)?' style="color: red;"':''?>><?=$this_area_name?></a><br>
+        <?php
 	}
 }
+        ?>
+            <br><br><br>
+        </td>
 
-echo "<br>";
-
-?>
-<br><br>
 <?php
-echo "</td>\n";
 $cID=0;
 ?>
     <td width="200">
@@ -152,18 +149,18 @@ echo '<tr><td><b>'.__('Area').':</b> '.$this_area_name.', <b>'.__('Room').':</b>
 echo '<tr><td>'.__('Data collected/printed').' '.date('H:i:s d-m-Y').' '.__('by').' '.$login['user_name'].'</td></tr>'.chr(10);
 
 echo '<tr><td>'.__('Type of view').': ';
-if($thisFile == 'day.php')			echo __('day');
-elseif($thisFile == 'week.php')		echo __('week');
-elseif($thisFile == 'month.php')	echo __('month');
-else								echo __('unknown');
+if($thisFile == 'day.php') {        echo __('day'); }
+elseif($thisFile == 'week.php') {   echo __('week'); }
+elseif($thisFile == 'month.php') {  echo __('month'); }
+else {                              echo __('unknown'); }
 echo '</td></tr>'.chr(10);
 
 echo '<tr><td>&nbsp;</td></tr>'.chr(10);
 
 echo '<tr><td>';
-if($thisFile == 'week.php')			echo '<h1>'.__('Week').' '.$thisWeek.':</h1>';
-elseif($thisFile == 'day.php')		echo '<h1>'.parseDate(strftime("%A", $am7)).', '.date('j', $am7). '. '. strtolower(parseDate(strftime("%B %Y", $am7))).':</h1>';
-elseif($thisFile == 'month.php')	echo '<h1>'.ucfirst(strtolower(parseDate(strftime("%B %Y", $monthstart)))).':</h1>'.chr(10);
+if($thisFile == 'week.php')	{       echo '<h1>'.__('Week').' '.$thisWeek.':</h1>'; }
+elseif($thisFile == 'day.php') {    echo '<h1>'.parseDate(strftime("%A", $am7)).', '.date('j', $am7). '. '. strtolower(parseDate(strftime("%B %Y", $am7))).':</h1>'; }
+elseif($thisFile == 'month.php') {  echo '<h1>'.ucfirst(strtolower(parseDate(strftime("%B %Y", $monthstart)))).':</h1>'.chr(10); }
 echo '</td></tr>'.chr(10);
 
 echo '</table>';
