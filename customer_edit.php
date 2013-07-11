@@ -573,14 +573,14 @@ else
 					
 					echo '<HTML>
 					<HEAD>
-					<TITLE>JM-booking</TITLE><LINK REL="stylesheet" href="default/mrbs.css" type="text/css">
+					<TITLE>JM-booking</TITLE><LINK REL="stylesheet" href="css/jm-booking.css" type="text/css">
 					<META HTTP-EQUIV="Content-Type" content="text/html; charset=iso-8859-1">
 					
 					</HEAD>
 					
 					<body>';
 					echo '<h1>Kunde med samme navn eksisterer</h1>';
-					echo 'Det ble funnet en eller flere kunder i databasen som har samme navn som den du prøver &aring; opprette. Vil du velge en av de?<br><br>';
+					echo 'Det ble funnet en eller flere kunder i databasen som har samme navn som den du pr&oslash;ver &aring; opprette. Vil du velge en av de?<br><br>';
 					echo '<script language="javascript">
 				
 					function chooseCustomer (id)
@@ -662,7 +662,7 @@ else
 echo '<HTML>
 <HEAD>
 <TITLE>JM-booking</TITLE>
-<LINK REL="stylesheet" href="default/mrbs.css" type="text/css">
+<LINK REL="stylesheet" href="css/jm-booking.css" type="text/css">
 <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.7.2.custom.css" type="text/css">
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=iso-8859-1">
 
