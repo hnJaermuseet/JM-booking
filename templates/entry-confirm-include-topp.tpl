@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 $area == 'Vitenfabrikken'}
 <div class="box3"><img src="img/Vitenfabrikken-logo.jpg" width="220"></div>
 <div class="box4"><br>
-<b>Besøksadresse:</b><br>
+<b>Bes&oslash;ksadresse:</b><br>
 <br>
 <b>Postadresse:</b><br>
 <br>
@@ -63,7 +63,7 @@ http://www.vitenfabrikken.no/
 $area == 'Vitengarden'}
 <div class="box3"><img src="img/Vitengarden-logo.jpg" width="220"></div>
 <div class="box4"><br><br><br>
-<b>Besøksadresse:</b><br>
+<b>Bes&oslash;ksadresse:</b><br>
 <br>
 <b>Postadresse:</b><br>
 <br>
