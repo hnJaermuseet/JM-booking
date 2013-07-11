@@ -2152,23 +2152,16 @@ $words[""
 ] = "Ingen kommende bookinger funnet"
 
 #: Y:\www\jm-bookingtest/week.php:131
-#: Y:\www\jm-bookingtest/week_old.php:147
 ; $words["go to last week"
 ] = "gå til sist uke"
 
 #: Y:\www\jm-bookingtest/week.php:133
-#: Y:\www\jm-bookingtest/week_old.php:149
 ; $words["go to this week"
 ] = "gå til denne uken"
 
 #: Y:\www\jm-bookingtest/week.php:135
-#: Y:\www\jm-bookingtest/week_old.php:151
 ; $words["go to next week"
 ] = "gå til neste uke"
-
-#: Y:\www\jm-bookingtest/week_old.php:120
-; $words["This room couldn't be found."
-] = "Dette rommet ble ikke funnet."
 
 #: Y:\www\jm-bookingtest/functions/email.php:147
 ; $words["Assigned to"
