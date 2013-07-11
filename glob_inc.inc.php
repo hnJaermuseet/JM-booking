@@ -80,14 +80,6 @@ debugAddToLog(__FILE__, __LINE__, 'Start of glob_inc.inc.php');
 
 session_start();
 
-if(isset($_GET['pview']))
-	$pview=1;
-else
-{
-	unset($pview);
-	$pview=0;
-}
-
 if(isset($_GET['day']))
 	$day = $_GET['day'];
 else

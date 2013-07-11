@@ -73,193 +73,191 @@ function print_header($day, $month, $year, $area){
 	echo '</head>'.chr(10).chr(10);
 	
 	echo '<body'.$testSystem['bodyAttrib'].'>'.chr(10);
-	
-	if (!isset($GLOBALS["pview"]) || $GLOBALS["pview"] != 1 )
-	{
-		echo '<table width="100%" class="hiddenprint">'.chr(10);
-		if (strlen($nrbs_pageheader)>0)
-		{
-			echo '<tr><td style="text-align:center;">'.$nrbs_pageheader.'</td></tr>'.chr(10);
-		}
-		
-		echo '	<tr>'.chr(10).
-			'	<td bgcolor="#5B69A6">'.chr(10).
-			'		<table width="100%" border=0>'.chr(10).
-			'			<tr>'.chr(10).
-			'				<td class="banner'.$testSystem['bannerExtraClass'].'" '.
-				'style="text-align:center; font-size: 18px; font-weight: bold;">'.
-				'<a href="./" class="lightbluebg">Booking for<br>J&aelig;rmuseet</a>'.
-			'</td>'.chr(10).
-			'				<td class="banner'.$testSystem['bannerExtraClass'].'">'.chr(10).
-				
-			'					<table>'.chr(10).
-			'						<tr>'.chr(10).
-			'							<td align="right">'.
-			'<form action="day.php" method="get" style="margin: 0px; padding: 0px;">';
-		
-		genDateSelector("", $day, $month, $year);
-		if (!empty($area))
-			echo '<input type="hidden" name="area" value='.$area.'>'; 
-		echo '<input type="submit" value="'.__('View day').'">'.
-		iconHTML('calendar_view_day').
-		'</form>';
-		echo '</td>'.chr(10);
-		
-		// Week
-		echo '							<td align="right">'.
-			'<form action="week.php" method="get" style="margin: 0px; padding: 0px;">';
-		
-		if (!empty($area))
-			echo '<input type="hidden" name="area" value="'.$area.'">';
-		$thistime = mktime(0, 0, 0, $month, $day, $year);
-		$thisweek = date('W', $thistime);
-		$thisyear = date('Y', $thistime);
-		echo '<select name="week">';
-		for ($i = 1; $i <= 52; $i++)
-		{
-			echo '<option value="'.$i.'"';
-			if($i == $thisweek) echo ' selected="selected"';
-			echo '>'.$i.'</option>';
-		}
-		echo '</select>';
-		echo '<select name="year">';
-		for ($i = ($thisyear-1); $i <= ($thisyear+10); $i++)
-		{
-			echo '<option value="'.$i.'"';
-			if($i == $thisyear) echo ' selected="selected"';
-			echo '>'.$i.'</option>';
-		}
-		echo '</select>';
-		echo '<input type="submit" value="'.__('View week').'">';
-		echo iconHTML('calendar_view_week');
-		echo '</form>'.
-		'</td>'.chr(10).
-		'						</tr>'.chr(10);
-		
-		// Month
-		echo '						<tr>'.chr(10).
-			'							<td align="right">'.
-			'<form action="month.php" method="get" style="margin: 0px; padding: 0px;">';
-		echo '<input type="hidden" name="area" value="'.$area.'">';
-		echo '<input type="hidden" name="day" value="1">';
-		$thistime = mktime(0, 0, 0, $month, $day, $year);
-		$thismonth = date('n', $thistime);
-		$thisyear = date('Y', $thistime);
-		echo '<select name="month">';
-		for ($i = 1; $i <= 12; $i++)
-		{
-			$thismonthtime = mktime (0, 0, 0, $i, 1, $year);
-			echo '<option value="'.$i.'"';
-			if($i == $thismonth) echo ' selected="selected"';
-			echo '>'.__(date("M", $thismonthtime)).'</option>';
-		}
-		echo '</select>';
-		echo '<select name="year">';
-		for ($i = ($thisyear-1); $i <= ($thisyear+10); $i++)
-		{
-			echo '<option value="'.$i.'"';
-			if($i == $thisyear) echo ' selected="selected"';
-			echo '>'.$i.'</option>';
-		}
-		echo '</select>';
-		echo '<input type="submit" value="'._h('View month').'">'.
-		iconHTML('calendar_view_month');
-		echo '</form></td>'.chr(10);
-		
-		// Find using entry_id
-		echo '							<td align="right">';
-		echo '<form action="entry.php" method="get" style="margin: 0px; padding: 0px;">';
-		echo '<input type="text" id="entry_id_finder" name="entry_id" '.
-			'value="'.__('Enter entry ID').'" '.
-			'onclick="document.getElementById(\'entry_id_finder\').value=\'\';">';
-		echo '<input type="submit" value="'.__('Find').'">';
-		echo '</form>';
-		echo '</td>'.chr(10);
-		
-		echo '						</tr>'.chr(10).
-			'					</table>'.chr(10);
-		
-		echo '				</td>'.chr(10);
-		
-		echo '				<td class="banner'.$testSystem['bannerExtraClass'].'" align="center">'.chr(10);
-		echo '					'.__("Logged in as").' <a href="user.php?user_id='.$login['user_id'].'">'.
-									htmlentities($login['user_name'], ENT_QUOTES).
-								'</a><br>'.chr(10);
-		echo '					<a href="logout.php">'.
-			iconHTML('bullet_delete').' '.
-			__("Log out").'</a><br>'.chr(10);
-		echo '					<a href="admin.php">'.
-			iconHTML('bullet_wrench').' '.
-			__("Administration").'</a>'.chr(10);
-		echo '				</td>'.chr(10);
-		
-		echo '			</tr>'.chr(10).
-			'		</table>'.chr(10);
-		
-		
-		echo '		 -:- <a class="menubar" href="./edit_entry2.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$selected_room.'">'.
-		iconHTML('page_white_add').' '.
-		__('Make a new entry').'</a>'.chr(10);
-		
-		//echo '		 -:- <a class="menubar" href="./new_entries.php">'.
-		//iconHTML('table').' '.
-		//_('List with new entries').'</a>'.chr(10);
-		
-		echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=not_confirmed">'.
-		iconHTML('email_delete').' '.
-		__('Not confirmed').'</a>'.chr(10);
-		
-		echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=no_user_assigned">'.
-		iconHTML('user_delete').' '.
-		__('No users assigned').'</a>'.chr(10);
-		
-		echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=servering">'.
-		iconHTML('drink').' '.
-		'Servering</a>'.chr(10);
-		
-		#echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=next_100">'.
-		#iconHTML('page_white_go').' '.
-		#_('Next 100').'</a>'.chr(10);
-		
-		echo '		 -:- <a class="menubar" href="./statistikk.php">'.
-		iconHTML('chart_bar').' '.
-		'Statistikk</a>'.chr(10);
-		
-		echo '		 -:- <a class="menubar" href="./customer_list.php">'.
-		iconHTML('group').' '.
-		__('Customers').'</a>'.chr(10);
-		
-		if($login['user_invoice'] || $login['user_invoice_setready'])
-		{
-			echo '		 -:- <a class="menubar" href="./invoice_main.php';
-			
-			// By default, use the current area when going into the invoice part
-			if(!$login['user_invoice'])
-				echo '?area_id='.$area;
-			echo '">'.
-			iconHTML('coins').' '.
-			__('Invoice').'</a>'.chr(10);
-		}
-		
-		echo '		 -:- <a class="menubar" href="./user_list.php">'.
-		iconHTML('user').' '.
-		__('Userlist').'</a>'.chr(10);
-		
-		echo '		 -:- <a class="menubar" href="./entry_filters.php?filters=a:1:{i:0;a:3:{i:0;s:10:%22entry_name%22;i:1;s:0:%22%22;i:2;s:0:%22%22;}}&amp;return_to=entry_list">'.
-		iconHTML('find').' '.
-		'Bookings&oslash;k'.'</a>'.chr(10);
-		
-		echo '		 -:- <a class="menubar" href="http://booking.jaermuseet.local/wiki/">'.
-		iconHTML('wiki_icon', '.gif', 'height: 16px;').' '.
-		'Wiki'.'</a>'.chr(10);
-		
-		
-		echo '		 -:-'.chr(10);
-		
-		echo '		</td>'.chr(10).
-			'	</tr>'.chr(10).
-			'</table>'.chr(10);
-	}
+
+    echo '<table width="100%" class="hiddenprint">'.chr(10);
+    if (strlen($nrbs_pageheader)>0)
+    {
+        echo '<tr><td style="text-align:center;">'.$nrbs_pageheader.'</td></tr>'.chr(10);
+    }
+
+    echo '	<tr>'.chr(10).
+        '	<td bgcolor="#5B69A6">'.chr(10).
+        '		<table width="100%" border=0>'.chr(10).
+        '			<tr>'.chr(10).
+        '				<td class="banner'.$testSystem['bannerExtraClass'].'" '.
+            'style="text-align:center; font-size: 18px; font-weight: bold;">'.
+            '<a href="./" class="lightbluebg">Booking for<br>J&aelig;rmuseet</a>'.
+        '</td>'.chr(10).
+        '				<td class="banner'.$testSystem['bannerExtraClass'].'">'.chr(10).
+
+        '					<table>'.chr(10).
+        '						<tr>'.chr(10).
+        '							<td align="right">'.
+        '<form action="day.php" method="get" style="margin: 0px; padding: 0px;">';
+
+    genDateSelector("", $day, $month, $year);
+    if (!empty($area))
+        echo '<input type="hidden" name="area" value='.$area.'>';
+    echo '<input type="submit" value="'.__('View day').'">'.
+    iconHTML('calendar_view_day').
+    '</form>';
+    echo '</td>'.chr(10);
+
+    // Week
+    echo '							<td align="right">'.
+        '<form action="week.php" method="get" style="margin: 0px; padding: 0px;">';
+
+    if (!empty($area))
+        echo '<input type="hidden" name="area" value="'.$area.'">';
+    $thistime = mktime(0, 0, 0, $month, $day, $year);
+    $thisweek = date('W', $thistime);
+    $thisyear = date('Y', $thistime);
+    echo '<select name="week">';
+    for ($i = 1; $i <= 52; $i++)
+    {
+        echo '<option value="'.$i.'"';
+        if($i == $thisweek) echo ' selected="selected"';
+        echo '>'.$i.'</option>';
+    }
+    echo '</select>';
+    echo '<select name="year">';
+    for ($i = ($thisyear-1); $i <= ($thisyear+10); $i++)
+    {
+        echo '<option value="'.$i.'"';
+        if($i == $thisyear) echo ' selected="selected"';
+        echo '>'.$i.'</option>';
+    }
+    echo '</select>';
+    echo '<input type="submit" value="'.__('View week').'">';
+    echo iconHTML('calendar_view_week');
+    echo '</form>'.
+    '</td>'.chr(10).
+    '						</tr>'.chr(10);
+
+    // Month
+    echo '						<tr>'.chr(10).
+        '							<td align="right">'.
+        '<form action="month.php" method="get" style="margin: 0px; padding: 0px;">';
+    echo '<input type="hidden" name="area" value="'.$area.'">';
+    echo '<input type="hidden" name="day" value="1">';
+    $thistime = mktime(0, 0, 0, $month, $day, $year);
+    $thismonth = date('n', $thistime);
+    $thisyear = date('Y', $thistime);
+    echo '<select name="month">';
+    for ($i = 1; $i <= 12; $i++)
+    {
+        $thismonthtime = mktime (0, 0, 0, $i, 1, $year);
+        echo '<option value="'.$i.'"';
+        if($i == $thismonth) echo ' selected="selected"';
+        echo '>'.__(date("M", $thismonthtime)).'</option>';
+    }
+    echo '</select>';
+    echo '<select name="year">';
+    for ($i = ($thisyear-1); $i <= ($thisyear+10); $i++)
+    {
+        echo '<option value="'.$i.'"';
+        if($i == $thisyear) echo ' selected="selected"';
+        echo '>'.$i.'</option>';
+    }
+    echo '</select>';
+    echo '<input type="submit" value="'._h('View month').'">'.
+    iconHTML('calendar_view_month');
+    echo '</form></td>'.chr(10);
+
+    // Find using entry_id
+    echo '							<td align="right">';
+    echo '<form action="entry.php" method="get" style="margin: 0px; padding: 0px;">';
+    echo '<input type="text" id="entry_id_finder" name="entry_id" '.
+        'value="'.__('Enter entry ID').'" '.
+        'onclick="document.getElementById(\'entry_id_finder\').value=\'\';">';
+    echo '<input type="submit" value="'.__('Find').'">';
+    echo '</form>';
+    echo '</td>'.chr(10);
+
+    echo '						</tr>'.chr(10).
+        '					</table>'.chr(10);
+
+    echo '				</td>'.chr(10);
+
+    echo '				<td class="banner'.$testSystem['bannerExtraClass'].'" align="center">'.chr(10);
+    echo '					'.__("Logged in as").' <a href="user.php?user_id='.$login['user_id'].'">'.
+                                htmlentities($login['user_name'], ENT_QUOTES).
+                            '</a><br>'.chr(10);
+    echo '					<a href="logout.php">'.
+        iconHTML('bullet_delete').' '.
+        __("Log out").'</a><br>'.chr(10);
+    echo '					<a href="admin.php">'.
+        iconHTML('bullet_wrench').' '.
+        __("Administration").'</a>'.chr(10);
+    echo '				</td>'.chr(10);
+
+    echo '			</tr>'.chr(10).
+        '		</table>'.chr(10);
+
+
+    echo '		 -:- <a class="menubar" href="./edit_entry2.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$selected_room.'">'.
+    iconHTML('page_white_add').' '.
+    __('Make a new entry').'</a>'.chr(10);
+
+    //echo '		 -:- <a class="menubar" href="./new_entries.php">'.
+    //iconHTML('table').' '.
+    //_('List with new entries').'</a>'.chr(10);
+
+    echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=not_confirmed">'.
+    iconHTML('email_delete').' '.
+    __('Not confirmed').'</a>'.chr(10);
+
+    echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=no_user_assigned">'.
+    iconHTML('user_delete').' '.
+    __('No users assigned').'</a>'.chr(10);
+
+    echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=servering">'.
+    iconHTML('drink').' '.
+    'Servering</a>'.chr(10);
+
+    #echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=next_100">'.
+    #iconHTML('page_white_go').' '.
+    #_('Next 100').'</a>'.chr(10);
+
+    echo '		 -:- <a class="menubar" href="./statistikk.php">'.
+    iconHTML('chart_bar').' '.
+    'Statistikk</a>'.chr(10);
+
+    echo '		 -:- <a class="menubar" href="./customer_list.php">'.
+    iconHTML('group').' '.
+    __('Customers').'</a>'.chr(10);
+
+    if($login['user_invoice'] || $login['user_invoice_setready'])
+    {
+        echo '		 -:- <a class="menubar" href="./invoice_main.php';
+
+        // By default, use the current area when going into the invoice part
+        if(!$login['user_invoice'])
+            echo '?area_id='.$area;
+        echo '">'.
+        iconHTML('coins').' '.
+        __('Invoice').'</a>'.chr(10);
+    }
+
+    echo '		 -:- <a class="menubar" href="./user_list.php">'.
+    iconHTML('user').' '.
+    __('Userlist').'</a>'.chr(10);
+
+    echo '		 -:- <a class="menubar" href="./entry_filters.php?filters=a:1:{i:0;a:3:{i:0;s:10:%22entry_name%22;i:1;s:0:%22%22;i:2;s:0:%22%22;}}&amp;return_to=entry_list">'.
+    iconHTML('find').' '.
+    'Bookings&oslash;k'.'</a>'.chr(10);
+
+    echo '		 -:- <a class="menubar" href="http://booking.jaermuseet.local/wiki/">'.
+    iconHTML('wiki_icon', '.gif', 'height: 16px;').' '.
+    'Wiki'.'</a>'.chr(10);
+
+
+    echo '		 -:-'.chr(10);
+
+    echo '		</td>'.chr(10).
+        '	</tr>'.chr(10).
+        '</table>'.chr(10);
+
 	debugAddToLog(__FILE__, __LINE__, 'Finished printing header');
 }
 

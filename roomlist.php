@@ -47,9 +47,6 @@ if($room == 0)
 				'area_id'			=> $area
 			);
 
-if (!isset($pview))
-	$pview = '';
-
 if (basename($_SERVER['PHP_SELF']) == 'day.php' || basename($_SERVER['PHP_SELF']) == 'day2.php')
 	$thisFile = 'day.php';
 elseif (basename($_SERVER['PHP_SELF']) == 'month.php')
@@ -57,36 +54,28 @@ elseif (basename($_SERVER['PHP_SELF']) == 'month.php')
 else
 	$thisFile = 'week.php';
 
-if ( $pview != 1 )
-{
-	# Table with areas, rooms, minicals.
-	echo '<table height="140" width="100%" class="hiddenprint"><tr>';
-	$this_area_name = "";
-	$this_room_name = "";
-	$infolink="";
-	# Show all areas
-	echo "<td width=\"200\">".
-	'<img src="./img/icons/house.png" style="border: 0px solid black; vertical-align: middle;"> '.
-	"<u>" . __("Areas") . "</u><br>";
-}
+# Table with areas, rooms, minicals.
+echo '<table height="140" width="100%" class="hiddenprint"><tr>';
+$this_area_name = "";
+$this_room_name = "";
+$infolink="";
+# Show all areas
+echo "<td width=\"200\">".
+'<img src="./img/icons/house.png" style="border: 0px solid black; vertical-align: middle;"> '.
+"<u>" . __("Areas") . "</u><br>";
 
 $sql = "select id as area_id, area_name from mrbs_area order by area_name";
 $res = mysql_query($sql);
 if (mysql_num_rows($res)) {
 	while($row = mysql_fetch_assoc($res))
 	{
-		if ( $pview != 1 )
-		{
-			echo '<a href="'.$thisFile.'?year='.$year.'&month='.$month.'&day='.$day.'&area='.$row['area_id'].'">';
-		}
+        echo '<a href="'.$thisFile.'?year='.$year.'&month='.$month.'&day='.$day.'&area='.$row['area_id'].'">';
+
 		if ($row['area_id'] == $area) {
 			$this_area_name = htmlspecialchars($row['area_name']);
-			if ( $pview != 1 )
-			{
-				echo "<font color=\"red\">$this_area_name</font></a><br>\n";
-			}
+            echo "<font color=\"red\">$this_area_name</font></a><br>\n";
 		}
-		elseif ( $pview != 1 )
+		else
 		{
 			echo htmlspecialchars($row['area_name']) . "</a><br>\n";
 		}
@@ -98,9 +87,7 @@ echo "<br>";
 ?>
 <br><br>
 <?php
-if ( $pview != 1) {
-        echo "</td>\n";
-}
+echo "</td>\n";
 $cID=0;
 ?>
     <td width="200">
@@ -116,7 +103,7 @@ $i = 1;
 $Q_room = mysql_query("SELECT id, room_name FROM mrbs_room WHERE area_id=$area AND hidden='false' ORDER BY room_name");
 while($R_room = mysql_fetch_assoc($Q_room))
 {
-	if ($pview != 1 && $i>0 && $i%6==0) {
+	if ($i>0 && $i%6==0) {
 		echo "</td><td width=200><br>";
     }
 
@@ -157,12 +144,8 @@ echo '</td><td align="right">'.chr(10);
 
 include("trailer.inc.php");
 
-
-if ( $pview != 1 )
-{
-	echo "</td>\n";
-	echo "</tr></table>\n";
-}
+echo "</td>\n";
+echo "</tr></table>\n";
 
 echo '<table class="print" width="100%">'.chr(10);
 echo '<tr><td><b>'.__('Area').':</b> '.$this_area_name.', <b>'.__('Room').':</b> '.$theROOM['room_name'].'</td></tr>'.chr(10);

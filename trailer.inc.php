@@ -25,10 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if(!isset($pview))
-	$pview = 0;
-
-if ($pview != 1 && !isset($printed_in_top)) 
+if (!isset($printed_in_top))
 {
 	/* New overview of dates */
 	
@@ -153,4 +150,3 @@ else
 	unset($print_in_top);
 	$printed_in_top = TRUE;
 }
-?>
