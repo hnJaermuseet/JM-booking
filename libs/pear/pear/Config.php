@@ -938,8 +938,6 @@ class PEAR_Config extends PEAR
             return $this->raiseError("PEAR_Config::readConfigFile fopen('$file','r') failed");
         }
         $size = filesize($file);
-        $rt = get_magic_quotes_runtime();
-        set_magic_quotes_runtime(0);
         if (function_exists('file_get_contents')) {
             fclose($fp);
             $contents = file_get_contents($file);
@@ -951,8 +949,6 @@ class PEAR_Config extends PEAR
             return $this->raiseError('Configuration file "' . $file . '" is empty');
         }
         
-        set_magic_quotes_runtime($rt);
-
         $version = false;
         if (preg_match('/^#PEAR_Config\s+(\S+)\s+/si', $contents, $matches)) {
             $version = $matches[1];

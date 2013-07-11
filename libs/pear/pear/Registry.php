@@ -696,8 +696,6 @@ class PEAR_Registry extends PEAR
             return $this->raiseError('PEAR_Registry: could not open filemap "' . $this->filemap . '"', PEAR_REGISTRY_ERROR_FILE, null, null, $php_errormsg);
         }
         clearstatcache();
-        $rt = get_magic_quotes_runtime();
-        set_magic_quotes_runtime(0);
         $fsize = filesize($this->filemap);
         if (function_exists('file_get_contents')) {
             fclose($fp);
@@ -706,7 +704,6 @@ class PEAR_Registry extends PEAR
             $data = fread($fp, $fsize);
             fclose($fp);
         }
-        set_magic_quotes_runtime($rt);
         $tmp = unserialize($data);
         if (!$tmp && $fsize > 7) {
             return $this->raiseError('PEAR_Registry: invalid filemap data', PEAR_REGISTRY_ERROR_FORMAT, null, null, $data);
@@ -998,8 +995,6 @@ class PEAR_Registry extends PEAR
         if ($fp === null) {
             return null;
         }
-        $rt = get_magic_quotes_runtime();
-        set_magic_quotes_runtime(0);
         clearstatcache();
         if (function_exists('file_get_contents')) {
             $this->_closePackageFile($fp);
@@ -1008,7 +1003,6 @@ class PEAR_Registry extends PEAR
             $data = fread($fp, filesize($this->_packageFileName($package, $channel)));
             $this->_closePackageFile($fp);
         }
-        set_magic_quotes_runtime($rt);
         $data = unserialize($data);
         if ($key === null) {
             return $data;
@@ -1040,8 +1034,6 @@ class PEAR_Registry extends PEAR
         if ($fp === null) {
             return null;
         }
-        $rt = get_magic_quotes_runtime();
-        set_magic_quotes_runtime(0);
         clearstatcache();
         if (function_exists('file_get_contents')) {
             $this->_closeChannelFile($fp);
@@ -1050,7 +1042,6 @@ class PEAR_Registry extends PEAR
             $data = fread($fp, filesize($this->_channelFileName($channel)));
             $this->_closeChannelFile($fp);
         }
-        set_magic_quotes_runtime($rt);
         $data = unserialize($data);
         return $data;
     }
