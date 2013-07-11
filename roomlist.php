@@ -27,27 +27,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 //room has been registred before if it was set in _GET
+$wholeAreaRoom = array (
+    'room_id'			=> 0,
+    'room_name'			=> __('Whole area'),
+    'area_id'			=> $area
+);
 if (!isset($room))
 {
 	$room = 0;
+    $theROOM = $wholeAreaRoom;
 }
 else
 {
 	$theROOM = getRoom($room);
-	if(!count($theROOM)) {
+	if(!count($theROOM) || $theROOM['area_id'] != $area) {
 		$room = 0;
+        $theROOM = $wholeAreaRoom;
     }
-	elseif($theROOM['area_id'] != $area) {
-		$room = 0;
-    }
-}
-
-if($room == 0) {
-	$theROOM = array (
-				'room_id'			=> 0,
-				'room_name'			=> __('Whole area'),
-				'area_id'			=> $area
-			);
 }
 
 if (basename($_SERVER['PHP_SELF']) == 'day.php' || basename($_SERVER['PHP_SELF']) == 'day2.php') {
@@ -71,7 +67,7 @@ else {
         ?>
         <!-- All areas -->
         <td width="200">
-            <img src="./img/icons/house.png" style="border: 0px solid black; vertical-align: middle;">
+            <img src="./img/icons/house.png" style="border: 0 solid black; vertical-align: middle;" alt="<?=__('Areas') ?>">
             <span style="text-decoration: underline"><?=__("Areas") ?></span><br>
             <?php
 
@@ -90,7 +86,7 @@ else {
             <br><br><br>
         </td>
         <td width="200">
-            <img src="./img/icons/shape_square.png" style="border: 0px solid black; vertical-align: middle;">
+            <img src="./img/icons/shape_square.png" style="border: 0 solid black; vertical-align: middle;" alt="<?=__('Device')?>">
 
             <span style="text-decoration: underline"><?=__("Device")?></span><br>
 
@@ -114,24 +110,25 @@ else {
                 <?php
                 $i++;
             }
+        ?>
+        </td>
 
-echo '</td><td style="padding: 10px 10px 10px 10px;">'.chr(10);
-if($thisFile == 'week.php')
-{
-	// Headings:
-	echo '<h1 align=center>'.__('Week').' '.$thisWeek.'</h1>'.chr(10);
-}
-elseif($thisFile == 'day.php')
-{
-	// Headings:
-	echo '<h1 align=center>'.ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.__(strtolower(date('F', $am7))).' '.date('Y', $am7).'</h1>'.chr(10);
-}
-elseif($thisFile == 'month.php')
-{
-	// Headings:
-	echo '<h1 align=center>'.ucfirst(strtolower(parseDate(strftime("%B %Y", $monthstart)))).'</h1>'.chr(10);
-}
-echo '<h3 align=center>'.$this_area_name.' - '.$theROOM['room_name'].'</h3>'.chr(10);
+        <!-- Headings -->
+        <td style="padding: 10px 10px 10px 10px;">
+        <?php
+        if($thisFile == 'day.php') {
+            $heading = ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.__(strtolower(date('F', $am7))).' '.date('Y', $am7);
+        }
+        elseif($thisFile == 'month.php') {
+            $heading = ucfirst(strtolower(parseDate(strftime("%B %Y", $monthstart))));
+        }
+        else {
+            $heading = __('Week').' '.$thisWeek;
+        }
+        ?>
+        <h1 align=center><?=$heading?></h1>
+        <h3 align=center><?=$this_area_name.' - '.$theROOM['room_name']?></h3>
+        <?php
 
 /* ## ADDING CALENDAR ## */
 $print_in_top = TRUE;
