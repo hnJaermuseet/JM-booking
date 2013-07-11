@@ -25,6 +25,49 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+function getRoomEventList($rooms, $weekday, $area) {
+    $entries = array();
+    $timed_entries = array();
+    foreach ($rooms as $room_id => $room)
+    {
+        $start	= mktime(0, 0, 0, date('m', $weekday), date('d', $weekday), date('Y', $weekday));
+        $end	= mktime(23, 59, 59, date('m', $weekday), date('d', $weekday), date('Y', $weekday));
+        $events_room = checktime_Room ($start, $end, $area, $room_id);
+        if(isset($events_room[$room_id]))
+        {
+            foreach ($events_room[$room_id] as $entry_id)
+            {
+                $event = getEntry ($entry_id);
+                if(count($event))
+                {
+                    $a = '';
+                    if($event['time_start'] < $start)
+                    {
+                        $a .= __('started').' '.date('H:i d-m-Y', $event['time_start']);
+                        $event['time_start'] = $start;
+                    }
+                    if($event['time_end'] > $end)
+                    {
+                        if($a != '')
+                            $a .= ', ';
+                        $a .= 'slutter '.date('H:i d-m-Y', $event['time_end']);
+                        $event['time_end'] = $end;
+                    }
+                    if($a != '')
+                        $event['entry_name'] .= ' ('.$a.')';
+                    //$event['time_start'] = round_t_down($event['time_start'], $resolution);
+                    $timed_entries[$event['time_start']][$event['entry_id']] = $event['entry_id'];
+                    $entries[$event['entry_id']] = $event;
+                }
+            }
+        }
+    }
+    return array(
+        'timedEntries' => $timed_entries,
+        'allEntries' => $entries
+    );
+}
+
 
 //room has been registred before if it was set in _GET
 $wholeAreaRoom = array (
