@@ -2,6 +2,7 @@
 .settings*
 .cache*
 img/*-logo.jpg
+img/logo-*
 img/signatur-*.png
 img/infoskjerm-bg.PNG
 config/site.config.php
