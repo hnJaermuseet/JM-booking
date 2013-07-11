@@ -244,51 +244,21 @@ else
 	<td align=right><a href=\"".$_SERVER['PHP_SELF']."?year=$ty&amp;month=$tm&amp;day=$td&amp;area=$area&amp;room=$room\">" . _h('Go to next day') . " &gt;&gt;</a></td></tr></table>";
 	
 	echo chr(10).chr(10);
-	
-	$entries = array();
-	$timed_entries = array();
 
-	if($room != 0)
-	{
-		$rooms = array();
-		$rooms[$room] = getRoom($room);
-	}
-	foreach ($rooms as $room_id => $room3)
-	{
-		$start	= mktime(0,0,0,$month,$day,$year);
-		$end	= mktime(23,59,59,$month,$day,$year);
-		$events_room = checktime_Room ($start, $end, $area, $room_id);
-		if(isset($events_room[$room_id]))
-		{
-			foreach ($events_room[$room_id] as $entry_id)
-			{
-				$event = getEntry ($entry_id);
-				if(count($event))
-				{
-					$a = '';
-					if($event['time_start'] < $start)
-					{
-						$a .= __('started').' '.date('H:i d-m-Y', $event['time_start']);
-						$event['time_start'] = $start;
-					}
-					if($event['time_end'] > $end)
-					{
-						if($a != '') {
-							$a .= ', ';
-                        }
-						$a .= 'slutter '.date('H:i d-m-Y', $event['time_end']);
-						$event['time_end'] = $end;
-					}
-					if($a != '') {
-						$event['entry_name'] .= ' ('.$a.')';
-                    }
-					//$event['time_start'] = round_t_down($event['time_start'], $resolution);
-					$timed_entries[$event['time_start']][$event['entry_id']] = $event['entry_id'];
-					$entries[$event['entry_id']] = $event;
-				}
-			}
-		}
-	}
+    // TODO: put this if in roomlist.php
+    if($room != 0)
+    {
+        $rooms = array();
+        $rooms[$room] = getRoom($room);
+    }
+
+    $start	= mktime(0,0,0,$month,$day,$year);
+    $end	= mktime(23,59,59,$month,$day,$year);
+    $events = getRoomEventList($rooms, $start, $end, $area);
+	$entries = $events['allEntries'];
+	$timed_entries = $events['timedEntries'];
+
+
 	
 	
 	if($dayview == 1)
@@ -419,7 +389,7 @@ else
 		else
 		{
             ksort($timed_entries);
-            $last_time = null;
+            $last_time = $start;
             foreach ($timed_entries as $t => $thisentries)
 			{
 				foreach($thisentries as $entry_id)

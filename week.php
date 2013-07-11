@@ -172,7 +172,9 @@ foreach ($weekdays as $daynum => $weekday)
         <td>
         <?php
     }
-    $events = getRoomEventList($rooms, $weekday, $area);
+    $start	= mktime(0, 0, 0, date('m', $weekday), date('d', $weekday), date('Y', $weekday));
+    $end	= mktime(23, 59, 59, date('m', $weekday), date('d', $weekday), date('Y', $weekday));
+    $events = getRoomEventList($rooms, $start, $end, $area);
     ?>
 	<table width="100%" cellspacing="0" style="border-collapse: collapse;">
 	<tr>
@@ -196,7 +198,7 @@ foreach ($weekdays as $daynum => $weekday)
 	{
         function printWeekdayWithEntries($timed_entries, $entries) {
             ksort($timed_entries);
-            $last_time = null;
+            $last_time = $start;
             foreach ($timed_entries as $t => $thisentries)
             {
                 foreach($thisentries as $entry_id)
