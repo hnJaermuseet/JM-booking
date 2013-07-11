@@ -160,7 +160,7 @@ else {
         <td style="padding: 10px 10px 10px 10px;">
         <?php
         if($thisFile == 'day.php') {
-            $heading = ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.__(strtolower(date('F', $am7))).' '.date('Y', $am7);
+            $heading = ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.strtolower(__(date('F', $am7))).' '.date('Y', $am7);
         }
         elseif($thisFile == 'month.php') {
             $heading = ucfirst(strtolower(parseDate(strftime("%B %Y", $monthstart))));
