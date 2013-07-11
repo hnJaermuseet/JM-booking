@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-include_once("glob_inc.inc.php");
+include_once('glob_inc.inc.php');
 
 if(isset($_GET['room']))
 {
@@ -34,9 +34,9 @@ if(isset($_GET['room']))
 }
 
 if (!isset($_GET['day']) or !isset($_GET['month']) or !isset($_GET['year'])){
-	$day   = date("d",time());
-	$month = date("m",time());
-	$year  = date("Y",time());
+	$day   = date('d',time());
+	$month = date('m',time());
+	$year  = date('Y',time());
 }
 else {
 	# Make the date valid if day is more then number of days in month:
@@ -53,21 +53,21 @@ print_header($day, $month, $year, $area);
 $am7=mktime($morningstarts,0,0,$month,$day,$year);
 $pm7=mktime($eveningends,$eveningends_minutes,0,$month,$day,$year);
 
-include "roomlist.php";
+include 'roomlist.php';
 
 /* ## Tomorrow and yesterday ## */
 #y- are year, month and day of yesterday
 #t- are year, month and day of tomorrow
 
 $i= mktime(0,0,0,$month,$day-1,$year);
-$yy = date("Y",$i);
-$ym = date("m",$i);
-$yd = date("d",$i);
+$yy = date('Y',$i);
+$ym = date('m',$i);
+$yd = date('d',$i);
 
 $i= mktime(0,0,0,$month,$day+1,$year);
-$ty = date("Y",$i);
-$tm = date("m",$i);
-$td = date("d",$i);
+$ty = date('Y',$i);
+$tm = date('m',$i);
+$td = date('d',$i);
 
 
 /* ## What type of dayview is used? ## */
@@ -241,7 +241,7 @@ else
 	
 	echo "<table width=\"100%\" border=\"0\" class=\"hiddenprint\"><tr><td><a href=\"".$_SERVER['PHP_SELF']."?year=$yy&month=$ym&day=$yd&area=$area&room=$room\">&lt;&lt; " . _h('Go to previous day') . "</a></td>
 	<td align=center><a href=\"".$_SERVER['PHP_SELF']."?area=$area&amp;room=$room\">" . _h('Go to today') . "</a></td>
-	<td align=right><a href=\"".$_SERVER['PHP_SELF']."?year=$ty&amp;month=$tm&amp;day=$td&amp;area=$area&amp;room=$room\">" . _h('Go to next day') . " &gt;&gt;</a></td></tr></table>";
+	<td align=right><a href=\"".$_SERVER['PHP_SELF']."?year=$ty&amp;month=$tm&amp;day=$td&amp;area=$area&amp;room=$room\">" . _h('Go to next day') . ' &gt;&gt;</a></td></tr></table>';
 	
 	echo chr(10).chr(10);
 
@@ -306,7 +306,7 @@ else
 			if($t % (60*60) == 0)
 			{
 				echo '<td rowspan="4" class="time3">'.chr(10);
-				echo date("H:i", $t).'</td>'.chr(10);
+				echo date('H:i', $t).'</td>'.chr(10);
 			}
 			
 			// Drawing the rooms
@@ -358,11 +358,11 @@ else
 				}
 				
 				echo '<td align="right" class="'.$td_style.'2"><img src="img/pixel.gif" width="15" height="16"><table cellpadding="0" cellspacing="0" border="0"><tr>';
-				$wday	= date("d",$t);
-				$wmonth	= date("m",$t);
-				$wyear	= date("Y",$t);
-				$hour	= date("H",$t);
-				$minute	= date("i",$t);
+				$wday	= date('d',$t);
+				$wmonth	= date('m',$t);
+				$wyear	= date('Y',$t);
+				$hour	= date('H',$t);
+				$minute	= date('i',$t);
 				$minute2	= (int)($minute + ($resolution / 60));
 				echo '</tr></table></td>'.chr(10);
 			}
@@ -439,7 +439,7 @@ else
 	}
 }
 
-include("trailer.inc.php");
+include('trailer.inc.php');
 
 ?>
 
