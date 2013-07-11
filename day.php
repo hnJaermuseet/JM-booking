@@ -71,10 +71,12 @@ $td = date("d",$i);
 
 
 /* ## What type of dayview is used? ## */
-if(isset($_GET['dayview']) && $_GET['dayview'] == '1')
+if(isset($_GET['dayview']) && $_GET['dayview'] == '1') {
 	$dayview = 1;
-else
+}
+else {
 	$dayview = 2;
+}
 
 /* ## Get rooms ## */
 $Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
@@ -154,10 +156,12 @@ else
 					$event['time_end']		= round_t_up ($event['time_end'], $resolution);
 					//echo date('H:i:s dmY',$event['time_end']).' end last<br>'.chr(10);
 					//echo '<br><br>'.chr(10);
-					if($end < $event['time_end'])
+					if($end < $event['time_end']) {
 						$rowspan = (($end + $resolution - $event['time_start'])/$resolution);
-					else
+                    }
+					else {
 						$rowspan = (($event['time_end'] - $event['time_start'])/$resolution);
+                    }
 					$event['rowspan'] = $rowspan;
 					$entries_room[$R_room['room_id']][$event['entry_id']] = $event;
 					
@@ -269,13 +273,15 @@ else
 					}
 					if($event['time_end'] > $end)
 					{
-						if($a != '')
+						if($a != '') {
 							$a .= ', ';
+                        }
 						$a .= 'slutter '.date('H:i d-m-Y', $event['time_end']);
 						$event['time_end'] = $end;
 					}
-					if($a != '')
+					if($a != '') {
 						$event['entry_name'] .= ' ('.$a.')';
+                    }
 					//$event['time_start'] = round_t_down($event['time_start'], $resolution);
 					$timed_entries[$event['time_start']][$event['entry_id']] = $event['entry_id'];
 					$entries[$event['entry_id']] = $event;
@@ -294,8 +300,9 @@ else
 		echo '<tr><th width="1%" class="time3">&nbsp;</th>';
 	
 		$room_column_width = (int)(95 / mysql_num_rows($Q_room));
-		foreach($rooms as $room_id => $room_name)
+		foreach($rooms as $room_id => $room_name) {
 			echo '<th width="'.$room_column_width.'%" colspan="'.($room_max_col[$room_id] + 1).'" class="time3">' . htmlspecialchars($room_name). '</th>';
+        }
 		
 		echo '</tr>'.chr(10);
 		
@@ -305,17 +312,21 @@ else
 		{
 			if($am7 > $entry['time_start'])
 			{
-				if($maxstart > $entry['time_start'])
+				if($maxstart > $entry['time_start']) {
 					$am7 = $maxstart;
-				else
+                }
+				else {
 					$am7 = $entry['time_start'];
+                }
 			}
 			if($pm7 < $entry['time_end'])
 			{
-				if($maxend < $entry['time_end'])
+				if($maxend < $entry['time_end']) {
 					$pm7 = $maxend;
-				else
+                }
+				else {
 					$pm7 = $entry['time_end'];
+                }
 			}
 		}
 		
@@ -331,10 +342,12 @@ else
 			// Drawing the rooms
 			foreach ($rooms as $room_id => $room_name)
 			{
-				if($t % (60*60) == 0)
+				if($t % (60*60) == 0) {
 					$td_style = 'time';
-				else
+                }
+				else {
 					$td_style = 'timeweak';
+                }
 				
 				$ignore = array();
 				foreach ($room_time3[$room_id][$t] as $b => $i)
@@ -353,8 +366,9 @@ else
 									$ignore[] = $a;
 									$a++;
 								}
-								else
+								else {
 									$ok = TRUE;
+                                }
 							}
 							echo ' colspan="'.($a - $b).'"';
 							echo '>&nbsp;</td>'.chr(10); // Empty
@@ -392,8 +406,16 @@ else
 		
 		echo '<table width="100%" cellspacing="0" style="border-collapse: collapse;">';
 		echo '<tr><td class="dayplan"><b>'.__('Time').'</b></td><td class="dayplan"><b>'.__('Room').'</b></td><td class="dayplan"><b>'.__('C/A').'</b></td><td class="dayplan" width="100%"><b>'.__('What').'</b></td></tr>';
-		if(!count($entries))
-			echo '<tr><td class="dayplan"><b>00:00-23:59</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'.__('Nothing').'</i></font></td></tr>';
+		if(!count($entries)) {
+			?>
+                <tr>
+                    <td class="dayplan" style="font-weight: bold;">00:00-23:59</td>
+                    <td class="dayplan">&nbsp;</td>
+                    <td class="dayplan">&nbsp;</td>
+                    <td class="dayplan" style="color: gray; font-style: italic"><?=__('Nothing')?></td>
+                </tr>
+            <?php
+        }
 		else
 		{
             ksort($timed_entries);
@@ -409,8 +431,9 @@ else
 					echo '<tr><td class="dayplan"><b>'.date('H:i', $entries[$entry_id]['time_start']).'-'.date('H:i', $entries[$entry_id]['time_end']).'</b></td><td class="dayplan">';
 					// Rooms
 					$room_name = array();
-					if(!count($entries[$entry_id]['room_id']))
+					if(!count($entries[$entry_id]['room_id'])) {
 						echo '<i>'.__('Whole area').'</i>';
+                    }
 					else
 					{
 						$Any_rooms = false;
@@ -424,18 +447,21 @@ else
 									$room_name[] = $room_tmp['room_name'];
 							}
 						}
-						if(!$Any_rooms)
+						if(!$Any_rooms) {
 							echo '<i>'.str_replace(' ', '&nbsp;', __('Whole area')).'</i>';
-						else
+                        }
+						else {
 							echo str_replace(' ', '&nbsp;', implode(', ', $room_name));
+                        }
 					}
 					echo '</td>';
 					echo '<td class="dayplan" style="font-size: 10px;">';
 					echo $entries[$entry_id]['num_person_child'].'&nbsp;/&nbsp;'.$entries[$entry_id]['num_person_adult'];
 					echo '</td>';
 					echo '<td class="dayplan"><a href="entry.php?entry_id='.$entry_id.'">'.$entries[$entry_id]['entry_name'].'</a></td></tr>';
-					if($last_time < $entries[$entry_id]['time_end'])
+					if($last_time < $entries[$entry_id]['time_end']) {
 						$last_time = $entries[$entry_id]['time_end'];
+                    }
 				}
 			}
 		}
