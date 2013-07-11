@@ -63,6 +63,7 @@ function print_header($day, $month, $year, $area){
 	echo '<head>'.chr(10);
 	echo '	<title>JM-booking</title>'.chr(10);
 	echo '	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">'.chr(10);
+    echo '  <link rel="SHORTCUT ICON" HREF="./favicon.ico">'.chr(10);
 	echo '	<link rel="stylesheet" type="text/css" href="css/jm-booking.css" />'.chr(10);
 	echo '	<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.7.2.custom.css" />'.chr(10);
 	
