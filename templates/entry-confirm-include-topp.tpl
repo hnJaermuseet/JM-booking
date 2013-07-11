@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 {if 
 
 
-$area == 'Vitenfabrikken'}
+$area_id == '6'}
 <div class="box3"><img src="img/Vitenfabrikken-logo.jpg" width="220"></div>
 <div class="box4"><br>
 <b>Bes&oslash;ksadresse:</b><br>
@@ -60,7 +60,7 @@ http://www.vitenfabrikken.no/
 
 
 
-$area == 'Vitengarden'}
+$area_id == '12'}
 <div class="box3"><img src="img/Vitengarden-logo.jpg" width="220"></div>
 <div class="box4"><br><br><br>
 <b>Bes&oslash;ksadresse:</b><br>
@@ -88,7 +88,26 @@ http://www.vitengarden.no/
 
 
 }
-<div class="box3"><img src="img/JM-logo.jpg" width="220"></div>
+    <div class="box3">
+    {if $area_id == '11'}
+        <img src="img/logo-flyhistorisk_museum-220x101.png" width="220">
+    {elseif $area_id == '16'}
+        <img src="img/logo-garborgsenteret-220x78.png" width="220">
+    {elseif $area_id == '9'}
+        <img src="img/logo-grodaland-220x98.jpg" width="220">
+    {elseif $area_id == '8'}
+        <img src="img/logo-haugabakka-220x98.jpg" width="220">
+    {elseif $area_id == '17'}
+        <img src="img/logo-krigshistorisk_museum-220x101.png" width="220">
+    {elseif $area_id == '7'}
+        <img src="img/logo-limagarden-220x98.jpg" width="220">
+    {elseif $area_id == '15'}
+        <img src="img/logo-vistnestunet-220x81.jpg" width="220">
+    {else}
+        <img src="img/JM-logo.jpg" width="220">
+    {/if}
+    </div>
+
 <div class="box4"><br>
 <b>Postadresse:</b><br>
 <br>
