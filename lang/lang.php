@@ -30,5 +30,5 @@ function __($text) {
  */
 function _h($text)
 {
-	return htmlentities(utf8_decode(_l($text)), ENT_QUOTES);
+	return htmlentities(_l($text), ENT_QUOTES);
 }
