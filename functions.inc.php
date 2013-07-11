@@ -37,10 +37,7 @@ require_once 'functions/login.php';
 require_once 'lang/lang.php';
 
 function print_header($day, $month, $year, $area){
-	global $lang, $search_str,$nrbs_pageheader,$session_selected_language,$header_links;
-	global $testSystem;
-	global $selected_room;
-	global $login;
+	global $search_str,$nrbs_pageheader, $testSystem, $selected_room, $login;
 	
 	debugAddToLog(__FILE__, __LINE__, 'Start of glob_inc.inc.php');
 	
@@ -351,76 +348,6 @@ function genDateSelector($prefix, $day, $nonth, $year,$history=0,$id_prefix=''){
 		echo '<option' . ($i == $year ? ' selected' : '') . ' value="'.$i.'">'.$i.'</option>';
 	}
 	
-	echo "</select>";
-}
-#--------------------------
-
-function genDateSelector1($prefix, $end_day, $end_month, $end_year){
-	if($end_day   == 0) $end_day = date("d");
-	if($end_month == 0) $end_month = date("m");
-	if($end_year  == 0) $end_year = date("Y");
-	
-	echo '<select NAME="'.$prefix.'end_day">';
-	
-	for($i = 1; $i <= 31; $i++)
-	echo '<option' . ($i == $end_day ? ' selected' : '') . '>'.$i;
-	
-	echo "</select>";
-	echo '<select name="'.$prefix.'end_month">';
-	
-	for($i = 1; $i <= 12; $i++)
-	{
-		$j = parseDate(strftime("%b", mktime(0, 0, 0, $i, 1, $end_year)));
-		
-		echo '<option value="'.$i.'"'. ($i == $end_month ? ' selected' : '') . '>'.$j;
-	}
-	
-	echo '</select>';
-	echo '<select name="'.$prefix.'end_year">';
-	
-	$nin = min($end_year, date("Y")) - 0;
-	$nax = max($end_year, date("Y")) + 1;
-	for($i = $nin; $i <= $nax; $i++)
-	{
-		echo '<option' . ($i == $end_year ? ' selected' : '') . '>'.$i;
-	}
-	echo '</select>';
-
-}
-
-
-#--------------------------
-
-function genDateSelector2($prefix, $end_day, $end_month, $end_year,$history=0){
-	if($end_day   == 0) $end_day = date("d");
-	if($end_month == 0) $end_month = date("m");
-	if($end_year  == 0) $end_year = date("Y");
-	
-	echo '<select id="CP_endday" name="'.$prefix.'end_day" '.
-		'onChange="document.main.reload()">';
-	
-	for($i = 1; $i <= 31; $i++)
-	{
-		echo '<option' . ($i == $end_day ? ' selected' : '') . ' value="'.$i.'">'.$i.'</option>';
-	}
-	
-	echo '</select>';
-	echo '<select id="CP_endmonth" NAME="'.$prefix.'end_month">';
-	
-	for($i = 1; $i <= 12; $i++)
-	{
-		$j = parseDate(strftime("%b", mktime(0, 0, 0, $i, 1, $end_year)));
-		echo '<option value="'.$i.'"' . ($i == $end_month ? ' selected' : '') . '>'.$j.'</option>';
-	}
-	
-	echo '</select>';
-	echo '<select id="'.CP_endyear.'" name="'.$prefix.'end_year">';
-	$nin = min($end_year, date("Y")) - $history;
-	$nax = max($end_year, date("Y")) + 1;
-	for($i = $nin; $i <= $nax; $i++)
-	{
-		echo '<option' . ($i == $end_year ? ' selected' : '') . ' value="'.$i.'">'.$i.'</option>';
-	}
 	echo "</select>";
 }
 
