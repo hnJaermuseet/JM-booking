@@ -33,15 +33,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 print_header($day, $month, $year, $area);
 
 //layout
-echo '<h2>'._("Administration").'</h2>'.chr(10);
+echo '<h2>'.__("Administration").'</h2>'.chr(10);
 
 echo '<a href="admin_user2.php"';
 if($section=="users") echo "style='color:red'";
-echo '>'._('Users').'</a> -:- ';
+echo '>'.__('Users').'</a> -:- ';
 
 echo '<a href="admin_group.php"';
 if($section=="groups") echo "style='color:red'";
-echo '>'._('Usergroups').'</a> -:- ';
+echo '>'.__('Usergroups').'</a> -:- ';
 
 echo '<a href="admin_products.php"';
 if($section=="products") echo "style='color:red'";
@@ -49,19 +49,19 @@ echo '>Produktregister</a> -:- ';
 
 echo '<a href="admin_programs.php"';
 if($section=="programs") echo "style='color:red'";
-echo '>'._('Fixed programs').'</a> -:- ';
+echo '>'.__('Fixed programs').'</a> -:- ';
 
 echo '<a href="admin_area.php"';
 if($section=="area") echo "style='color:red'";
-echo '>'._('Area').'</a> -:- ';
+echo '>'.__('Area').'</a> -:- ';
 
 echo '<a href="admin_entry_type.php"';
 if($section=="entry_type") echo "style='color:red'";
-echo '>'._('Entrytype').'</a> -:- ';
+echo '>'.__('Entrytype').'</a> -:- ';
 
 echo '<a href="admin_template.php"';
 if($section=="template") echo "style='color:red'";
-echo '>'._('Templates').'</a> -:- ';
+echo '>'.__('Templates').'</a> -:- ';
 
 echo '<a href="admin_attachment.php"';
 if($section=="attachment") echo "style='color:red'";

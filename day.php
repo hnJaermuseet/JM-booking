@@ -80,7 +80,7 @@ else
 $Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
 if(!mysql_num_rows($Q_room))
 {
-	echo '<h1>'._('This area has no rooms').'</h1>';
+	echo '<h1>'.__('This area has no rooms').'</h1>';
 }
 else
 {
@@ -140,10 +140,10 @@ else
 					if($event['time_start'] < $start)
 					{
 						$event['time_start'] = $start;
-						$event['entry_name'] .= ' ('._('started').' '.date('H:i d-m-Y', $event['time_start_real']).')';
+						$event['entry_name'] .= ' ('.__('started').' '.date('H:i d-m-Y', $event['time_start_real']).')';
 					}
 					$event['time_start']	= round_t_down($event['time_start'], $resolution);
-					//echo date('H:i:s dmY',$event['time_start']).' start før diff<br>'.chr(10);
+					//echo date('H:i:s dmY',$event['time_start']).' start before diff<br>'.chr(10);
 					$diff = $event['time_end'] - $event['time_start'];
 					//echo $diff.' '.($diff/60).'<br>'.chr(10);
 					if($diff < (60 * 30))
@@ -264,7 +264,7 @@ else
 					$a = '';
 					if($event['time_start'] < $start)
 					{
-						$a .= _('started').' '.date('H:i d-m-Y', $event['time_start']);
+						$a .= __('started').' '.date('H:i d-m-Y', $event['time_start']);
 						$event['time_start'] = $start;
 					}
 					if($event['time_end'] > $end)
@@ -391,9 +391,9 @@ else
 		echo '<a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'&amp;dayview=1">'._h('Go to other dayview').'</a><br>';
 		
 		echo '<table width="100%" cellspacing="0" style="border-collapse: collapse;">';
-		echo '<tr><td class="dayplan"><b>'._('Time').'</b></td><td class="dayplan"><b>'._('Room').'</b></td><td class="dayplan"><b>'._('C/A').'</b></td><td class="dayplan" width="100%"><b>'._('What').'</b></td></tr>';
+		echo '<tr><td class="dayplan"><b>'.__('Time').'</b></td><td class="dayplan"><b>'.__('Room').'</b></td><td class="dayplan"><b>'.__('C/A').'</b></td><td class="dayplan" width="100%"><b>'.__('What').'</b></td></tr>';
 		if(!count($entries))
-			echo '<tr><td class="dayplan"><b>00:00-23:59</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'._('Nothing').'</i></font></td></tr>';
+			echo '<tr><td class="dayplan"><b>00:00-23:59</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'.__('Nothing').'</i></font></td></tr>';
 		else
 		{
 			$last_time = $start;
@@ -404,13 +404,13 @@ else
 				{
 					if($last_time < $t)
 					{
-						echo '<tr><td class="dayplan"><b>'.date('H:i', $last_time).'-'.date('H:i', $t).'</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'._('Nothing').'</i></font></td></tr>';
+						echo '<tr><td class="dayplan"><b>'.date('H:i', $last_time).'-'.date('H:i', $t).'</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'.__('Nothing').'</i></font></td></tr>';
 					}
 					echo '<tr><td class="dayplan"><b>'.date('H:i', $entries[$entry_id]['time_start']).'-'.date('H:i', $entries[$entry_id]['time_end']).'</b></td><td class="dayplan">';
 					// Rooms
 					$room_name = array();
 					if(!count($entries[$entry_id]['room_id']))
-						echo '<i>'._('Whole area').'</i>';
+						echo '<i>'.__('Whole area').'</i>';
 					else
 					{
 						$Any_rooms = false;
@@ -425,7 +425,7 @@ else
 							}
 						}
 						if(!$Any_rooms)
-							echo '<i>'.str_replace(' ', '&nbsp;', _('Whole area')).'</i>';
+							echo '<i>'.str_replace(' ', '&nbsp;', __('Whole area')).'</i>';
 						else
 							echo str_replace(' ', '&nbsp;', implode(', ', $room_name));
 					}

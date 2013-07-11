@@ -141,12 +141,12 @@ if(
 	{
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
-		echo '  <td class="border"><b>'._('Starts').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('Name').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('Where').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('Contact person').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('Phone').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('E-mail').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Starts').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Name').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Where').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Contact person').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Phone').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('E-mail').'</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
 		while($R_entry = mysql_fetch_assoc($Q_next_entries))
 		{
@@ -164,7 +164,7 @@ if(
 				foreach ($entry['room_id'] as $rid)
 				{
 					if($rid == '0')
-						$rooms[] = _('Whole area');
+						$rooms[] = __('Whole area');
 					else
 					{
 						$room = getRoom($rid);
@@ -197,12 +197,12 @@ if(
 		echo '<span style="color:green">Flyttes til kunde 1:</span><br>';
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
-		echo '  <td class="border"><b>'._('Starts').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('Name').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('Where').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('Contact person').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('Phone').'</b></td>'.chr(10);
-		echo '  <td class="border"><b>'._('E-mail').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Starts').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Name').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Where').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Contact person').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('Phone').'</b></td>'.chr(10);
+		echo '  <td class="border"><b>'.__('E-mail').'</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
 		while($R_entry = mysql_fetch_assoc($Q_next_entries))
 		{
@@ -220,7 +220,7 @@ if(
 				foreach ($entry['room_id'] as $rid)
 				{
 					if($rid == '0')
-						$rooms[] = _('Whole area');
+						$rooms[] = __('Whole area');
 					else
 					{
 						$room = getRoom($rid);
@@ -260,8 +260,8 @@ else
 	
 	echo '<h1>Kundeopprydding</h1>';
 	echo '<form action="admin_customer_merge.php" method="get">'.chr(10).
-		'<i>Tast inn <b>kundeid</b> på to kunder du vil slå sammen. '.
-		'Merk at du må flytte over adresser og andre opplysninger manuelt. '.
+		'<i>Tast inn <b>kundeid</b> p&aring; to kunder du vil sl&aring; sammen. '.
+		'Merk at du m&aring; flytte over adresser og andre opplysninger manuelt. '.
 		'Kun bookinger blir flyttet.</i><br><br>'.
 		
 		'<input type="text" name="cid1"> - Kunde 1, denne <b>beholdes</b><br>'.

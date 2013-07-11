@@ -47,22 +47,22 @@ echo '<div style="display:none;" id="switch1">';
 echo '	<table cellspacing="0" style="border-collapse: collapse;">'.chr(10);
 echo '		<caption>Kommunefordelt statistikk</caption>'.chr(10);
 echo '		<tr>'.chr(10);
-echo '			<td class="border">'._('Municipal').'</th>'.chr(10);
+echo '			<td class="border">'.__('Municipal').'</th>'.chr(10);
 echo '			<th class="border" headers="children">'.
 '<img src="./img/icons/user_small.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Children').'</th>'.chr(10);
+__('Children').'</th>'.chr(10);
 echo '			<th class="border" headers="adults">'.
 '<img src="./img/icons/user_suit.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Adults').'</th>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+__('Adults').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/page_white.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Entries').'</th>'.chr(10);
+__('Entries').'</th>'.chr(10);
 echo '		</tr>'.chr(10);
 foreach ($municipals3 as $mun_num => $name)
 {
 	if($mun_num == 0)
-		$name = '<i>'._('Non').'</i>';
+		$name = '<i>'.__('Non').'</i>';
 	$valarray = $municipals2[$mun_num];
 	echo '		<tr>'.chr(10);
 	echo '			<th class="border" headers="types">'.$name.'</th>'.chr(10);
@@ -73,18 +73,18 @@ foreach ($municipals3 as $mun_num => $name)
 	echo '		</tr>'.chr(10);
 }
 echo '		<tr>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<td class="border">'.$sum['c'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['a'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['p'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['e'].'</td>'.chr(10);
 echo '		</tr>'.chr(10);
 echo '	</table>'.chr(10);
-echo '<div class="chartplaceholder" id="municipal-children">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="municipal-children">Trykk her for &aring; hente graf:<br>'.
 	'kommunefordelt, antall barn</div>'.chr(10);
-echo '<div class="chartplaceholder" id="municipal-people">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="municipal-people">Trykk her for &aring; hente graf:<br>'.
 	'kommunefordelt, antall barn og voksne</div>'.chr(10);
-echo '<div class="chartplaceholder" id="municipal-entries">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="municipal-entries">Trykk her for &aring; hente graf:<br>'.
 	'kommunefordelt, antall bookinger</div>'.chr(10);
 echo '</div>'.chr(10).chr(10);
 
@@ -98,22 +98,22 @@ echo '<div style="display:none;" id="switch2">';
 echo '	<table cellspacing="0" style="border-collapse: collapse;">'.chr(10);
 echo '		<caption>Typefordelt statistikk</caption>';
 echo '		<tr>'.chr(10);
-echo '			<th class="border">'._('Entry type').'</th>'.chr(10);
+echo '			<th class="border">'.__('Entry type').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_small.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Children').'</th>'.chr(10);
+__('Children').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_suit.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Adults').'</th>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+__('Adults').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/page_white.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Entries').'</th>'.chr(10);
+__('Entries').'</th>'.chr(10);
 echo '		</tr>'.chr(10);
 foreach ($entrytypes2 as $id => $name)
 {
 	if(substr($id, 0, 2) != 'dn' && $id == 0)
-		$name = '<i>'._('Non').'</i>';
+		$name = '<i>'.__('Non').'</i>';
 	$valarray = $entrytypes[$id];
 	echo '		<tr>'.chr(10);
 	echo '			<th class="border">'.$name.'</th>'.chr(10);
@@ -124,16 +124,16 @@ foreach ($entrytypes2 as $id => $name)
 	echo '		</tr>'.chr(10);
 }
 echo '		<tr>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<td class="border">'.$sum['c'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['a'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['p'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['e'].'</td>'.chr(10);
 echo '		</tr>'.chr(10);
 echo '	</table>'.chr(10);
-echo '<div class="chartplaceholder" id="entrytype-people">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="entrytype-people">Trykk her for &aring; hente graf:<br>'.
 	'typefordelt, antall barn og voksne</div>'.chr(10);
-echo '<div class="chartplaceholder" id="entrytype-entries">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="entrytype-entries">Trykk her for &aring; hente graf:<br>'.
 	'typefordelt, antall bookinger</div>'.chr(10);
 echo '</div>'.chr(10).chr(10);
 
@@ -150,19 +150,19 @@ echo '		<tr>'.chr(10);
 echo '			<th class="border">Dagsfordelt</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_small.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Children').'</th>'.chr(10);
+__('Children').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_suit.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Adults').'</th>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+__('Adults').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/page_white.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Entries').'</th>'.chr(10);
+__('Entries').'</th>'.chr(10);
 echo '		</tr>'.chr(10);
 foreach ($stats_day as $id => $valarray)
 {
 	if($id == 0)
-		$name = '<i>'._('Non').'</i>';
+		$name = '<i>'.__('Non').'</i>';
 	else
 		$name = $valarray['Name'];
 	
@@ -175,18 +175,18 @@ foreach ($stats_day as $id => $valarray)
 	echo '		</tr>'.chr(10);
 }
 echo '		<tr>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<td class="border">'.$sum['c'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['a'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['p'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['e'].'</td>'.chr(10);
 echo '		</tr>'.chr(10);
 echo '	</table>'.chr(10);
-echo '<div class="chartplaceholder" id="day-children">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="day-children">Trykk her for &aring; hente graf:<br>'.
 	'dagsfordelt, antall barn</div>'.chr(10);
-echo '<div class="chartplaceholder" id="day-people">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="day-people">Trykk her for &aring; hente graf:<br>'.
 	'dagsfordelt, antall barn og voksne</div>'.chr(10);
-echo '<div class="chartplaceholder" id="day-entries">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="day-entries">Trykk her for &aring; hente graf:<br>'.
 	'dagsfordelt, antall bookinger</div>'.chr(10);
 echo '</div>'.chr(10).chr(10);
 
@@ -203,19 +203,19 @@ echo '		<tr>'.chr(10);
 echo '			<th class="border">Ukesfordelt</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_small.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Children').'</th>'.chr(10);
+__('Children').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_suit.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Adults').'</th>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+__('Adults').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/page_white.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Entries').'</th>'.chr(10);
+__('Entries').'</th>'.chr(10);
 echo '		</tr>'.chr(10);
 foreach ($stats_week as $id => $valarray)
 {
 	if($id == 0)
-		$name = '<i>'._('Non').'</i>';
+		$name = '<i>'.__('Non').'</i>';
 	else
 		$name = $valarray['Name'];
 	
@@ -228,45 +228,45 @@ foreach ($stats_week as $id => $valarray)
 	echo '		</tr>'.chr(10);
 }
 echo '		<tr>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<td class="border">'.$sum['c'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['a'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['p'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['e'].'</td>'.chr(10);
 echo '		</tr>'.chr(10);
 echo '	</table>'.chr(10);
-echo '<div class="chartplaceholder" id="week-people">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="week-people">Trykk her for &aring; hente graf:<br>'.
 	'ukesfordelt, antall barn og voksne</div>'.chr(10);
-echo '<div class="chartplaceholder" id="week-entries">Trykk her for å hente graf:<br>'.
+echo '<div class="chartplaceholder" id="week-entries">Trykk her for &aring; hente graf:<br>'.
 	'ukesfordelt, antall bookinger</div>'.chr(10);
 echo '</div>'.chr(10).chr(10);
 
 
 
 /* ## STATS - MONTHS ## */ 
-echo '<div class="hiddenprint"><h2>Månedsfordelt</h2>';
-echo '<a id="switchlink5" href="javascript:switchView(5, \'månedsfordelt\');">Vis månedsfordelt</a><br><br>';
+echo '<div class="hiddenprint"><h2>M&aring;nedsfordelt</h2>';
+echo '<a id="switchlink5" href="javascript:switchView(5, \'m&aring;nedsfordelt\');">Vis m&aring;nedsfordelt</a><br><br>';
 echo '</div>';
 echo '<div style="display:none;" id="switch5">';
 echo '	<table cellspacing="0" style="border-collapse: collapse;">'.chr(10);
-echo '		<caption>Månedsfordelt statistikk</caption>'.chr(10);
+echo '		<caption>M&aring;nedsfordelt statistikk</caption>'.chr(10);
 echo '		<tr>'.chr(10);
-echo '			<th class="border">Månedsfordelt</th>'.chr(10);
+echo '			<th class="border">M&aring;nedsfordelt</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_small.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Children').'</th>'.chr(10);
+__('Children').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_suit.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Adults').'</th>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+__('Adults').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/page_white.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Entries').'</th>'.chr(10);
+__('Entries').'</th>'.chr(10);
 echo '		</tr>'.chr(10);
 foreach ($stats_month as $id => $valarray)
 {
 	if($id == 0)
-		$name = '<i>'._('Non').'</i>';
+		$name = '<i>'.__('Non').'</i>';
 	else
 		$name = $valarray['Name'];
 	
@@ -279,7 +279,7 @@ foreach ($stats_month as $id => $valarray)
 	echo '		</tr>'.chr(10);
 }
 echo '		<tr>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<td class="border">'.$sum['c'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['a'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['p'].'</td>'.chr(10);
@@ -287,38 +287,38 @@ echo '			<td class="border">'.$sum['e'].'</td>'.chr(10);
 echo '		</tr>'.chr(10);
 echo '	</table>'.chr(10);
 echo '<br><br>'.chr(10);
-echo '<div class="chartplaceholder" id="month-people">Trykk her for å hente graf:<br>'.
-	'månedsfordelt, antall barn og voksne</div>'.chr(10);
-echo '<div class="chartplaceholder" id="month-entries">Trykk her for å hente graf:<br>'.
-	'månedsfordelt, antall bookinger</div>'.chr(10);
+echo '<div class="chartplaceholder" id="month-people">Trykk her for &aring; hente graf:<br>'.
+	'm&aring;nedsfordelt, antall barn og voksne</div>'.chr(10);
+echo '<div class="chartplaceholder" id="month-entries">Trykk her for &aring; hente graf:<br>'.
+	'm&aring;nedsfordelt, antall bookinger</div>'.chr(10);
 echo '</div>'.chr(10).chr(10);
 
 
 
 /* ## STATS - YEARS ## */ 
-echo '<div class="hiddenprint"><h2>Årsfordelt</h2>';
-echo '<a id="switchlink6" href="javascript:switchView(6, \'årsfordelt\');">Vis årsfordelt</a><br><br>';
+echo '<div class="hiddenprint"><h2>&Aring;rsfordelt</h2>';
+echo '<a id="switchlink6" href="javascript:switchView(6, \'&aring;rsfordelt\');">Vis &aring;rsfordelt</a><br><br>';
 echo '</div>';
 echo '<div style="display:none;" id="switch6">';
 echo '	<table cellspacing="0" style="border-collapse: collapse;">'.chr(10);
-echo '		<caption>Årsfordelt statistikk</caption>'.chr(10);
+echo '		<caption>&Aring;rsfordelt statistikk</caption>'.chr(10);
 echo '		<tr>'.chr(10);
-echo '			<th class="border">Årsfordelt</th>'.chr(10);
+echo '			<th class="border">&Aring;rsfordelt</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_small.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Children').'</th>'.chr(10);
+__('Children').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/user_suit.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Adults').'</th>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+__('Adults').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<th class="border">'.
 '<img src="./img/icons/page_white.png" style="border: 0px solid black; vertical-align: middle;"> '.
-_('Entries').'</th>'.chr(10);
+__('Entries').'</th>'.chr(10);
 echo '		</tr>'.chr(10);
 foreach ($stats_year as $id => $valarray)
 {
 	if($id == 0)
-		$name = '<i>'._('Non').'</i>';
+		$name = '<i>'.__('Non').'</i>';
 	else
 		$name = $valarray['Name'];
 	
@@ -331,7 +331,7 @@ foreach ($stats_year as $id => $valarray)
 	echo '		</tr>'.chr(10);
 }
 echo '		<tr>'.chr(10);
-echo '			<th class="border">'._('Total').'</th>'.chr(10);
+echo '			<th class="border">'.__('Total').'</th>'.chr(10);
 echo '			<td class="border">'.$sum['c'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['a'].'</td>'.chr(10);
 echo '			<td class="border">'.$sum['p'].'</td>'.chr(10);
@@ -339,10 +339,10 @@ echo '			<td class="border">'.$sum['e'].'</td>'.chr(10);
 echo '		</tr>'.chr(10);
 echo '	</table>'.chr(10);
 echo '<br><br>'.chr(10);
-echo '<div class="chartplaceholder" id="year-people">Trykk her for å hente graf:<br>'.
-	'årsfordelt, antall barn og voksne</div>'.chr(10);
-echo '<div class="chartplaceholder" id="year-entries">Trykk her for å hente graf:<br>'.
-	'årsfordelt, antall bookinger</div>'.chr(10);
+echo '<div class="chartplaceholder" id="year-people">Trykk her for &aring; hente graf:<br>'.
+	'&aring;rsfordelt, antall barn og voksne</div>'.chr(10);
+echo '<div class="chartplaceholder" id="year-entries">Trykk her for &aring; hente graf:<br>'.
+	'&aring;rsfordelt, antall bookinger</div>'.chr(10);
 echo '</div>'.chr(10).chr(10);
 
 ?>

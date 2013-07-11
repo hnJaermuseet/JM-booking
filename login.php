@@ -99,8 +99,8 @@ if(isset($_POST['WEBAUTH_USER']))
 
 if(isLoggedIn())
 {
-	echo _('You\'re already logged in.').'<br><br>';
-	echo '<a href="logout.php">'._('Log out').'</a>';
+	echo __('You\'re already logged in.').'<br><br>';
+	echo '<a href="logout.php">'.__('Log out').'</a>';
 	exit();
 }
 else
@@ -229,7 +229,7 @@ else
 				$smarty->assign('key', $key);
 				$smarty->assign('valid_to', $valid_to);
 				$message = $smarty->fetch('file:mail-forgot_pw.tpl');
-				$subject = 'Glemt passord - Jærmuseets bookingsystem';
+				$subject = 'Glemt passord - J&aerligmuseets bookingsystem';
 				
 				emailSend($user_id, $subject, $message);
 			}
@@ -242,7 +242,7 @@ else
 	}
 	
 	echo '<html>'.chr(10).'<head>'.chr(10).
-		'	<title>'._('JM-booking').' - '._('Log in').'</title>'.chr(10).
+		'	<title>'.__('JM-booking').' - '.__('Log in').'</title>'.chr(10).
 		'	<link rel="stylesheet" href="css/jm-booking.css" type="text/css">'.chr(10).
 		'	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">'.chr(10).
 		'	<script type="text/javascript" src="js/browser_detection.js"></script>'.chr(10).
@@ -275,14 +275,14 @@ else
 			'<table width="300" border="0" align="center" cellspacing="0" cellpadding="1">'.chr(10).
 			'	<tr>'.chr(10).
 			'		<td colspan="2" style="font-size:14px; padding: 10px;">'.
-			'<b>Typisk å glemme passordet,<br />skal hjelpe deg jeg...</b></td>'.chr(10).
+			'<b>Typisk &aring; glemme passordet,<br />skal hjelpe deg jeg...</b></td>'.chr(10).
 			'	</tr>'.chr(10).chr(10);
 		
 		echo
 			'	<tr>'.chr(10).
 			'		<td colspan="2">'.
-			'Trenger å vite brukernavnet ditt eller eposten din. Skal så sende deg en kode på epost, '.
-			'så skal du få lage nytt passord.<br /><br /></td>'.chr(10).
+			'Trenger &aring; vite brukernavnet ditt eller eposten din. Skal s&aring; sende deg en kode p&aring; epost, '.
+			's&aring; skal du f&aring; lage nytt passord.<br /><br /></td>'.chr(10).
 			'	</tr>'.chr(10).chr(10);
 	
 		if($forgot_pw_failed) {
@@ -292,7 +292,7 @@ else
 			'</div></td></tr>'.chr(10).chr(10);
 		}
 		echo '	<tr>'.chr(10).
-			'		<td>'._('Username').' /<br />'._h('E-mail').'</td>'.chr(10).
+			'		<td>'.__('Username').' /<br />'._h('E-mail').'</td>'.chr(10).
 			'		<td><input id="dofocus" type="text" value="'.$user.'" name="forgot_pw_user"></td>'.chr(10).
 			'	</tr>'.chr(10).chr(10);
 		
@@ -312,9 +312,9 @@ else
 					'Koden du oppgav er for gammel (mer enn 15 minutter gammel), '.
 					'eller eksisterer ikke for brukeren.<br /><br />'.
 					
-					'Sjekk også at du ikke har fått en ny etter den du trykket på nå.<br /><br />'.
-					'Hvis du ikke får det til, '.
-					'så <a href="'.$_SERVER['PHP_SELF'].'?forgot_pw=1">få tilsendt en ny</a>.'.
+					'Sjekk ogs&aring; at du ikke har f&aring;tt en ny etter den du trykket p&aring; n&aring;.<br /><br />'.
+					'Hvis du ikke f&aring;r det til, '.
+					's&aring; <a href="'.$_SERVER['PHP_SELF'].'?forgot_pw=1">f&aring; tilsendt en ny</a>.'.
 				'</div>';
 		}
 		else
@@ -328,8 +328,8 @@ else
 			}
 			else
 			{
-				echo 'For ekstern pålogging (ikke Jærmuseets maskiner),<br />'.
-					'så kreves det at passordet inneholder store og små bokstaver samt tall.<br />';
+				echo 'For ekstern p&aring;logging (ikke J&aerligmuseets maskiner),<br />'.
+					's&aring; kreves det at passordet inneholder store og sm&aring; bokstaver samt tall.<br />';
 				echo '<form action="'.$_SERVER['PHP_SELF'].'?forgot_pw=1&amp;forgot_pw_user='.$user.'&amp;key='.$newpw_key.'" method="post">'.chr(10);
 				echo '<b>'._h('New password').':</b><br />'.chr(10);
 				echo '<input type="password" id="dofocus" name="password_new" value="'.$newpw_pw.'"><br /><br />'.chr(10).chr(10);
@@ -363,7 +363,7 @@ else
 					
 					_h('Press "Save password" again to use the choosen password.').
 					'<br />'.
-					'Du kan fint ha dette passordet hvis du bare vil logge på fra Jærmuseets maskiner'.
+					'Du kan fint ha dette passordet hvis du bare vil logge p&aring; fra J&aerligmuseets maskiner'.
 					'</div>';
 					echo '<input type="hidden" value="1" name="ignore_msg">';
 					echo '<input type="submit" value="'._h('Save password').'">'.chr(10);
@@ -399,7 +399,7 @@ else
 		}
 		if($deactivated) {
 			echo '	<tr><td colspan="2" align="center"><div class="error">'.
-			_('The account is disabled').
+			__('The account is disabled').
 			'</div></td></tr>'.chr(10).chr(10);
 		}
 		elseif($external_failed && $complex_failed) {
@@ -422,22 +422,22 @@ else
 		}
 		elseif(isset($_POST['WEBAUTH_USER'])) {
 			echo '	<tr><td colspan="2"" align="center"><div class="error">'.
-			_('Username and/or password is wrong').
+			__('Username and/or password is wrong').
 			'</div></td></tr>'.chr(10).chr(10);
 		}
 		echo '	<tr>'.chr(10).
-			'		<td>'._('Username').'</td>'.chr(10).
+			'		<td>'.__('Username').'</td>'.chr(10).
 			'		<td><input id="dofocus" type="text" value="'.$user.'" name="WEBAUTH_USER"></td>'.chr(10).
 			'	</tr>'.chr(10).chr(10);
 		
 		echo '	<tr>'.chr(10).
-			'		<td>'._('Password').'</td>'.chr(10).
+			'		<td>'.__('Password').'</td>'.chr(10).
 			'		<td><input id="dofocus2" type="password" name="WEBAUTH_PW"></td>'.chr(10).
 			'	</tr>'.chr(10).chr(10);
 		
 		echo '	<tr>'.chr(10).
 			'		<td>&nbsp;</td>'.chr(10).
-			'		<td><input type="submit" value="'._('Log in').'"></td>'.chr(10).
+			'		<td><input type="submit" value="'.__('Log in').'"></td>'.chr(10).
 			'	</tr>'.chr(10).chr(10);
 		echo '</table>'.chr(10).chr(10);
 		echo '			</form>'.chr(10);
@@ -458,16 +458,16 @@ else
 				echo '&nbsp;';
 			else
 			{
-				echo '<div class="success"><b>Supert!<br />Nå: Trykk på lenken i e-posten</b><br />'.
-					'En e-post er sendt til deg med en lenke du må trykke på. '.
-					'Når du går inn på denne lenken, så vil du får muligheten til å bytte passord.</div>';
+				echo '<div class="success"><b>Supert!<br />N&aring;: Trykk p&aring; lenken i e-posten</b><br />'.
+					'En e-post er sendt til deg med en lenke du m&aring; trykke p&aring;. '.
+					'N&aring;r du g&aring;r inn p&aring; denne lenken, s&aring; vil du f&aring; muligheten til &aring; bytte passord.</div>';
 			}
 		}
 		else
 		{
 			echo 
 				'			<a href="/wiki/" style="font-size: 28px">Wiki</a><br>'.chr(10).
-				'			Wiki for opplæring og rutiner på Vitenfabrikken'.chr(10);
+				'			Wiki for oppl&aerlig;ring og rutiner p&aring; Vitenfabrikken'.chr(10);
 		}
 	}
 	

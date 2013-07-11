@@ -38,14 +38,14 @@ function templateAssignEntry($var, $entry)
 		$$var->assign ('entry_title', $entry['entry_title']);
 		$$var->assign ('confirm_email', $entry['confirm_email']);
 		if($entry['confirm_email'])
-			$$var->assign ('confirm_email2', _('yes'));
+			$$var->assign ('confirm_email2', __('yes'));
 		else
-			$$var->assign ('confirm_email2', _('no'));
+			$$var->assign ('confirm_email2', __('no'));
 		$$var->assign ('entry_type_id', $entry['entry_type_id']);
 		
 		if($entry['entry_type_id'] == 0)
 		{
-				$entry_type = _('Non selected');
+				$entry_type = __('Non selected');
 		}
 		else
 		{
@@ -61,9 +61,9 @@ function templateAssignEntry($var, $entry)
 		$$var->assign ('num_person_adult', $entry['num_person_adult']);
 		$$var->assign ('num_person_count', $entry['num_person_count']);
 		if($entry['num_person_count'])
-			$$var->assign ('num_person_count2', _('yes'));
+			$$var->assign ('num_person_count2', __('yes'));
 		else
-			$$var->assign ('num_person_count2', _('no'));
+			$$var->assign ('num_person_count2', __('no'));
 		$$var->assign ('program_id', $entry['program_id']);
 		$program = getProgram($entry['program_id']);
 		if(count($program))
@@ -79,9 +79,9 @@ function templateAssignEntry($var, $entry)
 		$$var->assign ('program_description', $entry['program_description']);
 		$$var->assign ('service_alco', $entry['service_alco']);
 		if($entry['service_alco'])
-			$$var->assign ('service_alco2', _('yes'));
+			$$var->assign ('service_alco2', __('yes'));
 		else
-			$$var->assign ('service_alco2', _('no'));
+			$$var->assign ('service_alco2', __('no'));
 		$$var->assign ('service_description', $entry['service_description']);
 		$$var->assign ('comment', $entry['comment']);
 		$$var->assign ('infoscreen_txt', $entry['infoscreen_txt']);
@@ -91,14 +91,14 @@ function templateAssignEntry($var, $entry)
 		// Room
 		$rooms = array();
 		if(!count($entry['room_id']))
-			$rooms[] = _('Whole area');
+			$rooms[] = __('Whole area');
 		elseif(count($entry['room_id']) == '1')
 		{
 			// Single room
 			foreach ($entry['room_id'] as $rid)
 			{
 				if ($rid == '0')
-					$rooms[] = _('Whole area');
+					$rooms[] = __('Whole area');
 				else
 				{
 					$room = getRoom($rid);
@@ -124,7 +124,7 @@ function templateAssignEntry($var, $entry)
 			}
 		}
 		if(!count($rooms))
-			$rooms[] = _('Whole area');
+			$rooms[] = __('Whole area');
 		$$var->assign ('room', implode(', ', $rooms));
 		$$var->assign ('rooms', $rooms);
 		$$var->assign ('area_id', $entry['area_id']);
@@ -163,8 +163,8 @@ function templateAssignEntry($var, $entry)
 		}
 		if(!count($names))
 		{
-			$names[] = _('Nobody');
-			$names2[] = _('Nobody');
+			$names[] = __('Nobody');
+			$names2[] = __('Nobody');
 			$$var->assign ('user_assigned_any', false);
 		} else
 			$$var->assign ('user_assigned_any', true);
@@ -196,7 +196,7 @@ function templateAssignEntry($var, $entry)
 				$names[] = 'ERROR';
 		}
 		if(!count($names))
-			$names[] = _('Nobody');
+			$names[] = __('Nobody');
 		$$var->assign ('edit_by_names', implode(', ', $names));
 		$$var->assign ('time_last_edit', $entry['time_last_edit']);
 		$$var->assign ('user_last_edit', $entry['user_last_edit']);
@@ -210,16 +210,16 @@ function templateAssignEntry($var, $entry)
 		$$var->assign ('invoice', $entry['invoice']);
 		if($entry['invoice'] == '1') {
 			$$var->assign ('invoice2', true);
-			$$var->assign ('invoice3', _('yes'));
+			$$var->assign ('invoice3', __('yes'));
 		}
 		else {
 			$$var->assign ('invoice2', false);
-			$$var->assign ('invoice3', _('no'));
+			$$var->assign ('invoice3', __('no'));
 		}
 		$$var->assign ('invoice_status', $entry['invoice_status']);
 		switch($entry['invoice_status'])
 		{
-			case '0':	$$var->assign ('invoice_status2', _('not to be made'));	break;
+			case '0':	$$var->assign ('invoice_status2', __('not to be made'));	break;
 			case '1':	$$var->assign ('invoice_status2', 'skal lages, ikke klargjort');	break;
 			case '2':	$$var->assign ('invoice_status2', 'skal lages, klar til fakturering');	break;
 			case '3':	$$var->assign ('invoice_status2', 'sendt regnskap');	break;
@@ -227,11 +227,11 @@ function templateAssignEntry($var, $entry)
 		$$var->assign ('invoice_electronic', $entry['invoice_electronic']);
 		if($entry['invoice_electronic'] == '1') {
 			$$var->assign ('invoice_electronic2', true);
-			$$var->assign ('invoice_electronic3', _('yes'));
+			$$var->assign ('invoice_electronic3', __('yes'));
 		}
 		else {
 			$$var->assign ('invoice_electronic2', false);
-			$$var->assign ('invoice_electronic3', _('no'));
+			$$var->assign ('invoice_electronic3', __('no'));
 		}
 		$$var->assign ('invoice_email', $entry['invoice_email']);
 		$$var->assign ('invoice_comment', $entry['invoice_comment']);

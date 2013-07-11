@@ -31,7 +31,7 @@ function entrySetReady ($entry)
 	
 	if(!count($entry))
 	{
-		echo _('No entry found.');
+		echo __('No entry found.');
 		return FALSE;
 	}
 	
@@ -45,7 +45,7 @@ function entrySetReady ($entry)
 	$log_data = array();
 	if(!newEntryLog($entry['entry_id'], 'edit', 'invoice_readyfor', $rev_num, $log_data))
 	{
-		echo _('Can\'t log the changes for the entry.');
+		echo __('Can\'t log the changes for the entry.');
 		echo '<br><br>';
 		return FALSE;
 	}

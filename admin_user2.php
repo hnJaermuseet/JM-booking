@@ -46,7 +46,7 @@ if(isset($_GET['editor']))
 	{
 		$editor = new editor('users', $_SERVER['PHP_SELF'].'?editor=1');
 		$editor->setHeading('Ny bruker');
-		$editor->setSubmitTxt(_('Add'));
+		$editor->setSubmitTxt(__('Add'));
 		if(!$login['user_access_useredit'])
 		{
 			showAccessDenied($day, $month, $year, $area, true);
@@ -57,7 +57,7 @@ if(isset($_GET['editor']))
 	{
 		$editor = new editor('users', $_SERVER['PHP_SELF'].'?editor=1', $id);
 		$editor->setHeading('Endre bruker');
-		$editor->setSubmitTxt(_('Change'));
+		$editor->setSubmitTxt(__('Change'));
 		
 		if(!$login['user_access_useredit'] && $id != $login['user_id'])
 		{
@@ -82,11 +82,11 @@ if(isset($_GET['editor']))
 	}
 	
 	$editor->makeNewField('user_name', 'Navn', 'text');
-	$editor->makeNewField('user_email', _('E-mail'), 'text');
-	$editor->makeNewField('user_phone', _('Phone'), 'text');
+	$editor->makeNewField('user_email', __('E-mail'), 'text');
+	$editor->makeNewField('user_phone', __('Phone'), 'text');
 	$editor->makeNewField('user_position', 'Stilling', 'text');
 	
-	$editor->makeNewField('user_area_default', _('Default area'), 'select');
+	$editor->makeNewField('user_area_default', __('Default area'), 'select');
 	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
 	while($R_area = mysql_fetch_assoc($Q_area))
 		$editor->addChoice('user_area_default', $R_area['area_id'], $R_area['area_name']);
@@ -101,20 +101,20 @@ if(isset($_GET['editor']))
 	
 	if($login['user_access_changerights'])
 	{
-		$editor->makeNewField('user_access_changerights', 'Tilgang til å endre brukeres rettigheter', 'boolean');
+		$editor->makeNewField('user_access_changerights', 'Tilgang til &aring; endre brukeres rettigheter', 'boolean');
 		$editor->vars['user_access_changerights']['before'] = 
-			"\t<tr>\n\t\t<td><h2>"._('Userrights')."</h2></td>\n\t</tr>". // Added heading
+			"\t<tr>\n\t\t<td><h2>".__('Userrights')."</h2></td>\n\t</tr>". // Added heading
 			"\t<tr>\n\t\t<td>";
-		$editor->makeNewField('user_access_useredit', 'Tilgang til å endre brukere', 'boolean');
-		$editor->makeNewField('user_access_userdeactivate', 'Tilgang til å deaktivere brukere', 'boolean');
-		$editor->makeNewField('user_access_areaadmin', _('Access to edit area and room'), 'boolean');
-		$editor->makeNewField('user_access_entrytypeadmin', 'Tilgang til å endre bookingtyper', 'boolean');
-		$editor->makeNewField('user_access_importdn', 'Tilgang til å importere tall fra Datanova kassesystem', 'boolean');
-		$editor->makeNewField('user_access_productsadmin', 'Tilgang til å endre i produktsregister', 'boolean');
-		$editor->makeNewField('user_access_programadmin', 'Tilgang til å endre faste program', 'boolean');
-		$editor->makeNewField('user_access_templateadmin', 'Tilgang til å endre på systemmaler', 'boolean');
-		$editor->makeNewField('user_invoice_setready', 'Tilgang til å sette bookinger faktureringsklar', 'boolean');
-		$editor->makeNewField('user_invoice', 'Tilgang til å merke bookinger som sendt til regnskap', 'boolean');
+		$editor->makeNewField('user_access_useredit', 'Tilgang til &aring; endre brukere', 'boolean');
+		$editor->makeNewField('user_access_userdeactivate', 'Tilgang til &aring; deaktivere brukere', 'boolean');
+		$editor->makeNewField('user_access_areaadmin', __('Access to edit area and room'), 'boolean');
+		$editor->makeNewField('user_access_entrytypeadmin', 'Tilgang til &aring; endre bookingtyper', 'boolean');
+		$editor->makeNewField('user_access_importdn', 'Tilgang til &aring; importere tall fra Datanova kassesystem', 'boolean');
+		$editor->makeNewField('user_access_productsadmin', 'Tilgang til &aring; endre i produktsregister', 'boolean');
+		$editor->makeNewField('user_access_programadmin', 'Tilgang til &aring; endre faste program', 'boolean');
+		$editor->makeNewField('user_access_templateadmin', 'Tilgang til &aring; endre p&aring; systemmaler', 'boolean');
+		$editor->makeNewField('user_invoice_setready', 'Tilgang til &aring; sette bookinger faktureringsklar', 'boolean');
+		$editor->makeNewField('user_invoice', 'Tilgang til &aring; merke bookinger som sendt til regnskap', 'boolean');
 	}
 	
 	if($login['user_access_useredit'])
@@ -132,7 +132,7 @@ if(isset($_GET['editor']))
 			if($first)
 			{
 				$editor->vars['group_'.$R_group['group_id']]['before'] = 
-					"\t<tr>\n\t\t<td><h2>"._('Groups')."</h2></td>\n\t</tr>". // Added heading
+					"\t<tr>\n\t\t<td><h2>".__('Groups')."</h2></td>\n\t</tr>". // Added heading
 					"\t<tr>\n\t\t<td>";
 				$first = false;
 			}
@@ -216,28 +216,28 @@ else
 	echo '<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>'.chr(10);
 	echo '<script src="js/hide_unhide.js" type="text/javascript"></script>'.chr(10);
 	
-	echo '<h1>'._('Users').'</h1>';
+	echo '<h1>'.__('Users').'</h1>';
 	// Add
 	if($login['user_access_useredit'])
-		echo iconHTML('user_add').' <a href="'.$_SERVER['PHP_SELF'].'?editor=1">'._('New user').'</a><br>'.chr(10);
+		echo iconHTML('user_add').' <a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.__('New user').'</a><br>'.chr(10);
 	
 	echo iconHTML('phone').' <a href="telefonliste.php">Telefonliste</a><br><br>'.chr(10);
 	
 	$rights = array(
 	
-			'1' => 'Rettighet til å administrere brukeres rettigheter',
-			'2' => 'Rettighet til å administrere brukere',
-			'3' => 'Rettighet til å endre på anlegg og rom',
-			'4' => 'Rettighet til å endre på bookingtyper',
-			'5' => 'Rettighet til å importere data fra Datanovas kassesystem',
-			'6' => 'Rettighet til å endre vareregisteret',
-			'7' => 'Rettighet til å endre program',
-			'8' => 'Rettighet til å endre systemmaler',
-			'9' => 'Rettighet til å sette faktureringsklar',
-			'10' => 'Rettighet til å sette bookinger som sendt til regnskap',
-			'11' => 'Rettighet til å deaktivere brukere',
-			'sync' => 'Synkronisering mot Exchange / Outlook påslått',
-			'external' => 'Passord tilfredstiller krav til pålogging eksternt',
+			'1' => 'Rettighet til &aring; administrere brukeres rettigheter',
+			'2' => 'Rettighet til &aring; administrere brukere',
+			'3' => 'Rettighet til &aring; endre p&aring; anlegg og rom',
+			'4' => 'Rettighet til &aring; endre p&aring; bookingtyper',
+			'5' => 'Rettighet til &aring; importere data fra Datanovas kassesystem',
+			'6' => 'Rettighet til &aring; endre vareregisteret',
+			'7' => 'Rettighet til &aring; endre program',
+			'8' => 'Rettighet til &aring; endre systemmaler',
+			'9' => 'Rettighet til &aring; sette faktureringsklar',
+			'10' => 'Rettighet til &aring; sette bookinger som sendt til regnskap',
+			'11' => 'Rettighet til &aring; deaktivere brukere',
+			'sync' => 'Synkronisering mot Exchange / Outlook p&aring;sl&aring;tt',
+			'external' => 'Passord tilfredstiller krav til p&aring;logging eksternt',
 		);
 	echo '<script src="js/jquery.hoverbox.min.js" type="text/javascript"></script>';
 	echo '<script type="text/javascript">
@@ -256,13 +256,13 @@ else
 	</script>
 	';
 	// List of users
-	echo '<h2>'._('List of users').'</h2>'.chr(10);
+	echo '<h2>'.__('List of users').'</h2>'.chr(10);
 	$Q_users = mysql_query("select user_id from `users` order by `user_name`");
 	if(!mysql_num_rows($Q_users))
-		echo _('No users found.');
+		echo __('No users found.');
 	else
 	{
-		echo '<a href="javascript:void();" class="showAll">Vis info på alle / Ikke vis info på alle</a>';
+		echo '<a href="javascript:void();" class="showAll">Vis info p&aring; alle / Ikke vis info p&aring; alle</a>';
 		echo '<table class="prettytable">'.chr(10);
 		echo '	<tr>'.chr(10);
 		echo '		<th>ID</th>'.chr(10);
@@ -322,7 +322,7 @@ else
 				$area_user = getArea($user['user_area_default']);
 				if(!count($area_user))
 					$area_user['area_name'] = 'IKKE FUNNET'; 
-				echo _('Default area').': '.$area_user['area_name'];
+				echo __('Default area').': '.$area_user['area_name'];
 				'</div></td>'.chr(10);
 			
 			echo '		<td class="'.$deactivated.'">';

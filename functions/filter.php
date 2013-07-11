@@ -59,41 +59,41 @@ function filterMakeAlternatives () {
 	 * - bool
 	 */
 	
-	filterAddAlternative ('entry_id',					'id',			_('Entry id'));
-	filterAddAlternative ('entry_name',					'text',			_('Entry name'));
-	filterAddAlternative ('entry_title',				'text',			_('Entry title'));
-	filterAddAlternative ('entry_type_id',				'id',			_('Entry type')); filterAssignTable ('entry_type_id', 'entry_type', 'entry_type_id', 'entry_type_name');
-	filterAddAlternative ('time_start',					'date',			_('Start time'));
-	filterAddAlternative ('time_end',					'date',			_('End time'));
-	filterAddAlternative ('area_id',					'select',		_('Area'));
-	filterAddAlternative ('room_id',					'select',		_('Room'));
-	filterAddAlternative ('user_assigned',				'id2',			_('Users assigned')); // filterAssignTable ('user_assigned', 'users', 'user_id', 'user_name');
-	filterAddAlternative ('user_assigned2',				'text',			_('Manuel user assigned'));
-	filterAddAlternative ('customer_name',				'text',			_('Customer'));
-	filterAddAlternative ('customer_id',				'id',			_('Customer ID')); filterAssignTable ('customer_id', 'customer', 'customer_id', 'customer_name');
-	filterAddAlternative ('customer_municipal',			'text',			_('Municipal'));
-	filterAddAlternative ('customer_municipal_num',		'num',			_('Municipal number'));
-	filterAddAlternative ('contact_person_name',		'text',			_('Contact person'));
-	filterAddAlternative ('contact_person_phone',		'text',			_('Contact telephone'));
-	filterAddAlternative ('contact_person_email',		'text',			_('Contact email'));	
-	filterAddAlternative ('num_person_child',			'num',			_('Number of children'));
-	filterAddAlternative ('num_person_adult',			'num',			_('Number of adults'));
-	filterAddAlternative ('num_person_count',			'bool',			_('Count these numbers'));
-	filterAddAlternative ('service_description',		'text',			_('Service description'));
-	filterAddAlternative ('service_alco',				'bool',			_('Serve alcohol?'));
-	filterAddAlternative ('program_id',					'id',			_('Fixed programs')); filterAssignTable ('program_id', 'programs', 'program_id', 'program_name');
-	filterAddAlternative ('program_description',		'text',			_('Program description'));
-	filterAddAlternative ('comment',					'text',			_('Comment'));
+	filterAddAlternative ('entry_id',					'id',			__('Entry id'));
+	filterAddAlternative ('entry_name',					'text',			__('Entry name'));
+	filterAddAlternative ('entry_title',				'text',			__('Entry title'));
+	filterAddAlternative ('entry_type_id',				'id',			__('Entry type')); filterAssignTable ('entry_type_id', 'entry_type', 'entry_type_id', 'entry_type_name');
+	filterAddAlternative ('time_start',					'date',			__('Start time'));
+	filterAddAlternative ('time_end',					'date',			__('End time'));
+	filterAddAlternative ('area_id',					'select',		__('Area'));
+	filterAddAlternative ('room_id',					'select',		__('Room'));
+	filterAddAlternative ('user_assigned',				'id2',			__('Users assigned')); // filterAssignTable ('user_assigned', 'users', 'user_id', 'user_name');
+	filterAddAlternative ('user_assigned2',				'text',			__('Manuel user assigned'));
+	filterAddAlternative ('customer_name',				'text',			__('Customer'));
+	filterAddAlternative ('customer_id',				'id',			__('Customer ID')); filterAssignTable ('customer_id', 'customer', 'customer_id', 'customer_name');
+	filterAddAlternative ('customer_municipal',			'text',			__('Municipal'));
+	filterAddAlternative ('customer_municipal_num',		'num',			__('Municipal number'));
+	filterAddAlternative ('contact_person_name',		'text',			__('Contact person'));
+	filterAddAlternative ('contact_person_phone',		'text',			__('Contact telephone'));
+	filterAddAlternative ('contact_person_email',		'text',			__('Contact email'));
+	filterAddAlternative ('num_person_child',			'num',			__('Number of children'));
+	filterAddAlternative ('num_person_adult',			'num',			__('Number of adults'));
+	filterAddAlternative ('num_person_count',			'bool',			__('Count these numbers'));
+	filterAddAlternative ('service_description',		'text',			__('Service description'));
+	filterAddAlternative ('service_alco',				'bool',			__('Serve alcohol?'));
+	filterAddAlternative ('program_id',					'id',			__('Fixed programs')); filterAssignTable ('program_id', 'programs', 'program_id', 'program_name');
+	filterAddAlternative ('program_description',		'text',			__('Program description'));
+	filterAddAlternative ('comment',					'text',			__('Comment'));
 	filterAddAlternative ('infoscreen_txt',				'text',			_h('Text on infoscreen'));
-	filterAddAlternative ('invoice',					'bool',			_('Invoice'));
-	filterAddAlternative ('invoice_ref_your',			'text',			_('Invoice - Your referance'));
-	filterAddAlternative ('invoice_comment',			'text',			_('Invoice comment - to customer'));
-	filterAddAlternative ('invoice_internal_comment',	'text',			_('Invoice comment - internal'));
-	filterAddAlternative ('invoice_address_id',			'text',			_('Invoice address ID'));
-	filterAddAlternative ('invoice_electronic',			'bool',			_('Electronic invoice'));
-	filterAddAlternative ('invoice_email',				'text',			_('E-mail for electronic invoice'));
-	filterAddAlternative ('invoice_status',				'select',		_('Status of invoice'));
-	filterAddAlternative ('confirm_email',				'bool',			_('Confirmation sent'));
+	filterAddAlternative ('invoice',					'bool',			__('Invoice'));
+	filterAddAlternative ('invoice_ref_your',			'text',			__('Invoice - Your referance'));
+	filterAddAlternative ('invoice_comment',			'text',			__('Invoice comment - to customer'));
+	filterAddAlternative ('invoice_internal_comment',	'text',			__('Invoice comment - internal'));
+	filterAddAlternative ('invoice_address_id',			'text',			__('Invoice address ID'));
+	filterAddAlternative ('invoice_electronic',			'bool',			__('Electronic invoice'));
+	filterAddAlternative ('invoice_email',				'text',			__('E-mail for electronic invoice'));
+	filterAddAlternative ('invoice_status',				'select',		__('Status of invoice'));
+	filterAddAlternative ('confirm_email',				'bool',			__('Confirmation sent'));
 	
 	// Datanova
 	filterAddAlternative ('tamed_booking',              'bool',        'Ta med fra booking');
@@ -107,14 +107,14 @@ function filterMakeAlternatives () {
 	
 	// Area_id
 	$alternatives['area_id']['choice'] = array();
-	$alternatives['area_id']['choice'][0] = _('Select one');
+	$alternatives['area_id']['choice'][0] = __('Select one');
 	$Q = mysql_query("select id as area_id, area_name from `mrbs_area` order by 'area_name'");
 	while( $r_choice = mysql_fetch_assoc($Q))
 		$alternatives['area_id']['choice'][$r_choice['area_id']]	= $r_choice['area_name'];
 	
 	// Room_id
 	$alternatives['room_id']['choice'] = array();
-	$alternatives['room_id']['choice'][0] = _('Whole area');
+	$alternatives['room_id']['choice'][0] = __('Whole area');
 	$Q = mysql_query("select id as room_id, room_name, area_id from `mrbs_room` order by area_id, room_name");
 	while( $r_choice = mysql_fetch_assoc($Q))
 		$alternatives['room_id']['choice'][$r_choice['room_id']]
@@ -124,14 +124,14 @@ function filterMakeAlternatives () {
 	
 	// User_id
 	$alternatives['user_assigned']['choice'] = array();
-	$alternatives['user_assigned']['choice'][0] = _('Nobody');
+	$alternatives['user_assigned']['choice'][0] = __('Nobody');
 	$Q = mysql_query("select user_id, user_name from `users` order by 'user_name'");
 	while( $r_choice = mysql_fetch_assoc($Q))
 		$alternatives['user_assigned']['choice'][$r_choice['user_id']]	= $r_choice['user_name'];
 	
 	
 	$alternatives['invoice_status']['choice'] = array();
-	$alternatives['invoice_status']['choice'][0] = _('Not to be made');
+	$alternatives['invoice_status']['choice'][0] = __('Not to be made');
 	$alternatives['invoice_status']['choice'][1] = 'skal lages, ikke klargjort';
 	$alternatives['invoice_status']['choice'][2] = 'skal lages, klar til fakturering';
 	$alternatives['invoice_status']['choice'][3] = 'sendt regnskap';
@@ -471,13 +471,13 @@ function filterLink ($filtertable, $return_to = '') {
 	echo '[ <font size="1">';
 	
 	echo '<img height="12" src="./img/icons/table_multiple.png" style="border: 0px solid black; vertical-align: middle;"> '.
-	'<a href="entry_filters.php?filters='.$filtertable_serialized.'&amp;return_to='.$return_to.'">'._('View / Edit filters').'</a> -:- ';
+	'<a href="entry_filters.php?filters='.$filtertable_serialized.'&amp;return_to='.$return_to.'">'.__('View / Edit filters').'</a> -:- ';
 	
 	echo '<img height="12" src="./img/icons/table.png" style="border: 0px solid black; vertical-align: middle;"> '.
-	'<a href="entry_list.php?filters='.$filtertable_serialized.'">'._('Entry list').'</a> -:- ';
+	'<a href="entry_list.php?filters='.$filtertable_serialized.'">'.__('Entry list').'</a> -:- ';
 	
 	echo '<img height="12" src="./img/icons/chart_bar.png" style="border: 0px solid black; vertical-align: middle;"> '.
-	'<a href="entry_stat.php?filters='.$filtertable_serialized.'">'._('Statistics').'</a> -:- ';
+	'<a href="entry_stat.php?filters='.$filtertable_serialized.'">'.__('Statistics').'</a> -:- ';
 	
 	echo '<img height="12" src="./img/icons/group.png" style="border: 0px solid black; vertical-align: middle;"> '.
 	'<a href="entry_list.php?listtype=customer_list&amp;filters='.$filtertable_serialized.'">'._h('Customer list').'</a> ';
@@ -491,7 +491,7 @@ function filterLink ($filtertable, $return_to = '') {
 function filterToText ($filtertable) {
 	global $alternatives;
 	
-	$return = _('Getting entries where ');
+	$return = __('Getting entries where ');
 	$i = 0;
 	$last_type = '';
 	foreach ($filtertable as $filter)
@@ -503,7 +503,7 @@ function filterToText ($filtertable) {
 			if($filter[0] == $last_filter)
 				$return .= ' eller ';
 			else
-				$return .= ' '._('and').' ';
+				$return .= ' '.__('and').' ';
 		}
 		
 		$return .= '<b>'.strtolower($alternatives[$filter[0]]['name']).'</b> ';
@@ -511,10 +511,10 @@ function filterToText ($filtertable) {
 			case 'bool':
 			case 'select':
 			case 'id':
-				$return .= _('is'); break;
+				$return .= __('is'); break;
 			
 			case 'id2':
-				$return .= _('contains'); break;
+				$return .= __('contains'); break;
 			
 			case 'text':
 				switch($filter[2])
@@ -524,7 +524,7 @@ function filterToText ($filtertable) {
 						break;
 					
 					default:
-						$return .= _('matches');
+						$return .= __('matches');
 						break;
 				}
 				
@@ -547,9 +547,9 @@ function filterToText ($filtertable) {
 		}
 		elseif($alternatives[$filter[0]]['type'] == 'bool') {
 			if($filter[1])
-				$return .= _('true');
+				$return .= __('true');
 			else
-				$return .= _('false');
+				$return .= __('false');
 		}
 		elseif($alternatives[$filter[0]]['type'] == 'select') {
 			$return .= $alternatives[$filter[0]]['choice'][$filter[1]];

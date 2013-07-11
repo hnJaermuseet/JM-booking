@@ -100,7 +100,7 @@ function print_header($day, $month, $year, $area){
 		genDateSelector("", $day, $month, $year);
 		if (!empty($area))
 			echo '<input type="hidden" name="area" value='.$area.'>'; 
-		echo '<input type="submit" value="'._('View day').'">'.
+		echo '<input type="submit" value="'.__('View day').'">'.
 		iconHTML('calendar_view_day').
 		'</form>';
 		echo '</td>'.chr(10);
@@ -130,7 +130,7 @@ function print_header($day, $month, $year, $area){
 			echo '>'.$i.'</option>';
 		}
 		echo '</select>';
-		echo '<input type="submit" value="'._('View week').'">';
+		echo '<input type="submit" value="'.__('View week').'">';
 		echo iconHTML('calendar_view_week');
 		echo '</form>'.
 		'</td>'.chr(10).
@@ -151,7 +151,7 @@ function print_header($day, $month, $year, $area){
 			$thismonthtime = mktime (0, 0, 0, $i, 1, $year);
 			echo '<option value="'.$i.'"';
 			if($i == $thismonth) echo ' selected="selected"';
-			echo '>'._(date("M", $thismonthtime)).'</option>';
+			echo '>'.__(date("M", $thismonthtime)).'</option>';
 		}
 		echo '</select>';
 		echo '<select name="year">';
@@ -170,9 +170,9 @@ function print_header($day, $month, $year, $area){
 		echo '							<td align="right">';
 		echo '<form action="entry.php" method="get" style="margin: 0px; padding: 0px;">';
 		echo '<input type="text" id="entry_id_finder" name="entry_id" '.
-			'value="'._('Enter entry ID').'" '.
+			'value="'.__('Enter entry ID').'" '.
 			'onclick="document.getElementById(\'entry_id_finder\').value=\'\';">';
-		echo '<input type="submit" value="'._('Find').'">';
+		echo '<input type="submit" value="'.__('Find').'">';
 		echo '</form>';
 		echo '</td>'.chr(10);
 		
@@ -182,15 +182,15 @@ function print_header($day, $month, $year, $area){
 		echo '				</td>'.chr(10);
 		
 		echo '				<td class="banner'.$testSystem['bannerExtraClass'].'" align="center">'.chr(10);
-		echo '					'._("Logged in as").' <a href="user.php?user_id='.$login['user_id'].'">'.
+		echo '					'.__("Logged in as").' <a href="user.php?user_id='.$login['user_id'].'">'.
 									htmlentities($login['user_name'], ENT_QUOTES).
 								'</a><br>'.chr(10);
 		echo '					<a href="logout.php">'.
 			iconHTML('bullet_delete').' '.
-			_("Log out").'</a><br>'.chr(10);
+			__("Log out").'</a><br>'.chr(10);
 		echo '					<a href="admin.php">'.
 			iconHTML('bullet_wrench').' '.
-			_("Administration").'</a>'.chr(10);
+			__("Administration").'</a>'.chr(10);
 		echo '				</td>'.chr(10);
 		
 		echo '			</tr>'.chr(10).
@@ -199,7 +199,7 @@ function print_header($day, $month, $year, $area){
 		
 		echo '		 -:- <a class="menubar" href="./edit_entry2.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$selected_room.'">'.
 		iconHTML('page_white_add').' '.
-		_('Make a new entry').'</a>'.chr(10);
+		__('Make a new entry').'</a>'.chr(10);
 		
 		//echo '		 -:- <a class="menubar" href="./new_entries.php">'.
 		//iconHTML('table').' '.
@@ -207,11 +207,11 @@ function print_header($day, $month, $year, $area){
 		
 		echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=not_confirmed">'.
 		iconHTML('email_delete').' '.
-		_('Not confirmed').'</a>'.chr(10);
+		__('Not confirmed').'</a>'.chr(10);
 		
 		echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=no_user_assigned">'.
 		iconHTML('user_delete').' '.
-		_('No users assigned').'</a>'.chr(10);
+		__('No users assigned').'</a>'.chr(10);
 		
 		echo '		 -:- <a class="menubar" href="./entry_list.php?listtype=servering">'.
 		iconHTML('drink').' '.
@@ -227,7 +227,7 @@ function print_header($day, $month, $year, $area){
 		
 		echo '		 -:- <a class="menubar" href="./customer_list.php">'.
 		iconHTML('group').' '.
-		_('Customers').'</a>'.chr(10);
+		__('Customers').'</a>'.chr(10);
 		
 		if($login['user_invoice'] || $login['user_invoice_setready'])
 		{
@@ -238,12 +238,12 @@ function print_header($day, $month, $year, $area){
 				echo '?area_id='.$area;
 			echo '">'.
 			iconHTML('coins').' '.
-			_('Invoice').'</a>'.chr(10);
+			__('Invoice').'</a>'.chr(10);
 		}
 		
 		echo '		 -:- <a class="menubar" href="./user_list.php">'.
 		iconHTML('user').' '.
-		_('Userlist').'</a>'.chr(10);
+		__('Userlist').'</a>'.chr(10);
 		
 		echo '		 -:- <a class="menubar" href="./entry_filters.php?filters=a:1:{i:0;a:3:{i:0;s:10:%22entry_name%22;i:1;s:0:%22%22;i:2;s:0:%22%22;}}&amp;return_to=entry_list">'.
 		iconHTML('find').' '.
@@ -270,47 +270,47 @@ function parseDate($date){
 	$s = array();
 	$r = array();
 	
-	$s[]='Monday';			$r[]=_('Monday');
-	$s[]='Tuesday';			$r[]=_('Tuedsay');
-	$s[]='Wednesday';		$r[]=_('Wednesday');
-	$s[]='Thursday';		$r[]=_('Thursday');
-	$s[]='Friday';			$r[]=_('Friday');
-	$s[]='Saturday';		$r[]=_('Saturday');
-	$s[]='Sunday';			$r[]=_('Sunday');
+	$s[]='Monday';			$r[]=__('Monday');
+	$s[]='Tuesday';			$r[]=__('Tuedsay');
+	$s[]='Wednesday';		$r[]=__('Wednesday');
+	$s[]='Thursday';		$r[]=__('Thursday');
+	$s[]='Friday';			$r[]=__('Friday');
+	$s[]='Saturday';		$r[]=__('Saturday');
+	$s[]='Sunday';			$r[]=__('Sunday');
 	
-	$s[]='Mon';				$r[]=_('Mon');
-	$s[]='Tue';				$r[]=_('Tue');
-	$s[]='Wed';				$r[]=_('Wed');
-	$s[]='Thu';				$r[]=_('Thu');
-	$s[]='Fri';				$r[]=_('Fri');
-	$s[]='Sat';				$r[]=_('Sat');
-	$s[]='Sun';				$r[]=_('Sun');
+	$s[]='Mon';				$r[]=__('Mon');
+	$s[]='Tue';				$r[]=__('Tue');
+	$s[]='Wed';				$r[]=__('Wed');
+	$s[]='Thu';				$r[]=__('Thu');
+	$s[]='Fri';				$r[]=__('Fri');
+	$s[]='Sat';				$r[]=__('Sat');
+	$s[]='Sun';				$r[]=__('Sun');
 	
-	$s[]='January';			$r[]=_('January');
-	$s[]='February';		$r[]=_('February');
-	$s[]='March';			$r[]=_('March');
-	$s[]='April';			$r[]=_('April');
-	$s[]='May';				$r[]=_('May');
-	$s[]='June';			$r[]=_('June');
-	$s[]='July';			$r[]=_('July');
-	$s[]='August';			$r[]=_('August');
-	$s[]='September';		$r[]=_('September');
-	$s[]='October';			$r[]=_('October');
-	$s[]='November';		$r[]=_('November');
-	$s[]='December';		$r[]=_('December');
+	$s[]='January';			$r[]=__('January');
+	$s[]='February';		$r[]=__('February');
+	$s[]='March';			$r[]=__('March');
+	$s[]='April';			$r[]=__('April');
+	$s[]='May';				$r[]=__('May');
+	$s[]='June';			$r[]=__('June');
+	$s[]='July';			$r[]=__('July');
+	$s[]='August';			$r[]=__('August');
+	$s[]='September';		$r[]=__('September');
+	$s[]='October';			$r[]=__('October');
+	$s[]='November';		$r[]=__('November');
+	$s[]='December';		$r[]=__('December');
 	
-	$s[]='Jan';				$r[]=_('Jan');
-	$s[]='Feb';				$r[]=_('Feb');
-	$s[]='Mar';				$r[]=_('Mar');
-	$s[]='Apr';				$r[]=_('Apr');
-	$s[]='May';				$r[]=_('May');
-	$s[]='Jun';				$r[]=_('Jun');
-	$s[]='Jul';				$r[]=_('Jul');
-	$s[]='Aug';				$r[]=_('Aug');
-	$s[]='Sep';				$r[]=_('Sep');
-	$s[]='Oct';				$r[]=_('Oct');
-	$s[]='Nov';				$r[]=_('Nov');
-	$s[]='Dec';				$r[]=_('Dec');
+	$s[]='Jan';				$r[]=__('Jan');
+	$s[]='Feb';				$r[]=__('Feb');
+	$s[]='Mar';				$r[]=__('Mar');
+	$s[]='Apr';				$r[]=__('Apr');
+	$s[]='May';				$r[]=__('May');
+	$s[]='Jun';				$r[]=__('Jun');
+	$s[]='Jul';				$r[]=__('Jul');
+	$s[]='Aug';				$r[]=__('Aug');
+	$s[]='Sep';				$r[]=__('Sep');
+	$s[]='Oct';				$r[]=__('Oct');
+	$s[]='Nov';				$r[]=__('Nov');
+	$s[]='Dec';				$r[]=__('Dec');
 	
 	
 	
@@ -480,9 +480,9 @@ function printMonth ($year, $month, $selected, $selectedType1 = 'day')
 	echo '<table style="width: 100%;">'.chr(10);
 	echo ' <tr><td class="B"><center><b><a class="graybg" href="month.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day=1&amp;area='.$area.'&amp;room='.$room.'">';
 	if($selectedType == 'month')
-		echo '<font color="red">'._(date('M', $monthTime)).' '.date('Y', $monthTime).'</font>';
+		echo '<font color="red">'.__(date('M', $monthTime)).' '.date('Y', $monthTime).'</font>';
 	else
-		echo _(date('M', $monthTime)).' '.date('Y', $monthTime);
+		echo __(date('M', $monthTime)).' '.date('Y', $monthTime);
 	
 	echo '</b></center></td>';
 	
@@ -813,7 +813,7 @@ function genEntryName()
 	
 	if(!$first_part_set)
 	{
-		$entry_name2[] = _('Unspesified title');
+		$entry_name2[] = __('Unspesified title');
 		$entry_name_set = FALSE;
 	}
 	else
@@ -1370,7 +1370,7 @@ function getAttachment($id, $getAll = false)
 					{
 						$area = getArea($program['area_id']);
 						if(!count($area))
-							$area = array('area_name' => _('UNKNOWN AREA'));
+							$area = array('area_name' => __('UNKNOWN AREA'));
 						
 						$att['connections'][] = array(
 								'type' => 'Fast program',
@@ -1385,7 +1385,7 @@ function getAttachment($id, $getAll = false)
 				{
 					$area = getArea($R['area_id']);
 					if(!count($area))
-						$area = array('area_name' => _('UNKNOWN AREA'));
+						$area = array('area_name' => __('UNKNOWN AREA'));
 					
 					$entry_type = getEntryType($R['entry_type_id']);
 					if(count($entry_type))
@@ -1510,7 +1510,7 @@ function printEntryLog($log, $printData = FALSE, $to_return = FALSE)
 	else
 	{
 		if($log['log_action'] == 'add')
-			$return .= _('New entry.');
+			$return .= __('New entry.');
 		elseif($log['log_action'] == 'edit')
 		{
 			$emails = false;
@@ -1522,19 +1522,19 @@ function printEntryLog($log, $printData = FALSE, $to_return = FALSE)
 					$return .= 'Bookingen ble merket som sendt til regnskap'; break;
 					
 				case 'invoice_sent': // Not in use?
-					$return .= _('Invoice is registered as sent.'); break;
+					$return .= __('Invoice is registered as sent.'); break;
 				case 'invoice_payed':
 					$return .= 'Betaling er register p&aring; faktura'; break;
 				case 'confirm':
 				case 'comfirm':
-					$return .= _('Confirmation was sent.'); break;
+					$return .= __('Confirmation was sent.'); break;
 				case 'confirm_email':
 				case 'comfirm_email':
-					$return .= _('Confirmation email is sent to');
+					$return .= __('Confirmation email is sent to');
 					$emails = true;
 					break;
 				case 'ical_sent':
-					$return .= _('Icalendar element is sent to');
+					$return .= __('Icalendar element is sent to');
 					$emails = true;
 					break;
 				case 'entry_deleted':
@@ -1544,7 +1544,7 @@ function printEntryLog($log, $printData = FALSE, $to_return = FALSE)
 					$return .= 'Bookingen reaktivert';
 					break;
 				case '':
-					$return .= _('Entry was edited.');
+					$return .= __('Entry was edited.');
 					break;
 				default:
 					break;
@@ -1586,11 +1586,11 @@ function readEntryLog ($log)
 	$return = array();
 	
 	if($log['log_action'] == 'add')
-		$middlestring = _('set to');
+		$middlestring = __('set to');
 	elseif($log['log_action2'] == 'entry_deleted' || $log['log_action2'] == 'entry_undeleted')
 		$middlestring = 'var';
 	else
-		$middlestring = _('changed to');
+		$middlestring = __('changed to');
 		
 	
 	foreach ($log['log_data'] as $index => $value)
@@ -1605,24 +1605,24 @@ function readEntryLog ($log)
 				
 				case 'entry_name':
 					if($value == '')
-						$return[] = _('Entry name').' <i>'._('not set').'</i>';
+						$return[] = __('Entry name').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Entry name').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Entry name').' '.$middlestring.' "'.$value.'"';
 					break;
 					
 				case 'entry_title':
 					if($value == '')
-						$return[] = _('Entry title').' <i>'._('not set').'</i>';
+						$return[] = __('Entry title').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Entry title').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Entry title').' '.$middlestring.' "'.$value.'"';
 					break;
 					
 				case 'time_start':
-					$return[] = _('Start time').' '.$middlestring.' <i>'.date('H:i d-m-Y', $value).'</i>';
+					$return[] = __('Start time').' '.$middlestring.' <i>'.date('H:i d-m-Y', $value).'</i>';
 					break;
 					
 				case 'time_end':
-					$return[] = _('End time').' '.$middlestring.' <i>'.date('H:i d-m-Y', $value).'</i>';
+					$return[] = __('End time').' '.$middlestring.' <i>'.date('H:i d-m-Y', $value).'</i>';
 					break;
 					
 				case 'time_created':
@@ -1643,22 +1643,22 @@ function readEntryLog ($log)
 				case 'area_id':
 					$area = getArea($value);
 					if(count($area))
-						$return[] = _('Area').' '.$middlestring.' <i>'.$area['area_name'].'</i>';
+						$return[] = __('Area').' '.$middlestring.' <i>'.$area['area_name'].'</i>';
 					else
-						$return[] = _('Area').' '.$middlestring.' <i>--'._('Name not found').'--</i>';
+						$return[] = __('Area').' '.$middlestring.' <i>--'.__('Name not found').'--</i>';
 					break;
 					
 				case 'room_id':
 					$value = splittIDs($value);
 					if(!count($value))
-						$return[] = _('Room').' '.$middlestring.' <i>'._('Whole area').'</i>';
+						$return[] = __('Room').' '.$middlestring.' <i>'.__('Whole area').'</i>';
 					else
 					{
 						$values = array();
 						foreach ($value as $id)
 						{
 							if($id == '0')
-								$values[] = _('Whole area');
+								$values[] = __('Whole area');
 							else
 							{
 								$thisone = getRoom($id);
@@ -1666,7 +1666,7 @@ function readEntryLog ($log)
 									$values[] = $thisone['room_name'];
 							}
 						}
-						$return[] = _('Room').' '.$middlestring.' <i>'.implode(', ', $values).'</i>';
+						$return[] = __('Room').' '.$middlestring.' <i>'.implode(', ', $values).'</i>';
 					}
 					break;
 					
@@ -1684,14 +1684,14 @@ function readEntryLog ($log)
 					
 				case 'edit_by':
 					if(!count($value))
-						$return[] = 'Har v&aelig;rt endret av <i>'._('Nobody').'</i>';
+						$return[] = 'Har v&aelig;rt endret av <i>'.__('Nobody').'</i>';
 					else
 					{
 						$values = array();
 						foreach ($value as $id)
 						{
 							if($id == '0')
-								$values[] = _('Nobody');
+								$values[] = __('Nobody');
 							else
 							{
 								$thisone = getUser($id);
@@ -1706,14 +1706,14 @@ function readEntryLog ($log)
 				case 'user_assigned':
 					$value = splittIDs($value);
 					if(!count($value))
-						$return[] = _('Users assigned').' '.$middlestring.' <i>'._('Nobody').'</i>';
+						$return[] = __('Users assigned').' '.$middlestring.' <i>'.__('Nobody').'</i>';
 					else
 					{
 						$values = array();
 						foreach ($value as $id)
 						{
 							if($id == '0')
-								$values[] = _('Nobody');
+								$values[] = __('Nobody');
 							else
 							{
 								$thisone = getUser($id);
@@ -1721,15 +1721,15 @@ function readEntryLog ($log)
 									$values[] = $thisone['user_name'];
 							}
 						}
-						$return[] = _('Users assigned').' '.$middlestring.' <i>'.implode(', ', $values).'</i>';
+						$return[] = __('Users assigned').' '.$middlestring.' <i>'.implode(', ', $values).'</i>';
 					}
 					break;
 					
 				case 'user_assigned2':
 					if($value == '')
-						$return[] = _('Manual user assigned').' <i>'._('not set').'</i>';
+						$return[] = __('Manual user assigned').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Manual user assigned').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Manual user assigned').' '.$middlestring.' "'.$value.'"';
 					break;
 					
 				/*
@@ -1740,14 +1740,14 @@ function readEntryLog ($log)
 					
 				case 'customer_id':
 					if($value == 0)
-						$return[] = _('Customer').' <i>'._('not set').'</i>';
+						$return[] = __('Customer').' <i>'.__('not set').'</i>';
 					else
 					{
 						$customer = getCustomer($value);
 						if(count($customer))
-							$return[] = _('Customer').' '.$middlestring.' <i>'.$customer['customer_name'].'</i>';
+							$return[] = __('Customer').' '.$middlestring.' <i>'.$customer['customer_name'].'</i>';
 						else
-							$return[] = _('Customer ID').' '.$middlestring.' "'.$value.'"';
+							$return[] = __('Customer ID').' '.$middlestring.' "'.$value.'"';
 					}
 					break;
 					
@@ -1760,160 +1760,160 @@ function readEntryLog ($log)
 				case 'customer_municipal_num':
 					require "libs/municipals_norway.php";
 					if(isset($municipals[$value]))
-						$return[] = _('Municipal').' '.$middlestring.' <i>'.$municipals[$value].'</i>';
+						$return[] = __('Municipal').' '.$middlestring.' <i>'.$municipals[$value].'</i>';
 					elseif($value == '')
-						$return[] = _('Municipal').' <i>'._('not set').'</i>';
+						$return[] = __('Municipal').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Municipal').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Municipal').' '.$middlestring.' "'.$value.'"';
 					break;
 					
 				case 'contact_person_name':
 					if($value == '')
-						$return[] = _('Contact person').' <i>'._('not set').'</i>';
+						$return[] = __('Contact person').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Contact person').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Contact person').' '.$middlestring.' "'.$value.'"';
 					break;
 					
 				case 'contact_person_phone':
 					if($value == '')
-						$return[] = _('Contact persons phone number').' <i>'._('not set').'</i>';
+						$return[] = __('Contact persons phone number').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Contact persons phone number').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Contact persons phone number').' '.$middlestring.' "'.$value.'"';
 					break;
 					
 				case 'contact_person_email':
 					if($value == '')
-						$return[] = _('Contact persons email').' <i>'._('not set').'</i>';
+						$return[] = __('Contact persons email').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Contact persons email').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Contact persons email').' '.$middlestring.' "'.$value.'"';
 					break;
 				
 				case 'num_person_child':
 					if($value == "" || $value == 0)
-						$return[] = _('Number of children').' <i>'._('not set').'</i>';
+						$return[] = __('Number of children').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Number of children').' '.$middlestring.' '.$value;
+						$return[] = __('Number of children').' '.$middlestring.' '.$value;
 					break;
 				
 				case 'num_person_adult':
 					if($value == "" || $value == 0)
-						$return[] = _('Number of adults').' <i>'._('not set').'</i>';
+						$return[] = __('Number of adults').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Number of adults').' '.$middlestring.' '.$value;
+						$return[] = __('Number of adults').' '.$middlestring.' '.$value;
 					break;
 					
 				
 				case 'num_person_count':
 					if($value == "" || $value == 0)
-						$return[] = _('Count these numbers').' '.$middlestring.' <i>'._('not count in booking system / Datanova / cash register').'</i>';
+						$return[] = __('Count these numbers').' '.$middlestring.' <i>'.__('not count in booking system / Datanova / cash register').'</i>';
 					else
-						$return[] = _('Count these numbers').' '.$middlestring.' <i>'._('count in booking system').'</i>';
+						$return[] = __('Count these numbers').' '.$middlestring.' <i>'.__('count in booking system').'</i>';
 					break;
 					
 				case 'program_description':
 					if($value == '')
-						$return[] = _('Program description').' <i>'._('not set').'</i>';
+						$return[] = __('Program description').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Program description').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Program description').' '.$middlestring.' "'.$value.'"';
 					break;
 
 				case 'service_alco':
 					if($value)
-						$return[] = _('Alcohol').' <i>'._('is to be served').'</i>';
+						$return[] = __('Alcohol').' <i>'.__('is to be served').'</i>';
 					else
-						$return[] = _('Alcohol').' <i>'._('is not to be served').'</i>';
+						$return[] = __('Alcohol').' <i>'.__('is not to be served').'</i>';
 					break;
 				
 				case 'service_description':
 					if($value == '')
-						$return[] = _('Service description').' <i>'._('not set').'</i>';
+						$return[] = __('Service description').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Service description').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Service description').' '.$middlestring.' "'.$value.'"';
 					break;
 				
 				case 'comment':
 					if($value == '')
-						$return[] = _('Comment').' <i>'._('not set').'</i>';
+						$return[] = __('Comment').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Comment').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Comment').' '.$middlestring.' "'.$value.'"';
 					break;
 				
 				case 'infoscreen_txt':
 					if($value == '')
-						$return[] = _('Text on infoscreen').' <i>'._('not set').'</i>';
+						$return[] = __('Text on infoscreen').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Text on infoscreen').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Text on infoscreen').' '.$middlestring.' "'.$value.'"';
 					break;
 				
 				case 'invoice':
 					if($value)
-						$return[] = _('Invoice').' <i>'._('should be made').'</i>';
+						$return[] = __('Invoice').' <i>'.__('should be made').'</i>';
 					else
-						$return[] = _('Invoice').' <i>'._('should not be made').'</i>';
+						$return[] = __('Invoice').' <i>'.__('should not be made').'</i>';
 					break;
 					
 				case 'invoice_info':
 				case 'invoice_internal_comment':
 					if($value == '')
-						$return[] = _('Invoice').' - '._('Internal comment').' <i>'._('not set').'</i>';
+						$return[] = __('Invoice').' - '.__('Internal comment').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Invoice').' - '._('Internal comment').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Invoice').' - '.__('Internal comment').' '.$middlestring.' "'.$value.'"';
 					break;
 					
 				case 'invoice_comment':
 					if($value == '')
-						$return[] = _('Invoice').' - '._('Comment').' <i>'._('not set').'</i>';
+						$return[] = __('Invoice').' - '.__('Comment').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Invoice').' - '._('Comment').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Invoice').' - '.__('Comment').' '.$middlestring.' "'.$value.'"';
 					break;
 					
 				case 'invoice_ref_your':
 					if($value == '')
-						$return[] = _('Invoice').' - '._('Your reference').' <i>'._('not set').'</i>';
+						$return[] = __('Invoice').' - '.__('Your reference').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Invoice').' - '._('Your reference').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Invoice').' - '.__('Your reference').' '.$middlestring.' "'.$value.'"';
 					break;
 				
 				case 'invoice_electronic':
 					if($value)
-						$return[] = _('Invoice').' <i>'._('is to be sendt by e-mail').'</i> ('._('E-delivery').')';
+						$return[] = __('Invoice').' <i>'.__('is to be sendt by e-mail').'</i> ('.__('E-delivery').')';
 					else
-						$return[] = _('Invoice').' <i>'._('is to be sendt by regular mail').'</i> ('._('Not').' '.strtolower(_('E-delivery')).')';
+						$return[] = __('Invoice').' <i>'.__('is to be sendt by regular mail').'</i> ('.__('Not').' '.strtolower(__('E-delivery')).')';
 					break;
 				
 				case 'invoice_email':
 					if($value == '')
-						$return[] = _('Invoice').' - '._('E-mail').' <i>'._('not set').'</i>';
+						$return[] = __('Invoice').' - '.__('E-mail').' <i>'.__('not set').'</i>';
 					else
-						$return[] = _('Invoice').' - '._('E-mail').' '.$middlestring.' "'.$value.'"';
+						$return[] = __('Invoice').' - '.__('E-mail').' '.$middlestring.' "'.$value.'"';
 					break;
 				
 				case 'invoice_address_id':
 					if($value == 0)
-						$return[] = _('Invoice').' - '._('Address').' <i>'._('not set').'</i>';
+						$return[] = __('Invoice').' - '.__('Address').' <i>'.__('not set').'</i>';
 					else
 					{
 						$address = getAddress($value);
 						if(count($address))
-							$return[] = _('Invoice').' - '._('Address').' '.$middlestring.' <i>'.str_replace("\n", ', ', $address['address_full']).'</i>';
+							$return[] = __('Invoice').' - '.__('Address').' '.$middlestring.' <i>'.str_replace("\n", ', ', $address['address_full']).'</i>';
 						else
-							$return[] = _('Invoice').' - '._('Address').' '.$middlestring.' "'.$value.'"';
+							$return[] = __('Invoice').' - '.__('Address').' '.$middlestring.' "'.$value.'"';
 					}
 					break;
 				
 				case 'invoice_content':
 					if(!is_array($value)) {
-						$return[] =  _('Invoice').' - '._('Content').' has got syntax error in the log.';
+						$return[] =  __('Invoice').' - '.__('Content').' has got syntax error in the log.';
 					} else
 					{
 						foreach ($value as $linenr => $line)
 						{
-							$return[] = _('Invoice').' - '._('Content') .' - '.
-							_('line').' <i>'.$linenr.'</i> '.$middlestring.': '.
-							_('name').': <i>'.$line['name'].'</i>, '.
+							$return[] = __('Invoice').' - '.__('Content') .' - '.
+							__('line').' <i>'.$linenr.'</i> '.$middlestring.': '.
+							__('name').': <i>'.$line['name'].'</i>, '.
 							'pris/stk: <i>'.$line['belop_hver'].'</i>, '.
-							_('amount').': <i>'.$line['antall'].'</i>, '.
-							_('tax').': <i>'.($line['mva']*100).'%</i>, '.
+							__('amount').': <i>'.$line['antall'].'</i>, '.
+							__('tax').': <i>'.($line['mva']*100).'%</i>, '.
 							'sum u/MVA: <i>'.$line['belop_sum_netto'].'</i>';
 						}
 					}
@@ -1921,48 +1921,48 @@ function readEntryLog ($log)
 				
 				case 'program_id':
 					if($value == 0)
-						$return[] = _('Fixed program').' <i>'._('not set').'</i>';
+						$return[] = __('Fixed program').' <i>'.__('not set').'</i>';
 					else
 					{
 						$program = getProgram($value);
 						if(count($program))
-							$return[] = _('Fixed program').' '.$middlestring.' <i>'.$program['program_name'].'</i>';
+							$return[] = __('Fixed program').' '.$middlestring.' <i>'.$program['program_name'].'</i>';
 						else
-							$return[] = _('ID of fixed program').' '.$middlestring.' "'.$value.'"';
+							$return[] = __('ID of fixed program').' '.$middlestring.' "'.$value.'"';
 					}
 					break;
 				
 				case 'entry_type_id':
 					if($value == 0)
-						$return[] = _('Entry type').' <i>'._('not set').'</i>';
+						$return[] = __('Entry type').' <i>'.__('not set').'</i>';
 					else
 					{
 						$entry_type = getEntryType($value);
 						if(count($entry_type))
-							$return[] = _('Entry type').' '.$middlestring.' <i>'.$entry_type['entry_type_name'].'</i>';
+							$return[] = __('Entry type').' '.$middlestring.' <i>'.$entry_type['entry_type_name'].'</i>';
 						else
-							$return[] = _('ID of entry type').' '.$middlestring.' "'.$value.'"';
+							$return[] = __('ID of entry type').' '.$middlestring.' "'.$value.'"';
 					}
 					break;
 				
 				case 'confirm_id':
-					$return[] = '<a href="entry_confirm_view.php?confirm_id='.$value.'">'._('Confirmation sent').'</a>';
+					$return[] = '<a href="entry_confirm_view.php?confirm_id='.$value.'">'.__('Confirmation sent').'</a>';
 					break;
 				
 				case 'confirm_comment':
-					$return[] = _('Comment').': '.$value;
+					$return[] = __('Comment').': '.$value;
 					break;
 
                 case 'resourcenum':
 					if($value == '')
-						$return[] = 'Ressursnummer <i>'._('not set').'</i>';
+						$return[] = 'Ressursnummer <i>'.__('not set').'</i>';
 					else
 						$return[] = 'Ressursnummer '.$middlestring.' "'.$value.'"';
                     break;
 				
 				default:
 					if(substr($index, 0, 11) == 'email_faild') {
-						$return[] = _('Confirmation was <b>not sent</b> to'). ' <i>'.$value.'</i>'; break;
+						$return[] = __('Confirmation was <b>not sent</b> to'). ' <i>'.$value.'</i>'; break;
 					}
 					elseif(substr($index, 0, 5) == 'email') {
 						$return[] = _h('Tried sending confirmation e-mail to').' <i>'.$value.'</i><br />('.
@@ -2340,7 +2340,7 @@ function splittEmails($string)
 }
 
 function iconHTML ($ico, $end = '.png', $style = '') {
-	return '<img src="./img/icons/'.$ico.$end.'" style="border: 0px solid black; vertical-align: middle; '.$style.'" alt="'._('Icon').': '.$ico.'">';
+	return '<img src="./img/icons/'.$ico.$end.'" style="border: 0px solid black; vertical-align: middle; '.$style.'" alt="'.__('Icon').': '.$ico.'">';
 }
 
 function iconFiletype ($extention)

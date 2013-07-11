@@ -171,9 +171,13 @@ function langNo($text)
 			return '';
 		*/
 	}
+
+    include __DIR__.'/nb_NO/LC_MESSAGES/arbs.php';
+    if(isset($words[$text])) {
+        // TODO: remove charset convertion when everything is UTF-8
+        return utf8_decode($words[$text]);
+    }
 	
 	trigger_error('No translation for: '.$text);
 	return $text;
 }
-
-?>

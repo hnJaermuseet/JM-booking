@@ -47,13 +47,13 @@ if(isset($_GET['editor']))
 	{
 		$editor = new editor('products', $_SERVER['PHP_SELF'].'?editor=1');
 		$editor->setHeading('Nytt produkt');
-		$editor->setSubmitTxt(_('Add'));
+		$editor->setSubmitTxt(__('Add'));
 	}
 	else
 	{
 		$editor = new editor('products', $_SERVER['PHP_SELF'].'?editor=1', $id);
 		$editor->setHeading('Endre produkt');
-		$editor->setSubmitTxt(_('Change'));
+		$editor->setSubmitTxt(__('Change'));
 	}
 	
 	$editor->setDBFieldID('product_id');
@@ -63,7 +63,7 @@ if(isset($_GET['editor']))
 	$editor->makeNewField('product_price', 'Pris', 'text');
 	$editor->makeNewField('product_tax', 'MVA %', 'text');
 	$editor->makeNewField('product_desc', 'Beskrivelse', 'textarea');
-	$editor->makeNewField('area_id', _('Area belonging'), 'select',
+	$editor->makeNewField('area_id', __('Area belonging'), 'select',
 		array('defaultValue' => $area));
 	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
 	$editor->addChoice('area_id', 0, 'Alle anlegg');
@@ -116,13 +116,13 @@ else
 	
 	echo '<table class="prettytable">'.chr(10).chr(10);
 	echo '	<tr>'.chr(10);
-	echo '		<th>'._('Area').'</th>'.chr(10);
-	echo '		<th>'._('ID').'</th>'.chr(10);
+	echo '		<th>'.__('Area').'</th>'.chr(10);
+	echo '		<th>'.__('ID').'</th>'.chr(10);
 	echo '		<th>Produktnavn</th>'.chr(10);
 	echo '		<th>Pris</th>'.chr(10);
 	echo '		<th>MVA</th>'.chr(10);
 	echo '		<th>Beskrivelse</th>'.chr(10);
-	echo '		<th>'._('Options').'</th>'.chr(10);
+	echo '		<th>'.__('Options').'</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
 	while($R_product = mysql_fetch_assoc($Q_products))
 	{
@@ -137,7 +137,7 @@ else
 		{
 			$Q_area = mysql_query("select * from `mrbs_area` where id = '".$R_product['area_id']."'");
 			if(!mysql_num_rows($Q_area))
-				echo '<i>'._('Not found').'</i>';
+				echo '<i>'.__('Not found').'</i>';
 			else
 				echo iconHTML('house').' '.mysql_result($Q_area, 0, 'area_name');
 			echo '</td>'.chr(10);
@@ -162,7 +162,7 @@ else
 		{
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$R_product['product_id'].'">'.
 				iconHTML('package_go').' '.
-				_('Edit').'</a>';
+				__('Edit').'</a>';
 		}
 		else
 		{

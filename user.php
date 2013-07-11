@@ -34,24 +34,24 @@ elseif(isset($_GET['user_id']) && is_numeric($_GET['user_id']))
 	$user_id = (int)$_GET['user_id'];
 else
 {
-	echo _('Error: No user spesified.');
+	echo __('Error: No user spesified.');
 	exit();
 }
 
 $user = getUser ($user_id);
 if (!count($user))
 {
-	echo _('Can\'t find user');
+	echo __('Can\'t find user');
 	exit();
 }
 
 
 print_header($day, $month, $year, $area);
 
-echo '<h1>'._('Viewing user details').'</h1>'.chr(10).chr(10);
+echo '<h1>'.__('Viewing user details').'</h1>'.chr(10).chr(10);
 
 if($user['deactivated'])
-	echo '<div class="error" style="width: 500px;">'._('This user is deactivated.').'</div>';
+	echo '<div class="error" style="width: 500px;">'.__('This user is deactivated.').'</div>';
 
 if($login['user_access_useredit'] || $login['user_id'] == $user['user_id'])
 {
@@ -63,20 +63,20 @@ if($login['user_access_useredit'] || $login['user_id'] == $user['user_id'])
 		' Endre passord</a><br /><br />'.chr(10).chr(10);
 }
 
-echo '<b>'._('UserID').':</b> '.$user['user_id'].'<br>'.chr(10);
-echo '<b>'._('Username').':</b> '.$user['user_name'].'<br>'.chr(10);
-echo '<b>'._('Short username').':</b> '.$user['user_name_short'].'<br>'.chr(10);
-echo '<b>'._('E-mail').':</b> '.$user['user_email'].'<br>'.chr(10);
-echo '<b>'._('Phone').':</b> '.$user['user_phone'].'<br>'.chr(10);
+echo '<b>'.__('UserID').':</b> '.$user['user_id'].'<br>'.chr(10);
+echo '<b>'.__('Username').':</b> '.$user['user_name'].'<br>'.chr(10);
+echo '<b>'.__('Short username').':</b> '.$user['user_name_short'].'<br>'.chr(10);
+echo '<b>'.__('E-mail').':</b> '.$user['user_email'].'<br>'.chr(10);
+echo '<b>'.__('Phone').':</b> '.$user['user_phone'].'<br>'.chr(10);
 echo '<b>Stilling:</b> '.$user['user_position'].'<br>'.chr(10);
 
 echo '<!-- ';
 echo '<br><b>Adresse for internettkalender i Outlook:</b><br><input type="text" size="70" value="'.
 	$systemurl.'/entry_ical.php?user_id='.$user['user_id'].'"><br>'.
-	'Se <a href="'.wikiLink ('Bookingsystemet/Bookinger_i_Outlook').'">guide på wiki</a> for informasjon om hvordan du legger inn kalenderen'.chr(10);
+	'Se <a href="'.wikiLink ('Bookingsystemet/Bookinger_i_Outlook').'">guide p&aring; wiki</a> for informasjon om hvordan du legger inn kalenderen'.chr(10);
 echo '-->';
 	
-echo '<h2>'._('Upcoming entries for ').' '.$user['user_name'].'</h2>'.chr(10);
+echo '<h2>'.__('Upcoming entries for ').' '.$user['user_name'].'</h2>'.chr(10);
 filterMakeAlternatives();
 $filters = array();
 $filters = addFilter($filters, 'user_assigned', $user['user_id']);
@@ -92,14 +92,14 @@ $Q_next_entries = mysql_query("select entry_id from `entry` where
 	limit 50;");*/
 
 if(!mysql_num_rows($Q_next_entries))
-	echo '<i>'._('No upcoming entries found').'</i>'.chr(10);
+	echo '<i>'.__('No upcoming entries found').'</i>'.chr(10);
 else
 {
 	echo '<table style="border-collapse: collapse;">'.chr(10);
 	echo ' <tr>'.chr(10);
-	echo '  <td class="border"><b>'._('Starts').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Name').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Where').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Starts').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Name').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Where').'</b></td>'.chr(10);
 	echo ' </tr>'.chr(10);
 	while($R_entry = mysql_fetch_assoc($Q_next_entries))
 	{
@@ -117,7 +117,7 @@ else
 			foreach ($entry['room_id'] as $rid)
 			{
 				if($rid == '0')
-					$rooms[] = _('Whole area');
+					$rooms[] = __('Whole area');
 				else
 				{
 					$room = getRoom($rid);

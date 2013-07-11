@@ -35,8 +35,8 @@ include_once("glob_inc.inc.php");
 if(!$login['user_invoice'] && !$login['user_invoice_setready'])
 {
 	print_header($day, $month, $year, $area);
-	echo '<h1>'._('Invoice').'</h1>'.chr(10).chr(10);
-	echo _('No access');
+	echo '<h1>'.__('Invoice').'</h1>'.chr(10).chr(10);
+	echo __('No access');
 	
 	exit();
 }
@@ -70,17 +70,17 @@ function entrylist_invoice_soon ($SQL, $tamed_booking)
 	$Q = mysql_query($SQL.' order by `time_start`');
 	if(!$tamed_booking || !mysql_num_rows($Q))
 	{
-		echo _('No entries found.');
+		echo __('No entries found.');
 	}
 	else
 	{
-		echo '<font color="red">'.mysql_num_rows($Q).'</font> '._('entries found.');
+		echo '<font color="red">'.mysql_num_rows($Q).'</font> '.__('entries found.');
 		echo '<br>'.chr(10).chr(10);
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Arrangementsdato</b></td>'.chr(10);
-		echo '  <td style="border: 1px solid black;"><b>'._('Name').'</b></td>'.chr(10);
-		echo '  <td style="border: 1px solid black;"><b>'._('Area').'</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>'.__('Name').'</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>'.__('Area').'</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black; text-align: right;"><b>Sum</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
 		$entry_ids = array();
@@ -94,7 +94,7 @@ function entrylist_invoice_soon ($SQL, $tamed_booking)
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'._(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			
@@ -152,11 +152,11 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 	$Q = mysql_query($SQL.' order by `time_start`');
 	if(!$tamed_booking || !mysql_num_rows($Q))
 	{
-		echo _('No entries found.');
+		echo __('No entries found.');
 	}
 	else
 	{
-		echo '<font color="red">'.mysql_num_rows($Q).'</font> '._('entries found.');
+		echo '<font color="red">'.mysql_num_rows($Q).'</font> '.__('entries found.');
 		echo '<br>'.chr(10).chr(10);
 		
 		echo '<form action="invoice_export.php" method="get" id="invoice_export">'.chr(10).chr(10);
@@ -172,8 +172,8 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 		echo ' <tr>'.chr(10);
 		echo '  <td style="border: 1px solid black;">&nbsp;</td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Arrangementsdato</b></td>'.chr(10);
-		echo '  <td style="border: 1px solid black;"><b>'._('Name').'</b></td>'.chr(10);
-		echo '  <td style="border: 1px solid black;"><b>'._('Area').'</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>'.__('Name').'</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>'.__('Area').'</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Sum</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>&nbsp;</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Satt faktureringsklar av</b></td>'.chr(10);
@@ -199,7 +199,7 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'._(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			
@@ -291,17 +291,17 @@ function entrylist_invoice_tobemade ($SQL, $tamed_booking, $area_spesific = fals
 	
 	if(!$tamed_booking || !mysql_num_rows($Q))
 	{
-		echo _('No entries found.');
+		echo __('No entries found.');
 	}
 	else
 	{
-		echo '<font color="red">'.mysql_num_rows($Q).'</font> '._('entries found.');
+		echo '<font color="red">'.mysql_num_rows($Q).'</font> '.__('entries found.');
 		echo '<br>'.chr(10).chr(10);
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Arrangementsdato</b></td>'.chr(10);
-		echo '  <td style="border: 1px solid black;"><b>'._('Name').'</b></td>'.chr(10);
-		echo '  <td style="border: 1px solid black;"><b>'._('Area').'</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>'.__('Name').'</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>'.__('Area').'</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Sum</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>&nbsp;</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
@@ -314,7 +314,7 @@ function entrylist_invoice_tobemade ($SQL, $tamed_booking, $area_spesific = fals
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'._(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			
@@ -389,18 +389,18 @@ function entrylist_invoice_exported ($SQL, $tamed_booking)
 	$Q = mysql_query($SQL.' order by `invoice_exported_time`');
 	if(!$tamed_booking || !mysql_num_rows($Q))
 	{
-		echo _('No entries found.');
+		echo __('No entries found.');
 	}
 	else
 	{
-		echo '<font color="red">'.mysql_num_rows($Q).'</font> '._('entries found.');
+		echo '<font color="red">'.mysql_num_rows($Q).'</font> '.__('entries found.');
 		echo '<br>'.chr(10).chr(10);
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Sendt til regnskap</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>Arrangementsdato</b></td>'.chr(10);
-		echo '  <td style="border: 1px solid black;"><b>'._('Name').'</b></td>'.chr(10);
-		echo '  <td style="border: 1px solid black;"><b>'._('Area').'</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>'.__('Name').'</b></td>'.chr(10);
+		echo '  <td style="border: 1px solid black;"><b>'.__('Area').'</b></td>'.chr(10);
 		//echo '  <td style="border: 1px solid black;"><b>&nbsp;</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
 		while($R = mysql_fetch_assoc($Q))
@@ -415,7 +415,7 @@ function entrylist_invoice_exported ($SQL, $tamed_booking)
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'._(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			
@@ -457,7 +457,7 @@ function checkInvoicedata ($entry)
 	// Any invoice content?
 	if(!count($entry['invoice_content']))
 	{
-		$errors[] = 'Ingen fakturalinjer er lagt inn p&aring; bookingen. Det m&aring; være fakturalinjer for at fakturering skal kunne finne sted.';
+		$errors[] = 'Ingen fakturalinjer er lagt inn p&aring; bookingen. Det m&aring; v&aerlig;re fakturalinjer for at fakturering skal kunne finne sted.';
 	}
 	else
 	{
@@ -488,7 +488,7 @@ function checkInvoicedata ($entry)
 			// Checking amount
 			if($line['antall'] < 0)
 			{
-				$warnings[] = 'Fakturalinje nr '.$line_num.' har minus i antall. Pris per stykk kan være minus.';
+				$warnings[] = 'Fakturalinje nr '.$line_num.' har minus i antall. Pris per stykk kan v&aerlig;re minus.';
 			}
 			elseif($line['antall'] == 0)
 			{
@@ -498,11 +498,11 @@ function checkInvoicedata ($entry)
 			// Checking a few export limits
 			if($line['belop_hver'] > 99999999)
 			{
-				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort beløp per stykk. Maks er 99 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved &aring; dele opp i flere fakturalinjer.';
+				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort bel&oslash;p per stykk. Maks er 99 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved &aring; dele opp i flere fakturalinjer.';
 			}
 			if($line['belop_sum_netto'] > 9999999999)
 			{
-				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort beløp totalt. Maks er 9999 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved &aring; dele opp i flere fakturalinjer.';
+				$errors[] = 'Fakturalinje nr '.$line_num.' har for stort bel&oslash;p totalt. Maks er 9999 millioner. Kan ikke fortsette uten at dette rettes f.eks. ved &aring; dele opp i flere fakturalinjer.';
 			}
 			if($line['antall'] > 99999999)
 			{
@@ -526,9 +526,7 @@ function checkInvoicedata ($entry)
 		else
 		{
 			// We have got the customer
-			
-			//if(strlen($customer['customer_name']) > 30)
-			//	$warnings[] = 'Kundens navn er lenger enn 30 bokstaver. Dette kan være i lengste laget.';
+
 			if(strlen($customer['customer_name']) < 1)
 				$errors[] = 'Kundens navn er ikke lagt inn p&aring; kunden. Dette g&aring;r ikke og m&aring; rettes. Kunde m&aring; endres.';
 			
@@ -547,18 +545,6 @@ function checkInvoicedata ($entry)
 				else
 				{
 					// We got a address
-					//if($address['address_line_1'] == $customer['customer_name'])
-					//{
-					//	$warnings[] = 'Navnet p&aring; kunden st&aring;r p&aring; første linje i adressen. Ved utskrift, s&aring; vil det da st&aring; kundens navn to ganger.';
-					//}
-					//if(strlen($address['address_line_1']) > 30)
-					//{
-					//	$warnings[] = 'Adresselinje nr 1 er mer enn 30 bokstaver. Er det mulig &aring; dele det opp i flere linjer?';
-					//}
-					//if(strlen($address['address_line_2']) > 30)
-					//{
-					//	$warnings[] = 'Adresselinje nr 2 er mer enn 30 bokstaver. Er det mulig &aring; dele det opp i flere linjer?';
-					//}
 					if($address['address_postalnum'] == '')
 					{
 						$warnings[] = 'Det er ikke valgt noe postnummer/poststed for adressen.';

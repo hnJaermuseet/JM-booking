@@ -41,7 +41,7 @@ foreach ($entry_fields as $field)
 		case 'entry_type_id':
 			if(!isset($_POST[$field['var']]) || !is_numeric($_POST[$field['var']]))
 			{
-				$form_errors[] = _('Entrytype is invalid.');
+				$form_errors[] = __('Entrytype is invalid.');
 				$entry_type_id = 0;
 			}
 			else
@@ -54,7 +54,7 @@ foreach ($entry_fields as $field)
 					// Checking against DB
 					$Q = mysql_query("select entry_type_id from `entry_type` where entry_type_id = '$entry_type_id'");
 					if(!mysql_num_rows($Q))
-						$form_errors[] = _('Can\'t find entrytype in database');
+						$form_errors[] = __('Can\'t find entrytype in database');
 				}
 			}
 			addValue($field['var'], $$field['var']);
@@ -67,7 +67,7 @@ foreach ($entry_fields as $field)
 				$$field['var'] = getDateFromPost($_POST[$field['var']]);
 				if($invalid_date)
 				{
-					$form_errors[] = _('Invalid date. Please check the format.');
+					$form_errors[] = __('Invalid date. Please check the format.');
 				}
 			}
 			addValue($field['var'], $$field['var']);
@@ -76,7 +76,7 @@ foreach ($entry_fields as $field)
 		case 'area_id':
 			if(!isset($_POST[$field['var']]) || !is_numeric($_POST[$field['var']]))
 			{
-				$form_errors[] = _('Area is invalid.');
+				$form_errors[] = __('Area is invalid.');
 				$area_id = 0;
 			}
 			else
@@ -86,14 +86,14 @@ foreach ($entry_fields as $field)
 				
 				if($area_id == '0')
 				{
-					$form_errors[] = _('Area must be selected.');
+					$form_errors[] = __('Area must be selected.');
 				}
 				else
 				{
 					$area_rooms[$area_id] = true;
 					$Q = mysql_query("select id as area_id from `mrbs_area` where id = '$area_id'");
 					if(!mysql_num_rows($Q))
-						$form_errors[] = _('Can\'t find area in database');
+						$form_errors[] = __('Can\'t find area in database');
 				}
 			}
 			addValue($field['var'], $$field['var']);
@@ -114,13 +114,13 @@ foreach ($entry_fields as $field)
 				foreach ($room_id_array as $rid)
 				{
 					if(!is_numeric($rid))
-						$form_errors[] = _('One of the rooms is not found.');
+						$form_errors[] = __('One of the rooms is not found.');
 					elseif($rid != '0') // Ignore zero
 					{
 						$rid = (int)$rid;
 						$thisroom = getRoom($rid);
 						if(!count($thisroom))
-							$form_errors[] = _('One of the rooms is not found.')." ($rid)";
+							$form_errors[] = __('One of the rooms is not found.')." ($rid)";
 						else
 						{
 							$room_id[$rid] = $rid;
@@ -151,13 +151,13 @@ foreach ($entry_fields as $field)
 				foreach ($user_assigned_array as $uid)
 				{
 					if(!is_numeric($uid))
-						$form_errors[] = _('One of the users you assigned is not found.');
+						$form_errors[] = __('One of the users you assigned is not found.');
 					else
 					{
 						$uid = (int)$uid;
 						$Q = mysql_query("select user_id from `users` where user_id = '$uid'");
 						if(!mysql_num_rows($Q))
-							$form_errors[] = _('One of user you assigned is not found.')." ($uid)";
+							$form_errors[] = __('One of user you assigned is not found.')." ($uid)";
 						else
 							$user_assigned[$uid] = $uid;
 					}
@@ -178,7 +178,7 @@ foreach ($entry_fields as $field)
 				$customer = getCustomer($$field['var']);
 				if(!count($customer))
 				{
-					$form_errors[] = _("Can't find the customer you tried to select").' (id '.$$field['var'].')';
+					$form_errors[] = __("Can't find the customer you tried to select").' (id '.$$field['var'].')';
 					$$field['var'] = '';
 					$customer_name_ok = True; // Don't trigger the customer_name error
 				}
@@ -234,7 +234,7 @@ foreach ($entry_fields as $field)
 		case 'program_id':
 			if(!isset($_POST[$field['var']]) || !is_numeric($_POST[$field['var']]))
 			{
-				$form_errors[] = _('Fixed program is invalid.');
+				$form_errors[] = __('Fixed program is invalid.');
 				$$field['var'] = 0;
 			}
 			elseif($_POST[$field['var']] == '0')
@@ -246,7 +246,7 @@ foreach ($entry_fields as $field)
 				
 				$Q = mysql_query("select program_id,program_name from `programs` where program_id = '$program_id'");
 				if(!mysql_num_rows($Q))
-					$form_errors[] = _('Can\'t find the fixed program in database');
+					$form_errors[] = __('Can\'t find the fixed program in database');
 				else
 					$program_name = mysql_result($Q,0,'program_name');
 			}
@@ -263,7 +263,7 @@ foreach ($entry_fields as $field)
 			}
 			elseif(!is_numeric($_POST[$field['var']]))
 			{
-				$form_errors[] = _('Invoice address is invalid.');
+				$form_errors[] = __('Invoice address is invalid.');
 				$$field['var'] = 0;
 			}
 			else
@@ -273,7 +273,7 @@ foreach ($entry_fields as $field)
 				
 				$Q = mysql_query("select address_id from `customer_address` where address_id = '$invoice_address_id'");
 				if(!mysql_num_rows($Q))
-					$form_errors[] = _('Can\'t find the invoice address in database');
+					$form_errors[] = __('Can\'t find the invoice address in database');
 			}
 			addValue($field['var'], $$field['var']);
 			break;
@@ -340,9 +340,9 @@ foreach ($entry_fields as $field)
 			{
 				$$field['var'] = '';
 				if($field['var'] == 'num_person_child')
-					$form_errors[] = _('Number of children must be a number, if anything.');
+					$form_errors[] = __('Number of children must be a number, if anything.');
 				elseif($field['var'] == 'num_person_adult')
-					$form_errors[] = _('Number of adults must be a number, if anything.');
+					$form_errors[] = __('Number of adults must be a number, if anything.');
 			}
 			else
 				$$field['var'] = $_POST[$field['var']];
@@ -443,11 +443,11 @@ if(isset($time_start) && isset($time_end))
 {
 	if ($time_start > $time_end)
 	{
-		$form_errors[] = _('Start time must be before end time for the entry.');
+		$form_errors[] = __('Start time must be before end time for the entry.');
 	}
 }
 else
-	$form_errors[] = _('Start and end time must be set for all entries.');
+	$form_errors[] = __('Start and end time must be set for all entries.');
 
 
 if(!count($form_errors))
@@ -468,13 +468,13 @@ if(!count($form_errors))
 		// Checking title
 		if(!$entry_name_set)
 		{
-			$warnings[] = _('No title for the entry was made. Please spesify either a title, a customer or a bookingtype.');
+			$warnings[] = __('No title for the entry was made. Please spesify either a title, a customer or a bookingtype.');
 		}
 		
 		// Trigger customer_name but not customer_id error?
 		if(!isset($customer_name_ok) || !$customer_name_ok)
 		{
-			$warnings[] = _('Please be advised: You have set a customer name but no customer in the database where selected. The result of this is that no customer is selected.');
+			$warnings[] = __('Please be advised: You have set a customer name but no customer in the database where selected. The result of this is that no customer is selected.');
 		}
 		
 		// Checking room, if some conditions are met
@@ -512,9 +512,9 @@ if(!count($form_errors))
 					{
 						$thisroom = getRoom ($rid);
 						if(!count($thisroom))
-							$warning_tmp = _('One of the rooms you have selected is already booked for').': ';
+							$warning_tmp = __('One of the rooms you have selected is already booked for').': ';
 						else
-							$warning_tmp = '<b>'.$thisroom['room_name'].'</b>'._(' is already booked at the time you have selected for').': ';
+							$warning_tmp = '<b>'.$thisroom['room_name'].'</b>'.__(' is already booked at the time you have selected for').': ';
 					}
 					
 					$i = 0;
@@ -568,16 +568,16 @@ if(!count($form_errors))
 				{
 					$thisuser = getUser($uid);
 					if(!count($thisuser))
-						$warnings[] = _('One of the users you have selected is already booked.');
+						$warnings[] = __('One of the users you have selected is already booked.');
 					else
-						$warnings[] = '<b>'.$thisuser['user_name'].'</b>'._(' is already booked at the time you have selected.');
+						$warnings[] = '<b>'.$thisuser['user_name'].'</b>'.__(' is already booked at the time you have selected.');
 				}
 			}
 		}
 		
 		// Checking for room i wrong building
 		if(count($area_rooms) > 1)
-			$warnings[] = _('You have selected rooms from more than one area.');
+			$warnings[] = __('You have selected rooms from more than one area.');
 		
 		
 		// Checking for starttime in the past and too long into the future
@@ -585,11 +585,11 @@ if(!count($form_errors))
 		{
 			// Only checked if time is changed (or its a new entry)
 			if($time_start < time())
-				$warnings[] = _('You have selected a starttime in the past.');
+				$warnings[] = __('You have selected a starttime in the past.');
 			if($time_end > (time() + 364*24*60*60))
-				$warnings[] = _('Are you sure you want to let the entry end over a year into the future?');
+				$warnings[] = __('Are you sure you want to let the entry end over a year into the future?');
 			if(($time_end - $time_start) > (7*24*60*60))
-				$warnings[] = _('The entry goes over more than 7 days. I think this might be wrong.');
+				$warnings[] = __('The entry goes over more than 7 days. I think this might be wrong.');
 		}
 		
 		
@@ -810,7 +810,7 @@ if(!count($form_errors))
 			
 			if(!newEntryLog($entry_id, 'add', '', $rev_num, $log_data))
 			{
-				echo _('Can\'t log the new entry.');
+				echo __('Can\'t log the new entry.');
 				exit();
 			}
 			
@@ -992,7 +992,7 @@ if(!count($form_errors))
 				
 				if(!newEntryLog($entry_id, 'edit', '', $rev_num, $log_data))
 				{
-					echo _('Can\'t log the changes for the entry.');
+					echo __('Can\'t log the changes for the entry.');
 					exit();
 				}
 				

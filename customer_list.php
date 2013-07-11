@@ -31,9 +31,9 @@ filterMakeAlternatives();
 print_header($day, $month, $year, $area);
 
 $Q = mysql_query("SELECT customer_id FROM `customer` WHERE `slettet` = '0' ORDER BY customer_name");
-echo '<h1>'._('Customers').'</h1>'.chr(10);
+echo '<h1>'.__('Customers').'</h1>'.chr(10);
 
-echo '- '.iconHTML('group_add').' <a href="customer_edit.php?returnToCustomerView=1">'._('Create new customer').'</a><br><br>'.chr(10);
+echo '- '.iconHTML('group_add').' <a href="customer_edit.php?returnToCustomerView=1">'.__('Create new customer').'</a><br><br>'.chr(10);
 
 echo '<table>'.chr(10);
 //echo '	<tr>'.chr(10);
@@ -57,10 +57,10 @@ while($R = mysql_fetch_assoc($Q))
 		echo '		<td><font size="1">'.
 		'<a href="customer_edit.php?customer_id='.$customer['customer_id'].'&amp;returnToCustomerList=1">'.
 		iconHTML('group_edit').' '.
-		_('Edit').'</a>'.
+		__('Edit').'</a>'.
 		' -:- <a href="entry_list.php?filters='.$filters_serialized.'">'.
 		iconHTML('page_white').' '.
-		_('View entries').'</a>'.
+		__('View entries').'</a>'.
 		//' ('.
 		//mysql_num_rows(mysql_query(genSQLFromFilters ($filter, 'entry_id'))).')'.
 		'</font></td>'.chr(10);

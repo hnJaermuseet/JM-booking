@@ -225,7 +225,7 @@ if(isset($_POST['confirm_tpl']))
 	
 	if(!newEntryLog($entry['entry_id'], 'edit', 'confirm', $rev_num, $log_data))
 	{
-		echo _('Can\'t log the changes for the entry.');
+		echo __('Can\'t log the changes for the entry.');
 		exit();
 	}
 	
@@ -277,7 +277,7 @@ print_header($day, $month, $year, $area);
 
 echo '<h1>Send bekreftelse p&aring; '.$entry['entry_name'].'</h1>'.chr(10).chr(10);
 
-echo '- <a href="entry.php?entry_id='.$entry['entry_id'].'">'._('Back to entry').'</a> ('._('Will not send a confirmation').')<br><br>';
+echo '- <a href="entry.php?entry_id='.$entry['entry_id'].'">'.__('Back to entry').'</a> ('.__('Will not send a confirmation').')<br><br>';
 
 echo '<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/jquery.blockUI.js" type="text/javascript"></script>'.chr(10);
@@ -295,7 +295,7 @@ if(mysql_num_rows($Q_template))
 {
 	echo '<select onchange="useTemplate(this.options[this.selectedIndex].value);" '.
 		'class="chooseTemplate noTemplate" validate="required:true">'.chr(10);
-	echo '<option value="0">'._('Non selected').'</option>'.chr(10);
+	echo '<option value="0">'.__('Non selected').'</option>'.chr(10);
 	while ($R_tpl = mysql_fetch_assoc($Q_template))
 	{
 		echo '<option value="'.$R_tpl['template_id'].'">'.$R_tpl['template_name'].'</option>'.chr(10);
@@ -304,7 +304,7 @@ if(mysql_num_rows($Q_template))
 }
 else
 {
-	echo '<select><option>'._('No template').'</option></select>'.chr(10);
+	echo '<select><option>'.__('No template').'</option></select>'.chr(10);
 }
 echo '<span id="chooseTemplate_anim"></span>';
 echo '<br><br>'.chr(10);
@@ -313,7 +313,7 @@ echo '<form name="entry_confirm" method="post" action="'.$_SERVER['PHP_SELF'].'?
 
 
 /* ## SEND TIL ## */
-echo '<h2>'._('Send to').'</h2>'.chr(10);
+echo '<h2>'.__('Send to').'</h2>'.chr(10);
 echo '<div style="margin-left: 20px;">';
 echo '<table width="600"><tr><td>';
 echo 'Hvis ingen epost-adresser er avkrysset eller rutene er tomme, s&aring; vil bookingen bare bli merkert med bekreftelse sendt, men ingen eposter sendes ut.';
@@ -336,7 +336,7 @@ echo '</table>'.chr(10);
 echo '<button type="button" onclick="addEmailField();"'.
 	'class="ui-button ui-state-default ui-corner-all" '.
 	'style="margin-left: 25px;">'.
-		'<img src="img/icons/add.png" alt="'._('Add field').'" title="'._('Add field').'">'.
+		'<img src="img/icons/add.png" alt="'.__('Add field').'" title="'.__('Add field').'">'.
 	'</button>'.chr(10);
 echo '</div>';
 
@@ -355,8 +355,8 @@ echo '<input type="checkbox" name="save_template" value="1"> '.
 echo '<h2>Send bekreftelse</h2>';
 echo '<div style="margin-left: 20px;">';
 echo '<input type="text" name="confirm_comment" size="20"> - '.
-	_('Internal comment') .' (vil ligge i loggen)<br><br><br>'.chr(10);
-echo '<input type="submit" value="'._('Send confirmation').'" style="font-size: 18px;"
+	__('Internal comment') .' (vil ligge i loggen)<br><br><br>'.chr(10);
+echo '<input type="submit" value="'.__('Send confirmation').'" style="font-size: 18px;"
  class="ui-button ui-state-default ui-corner-all"><br><br><br><br><br>'.chr(10);
 echo '</div>'.chr(10).chr(10);
 
@@ -364,17 +364,17 @@ echo '
 <div id="dialog_question" style="display:none; cursor: default"> 
         <h2>'._h('You have not selected a template.').'</h2>'.
 		'<h1>'._h('Are you sure you want to send?').'</h1> 
-        <input type="button" id="dialog_yes" value="'._('Yes').'" '.
+        <input type="button" id="dialog_yes" value="'.__('Yes').'" '.
 			'class="ui-button ui-state-default ui-corner-all" '.
 			'style="width: 70px;" /> 
-        <input type="button" id="dialog_no" value="'._('No').'" '.
+        <input type="button" id="dialog_no" value="'.__('No').'" '.
 			'class="ui-button ui-state-default ui-corner-all" '.
 			'style="width: 70px;" /> <br /><br />
 </div> 
 <div id="dialog_failedEmail" style="display:none; cursor: default"> 
         <h1>'._h('Incorrect email(s)').'</h1>'.
 		'<span style="font-size: 16px;">'._h('One or more emails are incorrect.').'<br />'._h('Fix them or remove them.').'</span> <br /><br />
-        <input type="button" id="dialog_ok" value="'._('Ok').'" '.
+        <input type="button" id="dialog_ok" value="'.__('Ok').'" '.
 			'class="ui-button ui-state-default ui-corner-all" '.
 			'style="width: 70px;" /> <br /><br />
 </div> 
@@ -481,7 +481,7 @@ echo '<div style="margin-left: 20px;">';
 	echo '</div>';
 echo '</div>'.chr(10).chr(10);
 
-echo '<input type="submit" value="'._('Send confirmation').'" style="font-size: 18px;"
+echo '<input type="submit" value="'.__('Send confirmation').'" style="font-size: 18px;"
  class="ui-button ui-state-default ui-corner-all"><br><br><br><br><br>'.chr(10);
 
 echo '</form>'.chr(10);

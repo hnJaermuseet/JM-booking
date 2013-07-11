@@ -28,8 +28,7 @@ $entry_confirm_att_path = 'files/entry-attachment';
 $chart_path = 'files/charts';
 
 // Language settings
-$locale = 'nb_NO'; // Others can be de_DE, en_US
-$language = 'no'; // Simple translator, used in later versions
+$language = 'no';
 
 
 // Sync with Exchange server

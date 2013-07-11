@@ -70,28 +70,28 @@ function addField ($var, $type, $name, $description = '')
 			$entry_fields[$var]['class']		= array(); // Multiple classes
 	}
 }
-addField ('entry_id', 				'hidden',		_('Entry ID')); $entry_fields['entry_id']['add'] = FALSE;
-addField ('submit1',				'submit',		_('Save entry'));
-addField ('entry_title',			'text',			_('Entry title'),			_('What this is. Can be empty. Entryname is generated from the title and some other values.'));
-addField ('entry_type_id',			'select',		_('Entry type'),			_('What type of entry this is.'));
+addField ('entry_id', 				'hidden',		__('Entry ID')); $entry_fields['entry_id']['add'] = FALSE;
+addField ('submit1',				'submit',		__('Save entry'));
+addField ('entry_title',			'text',			__('Entry title'),			__('What this is. Can be empty. Entryname is generated from the title and some other values.'));
+addField ('entry_type_id',			'select',		__('Entry type'),			__('What type of entry this is.'));
 addField ('resourcenum',			'text',					_h('Resource number'),		_h('Required number'));
 	addAfterField  ('resourcenum', '<br />M&aring; v&aelig;re <b><span id="resourcenum_count"></span>&nbsp;siffer</b>');
 addField ('empty',					'',				'');
-addField ('time_start',				'date',			_('Start time'),			_('When does this event start. Should be set in the calendar.'));
+addField ('time_start',				'date',			__('Start time'),			__('When does this event start. Should be set in the calendar.'));
 	addID ('time_start', 'time_start');
-addField ('time_end',				'date',			_('End time'),				_('When is the event finished.'));
+addField ('time_end',				'date',			__('End time'),				__('When is the event finished.'));
 	addID ('time_end', 'time_end');
 addField ('empty',					'',				'');
-addField ('area_id',				'select',		_('Area'));
+addField ('area_id',				'select',		__('Area'));
 addID ('area_id', 'selected_area_id');
-addField ('room_id',				'checkbox',		_('Room'));
+addField ('room_id',				'checkbox',		__('Room'));
 addField ('empty',					'',				'');
-addField ('user_assigned',			'checkbox',		_('Users assigned'),		'Brukere som skal v&aelig;re vert p&aring; arrangementet '.
+addField ('user_assigned',			'checkbox',		__('Users assigned'),		'Brukere som skal v&aelig;re vert p&aring; arrangementet '.
 																				'eller skal v&aelig;re tilknyttet p&aring; en eller annen m&aring;te.');
-addField ('user_assigned2',			'text',			_('Manuel user assigned'),	_('If someone other than the normal users are assigned. Use this field to add his or her name.'));
+addField ('user_assigned2',			'text',			__('Manuel user assigned'),	__('If someone other than the normal users are assigned. Use this field to add his or her name.'));
 addField ('empty',					'',				'');
 
-addField ('customer_name',		'text',			_('Customer'),				_('Type in parts for the customers name to search.'));
+addField ('customer_name',		'text',			__('Customer'),				__('Type in parts for the customers name to search.'));
 	addID ('customer_name', 'customer_name');
 	addAfterField ('customer_name', '&nbsp;'.
 	'<input size="1" type="text" name="customer_id2" disabled="disabled" id="customer_id2">'.
@@ -99,7 +99,7 @@ addField ('customer_name',		'text',			_('Customer'),				_('Type in parts for the
 	);
 addField ('customer_id',		'hidden',		'');
 	addID ('customer_id',	'customer_id');
-addField ('customer_municipal',	'text',			_('Municipal'),				_('The municipal which the customer belong to.'));
+addField ('customer_municipal',	'text',			__('Municipal'),				__('The municipal which the customer belong to.'));
 	addID ('customer_municipal', 'customer_municipal');
 	disableField ('customer_municipal');
 	addAfterField ('customer_municipal', '&nbsp;'.
@@ -109,41 +109,41 @@ addField ('customer_municipal',	'text',			_('Municipal'),				_('The municipal wh
 	);
 addField ('customer_municipal_num',		'hidden',		'');
 	addID ('customer_municipal_num',	'customer_municipal_num');
-addField ('contact_person_name',	'text',			_('Contact person'),		_('The contact person of the customer.'));
+addField ('contact_person_name',	'text',			__('Contact person'),		__('The contact person of the customer.'));
 	addID ('contact_person_name', 'contact_person_name');
-addField ('contact_person_phone',	'text',			_('Contact telephone'),		_('Telephone number where the contact person can be reached. Preferably a mobile number.'));
-addField ('contact_person_email',	'text',			_('Contact email'),			_('The contact persons email address. For more than one, please seperate by a space, comma or semicolon.'));
+addField ('contact_person_phone',	'text',			__('Contact telephone'),		__('Telephone number where the contact person can be reached. Preferably a mobile number.'));
+addField ('contact_person_email',	'text',			__('Contact email'),			__('The contact persons email address. For more than one, please seperate by a space, comma or semicolon.'));
 	addBeforeField ('contact_person_email', '<table style="border-collapse:collapse;"><tr><td style="padding: 0px;">');
 	addAfterField  ('contact_person_email', '</td></tr></table>');
 
 addField ('empty',					'',				'');
-addField ('num_person_child',		'text',			_('Number of children'));
-addField ('num_person_adult',		'text',			_('Number of adults'));
-addField ('num_person_count',		'radio',		_('Count these numbers'),	_('If yes the number of children and adults will be counted from the booking system and not the counter.'));
+addField ('num_person_child',		'text',			__('Number of children'));
+addField ('num_person_adult',		'text',			__('Number of adults'));
+addField ('num_person_count',		'radio',		__('Count these numbers'),	__('If yes the number of children and adults will be counted from the booking system and not the counter.'));
 addField ('empty',					'',				'');
-addField ('service_description',	'textarea',		_('Service description'),	_('Description of the services we should provide. Food can be one.'));
-addField ('service_alco',			'radio',		_('Serve alcohol?'),		_('Will there be served alcohol?'));
+addField ('service_description',	'textarea',		__('Service description'),	__('Description of the services we should provide. Food can be one.'));
+addField ('service_alco',			'radio',		__('Serve alcohol?'),		__('Will there be served alcohol?'));
 //addField ('empty',					'',				'');
-addField ('program_id',				'radio',		_('Fixed programs'));
+addField ('program_id',				'radio',		__('Fixed programs'));
 	fieldColspanDesc('program_id');
-addField ('program_description',	'textarea',		_('Program description'));
+addField ('program_description',	'textarea',		__('Program description'));
 //addField ('empty',					'',				'');
-addField ('comment',				'textarea',		_('Comment'));
-addField ('infoscreen_txt',			'text',			_('Text on infoscreen'),	_('This text will be on the infoscreens in the reception if the booking is between 16:00 and 06:00. Please check that the playlist on the infosystem is running.'));
+addField ('comment',				'textarea',		__('Comment'));
+addField ('infoscreen_txt',			'text',			__('Text on infoscreen'),	__('This text will be on the infoscreens in the reception if the booking is between 16:00 and 06:00. Please check that the playlist on the infosystem is running.'));
 
 addField ('empty',					'',				'');
-addField ('submit2',				'submit',		_('Save entry'));
+addField ('submit2',				'submit',		__('Save entry'));
 addField ('empty',					'',				'');
 
-addField ('invoice',					'radio',				_('Invoice'),				_('Choose yes if invoice should be made from this entry.'));
-addField ('invoice_ref_your',			'text',					_('Your reference'),		_('The customers internal reference.'));
-addField ('invoice_comment', 			'textarea',				'Fakturakommentar',				_('Comment that is displayed in the top of the invoice.'));
-addField ('invoice_internal_comment',	'textarea',				'Intern fakturakommentar',		_('Internal comment on the invoice (not shown to the customer).'));
-addField ('invoice_electronic',			'radio',				_('E-delivery'),			_('Choose yes if the customer want to have the invoice delivery by e-mail.'));
+addField ('invoice',					'radio',				__('Invoice'),				__('Choose yes if invoice should be made from this entry.'));
+addField ('invoice_ref_your',			'text',					__('Your reference'),		__('The customers internal reference.'));
+addField ('invoice_comment', 			'textarea',				'Fakturakommentar',				__('Comment that is displayed in the top of the invoice.'));
+addField ('invoice_internal_comment',	'textarea',				'Intern fakturakommentar',		__('Internal comment on the invoice (not shown to the customer).'));
+addField ('invoice_electronic',			'radio',				__('E-delivery'),			__('Choose yes if the customer want to have the invoice delivery by e-mail.'));
 // Address
 //addField ('invoice_address_id',			'select',				_('Address'),				_('Choose a address from the customer. This will be the address that the invoice will be sent to.'));
 //addID ('invoice_address_id', 'invoice_address_id');
-addField ('invoice_address',	'textarea',			_('Address'),				_('Choose a address from the customer. This will be the address that the invoice will be sent to. To change the addresses please press the edit button for the customer.'));
+addField ('invoice_address',	'textarea',			__('Address'),				__('Choose a address from the customer. This will be the address that the invoice will be sent to. To change the addresses please press the edit button for the customer.'));
 addID ('invoice_address', 'invoice_address');
 disableField ('invoice_address');
 addAfterField ('invoice_address', '<br>'.
@@ -154,11 +154,11 @@ addAfterField ('invoice_address', '<br>'.
 addField ('invoice_address_id',		'hidden',		'');
 addID ('invoice_address_id',	'invoice_address_id');
 
-addField ('invoice_email',				'text',					_('E-mail'),				_('E-mail that the customer wants the invoice delivery to.'));
-addField ('invoice_content',			'invoice_content',		_('Content'));
+addField ('invoice_email',				'text',					__('E-mail'),				__('E-mail that the customer wants the invoice delivery to.'));
+addField ('invoice_content',			'invoice_content',		__('Content'));
 
 addField ('empty',					'',				'');
-addField ('submit3',				'submit',		_('Save entry'));
+addField ('submit3',				'submit',		__('Save entry'));
 
 function addOnchange ($var, $value)
 {
@@ -233,7 +233,7 @@ addOnchange ('area_id', 'choose_area(this.options[this.selectedIndex].value);');
 
 // Entry_type_id
 $Q_entry_type = mysql_query("select entry_type_id, entry_type_name, resourcenum_length from `entry_type` order by entry_type_name");
-$choices = array('0' => _('Non selected'));
+$choices = array('0' => __('Non selected'));
 $entry_type_resourcenum_length = array();
 while( $r_choice = mysql_fetch_assoc($Q_entry_type)) {
 	$choices[$r_choice['entry_type_id']] = $r_choice['entry_type_name'];
@@ -243,7 +243,7 @@ addChoice ('entry_type_id', $choices);
 
 // Area_id
 $Q_area = mysql_query("select id as area_id, area_name, area_group from `mrbs_area` order by area_name");
-$choices = array('0' => _('Select one'));
+$choices = array('0' => __('Select one'));
 $area2 = array();
 $area_group = array();
 while( $r_choice = mysql_fetch_assoc($Q_area))
@@ -262,7 +262,7 @@ addChoice ('area_id', $choices);
 // Room_id
 // -> Making some special stuff
 $Q_room = mysql_query("select id as room_id, room_name, area_id from `mrbs_room` order by area_id, room_name");
-$choices = array('0' => _('Whole area'));
+$choices = array('0' => __('Whole area'));
 $area_id = 0;		$last_id = 0;
 $before = array();	$after = array();
 if(mysql_num_rows($Q_room))
@@ -305,7 +305,7 @@ addBeforeChoices ('user_assigned', '<span id="user_id0" style="display: none;"><
 
 // Program_id
 $Q_programs = mysql_query("select program_id, program_name, area_id, program_desc, program_inactive from `programs` order by area_id, program_name");
-$choices = array('0' => _('Non selected'));
+$choices = array('0' => __('Non selected'));
 $area_id = 0;		$last_id = 0;
 $before = array();	$after = array();
 $inactive_programs = array();
@@ -358,13 +358,13 @@ addChoice ('program_id', $choices);
 addChoiceBeforeAndAfter ('program_id', $before, $after);
 
 // Address_id
-addChoice ('invoice_address_id', array('0' => _('No customer set.')));
+addChoice ('invoice_address_id', array('0' => __('No customer set.')));
 
 // Yes/no
-addChoice ('invoice', array ('1' => _('Yes'), '0' => _('No')));
-addChoice ('invoice_electronic', array ('1' => _('Yes'), '0' => _('No')));
-addChoice ('service_alco', array ('1' => _('Yes'), '0' => _('No')));
-addChoice ('num_person_count', array ('1' => _('Yes'), '0' => _('No')));
+addChoice ('invoice', array ('1' => __('Yes'), '0' => __('No')));
+addChoice ('invoice_electronic', array ('1' => __('Yes'), '0' => __('No')));
+addChoice ('service_alco', array ('1' => __('Yes'), '0' => __('No')));
+addChoice ('num_person_count', array ('1' => __('Yes'), '0' => __('No')));
 
 
 
@@ -388,7 +388,7 @@ if ($entry_id != 0 || isset($_GET['copy_entry_id'])) {
 		$entry = getEntryDeleted($entry_id);
 		if(!count($entry))
 		{
-			echo _('Can\'t find entry');
+			echo __('Can\'t find entry');
 			exit();
 		}
 		else

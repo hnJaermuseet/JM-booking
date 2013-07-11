@@ -17,8 +17,8 @@ $return_to = 'entry_list';
 switch($listtype)
 {
 	case 'not_confirmed':
-		$entry_list_heading = _('Entries without confirmation sent');
-		$entry_list_ingress = _('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
+		$entry_list_heading = __('Entries without confirmation sent');
+		$entry_list_ingress = __('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
 		$filters = array();
 		$filters = addFilter($filters, 'confirm_email', '0');
 		$filters = addFilter($filters, 'time_start', 'current', '>');
@@ -29,8 +29,8 @@ switch($listtype)
 		break;
 
 	case 'no_user_assigned':
-		$entry_list_heading = _('Entries without any assigned user');
-		$entry_list_ingress = _('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
+		$entry_list_heading = __('Entries without any assigned user');
+		$entry_list_ingress = __('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
 		$filters = array();
 		$filters = addFilter($filters, 'user_assigned', '0');
 		$filters = addFilter($filters, 'user_assigned2', '', 'is');
@@ -42,8 +42,8 @@ switch($listtype)
 		break;
 
 	case 'next_100':
-		$entry_list_heading = _('Next 100 entries');
-		$entry_list_ingress = _('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
+		$entry_list_heading = __('Next 100 entries');
+		$entry_list_ingress = __('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
 		$filters = array();
 		$filters = addFilter($filters, 'time_start', 'current', '>');
 		if($area != '')
@@ -54,7 +54,7 @@ switch($listtype)
 
 	case 'servering':
 		$entry_list_heading = 'Bookinger med servering fremover';
-		$entry_list_ingress = _('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
+		$entry_list_ingress = __('Entries in the past is not shown.').'<br><br>'.chr(10).chr(10);
 		$filters = array();
 		$filters = addFilter($filters, 'time_start', 'current', '>');
 		$filters = addFilter($filters, 'service_description', '_%');
@@ -93,7 +93,7 @@ switch($listtype)
 		break;
 
 	default:
-		$entry_list_heading = _('Entry list');
+		$entry_list_heading = __('Entry list');
 		if(!isset($_GET['filters']))
 			$_GET['filters'] = '';
 

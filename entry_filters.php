@@ -93,7 +93,7 @@ $SQL = genSQLFromFilters($filters);
 
 print_header($day, $month, $year, $area);
 
-echo '<h1>'. _('View / Edit filters'). '</h1>'.chr(10).chr(10);
+echo '<h1>'. __('View / Edit filters'). '</h1>'.chr(10).chr(10);
 echo '<script language="javascript" src="js/jquery-1.3.2.min.js"></script>'.chr(10);
 echo 'Velg bookinger hvor:';
 echo '<form method="get" name="filters" action="'.$_SERVER['PHP_SELF'].'">'.chr(10);
@@ -149,10 +149,10 @@ foreach ($filters as $filter)
 		case 'text':
 			echo '<select name="filtervalue2_'.$id.'">';
 			echo ' <option value="is"';	if('=' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('is').'</option>';
+				echo '>'.__('is').'</option>';
 			
 			echo ' <option value=""';	if(!isset($filter[2]) || $filter[2] == '') echo ' selected="selected"';
-				echo '>'._('matches').'</option>';
+				echo '>'.__('matches').'</option>';
 			
 			echo '</select>';
 			
@@ -161,11 +161,11 @@ foreach ($filters as $filter)
 		case 'bool':
 			echo '<select name="filtervalue1_'.$id.'">';
 			if($filter[1] == '0') {
-				echo '<option value="1">'._('Yes').'</option>';
-				echo '<option value="0" selected="selected">'._('No').'</option>';
+				echo '<option value="1">'.__('Yes').'</option>';
+				echo '<option value="0" selected="selected">'.__('No').'</option>';
 			} else {
-				echo '<option value="1" selected="selected">'._('Yes').'</option>';
-				echo '<option value="0">'._('No').'</option>';
+				echo '<option value="1" selected="selected">'.__('Yes').'</option>';
+				echo '<option value="0">'.__('No').'</option>';
 			}
 			echo '</select>';
 			break;
@@ -185,19 +185,19 @@ foreach ($filters as $filter)
 		case 'date':
 			echo '<select name="filtervalue2_'.$id.'">';
 			echo ' <option value="="';	if('=' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Is exactly').'</option>';
+				echo '>'.__('Is exactly').'</option>';
 			
 			echo ' <option value=">"';	if('>' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Bigger than').'</option>';
+				echo '>'.__('Bigger than').'</option>';
 			
 			echo ' <option value=">="';	if('>=' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Bigger than or same as').'</option>';
+				echo '>'.__('Bigger than or same as').'</option>';
 			
 			echo ' <option value="<"';	if('<' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Less than').'</option>';
+				echo '>'.__('Less than').'</option>';
 			
 			echo ' <option value="<="';	if('<=' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Less than or same as').'</option>';
+				echo '>'.__('Less than or same as').'</option>';
 			
 			echo '</select>';
 			
@@ -211,19 +211,19 @@ foreach ($filters as $filter)
 		case 'num':
 			echo '<select name="filtervalue2_'.$id.'">';
 			echo ' <option value="="';	if('=' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Is exactly').'</option>';
+				echo '>'.__('Is exactly').'</option>';
 			
 			echo ' <option value=">"';	if('>' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Bigger than').'</option>';
+				echo '>'.__('Bigger than').'</option>';
 			
 			echo ' <option value=">="';	if('>=' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Bigger than or same as').'</option>';
+				echo '>'.__('Bigger than or same as').'</option>';
 			
 			echo ' <option value="<"';	if('<' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Less than').'</option>';
+				echo '>'.__('Less than').'</option>';
 			
 			echo ' <option value="<="';	if('<=' == $filter[2]) echo ' selected="selected"';
-				echo '>'._('Less than or same as').'</option>';
+				echo '>'.__('Less than or same as').'</option>';
 			
 			echo '</select>';
 			
@@ -241,16 +241,16 @@ echo '
 </table>
 <input type="button" value="+" onclick="addFieldFilters();"><br><br>'.chr(10);
 
-echo '<b>'._('Return to').'</b><br>'.chr(10);
+echo '<b>'.__('Return to').'</b><br>'.chr(10);
 echo '<label><input type="radio" name="return_to" value="entry_list"';
 if($return_to == 'entry_list')
 	echo ' checked="checked"';
-echo '> '._('Entry list').'</label><br>'.chr(10);
+echo '> '.__('Entry list').'</label><br>'.chr(10);
 
 echo '<label><input type="radio" name="return_to" value="entry_stat"';
 if($return_to == 'entry_stat')
 	echo ' checked="checked"';
-echo '> '._('Entry stats').'</label><br>'.chr(10);
+echo '> '.__('Entry stats').'</label><br>'.chr(10);
 
 echo '<label><input type="radio" name="return_to" value="customer_list"';
 if($return_to == 'customer_list')
@@ -279,13 +279,13 @@ if($login['user_invoice'] || $login['user_invoice_setready'])
 }
 
 echo '<br><br>'.chr(10);
-echo '<input type="submit" value="'._('Choose filter').'">'.chr(10);
+echo '<input type="submit" value="'.__('Choose filter').'">'.chr(10);
 echo '</form>'.chr(10);
 
-echo '<h2>'._('About filters').'</h2>'.chr(10);
-echo _('For text fields, % can be used to match any or zero characters. Type _ for one character. If "Per" and "P&aring;l" was in the database, P_r would match only Per and P__ whould match both. Per% or Pe% whould match Per. P% whould match everybody/everything that starts with P.');
+echo '<h2>'.__('About filters').'</h2>'.chr(10);
+echo __('For text fields, % can be used to match any or zero characters. Type _ for one character. If "Per" and "P&aring;l" was in the database, P_r would match only Per and P__ whould match both. Per% or Pe% whould match Per. P% whould match everybody/everything that starts with P.');
 echo '<br><br>';
-echo _('Dates are specified as YY-mm-dd hh:mm. 20 of june 2008 at 15:32 should be entered as 2008-06-20 15:32. Can also be 08-6-20 15.32 if you like. The current time is always specified by entering "current".');
+echo __('Dates are specified as YY-mm-dd hh:mm. 20 of june 2008 at 15:32 should be entered as 2008-06-20 15:32. Can also be 08-6-20 15.32 if you like. The current time is always specified by entering "current".');
 //echo 'An other thing is to use multiple filters of same type. This will result in filter1 or filter2 matching.'
 
 ?><script type="text/javascript"><?php
@@ -337,12 +337,12 @@ foreach ($alternatives as $var => $alternative)
 			
 			echo '			var option=document.createElement(\'option\');'.chr(10);
 			echo '			option.value="is";'.chr(10);
-			echo '			option.innerHTML="'._('is').'";'.chr(10);
+			echo '			option.innerHTML="'.__('is').'";'.chr(10);
 			echo '			select.appendChild(option);'.chr(10);
 			
 			echo '			var option=document.createElement(\'option\');'.chr(10);
 			echo '			option.value="";'.chr(10);
-			echo '			option.innerHTML="'._('matches').'";'.chr(10);
+			echo '			option.innerHTML="'.__('matches').'";'.chr(10);
 			echo '			select.appendChild(option);'.chr(10);
 			
 			echo '			var input=document.createElement(\'input\');'.chr(10);
@@ -358,11 +358,11 @@ foreach ($alternatives as $var => $alternative)
 			echo '			span.appendChild(select);'.chr(10);
 			echo '			var option=document.createElement(\'option\');'.chr(10);
 			echo '			option.value=1;'.chr(10);
-			echo '			option.innerHTML="'._('Yes').'";'.chr(10);
+			echo '			option.innerHTML="'.__('Yes').'";'.chr(10);
 			echo '			select.appendChild(option);'.chr(10);
 			echo '			var option=document.createElement(\'option\');'.chr(10);
 			echo '			option.value=0;'.chr(10);
-			echo '			option.innerHTML="'._('No').'";'.chr(10);
+			echo '			option.innerHTML="'.__('No').'";'.chr(10);
 			echo '			select.appendChild(option);'.chr(10);
 			echo '			break;'.chr(10);
 			break;
@@ -397,27 +397,27 @@ foreach ($alternatives as $var => $alternative)
 			
 			echo '			var option=document.createElement(\'option\');'.chr(10);
 			echo '			option.value="=";'.chr(10);
-			echo '			option.innerHTML="'._('Is exactly').'";'.chr(10);
+			echo '			option.innerHTML="'.__('Is exactly').'";'.chr(10);
 			echo '			select.appendChild(option);'.chr(10);
 			
 			echo '			var option=document.createElement(\'option\');'.chr(10);
 			echo '			option.value=">";'.chr(10);
-			echo '			option.innerHTML="'._('Bigger than').'";'.chr(10);
+			echo '			option.innerHTML="'.__('Bigger than').'";'.chr(10);
 			echo '			select.appendChild(option);'.chr(10);
 			
 			echo '			var option=document.createElement(\'option\');'.chr(10);
 			echo '			option.value=">=";'.chr(10);
-			echo '			option.innerHTML="'._('Bigger than or same as').'";'.chr(10);
+			echo '			option.innerHTML="'.__('Bigger than or same as').'";'.chr(10);
 			echo '			select.appendChild(option);'.chr(10);
 			
 			echo '			var option=document.createElement(\'option\');'.chr(10);
 			echo '			option.value="<";'.chr(10);
-			echo '			option.innerHTML="'._('Less than').'";'.chr(10);
+			echo '			option.innerHTML="'.__('Less than').'";'.chr(10);
 			echo '			select.appendChild(option);'.chr(10);
 			
 			echo '			var option=document.createElement(\'option\');'.chr(10);
 			echo '			option.value="<=";'.chr(10);
-			echo '			option.innerHTML="'._('Less than or same as').'";'.chr(10);
+			echo '			option.innerHTML="'.__('Less than or same as').'";'.chr(10);
 			echo '			select.appendChild(option);'.chr(10);
 			
 			

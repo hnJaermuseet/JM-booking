@@ -45,7 +45,7 @@ if($customer_id != 0)
 	$customer = getCustomer($customer_id);
 	if(!count($customer))
 	{
-		echo _("Can't find the customer you are looking for.");
+		echo __("Can't find the customer you are looking for.");
 		exit();
 	}
 	
@@ -134,37 +134,37 @@ if($customer_id != 0)
 		
 		echo '<table width="100%" height="100%" style="border: 1px solid black;">'.chr(10);
 		echo '<tr><td align="center" height="40">'.chr(10);
-		echo '<h1>'._('Viewing').' '.$data['customer_name'].'</h1>'.chr(10);
+		echo '<h1>'.__('Viewing').' '.$data['customer_name'].'</h1>'.chr(10);
 		
 		echo '</td></tr>';
 		
 		echo '<td>'.chr(10);
 		if($add)
-			echo _('Customer has been created.');
+			echo __('Customer has been created.');
 		else
-			echo _('Customer has been edited.');
+			echo __('Customer has been edited.');
 		echo '<br><br>'.chr(10);
 		
 		echo '<table><tr><td align="right">'.chr(10);
-		echo '<b>'._('Customer ID').':&nbsp;</b></td><td>'.$data['customer_id'].'</td></tr>'.chr(10);
+		echo '<b>'.__('Customer ID').':&nbsp;</b></td><td>'.$data['customer_id'].'</td></tr>'.chr(10);
 		echo '<tr><td align="right">'.chr(10);
-		echo '<b>'._('Name').':&nbsp;</b></td><td>'.$data['customer_name'].'</td></tr>'.chr(10);
+		echo '<b>'.__('Name').':&nbsp;</b></td><td>'.$data['customer_name'].'</td></tr>'.chr(10);
 		
-		echo '<tr><td align="right"><b>'.str_replace(' ', '&nbsp;',_('Type of customer')).':&nbsp;</b></td><td>';
+		echo '<tr><td align="right"><b>'.str_replace(' ', '&nbsp;',__('Type of customer')).':&nbsp;</b></td><td>';
 		if($data['customer_type'] == 'person')
-			echo _('Private person').chr(10);
+			echo __('Private person').chr(10);
 		elseif($data['customer_type'] == 'firm')
-			echo _('School, company, organization, etc').chr(10);
+			echo __('School, company, organization, etc').chr(10);
 		echo '</td></tr>'.chr(10);
 		
-		echo '<tr><td align="right"><b>'._('Municipal').':&nbsp;</b></td><td>'.chr(10);
+		echo '<tr><td align="right"><b>'.__('Municipal').':&nbsp;</b></td><td>'.chr(10);
 		if($data['customer_municipal'] != '')
 			echo $data['customer_municipal'].' ('.$data['customer_municipal_num'].')';
 		else
-			echo '<i>'._('Non selected').'</i>';
+			echo '<i>'.__('Non selected').'</i>';
 		echo '</td></tr>'.chr(10);
 		
-		echo '<tr><td>&nbsp;</td><td><br><input type="button" onclick="chooseCustomer(); return false;" value="'._('Choose this customer').'"></td></tr>'.chr(10);
+		echo '<tr><td>&nbsp;</td><td><br><input type="button" onclick="chooseCustomer(); return false;" value="'.__('Choose this customer').'"></td></tr>'.chr(10);
 		echo '</table>'.chr(10);
 		echo '</td></tr></table>'.chr(10);
 		exit();
@@ -181,10 +181,10 @@ if(isset($_POST['form_submit']))
 	else
 	{
 		$data['customer_name'] = '';
-		$errors['customer_name'] = '- '._('You must type in a name for the customer.');
+		$errors['customer_name'] = '- '.__('You must type in a name for the customer.');
 	}
 	if($data['customer_name'] == '')
-		$errors['customer_name'] = '- '._('You must type in a name for the customer.');
+		$errors['customer_name'] = '- '.__('You must type in a name for the customer.');
 	
 
 	if(isset($_POST['customer_type']))
@@ -601,7 +601,7 @@ else
 						$filters_serialized = filterSerialized($filter);
 						echo '	<tr>'.chr(10);
 						echo '		<td><b>'.
-							'<input type="button" onclick="chooseCustomer(\''.$customer['customer_id'].'\'); return false;" value="'._('Choose this customer').'"> '.
+							'<input type="button" onclick="chooseCustomer(\''.$customer['customer_id'].'\'); return false;" value="'.__('Choose this customer').'"> '.
 							'Kundenr '.$customer['customer_id'].', '.
 							'<a href="customer.php?customer_id='.$customer['customer_id'].'">'.
 							iconHTML('group').' '.
@@ -699,16 +699,16 @@ echo '<script language="javascript" src="js/customer-edit.js"></script>'.chr(10)
 
 echo '<div align="center" height="40">'.chr(10);
 if($customer_id == 0)
-	echo '<h1>'._('Create new customer').'</h1>'.chr(10);
+	echo '<h1>'.__('Create new customer').'</h1>'.chr(10);
 else
-	echo '<h1>'._('Edit customer').' - '.$data['customer_name'].'</h1>'.chr(10);
+	echo '<h1>'.__('Edit customer').' - '.$data['customer_name'].'</h1>'.chr(10);
 
 echo '</div>';
 
 if(count($errors))
 {
 	echo '<div class="error">'.chr(10);
-	echo _('There was one or more errors in your inputdata').'<br>';
+	echo __('There was one or more errors in your inputdata').'<br>';
 	echo implode ('<br>', $errors);
 	echo '</div>'.chr(10);
 }
@@ -727,31 +727,31 @@ else
 echo '
 <div id="tabs">
 	<ul>
-		<li><a href="#area1">'._('Generell').'</a></li>
-		<li><a href="#area2">'._('Phone numbers').'</a></li>
-		<li><a href="#area3">'._('Addresses').'</a></li>
+		<li><a href="#area1">'.__('Generell').'</a></li>
+		<li><a href="#area2">'.__('Phone numbers').'</a></li>
+		<li><a href="#area3">'.__('Addresses').'</a></li>
 	</ul>
 ';
 
 echo '<div id="area1">'.chr(10);
-echo '<h2>'._('Generell').'</h2>'.chr(10);
+echo '<h2>'.__('Generell').'</h2>'.chr(10);
 echo '<table><tr><td align="right">'.chr(10);
-echo '<b>'._('Name').':&nbsp;</b></td><td><input type="text" name="customer_name" '.
+echo '<b>'.__('Name').':&nbsp;</b></td><td><input type="text" name="customer_name" '.
 ' id="customer_name" value="'.$data['customer_name'].'"></td></tr>'.chr(10);
 
-echo '<tr><td align="right"><b>'._('Type of customer').':&nbsp;</b></td><td><select name="customer_type">'.chr(10);
+echo '<tr><td align="right"><b>'.__('Type of customer').':&nbsp;</b></td><td><select name="customer_type">'.chr(10);
 echo '<option value="person"';
 if($data['customer_type'] == 'person') echo ' selected';
-echo '>'._('Private person').'</option>'.chr(10);
+echo '>'.__('Private person').'</option>'.chr(10);
 echo '<option value="firm"';
 if($data['customer_type'] == 'firm') echo ' selected';
-echo '>'._('School, company, organization, etc').'</option>'.chr(10);
+echo '>'.__('School, company, organization, etc').'</option>'.chr(10);
 echo '</td></tr>'.chr(10);
 
-echo '<tr><td align="right"><b>'._('Municipal').':&nbsp;</b></td><td>'.chr(10);
+echo '<tr><td align="right"><b>'.__('Municipal').':&nbsp;</b></td><td>'.chr(10);
 echo '<input type="text" size="1" id="customer_municipal_num" value="'.$data['customer_municipal_num'].'" disabled="disabled">&nbsp;';
 echo '<input type="text" size="15" id="customer_municipal" value="'.$data['customer_municipal'].'" disabled="disabled">&nbsp;';
-echo '<input type="button" value="'._('Choose').'" onclick="chooseMunicipal(\'customer_municipal_num\', \'customer_municipal\'); return false;">'.chr(10);
+echo '<input type="button" value="'.__('Choose').'" onclick="chooseMunicipal(\'customer_municipal_num\', \'customer_municipal\'); return false;">'.chr(10);
 echo '<input type="hidden" size="1" name="customer_municipal_num" id="customer_municipal_num2" value="'.$data['customer_municipal_num'].'">';
 echo '<input type="hidden" size="15" name="customer_municipal" id="customer_municipal2" value="'.$data['customer_municipal'].'">';
 echo '</td></tr>'.chr(10);
@@ -768,8 +768,8 @@ $data['customer_phone'][] = array('phone_num' => '51703926', 'phone_name' => 'Se
  */
 
 echo '<div id="area2">'.chr(10);
-echo '<h2>'._('Phone numbers').'</h2>'.chr(10);
-echo '<table id="fieldrowsphone"><tr><td><b>'._('Number').':</b></td><td><b>'._('Name').':</b></td></tr>'.chr(10);
+echo '<h2>'.__('Phone numbers').'</h2>'.chr(10);
+echo '<table id="fieldrowsphone"><tr><td><b>'.__('Number').':</b></td><td><b>'.__('Name').':</b></td></tr>'.chr(10);
 $id = -1;
 foreach ($data['customer_phone'] as $phone)
 {
@@ -785,21 +785,21 @@ foreach ($data['customer_phone'] as $phone)
 }
 echo '</table>
 
-<input type="button" value="'._('Add one more phone fields').'" onclick="addFieldPhone();">
+<input type="button" value="'.__('Add one more phone fields').'" onclick="addFieldPhone();">
 </div>'.chr(10);
 
 /* ### ### ### ### ### ### ### */
 
 
 echo '<div id="area3">'.chr(10);
-echo '<h2>'._('Addresses').'</h2>'.chr(10);
+echo '<h2>'.__('Addresses').'</h2>'.chr(10);
 echo '<table id="fieldrowsaddress">'.
 '	<tr>
-		<td><b>'._('Invoice address').':</b></td>
-		<td><b>'._('Address name/info').':</b></td>
-		<td><b>'._('Address').'*:</b></td>
-		<td><b>'._('Postalnumber').'**:</b></td>
-		<td><b>'._('Country').'***:</b></td>
+		<td><b>'.__('Invoice address').':</b></td>
+		<td><b>'.__('Address name/info').':</b></td>
+		<td><b>'.__('Address').'*:</b></td>
+		<td><b>'.__('Postalnumber').'**:</b></td>
+		<td><b>'.__('Country').'***:</b></td>
 	</tr>'.chr(10);
 
 /*
@@ -863,11 +863,11 @@ foreach ($data['customer_address'] as $thisnum => $address)
 }
 echo '</table>
 
-<input type="button" value="'._('Add one more address field').'" onclick="addFieldAddress();"><br><br>
+<input type="button" value="'.__('Add one more address field').'" onclick="addFieldAddress();"><br><br>
 
-* '._('Max 5 lines in each address').'<br>
-** '._('Place will be automaticlly found from the postalnumber. If the number is not valid, the field will just be empty.').' '._('You can also type a postal place in the field below.').'<br>
-*** '._('For Norway, please leave this field empty.').'<br>
+* '.__('Max 5 lines in each address').'<br>
+** '.__('Place will be automaticlly found from the postalnumber. If the number is not valid, the field will just be empty.').' '.__('You can also type a postal place in the field below.').'<br>
+*** '.__('For Norway, please leave this field empty.').'<br>
 <br>
 </div>'.chr(10);
 
@@ -877,9 +877,9 @@ echo '</div>';
 
 echo '<br><br><input type="submit" class="title" value="';
 if($customer_id == 0)
-	echo _('Create customer');
+	echo __('Create customer');
 else
-	echo _('Save changes');
+	echo __('Save changes');
 echo '">'.chr(10);
 if($customer_id != 0)
 	echo '<input type="hidden" name="customer_id" value="'.$customer_id.'">'.chr(10);

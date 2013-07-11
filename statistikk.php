@@ -211,9 +211,9 @@ echo '</td>
 echo '</tr><tr>';
 echo '<td style="border: 1px solid black; padding: 5px;">
 <b>Vis resultat i:</b><br>';
-echo '<label><input type="radio" name="return_to" value="entry_list"> '._('Entry list').'</label><br>'.chr(10);
+echo '<label><input type="radio" name="return_to" value="entry_list"> '.__('Entry list').'</label><br>'.chr(10);
 echo '<label><input type="radio" name="return_to" value="entry_stat" checked="checked"';
-echo '> '._('Entry stats').'</label><br>'.chr(10);
+echo '> '.__('Entry stats').'</label><br>'.chr(10);
 echo '<label><input type="radio" name="return_to" value="customer_list"> Kundeliste</label><br>'.chr(10);
 echo '</td>';
 echo '</tr><tr>';
@@ -222,7 +222,7 @@ echo '<td style="border: 1px solid black; padding: 5px;">
 
 // Area
 $Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by area_name");
-echo '<br><br><b>'._('Area').':</b><br><select name="area_id">';
+echo '<br><br><b>'.__('Area').':</b><br><select name="area_id">';
 echo '<option value="0">Alle anleggene</option>';
 while ($R = mysql_fetch_assoc($Q_area)) {
 	echo '<option value="'.$R['area_id'].'"';

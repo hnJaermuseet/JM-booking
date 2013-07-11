@@ -35,90 +35,89 @@ $section = 'template';
 include "include/admin_top.php";
 
 $template_types = array(
-	'confirm' => _('E-mail confirmation')
+	'confirm' => __('E-mail confirmation')
 );
 
 $vars_entry = array(
-		'entry_id'					=> _('Entry ID'),
-		'entry_name'				=> _('Entry name'),
-		'entry_title'				=> _('Entry title'),
-		'confirm_email2'			=> _('E-mail confirmed').' '._('(no/yes)'),
-		'confirm_email'				=> _('E-mail confirmed').' '._('(0/1)'),
-		'entry_type_id'				=> _('Entry type ID'),
-		'entry_type'				=> _('Entry type'),
-		'num_person_child'			=> _('Number of children'),
-		'num_person_adult'			=> _('Number of adults'),
-		'num_person_count'			=> _('Count in booking').' '._('(0/1)'),
-		'num_person_count2'			=> _('Count in booking').' '._('(no/yes)'),
+		'entry_id'					=> __('Entry ID'),
+		'entry_name'				=> __('Entry name'),
+		'entry_title'				=> __('Entry title'),
+		'confirm_email2'			=> __('E-mail confirmed').' '.__('(no/yes)'),
+		'confirm_email'				=> __('E-mail confirmed').' '.__('(0/1)'),
+		'entry_type_id'				=> __('Entry type ID'),
+		'entry_type'				=> __('Entry type'),
+		'num_person_child'			=> __('Number of children'),
+		'num_person_adult'			=> __('Number of adults'),
+		'num_person_count'			=> __('Count in booking').' '.__('(0/1)'),
+		'num_person_count2'			=> __('Count in booking').' '.__('(no/yes)'),
 		'program_id'				=> 'Fast program - id',
 		'program_id_name'			=> 'Fast program - navn',
 		'program_id_desc'			=> 'Fast program - beskrivelse',
-		'program_description'		=> _('Program description'),
-		'service_alco'				=> _('Serve alcohol?'),
-		'service_description'		=> _('Service description'),
-		'comment'					=> _('Comment'),
-		'infoscreen_txt'			=> _('Text on infoscreen'),
-		'time_start'				=> _('Starts').' '._('Unixtime*'),
-		'time_end'					=> _('Finished').' '._('Unixtime*'),
-		'room_id'					=> _('Room ID'),
-		'room'						=> _('Room'),
-		'rooms'						=> _('Room').' ('._('array with the names').')',
-		'area_id'					=> _('Area ID'),
-		'area'						=> _('Area'),
-		'user_assigned'				=> _('User(s) assigned'),
-		'user_assigned2'			=> _('Manuel user assigned'),
-		'user_assigned_names'		=> _('User(s) and manual user assigned'),
-		'user_assigned_names2'		=> _('User(s) and manual user assigned with links'),
-		'user_assigned_any'			=> _('Any users assigned?').' ('._('true/false').')',
-		'customer_id'				=> _('Customer ID'),
-		'customer_name'				=> _('Customer'),
-		'contact_person_name'		=> _('Contact person'),
-		'contact_person_phone'		=> _('Contact telephone'),
-		'contact_person_email'		=> _('Contact email'),
-		'customer_municipal_num'	=> _('Municipal number'),
-		'customer_municipal'		=> _('Municipal'),
-		'created_by'				=> _('Created by ID'),
-		'created_by_name'			=> _('Created by'),
-		'time_created'				=> _('Time created').' '._('Unixtime*'),
-		'edit_by'					=> _('Edited by IDs'),
-		'edit_by_names'				=> _('Edited by'),
-		'user_last_edit'			=> _('Last edited by'),
-		'time_last_edit'			=> _('Time of last edit').' '._('Unixtime*'),
-		'rev_num'					=> _('Number of changes'),
-		'invoice'					=> _('Invoice').' '._('(0/1)'),
-		'invoice2'					=> _('Invoice').' '._('(no/yes)'),
-		'invoice_status'			=> _('Status of invoice').' (0 - 4)',
-		'invoice_status2'			=> _('Status in text'),
-		'invoice_electronic'		=> _('Electronic invoice').' '._('(0/1)'),
-		'invoice_electronic2'		=> _('Electronic invoice').' '._('(no/yes)'),
-		'invoice_email'				=> _('E-mail for electronic invoice'),
-		'invoice_comment'			=> _('Invoice comment - to customer'),
-		'invoice_internal_comment'	=> _('Invoice comment - internal'),
-		'invoice_ref_your'			=> _('Your referance'),
-		'invoice_address_id'		=> _('Invoice address ID'),
-		'invoice_address'			=> _('Invoice address'),
-		'invoice_content'			=> _('Product lines').' '._('array'),
-		'mva'						=> 'MVA-tabell, vise? '._('(no/yes)'),
-		'mva'						=> 'MVA-tabell',
+		'program_description'		=> __('Program description'),
+		'service_alco'				=> __('Serve alcohol?'),
+		'service_description'		=> __('Service description'),
+		'comment'					=> __('Comment'),
+		'infoscreen_txt'			=> __('Text on infoscreen'),
+		'time_start'				=> __('Starts').' '.__('Unixtime*'),
+		'time_end'					=> __('Finished').' '.__('Unixtime*'),
+		'room_id'					=> __('Room ID'),
+		'room'						=> __('Room'),
+		'rooms'						=> __('Room').' ('.__('array with the names').')',
+		'area_id'					=> __('Area ID'),
+		'area'						=> __('Area'),
+		'user_assigned'				=> __('User(s) assigned'),
+		'user_assigned2'			=> __('Manuel user assigned'),
+		'user_assigned_names'		=> __('User(s) and manual user assigned'),
+		'user_assigned_names2'		=> __('User(s) and manual user assigned with links'),
+		'user_assigned_any'			=> __('Any users assigned?').' ('.__('true/false').')',
+		'customer_id'				=> __('Customer ID'),
+		'customer_name'				=> __('Customer'),
+		'contact_person_name'		=> __('Contact person'),
+		'contact_person_phone'		=> __('Contact telephone'),
+		'contact_person_email'		=> __('Contact email'),
+		'customer_municipal_num'	=> __('Municipal number'),
+		'customer_municipal'		=> __('Municipal'),
+		'created_by'				=> __('Created by ID'),
+		'created_by_name'			=> __('Created by'),
+		'time_created'				=> __('Time created').' '.__('Unixtime*'),
+		'edit_by'					=> __('Edited by IDs'),
+		'edit_by_names'				=> __('Edited by'),
+		'user_last_edit'			=> __('Last edited by'),
+		'time_last_edit'			=> __('Time of last edit').' '.__('Unixtime*'),
+		'rev_num'					=> __('Number of changes'),
+		'invoice'					=> __('Invoice').' '.__('(0/1)'),
+		'invoice2'					=> __('Invoice').' '.__('(no/yes)'),
+		'invoice_status'			=> __('Status of invoice').' (0 - 4)',
+		'invoice_status2'			=> __('Status in text'),
+		'invoice_electronic'		=> __('Electronic invoice').' '.__('(0/1)'),
+		'invoice_electronic2'		=> __('Electronic invoice').' '.__('(no/yes)'),
+		'invoice_email'				=> __('E-mail for electronic invoice'),
+		'invoice_comment'			=> __('Invoice comment - to customer'),
+		'invoice_internal_comment'	=> __('Invoice comment - internal'),
+		'invoice_ref_your'			=> __('Your referance'),
+		'invoice_address_id'		=> __('Invoice address ID'),
+		'invoice_address'			=> __('Invoice address'),
+		'invoice_content'			=> __('Product lines').' '.__('array'),
+		'mva'						=> 'MVA-tabell, vise? '.__('(no/yes)'),
 		'mva_grunnlag'				=> 'MVA-tabell, grunnlag/eks mva',
 		'mva_grunnlag_sum'			=> 'MVA-grunnlag (sum)',
-		'faktura_belop_sum'			=> 'Sum å betale',
+		'faktura_belop_sum'			=> 'Sum &aring; betale',
 		'faktura_belop_sum_mva'		=> 'Sum MVA',
 		'eks_mva_tot'				=> 'Sum eks mva',
 		'grunnlag_mva_tot'			=> 'MVA-grunnlag mva'
 	);
 $vars_system = array (
-		'systemurl'					=> _('Address for the system'),
-		'user_name'					=> _('Username') .' '. _('For logged in user'),
-		'user_name_short'			=> _('Short username'),
-		'user_email'				=> _('Users email') .' '. _('For logged in user')
+		'systemurl'					=> __('Address for the system'),
+		'user_name'					=> __('Username') .' '. __('For logged in user'),
+		'user_name_short'			=> __('Short username'),
+		'user_email'				=> __('Users email') .' '. __('For logged in user')
 	);
 $vars_entrychanges = array(
-		'log_time'					=> _('Time of change').' '._('Unixtime*'),
-		'log_action_real'			=> _('Name of the action'),
-		'log_user_id'				=> _('User that changed ID'),
-		'log_user'					=> _('User that changed'),
-		'log_changes'				=> _('Changes').' '._('Table*')
+		'log_time'					=> __('Time of change').' '.__('Unixtime*'),
+		'log_action_real'			=> __('Name of the action'),
+		'log_user_id'				=> __('User that changed ID'),
+		'log_user'					=> __('User that changed'),
+		'log_changes'				=> __('Changes').' '.__('Table*')
 	);
 
 $Q_template = mysql_query("select * from `template` order by `template_name`");
@@ -128,8 +127,8 @@ while($R_tpl = mysql_fetch_assoc($Q_template))
 	$a = '';
 	switch ($R_tpl['template_type'])
 	{
-		case 'confirm':	$a = _('Confirmation');	break;
-		default:		$a = _('Unknown');		break;
+		case 'confirm':	$a = __('Confirmation');	break;
+		default:		$a = __('Unknown');		break;
 	}
 	$temp[$R_tpl['template_type']]['db:'.$R_tpl['template_id']] = array(
 		$a.' - '.$R_tpl['template_name'], 
@@ -146,7 +145,7 @@ while($R_tpl = mysql_fetch_assoc($Q_template))
 
 $allowed_templatefiles = array();
 $allowed_templatefiles['db:new'] = array(
-		_('New template'), 
+		__('New template'),
 		'db:new',
 		array_merge (
 			$vars_entry,
@@ -164,7 +163,7 @@ foreach ($temp as $a)
 }
 
 $allowed_templatefiles['mail-entry-new.tpl'] = array(
-		_('Mail - New entry'), 
+		__('Mail - New entry'),
 		'mail-entry-new.tpl',
 		array_merge (
 			$vars_entry,
@@ -175,7 +174,7 @@ $allowed_templatefiles['mail-entry-new.tpl'] = array(
 		'user_access_templateadmin'
 	);
 $allowed_templatefiles['mail-entry-newuser.tpl'] = array(
-		_('Mail - New user assigned'), 
+		__('Mail - New user assigned'),
 		'mail-entry-newuser.tpl',
 		array_merge (
 			$vars_entrychanges,
@@ -187,7 +186,7 @@ $allowed_templatefiles['mail-entry-newuser.tpl'] = array(
 		'user_access_templateadmin'
 	);
 $allowed_templatefiles['mail-entry-userdeleted.tpl'] = array(
-		_('Mail - User not assigned anymore'), 
+		__('Mail - User not assigned anymore'),
 		'mail-entry-userdeleted.tpl',
 		array_merge (
 			$vars_entrychanges,
@@ -199,7 +198,7 @@ $allowed_templatefiles['mail-entry-userdeleted.tpl'] = array(
 		'user_access_templateadmin'
 	);
 $allowed_templatefiles['mail-entry-changes.tpl'] = array(
-		_('Mail - Changes of entry'), 
+		__('Mail - Changes of entry'),
 		'mail-entry-changes.tpl',
 			array_merge (
 				$vars_entrychanges,
@@ -233,7 +232,7 @@ $allowed_templatefiles['mail-entry-undeleted.tpl'] = array(
 		'user_access_templateadmin'
 	);
 $allowed_templatefiles['mail-entry-summary.tpl'] = array(
-		_('Mail - Summary of entry'), 
+		__('Mail - Summary of entry'),
 		'mail-entry-summary.tpl',
 		array_merge (
 			$vars_entry,
@@ -302,7 +301,7 @@ if(!isset($_GET['template_file']))
 	// List of files
 	include "include/admin_middel.php";
 	
-	echo '<h1>'._('Templates').'</h1>';
+	echo '<h1>'.__('Templates').'</h1>';
 	echo '<table class="prettytable">'.chr(10);
 	echo '	<tr>'.chr(10);
 	echo '		<th>Mal</th>'.chr(10);
@@ -334,14 +333,14 @@ if(!isset($_GET['template_file']))
 		echo '		<td>';
 		if(!$namelink && ($template[6] == '' || $login[$template[6]]))
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?template_file='.$template[1].'">'.
-				iconHTML('layout_edit').' '._('Edit').'</a>';
+				iconHTML('layout_edit').' '.__('Edit').'</a>';
 		else
 			echo '&nbsp;';
 		if($template[5] && ($template[6] == '' || $login[$template[6]]))
 		{
 			echo ' -:- <a href="'.$_SERVER['PHP_SELF'].'?template_delete=1&amp;template_file='.$template[1].'">'.
 			' <img src="./img/icons/layout_delete.png" style="border: 0px solid black; vertical-align: middle;"> '.
-			_('Delete').'</a>';
+			__('Delete').'</a>';
 		}
 		else
 			echo '&nbsp;';
@@ -355,9 +354,9 @@ if(!isset($_GET['template_file']))
 if(!array_key_exists($_GET['template_file'], $allowed_templatefiles))
 {
 	include "include/admin_middel.php";
-	echo '<h1>'._('Templates').'</h1>';
+	echo '<h1>'.__('Templates').'</h1>';
 	
-	echo _('Error. Template not found.');
+	echo __('Error. Template not found.');
 	exit();
 }
 
@@ -383,9 +382,9 @@ if($tpl_db)
 		if(!is_numeric($id))
 		{
 			include "include/admin_middel.php";
-			echo '<h1>'._('Templates').'</h1>';
+			echo '<h1>'.__('Templates').'</h1>';
 			
-			echo _('Error: Template ID is not a number.');
+			echo __('Error: Template ID is not a number.');
 			exit();
 		}
 		
@@ -394,9 +393,9 @@ if($tpl_db)
 		if(!mysql_num_rows($Q_tpl))
 		{
 			include "include/admin_middel.php";
-			echo '<h1>'._('Templates').'</h1>';
+			echo '<h1>'.__('Templates').'</h1>';
 			
-			echo _('Error: Template was not found.');
+			echo __('Error: Template was not found.');
 			exit();
 		}
 	}
@@ -407,9 +406,9 @@ else
 	if(!file_exists($filename))
 	{
 		include "include/admin_middel.php";
-		echo '<h1>'._('Templates').'</h1>';
+		echo '<h1>'.__('Templates').'</h1>';
 		
-		echo _('Error: Template file do not exist.');
+		echo __('Error: Template file do not exist.');
 		exit();
 	}
 }
@@ -422,14 +421,14 @@ if($template[6] == '' || $login[$template[6]])
 		if($_GET['template_delete'] != '2')
 		{
 			include "include/admin_middel.php";
-			echo '<h1>'._('Delete template').' - '.$template[0].'</h1>';
-			echo '- <a href="'.$_SERVER['PHP_SELF'].'">'._('Back to template list').'</a><br><br>'.chr(10);
+			echo '<h1>'.__('Delete template').' - '.$template[0].'</h1>';
+			echo '- <a href="'.$_SERVER['PHP_SELF'].'">'.__('Back to template list').'</a><br><br>'.chr(10);
 			
-			echo '<b>'._('Are you sure you want to delete the template?').'</b><br>'.chr(10);
+			echo '<b>'.__('Are you sure you want to delete the template?').'</b><br>'.chr(10);
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?template_delete=2&amp;template_file='.$template[1].'">'.
-			_('Yes').'</a> - ';
+			__('Yes').'</a> - ';
 			echo '<a href="'.$_SERVER['PHP_SELF'].'">'.
-			_('No').'</a>';
+			__('No').'</a>';
 			exit();
 		}
 		else
@@ -452,18 +451,18 @@ if($template[6] == '' || $login[$template[6]])
 			if(!isset($_POST['template_type']) || !array_key_exists($_POST['template_type'], $template_types))
 			{
 				include "include/admin_middel.php";
-				echo '<h1>'._('Templates').'</h1>';
+				echo '<h1>'.__('Templates').'</h1>';
 				
-				echo _('Error: No template type is defined.');
+				echo __('Error: No template type is defined.');
 				exit();
 			}
 			
 			if(!isset($_POST['template_name']) || $_POST['template_name'] == '')
 			{
 				include "include/admin_middel.php";
-				echo '<h1>'._('Templates').'</h1>';
+				echo '<h1>'.__('Templates').'</h1>';
 				
-				echo _('Error: No template name is made.');
+				echo __('Error: No template name is made.');
 				exit();
 			}
 			$template_name = slashes(htmlspecialchars(strip_tags($_POST['template_name']),ENT_QUOTES));
@@ -506,9 +505,9 @@ if($template[6] == '' || $login[$template[6]])
 			}
 			else {
 				include "include/admin_middel.php";
-				echo '<h1>'._('Templates').'</h1>';
+				echo '<h1>'.__('Templates').'</h1>';
 				
-				echo _('Error: Could not save template file.');
+				echo __('Error: Could not save template file.');
 				exit();
 			}
 		}
@@ -546,7 +545,7 @@ if($tpl_db && $id != 'new')
 	}
 	else
 	{
-		$template_txt	= _('Error with getting the template. Try again.');
+		$template_txt	= __('Error with getting the template. Try again.');
 		$template_name	= $template[0];
 	}
 }
@@ -563,29 +562,29 @@ else
 	if(!$template_txt && $template_txt != '')
 	{
 		include "include/admin_middel.php";
-		echo '<h1>'._('Templates').'</h1>';
+		echo '<h1>'.__('Templates').'</h1>';
 		
-		echo _('Error: Could not read template file.');
+		echo __('Error: Could not read template file.');
 		exit();
 	}
 }
 
 include "include/admin_middel.php";
-echo '<h1>'._('Templates').' - '.$template[0].'</h1>';
-echo '- <a href="'.$_SERVER['PHP_SELF'].'">'._('Back to template list').'</a><br><br>'.chr(10);
+echo '<h1>'.__('Templates').' - '.$template[0].'</h1>';
+echo '- <a href="'.$_SERVER['PHP_SELF'].'">'.__('Back to template list').'</a><br><br>'.chr(10);
 
 if(($template[6] == '' || $login[$template[6]]) && (isset($_GET['view']) && $_GET['view'] == '1'))
 {
-	echo _('The template in its original form:').'<br>';
+	echo __('The template in its original form:').'<br>';
 	echo '<textarea cols="75" rows="20" name="template_txt">'.$template_txt.'</textarea>'.chr(10);
 	echo '<br><br>';
 	
-	echo '<b>'._('Preview').' / '._('Test').' '._('againts an entry').'</b>'.chr(10);
+	echo '<b>'.__('Preview').' / '.__('Test').' '.__('againts an entry').'</b>'.chr(10);
 	echo '<form method="get" action="'.$_SERVER['PHP_SELF'].'">'.chr(10);
 	echo '<input type="hidden" name="preview" value="1">'.chr(10);
 	echo '<input type="hidden" name="template_file" value="'.$template[1].'">'.chr(10);
-	echo '<input type="text" name="entry_id"> - '._('Entry ID').' ('._('Must be valid').')<br>'.chr(10);
-	echo '<input type="submit" value="'._('Preview').'"'.chr(10);
+	echo '<input type="text" name="entry_id"> - '.__('Entry ID').' ('.__('Must be valid').')<br>'.chr(10);
+	echo '<input type="submit" value="'.__('Preview').'"'.chr(10);
 	echo '</form>'.chr(10);
 }
 else
@@ -597,12 +596,12 @@ else
 	
 	if(!$tpl_db)
 	{
-		echo '<input type="text" value="'.$template[0].'" disabled="disabled"> - '._('Template name').'<br>'.chr(10).
-		'<input type="text" value="'.$template[3].'" disabled="disabled"> - '._('Template type').'<br>'.chr(10);
+		echo '<input type="text" value="'.$template[0].'" disabled="disabled"> - '.__('Template name').'<br>'.chr(10).
+		'<input type="text" value="'.$template[3].'" disabled="disabled"> - '.__('Template type').'<br>'.chr(10);
 	}
 	else
 	{
-		echo '<input name="template_name" type="text" value="'.$template_name.'"> - '._('Template name').'<br>'.chr(10);
+		echo '<input name="template_name" type="text" value="'.$template_name.'"> - '.__('Template name').'<br>'.chr(10);
 		echo '<select name="template_type">'.chr(10);
 		foreach ($template_types as $ttype => $tname)
 		{
@@ -612,36 +611,36 @@ else
 			echo '>'.$tname.'</option>'.chr(10);
 		}
 		echo '</select>';
-		echo ' - '._('Template type').'<br>'.chr(10);
+		echo ' - '.__('Template type').'<br>'.chr(10);
 	}
 	
-	echo '<input type="submit" value="'._('Save').'">'.chr(10);
+	echo '<input type="submit" value="'.__('Save').'">'.chr(10);
 	echo '</form>';
 	
 	
-	echo '<h2>'._('How to make templates').'</h2>';
+	echo '<h2>'.__('How to make templates').'</h2>';
 	echo str_replace('Smarty', '<a href="http://www.smarty.net/">Smarty</a>', 
-		_('The template system is using Smarty. Please se Smarty\'s own descriptions on how to make templates. Click on the variables to the right to insert them in the template you are writing on.'));
+		__('The template system is using Smarty. Please se Smarty\'s own descriptions on how to make templates. Click on the variables to the right to insert them in the template you are writing on.'));
 	echo '<br><br>'.chr(10);
 	echo str_replace('Smartys documentation about date_format', 
 		'<a href="http://www.smarty.net/manual/en/language.modifier.date.format.php">'.
 		'Smartys documentation about date_format</a>',
-		_('*Unixtime is a given second of time and can be converted to a readable format (like Monday 15:30 04.12.2000). To do this write |date_format:"%A %H:%M %d.%m.%Y" after the variabel (like {$log_time|date_format:"%M"}). Please see Smartys documentation about date_format for different datevalues.'));
+		__('*Unixtime is a given second of time and can be converted to a readable format (like Monday 15:30 04.12.2000). To do this write |date_format:"%A %H:%M %d.%m.%Y" after the variabel (like {$log_time|date_format:"%M"}). Please see Smartys documentation about date_format for different datevalues.'));
 	
 	echo '<br><br>'.chr(10);
 	echo str_replace('Smartys documentation about foreach', 
 		'<a href="http://www.smarty.net/manual/en/language.function.foreach.php">'.
 		'Smartys documentation about foreach</a>',
-		_('*Table means that you can not just print it. Please see the Smartys documentation about foreach for how to print a table.'));
+		__('*Table means that you can not just print it. Please see the Smartys documentation about foreach for how to print a table.'));
 	
 	echo '<br><br>'.chr(10);
-	echo _('*Array-time means that the time is returned in an array with the day, month and year. Access by typing in {$something.year}, {$something.month} and {$something.day}.');
+	echo __('*Array-time means that the time is returned in an array with the day, month and year. Access by typing in {$something.year}, {$something.month} and {$something.day}.');
 	
 	echo '<br><br>'.chr(10);
-	echo _('*YYYYMMDD means that the time is in the format year month day, without spaces.');
+	echo __('*YYYYMMDD means that the time is in the format year month day, without spaces.');
 	
 	echo '</td>'.chr(10);
-	echo '<td><b>'._('Variables:').'</b><br>';
+	echo '<td><b>'.__('Variables:').'</b><br>';
 	echo '<table>'.chr(10);
 	foreach ($template[2] as $var => $txt) {
 		echo '<tr><td><span onclick="insertTags (\'{$'.$var.'}\', \'\', \'\');">{$'.$var.'}</span></td><td>&nbsp;-&nbsp;<i>'.$txt.'</i></td></tr>';

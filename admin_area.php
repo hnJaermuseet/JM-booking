@@ -46,20 +46,20 @@ if(isset($_GET['editor']))
 	if($id <= 0)
 	{
 		$editor = new editor('mrbs_area', $_SERVER['PHP_SELF'].'?editor=1');
-		$editor->setHeading(_('New area'));
-		$editor->setSubmitTxt(_('Add'));
+		$editor->setHeading(__('New area'));
+		$editor->setSubmitTxt(__('Add'));
 	}
 	else
 	{
 		$editor = new editor('mrbs_area', $_SERVER['PHP_SELF'].'?editor=1', $id);
-		$editor->setHeading(_('Change area'));
-		$editor->setSubmitTxt(_('Change'));
+		$editor->setHeading(__('Change area'));
+		$editor->setSubmitTxt(__('Change'));
 	}
 	
 	$editor->setDBFieldID('id');
 	$editor->showID (TRUE);
 	
-	$editor->makeNewField('area_name', _('Area name'), 'text');
+	$editor->makeNewField('area_name', __('Area name'), 'text');
 	
 	$editor->makeNewField('area_group', 'Standard brukergruppe', 'select');
 	$editor->addChoice('area_group', 0, 'Ingen');
@@ -96,8 +96,8 @@ if(isset($_GET['editor']))
 	$editor->printEditor();
 	
 	echo '<br /><br />*'.
-		_('Email(s) receiving alerts when new goods are detected for this shop.').'<br />'.
-		_('Can be multiple emails seperated by space, comma or semicolon.');
+		__('Email(s) receiving alerts when new goods are detected for this shop.').'<br />'.
+		__('Can be multiple emails seperated by space, comma or semicolon.');
 }
 else
 {
@@ -105,18 +105,18 @@ else
 	
 	include "include/admin_middel.php";
 	
-	echo '<h2>'._('Area').'</h2>'.chr(10).chr(10);
+	echo '<h2>'.__('Area').'</h2>'.chr(10).chr(10);
 	$QUERY = mysql_query("select * from `mrbs_area` order by area_name");
 	
 	if($login['user_access_areaadmin'])
-		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.iconHTML('house_add').' '._('New area').'</a><br><br>'.chr(10);
+		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.iconHTML('house_add').' '.__('New area').'</a><br><br>'.chr(10);
 	
 	echo '<table class="prettytable">'.chr(10).chr(10);
 	echo '	<tr>'.chr(10);
-	echo '		<th><b>'._('ID').'</b></th>'.chr(10);
-	echo '		<th><b>'._('Area').'</b></th>'.chr(10);
+	echo '		<th><b>'.__('ID').'</b></th>'.chr(10);
+	echo '		<th><b>'.__('Area').'</b></th>'.chr(10);
 	if($login['user_access_areaadmin'])
-		echo '		<th><b>'._('Options').'</b></th>'.chr(10);
+		echo '		<th><b>'.__('Options').'</b></th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
 	while($ROW = mysql_fetch_assoc($QUERY))
 	{
@@ -125,11 +125,11 @@ else
 		echo '		<td>'.iconHTML('house').' '.$ROW['area_name'].'</td>'.chr(10);
 		echo '		<td>'.
 		'<a href="admin_room.php?area_id='.$ROW['id'].'">'.
-		iconHTML('shape_square').' '._('Show rooms').'</a>';
+		iconHTML('shape_square').' '.__('Show rooms').'</a>';
 		if($login['user_access_areaadmin'])
 			echo ' -:- '.
 			'<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$ROW['id'].'">'.
-			iconHTML('house_go').' '._('Edit');
+			iconHTML('house_go').' '.__('Edit');
 		echo '</td>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 	}

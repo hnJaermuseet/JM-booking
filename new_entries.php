@@ -35,23 +35,23 @@ include_once("glob_inc.inc.php");
 
 print_header($day, $month, $year, $area);
 
-echo '<h1>'._('50 newest entries').'</h1>'.chr(10).chr(10);
+echo '<h1>'.__('50 newest entries').'</h1>'.chr(10).chr(10);
 
-echo '<b>'._('Colour explaination').'</b><br>'.chr(10);
-echo '<font color="black">'._('Entry has not changes since last view').'</font><br>'.chr(10);
-echo '<font color="red">'._('New entry').'</font><br>'.chr(10);
-echo '<font color="blue">'._('Changed entry').'</font><br>'.chr(10);
+echo '<b>'.__('Colour explaination').'</b><br>'.chr(10);
+echo '<font color="black">'.__('Entry has not changes since last view').'</font><br>'.chr(10);
+echo '<font color="red">'.__('New entry').'</font><br>'.chr(10);
+echo '<font color="blue">'.__('Changed entry').'</font><br>'.chr(10);
 echo '<br>'.chr(10);
 
 $Q_entries = mysql_query("select entry_id, entry_name, time_last_edit, user_last_edit, rev_num from `entry` order by `time_last_edit` desc limit 50");
 
 echo '<table>'.chr(10);
 echo ' <tr>'.chr(10);
-echo '  <td><b>'._('Entry id').'</b></td>'.chr(10);
-echo '  <td><b>'._('Entry name').'</b></td>'.chr(10);
-echo '  <td><b>'._('Last change').'</b></td>'.chr(10);
-echo '  <td><b>'._('Changed by').'</b></td>'.chr(10);
-echo '  <td><b>'._('Last action').'</b></td>'.chr(10);
+echo '  <td><b>'.__('Entry id').'</b></td>'.chr(10);
+echo '  <td><b>'.__('Entry name').'</b></td>'.chr(10);
+echo '  <td><b>'.__('Last change').'</b></td>'.chr(10);
+echo '  <td><b>'.__('Changed by').'</b></td>'.chr(10);
+echo '  <td><b>'.__('Last action').'</b></td>'.chr(10);
 echo ' </tr>'.chr(10);
 
 while ($R_entry = mysql_fetch_assoc($Q_entries))
@@ -66,7 +66,7 @@ while ($R_entry = mysql_fetch_assoc($Q_entries))
 	
 	$user = getUser($R_entry['user_last_edit']);
 	if(!isset($user['user_name']))
-		$user['user_name'] = _('Not found');
+		$user['user_name'] = __('Not found');
 	
 	// Seen all?
 	if(isset($_GET['seen_all']))
@@ -104,7 +104,7 @@ while ($R_entry = mysql_fetch_assoc($Q_entries))
 	}
 	else
 	{
-		echo '  <td bgcolor="'.$color2.'">'._('Log not found').'</td>'.chr(10);
+		echo '  <td bgcolor="'.$color2.'">'.__('Log not found').'</td>'.chr(10);
 	}
 	echo ' </tr>'.chr(10);
 }
@@ -112,6 +112,6 @@ while ($R_entry = mysql_fetch_assoc($Q_entries))
 echo '</table>';
 
 echo '<br><br>'.chr(10);
-echo '- <a href="new_entries.php?seen_all=1">'._('Mark all entries in this list as read').'</a><br>';
+echo '- <a href="new_entries.php?seen_all=1">'.__('Mark all entries in this list as read').'</a><br>';
 
 ?>

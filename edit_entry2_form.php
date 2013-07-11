@@ -238,11 +238,11 @@ echo '<table style="border: 1px solid black;">'.chr(10);
 
 echo '<tr><td colspan="4" align="center">'.chr(10);
 if($entry_add)
-	echo '<h1>'._('Add entry').'</h1>'.chr(10);
+	echo '<h1>'.__('Add entry').'</h1>'.chr(10);
 else
 {
-	echo '<h1>'._('Edit entry').'</h1>'.chr(10);
-	echo '- <a href="entry.php?entry_id='.$entry_fields['entry_id']['value'].'">'._('Back to entry').'</a> ('._('Entry will not be saved!').')';
+	echo '<h1>'.__('Edit entry').'</h1>'.chr(10);
+	echo '- <a href="entry.php?entry_id='.$entry_fields['entry_id']['value'].'">'.__('Back to entry').'</a> ('.__('Entry will not be saved!').')';
 }
 echo '</td></tr>'.chr(10).chr(10);
 
@@ -251,7 +251,7 @@ if(count($form_errors))
 	echo '<tr><td colspan="4" style="border: 1px black solid;">'.chr(10);
 	
 	echo '<div class="error">';
-	echo '<center><font color="red">'._('One or more errors occured in the data submited').'</font></center>'.chr(10);
+	echo '<center><font color="red">'.__('One or more errors occured in the data submited').'</font></center>'.chr(10);
 	echo '<ul>'.chr(10);
 	foreach ($form_errors as $error)
 	{
@@ -282,18 +282,18 @@ if(count($warnings))
 	echo '<tr><td colspan="4" style="border: 0px;">'.chr(10);
 	
 	echo '<div class="notice">';
-	echo '<h2>'._('One or more warnings where generated.').'</h2>'.chr(10);
+	echo '<h2>'.__('One or more warnings where generated.').'</h2>'.chr(10);
 	echo '<ul>'.chr(10);
 	foreach ($warnings as $warning)
 	{
 		echo '<li style="font-size: 16px; padding: 6px;">'.$warning.'</li>'.chr(10);
 	}
 	echo '</ul>'.chr(10);
-	echo '<i>'._('Changes are still not saved. Please fix warnings or ignore them to get the changes saved.').'</i><br><br>'.chr(10);
+	echo '<i>'.__('Changes are still not saved. Please fix warnings or ignore them to get the changes saved.').'</i><br><br>'.chr(10);
 	
 	echo '<label><input type="checkbox" value="1" name="warningignore"> '.
-		_('I have seen the warnings and still want to proceed.').'</label><br>'.chr(10);
-	echo '<input type="submit" value="'._('Proceed').'"><br>'.chr(10);
+		__('I have seen the warnings and still want to proceed.').'</label><br>'.chr(10);
+	echo '<input type="submit" value="'.__('Proceed').'"><br>'.chr(10);
 	
 	echo '</div>';
 	echo '</td></tr>'.chr(10);
@@ -599,7 +599,7 @@ foreach ($entry_fields as $field)
 					break;
 				
 				default:
-					echo _('Error with inputfields for entry.');
+					echo __('Error with inputfields for entry.');
 					break;
 			}
 			echo '</td>'.chr(10);

@@ -81,14 +81,14 @@ echo '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="time
 //echo '</tr>'.chr(10);
 
 echo ' <tr>'.chr(10);
-echo '  <td class="time3"><center>'._('Week').'</center></td>'.chr(10);
-echo '  <td class="time3"><center>'._('Monday').'</center></td>'.chr(10);
-echo '  <td class="time3"><center>'._('Tuesday').'</center></td>'.chr(10);
-echo '  <td class="time3"><center>'._('Wednesday').'</center></td>'.chr(10);
-echo '  <td class="time3"><center>'._('Thursday').'</center></td>'.chr(10);
-echo '  <td class="time3"><center>'._('Friday').'</center></td>'.chr(10);
-echo '  <td class="time3"><center>'._('Saturday').'</center></td>'.chr(10);
-echo '  <td class="time3"><center>'._('Sunday').'</center></td>'.chr(10);
+echo '  <td class="time3"><center>'.__('Week').'</center></td>'.chr(10);
+echo '  <td class="time3"><center>'.__('Monday').'</center></td>'.chr(10);
+echo '  <td class="time3"><center>'.__('Tuesday').'</center></td>'.chr(10);
+echo '  <td class="time3"><center>'.__('Wednesday').'</center></td>'.chr(10);
+echo '  <td class="time3"><center>'.__('Thursday').'</center></td>'.chr(10);
+echo '  <td class="time3"><center>'.__('Friday').'</center></td>'.chr(10);
+echo '  <td class="time3"><center>'.__('Saturday').'</center></td>'.chr(10);
+echo '  <td class="time3"><center>'.__('Sunday').'</center></td>'.chr(10);
 echo ' </tr>'.chr(10);
 $printedWeeks = array();
 $firstWeek = true;
@@ -181,7 +181,7 @@ for ($i = 1; $i < $numDays + 1; $i++)
 					$a = '';
 					if($event['time_start'] < $start)
 					{
-						$a .= _('started').' '.date('d-m-Y', $event['time_start']);
+						$a .= __('started').' '.date('d-m-Y', $event['time_start']);
 						$event['time_start'] = $start;
 					}
 					if($event['time_end'] > $end)

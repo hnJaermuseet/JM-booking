@@ -43,7 +43,7 @@ elseif(isset($_GET['entry_id']) && is_numeric($_GET['entry_id']))
 else
 {
 	print_header($day, $month, $year, $area);
-	echo _('Error: No entry spesified.');
+	echo __('Error: No entry spesified.');
 	exit();
 }
 
@@ -55,7 +55,7 @@ if (!count($entry))
 	$entry = getEntryDeleted ($entry_id);
 	if(!count($entry))
 	{
-		echo _('Can\'t find entry');
+		echo __('Can\'t find entry');
 		exit();
 	}
 	else
@@ -114,7 +114,7 @@ foreach($entry_log as $thislog)
 			echo 'F&oslash;lgende data var tilstede ved sletting:<br />';
 		if($thislog['log_action2'] == 'entry_undeleted')
 			echo 'F&oslash;lgende data var tilstede ved gjenoppretting:<br />';
-		echo '<a href="javascript:switchView('.$thislog['log_id'].');" id="switchlink'.$thislog['log_id'].'">'._("hide").'</a>'.chr(10);
+		echo '<a href="javascript:switchView('.$thislog['log_id'].');" id="switchlink'.$thislog['log_id'].'">'.__("hide").'</a>'.chr(10);
 		echo '<div id="log'.$thislog['log_id'].'">'.chr(10);
 		echo ' <ul>'.chr(10);
 		echo printEntryLog($thislog, TRUE);

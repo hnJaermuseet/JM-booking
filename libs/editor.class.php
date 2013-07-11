@@ -350,7 +350,7 @@ class editor {
 	function checkInput_text ($var) {
 		if($this->vars[$var]['required'] && $this->vars[$var]['value'] == '')
 		{
-			$this->error_input[] = _('A required field').', '.$this->vars[$var]['name'].', '. _('is empty');
+			$this->error_input[] = __('A required field').', '.$this->vars[$var]['name'].', '. __('is empty');
 			return FALSE;
 		}
 		
@@ -379,7 +379,7 @@ class editor {
 	function checkInput_select ($var) {
 		if($this->vars[$var]['required'] && $this->vars[$var]['value'] == '')
 		{
-			$this->error_input[] = _('A required field').', '.$this->vars[$var]['name'].', '. _('is empty');
+			$this->error_input[] = __('A required field').', '.$this->vars[$var]['name'].', '. __('is empty');
 			return FALSE;
 		}
 		
@@ -420,7 +420,7 @@ class editor {
 	function checkInput_checkbox ($var) {
 		if($this->vars[$var]['required'] && !count($var['value_array']))
 		{
-			$this->error_input[] = _('A required field').', '.$this->vars[$var]['name'].', '. _('is empty');
+			$this->error_input[] = __('A required field').', '.$this->vars[$var]['name'].', '. __('is empty');
 			return FALSE;
 		}
 		
@@ -487,7 +487,7 @@ class editor {
 		{
 			echo '<tr><td colspan="3" style="border: 1px black solid;">'.chr(10);
 			
-			echo '<div class="error">'._('One or more errors occured in the data submited').'</div>'.chr(10);
+			echo '<div class="error">'.__('One or more errors occured in the data submited').'</div>'.chr(10);
 			echo '<ul>'.chr(10);
 			foreach ($this->error_input as $error)
 			{
@@ -503,17 +503,17 @@ class editor {
 		{
 			echo '<tr><td colspan="3" style="border: 1px black solid;">'.chr(10);
 			
-			echo '<center><font color="red" size="5">'._('One or more warnings where generated.').'</font></center>'.chr(10);
+			echo '<center><font color="red" size="5">'.__('One or more warnings where generated.').'</font></center>'.chr(10);
 			echo '<ul>'.chr(10);
 			foreach ($this->warnings as $warning)
 			{
 				echo '<li>'.$warning.'</li>'.chr(10);
 			}
 			echo '</ul>'.chr(10);
-			echo '<i>'._('Changes are still not saved. Please fix warnings or ignore them to get the changes saved.').'</i><br><br>'.chr(10);
+			echo '<i>'.__('Changes are still not saved. Please fix warnings or ignore them to get the changes saved.').'</i><br><br>'.chr(10);
 			
-			echo '<input type="checkbox" value="1" name="warningignore"> '._('I have seen the warnings and still want to proceed.').'<br>'.chr(10);
-			echo '<input type="submit" value="'._('Proceed').'"><br>'.chr(10);
+			echo '<input type="checkbox" value="1" name="warningignore"> '.__('I have seen the warnings and still want to proceed.').'<br>'.chr(10);
+			echo '<input type="submit" value="'.__('Proceed').'"><br>'.chr(10);
 			echo '</td></tr>'.chr(10);
 			
 			// Make some space
@@ -530,7 +530,7 @@ class editor {
 		}
 		
 		if($this->showid && $this->id != '') {
-			echo "\t<tr>\n\t\t<td>"._('ID')."</td>\n\t\t<td>".
+			echo "\t<tr>\n\t\t<td>".__('ID')."</td>\n\t\t<td>".
 			"<input size=\"6\" type=\"text\" disabled=\"disabled\" value=\"";
 			if(is_array($this->id))
 				echo current($this->id);
@@ -679,8 +679,8 @@ class editor {
 					$checked_yes = $checked_no = '';
 					if($var['value'])	$checked_yes	= ' checked="checked"';
 					else			$checked_no	= ' checked="checked"';
-					echo '<label><input type="radio" name="'.$var['var'].'" value="1" '.$checked_yes.' /> - '._('Yes').'</label><br />';
-					echo '<label><input type="radio" name="'.$var['var'].'" value="0" '.$checked_no.' /> - '._('No').'</label><br />';
+					echo '<label><input type="radio" name="'.$var['var'].'" value="1" '.$checked_yes.' /> - '.__('Yes').'</label><br />';
+					echo '<label><input type="radio" name="'.$var['var'].'" value="0" '.$checked_no.' /> - '.__('No').'</label><br />';
 					
 					break;
 			}

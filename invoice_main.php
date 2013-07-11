@@ -30,7 +30,7 @@ require "include/invoice_top.php";
 $section = 'main';
 require "include/invoice_menu.php";
 
-echo '<h1>'._('Main page').'</h1>'.chr(10).chr(10);
+echo '<h1>'.__('Main page').'</h1>'.chr(10).chr(10);
 
 $filters = array();
 $filters = addFilter($filters, 'invoice', '1');
@@ -45,7 +45,7 @@ $Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by a
 
 echo '<table class="prettytable">'.chr(10);
 echo '	<tr>'.chr(10);
-echo '		<th>'._('Area').'</th>'.chr(10);
+echo '		<th>'.__('Area').'</th>'.chr(10);
 echo '		<th>Ikke gjennomf&oslash;rt</th>'.chr(10);
 echo '		<th>Ikke klargjort</th>'.chr(10);
 echo '		<th>Klar til fakturautsending</th>'.chr(10);

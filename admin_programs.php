@@ -46,22 +46,22 @@ if(isset($_GET['editor']))
 	if($id <= 0)
 	{
 		$editor = new editor('programs', $_SERVER['PHP_SELF'].'?editor=1');
-		$editor->setHeading(_('New fixed program'));
-		$editor->setSubmitTxt(_('Add'));
+		$editor->setHeading(__('New fixed program'));
+		$editor->setSubmitTxt(__('Add'));
 	}
 	else
 	{
 		$editor = new editor('programs', $_SERVER['PHP_SELF'].'?editor=1', $id);
-		$editor->setHeading(_('Change fixed program'));
-		$editor->setSubmitTxt(_('Change'));
+		$editor->setHeading(__('Change fixed program'));
+		$editor->setSubmitTxt(__('Change'));
 	}
 	
 	$editor->setDBFieldID('program_id');
 	$editor->showID (TRUE);
 	
-	$editor->makeNewField('program_name', _('Program name'), 'text');
+	$editor->makeNewField('program_name', __('Program name'), 'text');
 	$editor->makeNewField('program_desc', 'Beskrivelse', 'textarea');
-	$editor->makeNewField('area_id', _('Area belonging'), 'select',
+	$editor->makeNewField('area_id', __('Area belonging'), 'select',
 		array('defaultValue' => $area));
 	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
 	while($R_area = mysql_fetch_assoc($Q_area))
@@ -164,11 +164,11 @@ elseif(isset($_GET['program_id']))
 	
 	echo '<form action="'.$_SERVER['PHP_SELF'].'?program_id='.$program['program_id'].'" method="POST">'.chr(10);
 	echo '<input type="hidden" name="attSave" value="1">'.chr(10);
-	echo 'Filene må lastes opp fra egen side under <i>Administrasjon</i><br><br>';
+	echo 'Filene m&aring; lastes opp fra egen side under <i>Administrasjon</i><br><br>';
 	
 	echo '<h2>Vedlegg valgt:</h2>';
 	if($saved)
-		echo '<div class="notice">Vedleggene er nå lagret og vil automatisk valgt ved bookinger med dette programmet.</div>'.chr(10);
+		echo '<div class="notice">Vedleggene er n&aring; lagret og vil automatisk valgt ved bookinger med dette programmet.</div>'.chr(10);
 	echo '<input type="button" id="velgVedlegg" class="ui-button ui-state-default ui-corner-all" value="Velg fil(er)">';
 	echo '<div style="border:2px solid #DDDDDD; margin-bottom:1em; padding:0.8em; margin-top:1em;">';
 	echo '<div id="noAttachmentsSelected" style="display: none; padding: 5px;"><i>Ingen vedlegg valgt</i></div>';
@@ -196,21 +196,21 @@ else
 	
 	include "include/admin_middel.php";
 	
-	echo '<h2>'._('Fixed programs').'</h2>'.chr(10).chr(10);
+	echo '<h2>'.__('Fixed programs').'</h2>'.chr(10).chr(10);
 	$Q_programs = mysql_query("select * from `programs` order by program_name");
 	
 	if($login['user_access_programadmin'])
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.
-		iconHTML('package_add').' '._('New fixed program').'</a><br><br>'.chr(10);
+		iconHTML('package_add').' '.__('New fixed program').'</a><br><br>'.chr(10);
 	
 	echo '<table class="prettytable">'.chr(10).chr(10);
 	echo '	<tr>'.chr(10);
-	echo '		<th>'._('ID').'</th>'.chr(10);
-	echo '		<th>'._('Program name').'</th>'.chr(10);
+	echo '		<th>'.__('ID').'</th>'.chr(10);
+	echo '		<th>'.__('Program name').'</th>'.chr(10);
 	echo '		<th>Beskrivelse</th>'.chr(10);
-	echo '		<th>'._('Area').'</th>'.chr(10);
+	echo '		<th>'.__('Area').'</th>'.chr(10);
 	echo '		<th>Vedlegg</th>'.chr(10);
-	echo '		<th>'._('Options').'</th>'.chr(10);
+	echo '		<th>'.__('Options').'</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
 	while($R_program = mysql_fetch_assoc($Q_programs))
 	{
@@ -224,7 +224,7 @@ else
 		echo '		<td style="white-space: nowrap;">';
 		$Q_area = mysql_query("select * from `mrbs_area` where id = '".$R_program['area_id']."'");
 		if(!mysql_num_rows($Q_area))
-			echo '<i>'._('Not found').'</i>';
+			echo '<i>'.__('Not found').'</i>';
 		else
 			echo iconHTML('house').' '.mysql_result($Q_area, 0, 'area_name');
 		echo '</td>'.chr(10);
@@ -254,7 +254,7 @@ else
 		{
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$R_program['program_id'].'">'.
 				iconHTML('package_go').' '.
-				_('Edit').'</a> -:- ';
+				__('Edit').'</a> -:- ';
 		}
 		
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?program_id='.$R_program['program_id'].'">'.

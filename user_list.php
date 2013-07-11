@@ -30,7 +30,7 @@ include_once("glob_inc.inc.php");
 print_header($day, $month, $year, $area);
 
 $Q_users = mysql_query("select user_id from `users` where deactivated = 0 order by user_name");
-echo '<h1>'._('Users').'</h1>'.chr(10);
+echo '<h1>'.__('Users').'</h1>'.chr(10);
 
 if(!isset($_GET['gid']))
 {
@@ -83,7 +83,7 @@ else
 		echo '<b>Viser brukergruppen '.$group['group_name'].'</b><br />'.chr(10);
 		echo '<a href="telefonliste.php?gid='.$group['group_id'].'">Vis som telefonliste</a><br />';
 		if(!count($group['users']))
-			echo '<i>Ingen brukere på denne listen</i>';
+			echo '<i>Ingen brukere p&aring; denne listen</i>';
 		else
 		{
 			echo '<table class="prettytable">';

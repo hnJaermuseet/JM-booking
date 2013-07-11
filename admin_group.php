@@ -41,7 +41,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	$Q_group = mysql_query("select * from `groups` where group_id = '$gid'");
 	if(!mysql_num_rows($Q_group))
 	{
-		echo _("Group not found");
+		echo __("Group not found");
 		exit();
 	}
 	
@@ -81,7 +81,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 		}
 		else
 		{
-			echo _('User does not exist');
+			echo __('User does not exist');
 			exit();
 		}
 		
@@ -108,25 +108,25 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	
 	// Display
 	include "include/admin_middel.php";
-	echo '<h1>'._('Usergroups').'</h1>';
-	echo '- <a href="admin_group.php">'._("Back").'</a><br>'.chr(10);
-	echo '<b>'._('Viewing group').'</b><br>'.chr(10);
-	echo _('Group name').': '.$group_name.'<br>'.chr(10);
-	echo _('Users').': '.count($gusers1).'<br><br>'.chr(10);
-	echo '<b>'._('Add user to group').':</b><br>'.chr(10);
+	echo '<h1>'.__('Usergroups').'</h1>';
+	echo '- <a href="admin_group.php">'.__("Back").'</a><br>'.chr(10);
+	echo '<b>'.__('Viewing group').'</b><br>'.chr(10);
+	echo __('Group name').': '.$group_name.'<br>'.chr(10);
+	echo __('Users').': '.count($gusers1).'<br><br>'.chr(10);
+	echo '<b>'.__('Add user to group').':</b><br>'.chr(10);
 	
 	if($login['user_access_useredit'])
 	{
 		echo '<form action="admin_group.php" method="get">'.chr(10);
 		echo '<input type="hidden" name="gid" value="'.$gid.'">'.chr(10);
 		echo '<input type="text" name="group_add_user">'.chr(10);
-		echo '<input type="submit" value="'._('Add').'">'.chr(10);
-		echo ' ('._('Enter userID').')'.chr(10);
+		echo '<input type="submit" value="'.__('Add').'">'.chr(10);
+		echo ' ('.__('Enter userID').')'.chr(10);
 	}
 	else
-		echo _('You are not allowed to do this.');
+		echo __('You are not allowed to do this.');
 	echo '<br><br>'.chr(10);
-	echo '<b>'._('Users').'</b><br>'.chr(10);
+	echo '<b>'.__('Users').'</b><br>'.chr(10);
 	
 	$Q_users = mysql_query("
 		SELECT user_id, user_name
@@ -144,7 +144,7 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 		echo '<li><a href="user.php?user_id='.$user_id.'">'.$user_name.'</a>';
 		
 		if($login['user_access_useredit'])
-			echo ' (<a href="admin_group.php?gid='.$gid.'&amp;group_del_user='.$user_id.'">'._('Remove user from group').'</a>)';
+			echo ' (<a href="admin_group.php?gid='.$gid.'&amp;group_del_user='.$user_id.'">'.__('Remove user from group').'</a>)';
 		
 		echo '</li>'.chr(10);
 		
@@ -190,30 +190,30 @@ else
 {
 	include "include/admin_middel.php";
 	
-	echo '<h1>'._('Usergroups').'</h1>';
+	echo '<h1>'.__('Usergroups').'</h1>';
 	// Add
 	echo '<form action="admin_group.php" method="post">'.chr(10);
-	echo '<b>'._('Add group').'</b><br>'.chr(10);
+	echo '<b>'.__('Add group').'</b><br>'.chr(10);
 	if($login['user_access_useredit'])
 	{
 		echo '<input type="text" name="add"><br>'.chr(10);
-		echo '<input type="submit" value="'._('Add').'">'.chr(10);
+		echo '<input type="submit" value="'.__('Add').'">'.chr(10);
 	}
 	else
-		echo _('You are not allowed to do this.');
+		echo __('You are not allowed to do this.');
 	echo '<br><br>'.chr(10);
 	
 	// List of groups
-	echo '<b>'._('List of usergroups').'</b><br>'.chr(10);
+	echo '<b>'.__('List of usergroups').'</b><br>'.chr(10);
 	$Q_groups = mysql_query("select * from `groups` order by 'group_name'");
 	if(!mysql_num_rows($Q_groups))
-		echo _('No groups found.');
+		echo __('No groups found.');
 	else
 	{
 		while($R_group = mysql_fetch_assoc($Q_groups))
 		{
 			
-			echo '- <a href="admin_group.php?gid='.$R_group['group_id'].'">'.$R_group['group_name'].'</a> ('.count(splittIDs($R_group['user_ids'])).' '._('users').')<br>'.chr(10);
+			echo '- <a href="admin_group.php?gid='.$R_group['group_id'].'">'.$R_group['group_name'].'</a> ('.count(splittIDs($R_group['user_ids'])).' '.__('users').')<br>'.chr(10);
 		}
 	}
 }

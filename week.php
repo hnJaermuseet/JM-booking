@@ -126,11 +126,11 @@ if($room != 0)
 #Show Go to week before and after links
 echo '<table width="100%" class="hiddenprint"><tr><td>';
 echo '<a href="week.php?year='.$yy.'&month='.$ym.'&day='.$yd.'&area='.$area.'&room='.$room.'">&lt;&lt; '.
-_("go to last week").
+__("go to last week").
 	"</a></td><td align=center><a href=\"week.php?area=$area&room=$room\">",
-	_("go to this week"),
+	__("go to this week"),
 	"</a></td><td align=right><a href=\"week.php?year=$ty&month=$tm&day=$td&area=$area&room=$room\">",
-	_("go to next week"),
+	__("go to next week"),
 	"&gt;&gt;</a></td></tr></table>";
 
 $weekdays = array();
@@ -181,7 +181,7 @@ foreach ($weekdays as $daynum => $weekday)
 					$a = '';
 					if($event['time_start'] < $start)
 					{
-						$a .= _('started').' '.date('H:i d-m-Y', $event['time_start']);
+						$a .= __('started').' '.date('H:i d-m-Y', $event['time_start']);
 						$event['time_start'] = $start;
 					}
 					if($event['time_end'] > $end)
@@ -201,9 +201,9 @@ foreach ($weekdays as $daynum => $weekday)
 		}
 	}
 	echo '<table width="100%" cellspacing="0" style="border-collapse: collapse;">';
-	echo '<tr><td class="dayplan"><b>'._('Time').'</b></td><td class="dayplan"><b>'._('Room').'</b></td><td class="dayplan"><b>'._('C/A').'</b></td><td class="dayplan" width="100%"><b>'._('What').'</b></td></tr>';
+	echo '<tr><td class="dayplan"><b>'.__('Time').'</b></td><td class="dayplan"><b>'.__('Room').'</b></td><td class="dayplan"><b>'.__('C/A').'</b></td><td class="dayplan" width="100%"><b>'.__('What').'</b></td></tr>';
 	if(!count($entries))
-		echo '<tr><td class="dayplan"><b>00:00-23:59</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'._('Nothing').'</i></font></td></tr>';
+		echo '<tr><td class="dayplan"><b>00:00-23:59</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'.__('Nothing').'</i></font></td></tr>';
 	else
 	{
 		$last_time = $start;
@@ -214,13 +214,13 @@ foreach ($weekdays as $daynum => $weekday)
 			{
 				if($last_time < $t)
 				{
-					echo '<tr><td class="dayplan"><b>'.date('H:i', $last_time).'-'.date('H:i', $t).'</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'._('Nothing').'</i></font></td></tr>';
+					echo '<tr><td class="dayplan"><b>'.date('H:i', $last_time).'-'.date('H:i', $t).'</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'.__('Nothing').'</i></font></td></tr>';
 				}
 				echo '<tr><td class="dayplan"><b>'.date('H:i', $entries[$entry_id]['time_start']).'-'.date('H:i', $entries[$entry_id]['time_end']).'</b></td><td class="dayplan">';
 				// Rooms
 				$room_name = array();
 				if(!count($entries[$entry_id]['room_id']))
-					echo '<i>'._('Whole area').'</i>';
+					echo '<i>'.__('Whole area').'</i>';
 				else
 				{
 					$Any_rooms = false;
@@ -235,7 +235,7 @@ foreach ($weekdays as $daynum => $weekday)
 						}
 					}
 					if(!$Any_rooms)
-						echo '<i>'.str_replace(' ', '&nbsp;', _('Whole area')).'</i>';
+						echo '<i>'.str_replace(' ', '&nbsp;', __('Whole area')).'</i>';
 					else
 						echo implode(', ', $room_name);
 				}

@@ -117,7 +117,7 @@ include "roomlist.php";
 
 //this usually happens when the user changes the instance in another browser window or if the session was lost
 if(!isset($room_capacity[$room])){
-	echo _("This room couldn't be found."), "<br/>", $startpage;
+	echo __("This room couldn't be found."), "<br/>", $startpage;
 	exit;
 }
 
@@ -144,11 +144,11 @@ $td = date("d",$i);
 #Show Go to week before and after links
 echo '<table width=\"100%\"><tr><td>';
 echo '<a href=\"week.php?year=$yy&month=$ym&day=$yd&area=$area&room=$room\">&lt;&lt; '.
-_("go to last week").
+__("go to last week").
 	"</a></td><td align=center><a href=\"week.php?area=$area&room=$room\">",
-	_("go to this week"),
+	__("go to this week"),
 	"</a></td><td align=right><a href=\"week.php?year=$ty&month=$tm&day=$td&area=$area&room=$room\">",
-	_("go to next week"),
+	__("go to next week"),
 	"&gt;&gt;</a></td></tr></table>";
 
 
@@ -200,10 +200,10 @@ for ($t = $week_start; $t < $week_end; $t += 86400)
 				if($event['time_start'] < $start)
 				{
 					$event['time_start'] = $start;
-					$event['entry_name'] .= ' ('._('started').' '.date('H:i d-m-Y', $event['time_start_real']).')';
+					$event['entry_name'] .= ' ('.__('started').' '.date('H:i d-m-Y', $event['time_start_real']).')';
 				}
 				$event['time_start']	= round_t_down($event['time_start'], $resolution);
-				//echo date('H:i:s dmY',$event['time_start']).' start før diff<br>'.chr(10);
+				//echo date('H:i:s dmY',$event['time_start']).' start before diff<br>'.chr(10);
 				$diff = $event['time_end'] - $event['time_start'];
 				//echo $diff.' '.($diff/60).'<br>'.chr(10);
 				if($diff < (60 * 30))
@@ -395,7 +395,7 @@ for ($t = $am7; $t <= $pm7; $t += $resolution)
 	echo '</tr>'.chr(10);
 }
 echo "</table>";
-echo '<input type="submit" value="'._('Make entry').'"><br><br>'.chr(10);
+echo '<input type="submit" value="'.__('Make entry').'"><br><br>'.chr(10);
 echo '</form>'.chr(10);
 
 include("trailer.inc.php");

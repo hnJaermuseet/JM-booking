@@ -59,7 +59,7 @@ switch($listtype)
 		break;
 	
 	default:
-		$tittel = _('Entry list');
+		$tittel = __('Entry list');
 		if(!isset($_GET['filters']))
 			$_GET['filters'] = '';
 		
@@ -122,7 +122,7 @@ echo getGMTtimestamp('1266447540'); exit;
 echo 'BEGIN:VCALENDAR'.chr(10).
 'METHOD:REQUEST'.chr(10).
 'X-WR-TIMEZONE:Europe/Oslo'.chr(10).
-// TODO: 10 min i stede for 1 min som nå under testing
+// TODO: 10 min instead of 1 min, like now in testing
 'X-PUBLISHED-TTL:P0DT0H1M0S'.chr(10). // 10 minutes
 'X-PRIMARY-CALENDAR:TRUE'.chr(10). // TODO
 //'X-OWNER;CN="Hallvard NygÃ¥rd":mailto:hallvard.nygaard@jaermuseet.no'.chr(10). //TODO: Only on user-viewing

@@ -29,48 +29,48 @@ require "glob_inc.inc.php";
 
 if(!isset($_GET['customer_id']) || !is_numeric($_GET['customer_id']))
 {
-	echo _('Error: Customer ID is invalid.');
+	echo __('Error: Customer ID is invalid.');
 	exit();
 }
 
 $customer = getCustomer($_GET['customer_id']);
 if(!count($customer))
 {
-	echo _('Error: Customer not found.');
+	echo __('Error: Customer not found.');
 	exit();
 }
 
 print_header($day, $month, $year, $area);
 
-echo '<h1>'._('Customer').': '.$customer['customer_name'].'</h1>'.chr(10).chr(10);
+echo '<h1>'.__('Customer').': '.$customer['customer_name'].'</h1>'.chr(10).chr(10);
 
 if($customer['slettet'])
 	echo '<div class="error" style="width: 500px;">Denne kunden er slettet. Kun visning tilgjengelig.</div>';
 else
 	echo '<a href="customer_edit.php?customer_id='.$customer['customer_id'].'&amp;returnToCustomerView=1">'.
 	'<img src="./img/icons/group_edit.png" style="border: 0px solid black; vertical-align: middle;"> '.
-	_('Edit customer').'</a><br><br>'.chr(10);
+	__('Edit customer').'</a><br><br>'.chr(10);
 
 echo '<b>Kundeid:</b> '.$customer['customer_id'].'<br>'.chr(10);
-echo '<b>'._('Customer name').':</b> '.$customer['customer_name'].'<br>'.chr(10);
-echo '<b>'._('Type of customer').':</b> ';
-if($customer['customer_type'] == 'person') echo _('Private person');
-if($customer['customer_type'] == 'firm') echo _('School, company, organization, etc');
+echo '<b>'.__('Customer name').':</b> '.$customer['customer_name'].'<br>'.chr(10);
+echo '<b>'.__('Type of customer').':</b> ';
+if($customer['customer_type'] == 'person') echo __('Private person');
+if($customer['customer_type'] == 'firm') echo __('School, company, organization, etc');
 echo '<br>'.chr(10);
-echo '<b>'._('Municipal').':</b> ';
+echo '<b>'.__('Municipal').':</b> ';
 if($customer['customer_municipal'] != '')
 	echo $customer['customer_municipal'].' ('.$customer['customer_municipal_num'].')<br>'.chr(10);
 else
-	echo '<span style="color: gray;">'._('Non selected').'</span><br>'.chr(10);
+	echo '<span style="color: gray;">'.__('Non selected').'</span><br>'.chr(10);
 
-echo '<h2>'._('Phone number(s)').'</h2>'.chr(10);
-echo _('See also any entries on this customer that might contain phone numbers.').'<br><br>'; 
+echo '<h2>'.__('Phone number(s)').'</h2>'.chr(10);
+echo __('See also any entries on this customer that might contain phone numbers.').'<br><br>';
 if(count($customer['customer_phone']))
 {
 	echo '<table style="border-collapse: collapse;">'.chr(10);
 	echo '	<tr>'.chr(10);
-	echo '		<td class="border"><b>'._('Number').'</b></td>'.chr(10);
-	echo '		<td class="border"><b>'._('Name').'</b></td>'.chr(10);
+	echo '		<td class="border"><b>'.__('Number').'</b></td>'.chr(10);
+	echo '		<td class="border"><b>'.__('Name').'</b></td>'.chr(10);
 	echo '	</tr>'.chr(10);
 	foreach ($customer['customer_phone'] as $phone)
 	{
@@ -82,16 +82,16 @@ if(count($customer['customer_phone']))
 	echo '</table>'.chr(10);
 }
 else
-	echo _('No phone numbers.');
+	echo __('No phone numbers.');
 
-echo '<h2>'._('Address(es)').'</h2>'.chr(10); 
+echo '<h2>'.__('Address(es)').'</h2>'.chr(10);
 if(count($customer['customer_address']))
 {
 	echo '<table style="border-collapse: collapse;">'.chr(10);
 	echo '	<tr>'.chr(10);
-	echo '		<td class="border"><b>'._('Name').'</b></td>'.chr(10);
-	echo '		<td class="border"><b>'._('Address').'</b></td>'.chr(10);
-	echo '		<td class="border"><b>'._('Invoice address?').'</b></td>'.chr(10);
+	echo '		<td class="border"><b>'.__('Name').'</b></td>'.chr(10);
+	echo '		<td class="border"><b>'.__('Address').'</b></td>'.chr(10);
+	echo '		<td class="border"><b>'.__('Invoice address?').'</b></td>'.chr(10);
 	echo '	</tr>'.chr(10);
 	foreach ($customer['customer_address'] as $address)
 	{
@@ -104,18 +104,18 @@ if(count($customer['customer_address']))
 		
 		echo '		<td class="border">';
 		if($customer['customer_address_id_invoice'] == $address['address_id'])
-			echo _('Yes');
+			echo __('Yes');
 		else
-			echo _('No');
+			echo __('No');
 		echo '</td>'.chr(10);
 		echo '	</tr>'.chr(10);
 	}
 	echo '</table>'.chr(10);
 }
 else
-	echo _('No addresses.');
+	echo __('No addresses.');
 
-echo '<h2>'._('Entries for').' '.$customer['customer_name'].'</h2>'.chr(10);
+echo '<h2>'.__('Entries for').' '.$customer['customer_name'].'</h2>'.chr(10);
 filterMakeAlternatives();
 $filters = array();
 $filters = addFilter($filters, 'customer_id', $customer['customer_id']);
@@ -124,17 +124,17 @@ $SQL = genSQLFromFilters($filters, '*').' order by time_start';
 $Q_next_entries = mysql_query($SQL);
 
 if(!mysql_num_rows($Q_next_entries))
-	echo '<i>'._('No entries found for this customer').'</i>'.chr(10);
+	echo '<i>'.__('No entries found for this customer').'</i>'.chr(10);
 else
 {
 	echo '<table style="border-collapse: collapse;">'.chr(10);
 	echo ' <tr>'.chr(10);
-	echo '  <td class="border"><b>'._('Starts').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Name').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Where').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Contact person').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Phone').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('E-mail').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Starts').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Name').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Where').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Contact person').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Phone').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('E-mail').'</b></td>'.chr(10);
 	echo ' </tr>'.chr(10);
 	while($R = mysql_fetch_assoc($Q_next_entries))
 	{
@@ -152,7 +152,7 @@ else
 			foreach ($entry['room_id'] as $rid)
 			{
 				if($rid == '0')
-					$rooms[] = _('Whole area');
+					$rooms[] = __('Whole area');
 				else
 				{
 					$room = getRoom($rid);
@@ -186,12 +186,12 @@ if(mysql_num_rows($Q_next_entries))
 	
 	echo '<table style="border-collapse: collapse;">'.chr(10);
 	echo ' <tr>'.chr(10);
-	echo '  <td class="border"><b>'._('Starts').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Name').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Where').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Contact person').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('Phone').'</b></td>'.chr(10);
-	echo '  <td class="border"><b>'._('E-mail').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Starts').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Name').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Where').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Contact person').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('Phone').'</b></td>'.chr(10);
+	echo '  <td class="border"><b>'.__('E-mail').'</b></td>'.chr(10);
 	echo ' </tr>'.chr(10);
 	while($R = mysql_fetch_assoc($Q_next_entries))
 	{
@@ -209,7 +209,7 @@ if(mysql_num_rows($Q_next_entries))
 			foreach ($entry['room_id'] as $rid)
 			{
 				if($rid == '0')
-					$rooms[] = _('Whole area');
+					$rooms[] = __('Whole area');
 				else
 				{
 					$room = getRoom($rid);

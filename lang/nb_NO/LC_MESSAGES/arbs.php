@@ -1,24 +1,14 @@
-msgid ""
-msgstr ""
-"Project-Id-Version: arbs\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-23 14:53+0100\n"
-"PO-Revision-Date: 2010-06-23 14:54+0100\n"
-"Last-Translator: Hallvard Nygård <hn@jaermuseet.no>\n"
-"Language-Team: Hallvard Nygård <hn@jaermuseet.no>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Norwegian Bokmal\n"
-"X-Poedit-Country: NORWAY\n"
-"X-Poedit-SourceCharset: iso-8859-1\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-SearchPath-0: Y:\\www\\jm-bookingtest\n"
+<?php
+
+$words = array();
+
+$words[""
+] = ""
 
 #: Y:\www\jm-bookingtest/admin_area.php:49
 #: Y:\www\jm-bookingtest/admin_area.php:104
-msgid "New area"
-msgstr "Nytt anlegg"
+; $words["New area"
+] = "Nytt anlegg"
 
 #: Y:\www\jm-bookingtest/admin_area.php:50
 #: Y:\www\jm-bookingtest/admin_entry_type.php:50
@@ -30,12 +20,12 @@ msgstr "Nytt anlegg"
 #: Y:\www\jm-bookingtest/admin_programs.php:50
 #: Y:\www\jm-bookingtest/admin_room.php:64
 #: Y:\www\jm-bookingtest/admin_user2.php:75
-msgid "Add"
-msgstr "Legg til"
+; $words["Add"
+] = "Legg til"
 
 #: Y:\www\jm-bookingtest/admin_area.php:55
-msgid "Change area"
-msgstr "Endre anlegg"
+; $words["Change area"
+] = "Endre anlegg"
 
 #: Y:\www\jm-bookingtest/admin_area.php:56
 #: Y:\www\jm-bookingtest/admin_entry_type.php:56
@@ -45,13 +35,13 @@ msgstr "Endre anlegg"
 #: Y:\www\jm-bookingtest/admin_programs.php:56
 #: Y:\www\jm-bookingtest/admin_room.php:70
 #: Y:\www\jm-bookingtest/admin_user2.php:87
-msgid "Change"
-msgstr "Endre"
+; $words["Change"
+] = "Endre"
 
 #: Y:\www\jm-bookingtest/admin_area.php:62
 #: Y:\www\jm-bookingtest/admin_room.php:76
-msgid "Area name"
-msgstr "Anleggsnavn"
+; $words["Area name"
+] = "Anleggsnavn"
 
 #: Y:\www\jm-bookingtest/admin_area.php:100
 #: Y:\www\jm-bookingtest/admin_area.php:109
@@ -61,8 +51,8 @@ msgstr "Anleggsnavn"
 #: Y:\www\jm-bookingtest/admin_programs.php:205
 #: Y:\www\jm-bookingtest/admin_room.php:122
 #: Y:\www\jm-bookingtest/admin_template.php:68
-msgid "Area"
-msgstr "Anlegg"
+; $words["Area"
+] = "Anlegg"
 
 #: Y:\www\jm-bookingtest/admin_area.php:108
 #: Y:\www\jm-bookingtest/admin_entry_type.php:210
@@ -70,8 +60,8 @@ msgstr "Anlegg"
 #: Y:\www\jm-bookingtest/admin_products.php:120
 #: Y:\www\jm-bookingtest/admin_programs.php:202
 #: Y:\www\jm-bookingtest/admin_room.php:120
-msgid "ID"
-msgstr "ID"
+; $words["ID"
+] = "ID"
 
 #: Y:\www\jm-bookingtest/admin_area.php:111
 #: Y:\www\jm-bookingtest/admin_entry_type.php:215
@@ -80,12 +70,12 @@ msgstr "ID"
 #: Y:\www\jm-bookingtest/admin_products.php:125
 #: Y:\www\jm-bookingtest/admin_programs.php:207
 #: Y:\www\jm-bookingtest/admin_room.php:124
-msgid "Options"
-msgstr "Valg"
+; $words["Options"
+] = "Valg"
 
 #: Y:\www\jm-bookingtest/admin_area.php:120
-msgid "Show rooms"
-msgstr "Vis rom"
+; $words["Show rooms"
+] = "Vis rom"
 
 #: Y:\www\jm-bookingtest/admin_area.php:124
 #: Y:\www\jm-bookingtest/admin_entry_type.php:273
@@ -95,222 +85,222 @@ msgstr "Vis rom"
 #: Y:\www\jm-bookingtest/admin_programs.php:251
 #: Y:\www\jm-bookingtest/admin_room.php:139
 #: Y:\www\jm-bookingtest/admin_template.php:314
-msgid "Edit"
-msgstr "Endre"
+; $words["Edit"
+] = "Endre"
 
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:142
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:198
 #: Y:\www\jm-bookingtest/admin_template.php:62
 #: Y:\www\jm-bookingtest/customer.php:132
-msgid "Starts"
-msgstr "Starter"
+; $words["Starts"
+] = "Starter"
 
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:143
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:199
 #: Y:\www\jm-bookingtest/customer.php:73
 #: Y:\www\jm-bookingtest/customer.php:92
 #: Y:\www\jm-bookingtest/customer.php:133
-msgid "Name"
-msgstr "Navn"
+; $words["Name"
+] = "Navn"
 
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:144
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:200
 #: Y:\www\jm-bookingtest/customer.php:134
-msgid "Where"
-msgstr "Hvor"
+; $words["Where"
+] = "Hvor"
 
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:145
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:201
 #: Y:\www\jm-bookingtest/admin_template.php:76
 #: Y:\www\jm-bookingtest/customer.php:135
-msgid "Contact person"
-msgstr "Kontaktperson"
+; $words["Contact person"
+] = "Kontaktperson"
 
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:146
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:202
 #: Y:\www\jm-bookingtest/admin_user2.php:116
 #: Y:\www\jm-bookingtest/customer.php:136
-msgid "Phone"
-msgstr "Telefon"
+; $words["Phone"
+] = "Telefon"
 
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:147
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:203
 #: Y:\www\jm-bookingtest/admin_user2.php:115
 #: Y:\www\jm-bookingtest/customer.php:137
-msgid "E-mail"
-msgstr "E-post"
+; $words["E-mail"
+] = "E-post"
 
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:165
 #: Y:\www\jm-bookingtest/admin_customer_merge.php:221
 #: Y:\www\jm-bookingtest/customer.php:155
-msgid "Whole area"
-msgstr "Hele anlegget"
+; $words["Whole area"
+] = "Hele anlegget"
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:49
 #: Y:\www\jm-bookingtest/admin_entry_type.php:205
-msgid "New entrytype"
-msgstr "Ny type"
+; $words["New entrytype"
+] = "Ny type"
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:55
-msgid "Change entrytype"
-msgstr "Endre type"
+; $words["Change entrytype"
+] = "Endre type"
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:62
-msgid "Entrytype name"
-msgstr "Typenavn"
+; $words["Entrytype name"
+] = "Typenavn"
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:63
-msgid "Short entrytype name"
-msgstr "Kort typenavn"
+; $words["Short entrytype name"
+] = "Kort typenavn"
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:100
-msgid "Can't find the area."
-msgstr "Finner ikke anlegget."
+; $words["Can't find the area."
+] = "Finner ikke anlegget."
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:211
-msgid "Entrytype"
-msgstr "Type"
+; $words["Entrytype"
+] = "Type"
 
 #: Y:\www\jm-bookingtest/admin_entry_type.php:212
-msgid "Short name"
-msgstr "Kort navn"
+; $words["Short name"
+] = "Kort navn"
 
 #: Y:\www\jm-bookingtest/admin_group.php:44
-msgid "Group not found"
-msgstr "Gruppe ikke funnet"
+; $words["Group not found"
+] = "Gruppe ikke funnet"
 
 #: Y:\www\jm-bookingtest/admin_group.php:84
-msgid "User does not exist"
-msgstr "Brukeren eksisterer ikke"
+; $words["User does not exist"
+] = "Brukeren eksisterer ikke"
 
 #: Y:\www\jm-bookingtest/admin_group.php:111
 #: Y:\www\jm-bookingtest/admin_group.php:162
-msgid "Usergroups"
-msgstr "Brukergrupper"
+; $words["Usergroups"
+] = "Brukergrupper"
 
 #: Y:\www\jm-bookingtest/admin_group.php:112
-msgid "Back"
-msgstr "Tilbake"
+; $words["Back"
+] = "Tilbake"
 
 #: Y:\www\jm-bookingtest/admin_group.php:113
-msgid "Viewing group"
-msgstr "Viser gruppe"
+; $words["Viewing group"
+] = "Viser gruppe"
 
 #: Y:\www\jm-bookingtest/admin_group.php:114
-msgid "Group name"
-msgstr "Gruppenavn"
+; $words["Group name"
+] = "Gruppenavn"
 
 #: Y:\www\jm-bookingtest/admin_group.php:115
 #: Y:\www\jm-bookingtest/admin_group.php:128
 #: Y:\www\jm-bookingtest/admin_user2.php:190
-msgid "Users"
-msgstr "Brukere"
+; $words["Users"
+] = "Brukere"
 
 #: Y:\www\jm-bookingtest/admin_group.php:116
-msgid "Add user to group"
-msgstr "Legg bruker til gruppe"
+; $words["Add user to group"
+] = "Legg bruker til gruppe"
 
 #: Y:\www\jm-bookingtest/admin_group.php:123
-msgid "Enter userID"
-msgstr "Tast inn brukerID"
+; $words["Enter userID"
+] = "Tast inn brukerID"
 
 #: Y:\www\jm-bookingtest/admin_group.php:126
 #: Y:\www\jm-bookingtest/admin_group.php:172
-msgid "You are not allowed to do this."
-msgstr "Du har ikke lov til å gjøre dette. Ingen tilgang."
+; $words["You are not allowed to do this."
+] = "Du har ikke lov til å gjøre dette. Ingen tilgang."
 
 #: Y:\www\jm-bookingtest/admin_group.php:136
-msgid "Remove user from group"
-msgstr "Fjern bruker fra gruppe"
+; $words["Remove user from group"
+] = "Fjern bruker fra gruppe"
 
 #: Y:\www\jm-bookingtest/admin_group.php:165
-msgid "Add group"
-msgstr "Ny gruppe"
+; $words["Add group"
+] = "Ny gruppe"
 
 #: Y:\www\jm-bookingtest/admin_group.php:176
-msgid "List of usergroups"
-msgstr "Liste med brukergrupper"
+; $words["List of usergroups"
+] = "Liste med brukergrupper"
 
 #: Y:\www\jm-bookingtest/admin_group.php:179
-msgid "No groups found."
-msgstr "Ingen grupper funnet."
+; $words["No groups found."
+] = "Ingen grupper funnet."
 
 #: Y:\www\jm-bookingtest/admin_group.php:185
-msgid "users"
-msgstr "brukere"
+; $words["users"
+] = "brukere"
 
 #: Y:\www\jm-bookingtest/admin_import_dn.php:367
 #: Y:\www\jm-bookingtest/admin_products.php:140
 #: Y:\www\jm-bookingtest/admin_programs.php:221
 #: Y:\www\jm-bookingtest/admin_room.php:134
-msgid "Not found"
-msgstr "Ikke funnet"
+; $words["Not found"
+] = "Ikke funnet"
 
 #: Y:\www\jm-bookingtest/admin_products.php:66
 #: Y:\www\jm-bookingtest/admin_programs.php:64
 #: Y:\www\jm-bookingtest/admin_room.php:77
-msgid "Area belonging"
-msgstr "Anleggstilhørighet"
+; $words["Area belonging"
+] = "Anleggstilhørighet"
 
 #: Y:\www\jm-bookingtest/admin_programs.php:49
 #: Y:\www\jm-bookingtest/admin_programs.php:198
-msgid "New fixed program"
-msgstr "Nytt fast program"
+; $words["New fixed program"
+] = "Nytt fast program"
 
 #: Y:\www\jm-bookingtest/admin_programs.php:55
-msgid "Change fixed program"
-msgstr "Endre fast program"
+; $words["Change fixed program"
+] = "Endre fast program"
 
 #: Y:\www\jm-bookingtest/admin_programs.php:62
 #: Y:\www\jm-bookingtest/admin_programs.php:203
-msgid "Program name"
-msgstr "Programnavn"
+; $words["Program name"
+] = "Programnavn"
 
 #: Y:\www\jm-bookingtest/admin_programs.php:193
-msgid "Fixed programs"
-msgstr "Faste program"
+; $words["Fixed programs"
+] = "Faste program"
 
 #: Y:\www\jm-bookingtest/admin_room.php:63
-msgid "New room for"
-msgstr "Nytt rom for"
+; $words["New room for"
+] = "Nytt rom for"
 
 #: Y:\www\jm-bookingtest/admin_room.php:69
-msgid "Change room"
-msgstr "Endre rom"
+; $words["Change room"
+] = "Endre rom"
 
 #: Y:\www\jm-bookingtest/admin_room.php:112
-msgid "Rooms for"
-msgstr "Rom for"
+; $words["Rooms for"
+] = "Rom for"
 
 #: Y:\www\jm-bookingtest/admin_room.php:116
-msgid "New room"
-msgstr "Nytt rom"
+; $words["New room"
+] = "Nytt rom"
 
 #: Y:\www\jm-bookingtest/admin_room.php:121
-msgid "Room name"
-msgstr "Romnavn"
+; $words["Room name"
+] = "Romnavn"
 
 #: Y:\www\jm-bookingtest/admin_template.php:39
-msgid "E-mail confirmation"
-msgstr "E-post-bekreftelse"
+; $words["E-mail confirmation"
+] = "E-post-bekreftelse"
 
 #: Y:\www\jm-bookingtest/admin_template.php:43
 #: Y:\www\jm-bookingtest/admin_template.php:564
-msgid "Entry ID"
-msgstr "Bookingid"
+; $words["Entry ID"
+] = "Bookingid"
 
 #: Y:\www\jm-bookingtest/admin_template.php:44
-msgid "Entry name"
-msgstr "Bookingnavn"
+; $words["Entry name"
+] = "Bookingnavn"
 
 #: Y:\www\jm-bookingtest/admin_template.php:45
-msgid "Entry title"
-msgstr "Tittel"
+; $words["Entry title"
+] = "Tittel"
 
 #: Y:\www\jm-bookingtest/admin_template.php:46
 #: Y:\www\jm-bookingtest/admin_template.php:47
-msgid "E-mail confirmed"
-msgstr "E-post-bekreftelse"
+; $words["E-mail confirmed"
+] = "E-post-bekreftelse"
 
 #: Y:\www\jm-bookingtest/admin_template.php:46
 #: Y:\www\jm-bookingtest/admin_template.php:53
@@ -318,57 +308,57 @@ msgstr "E-post-bekreftelse"
 #: Y:\www\jm-bookingtest/admin_template.php:94
 #: Y:\www\jm-bookingtest/admin_template.php:102
 #: Y:\www\jm-bookingtest/admin_template.php:142
-msgid "(no/yes)"
-msgstr "(nei/ja)"
+; $words["(no/yes)"
+] = "(nei/ja)"
 
 #: Y:\www\jm-bookingtest/admin_template.php:47
 #: Y:\www\jm-bookingtest/admin_template.php:52
 #: Y:\www\jm-bookingtest/admin_template.php:89
 #: Y:\www\jm-bookingtest/admin_template.php:93
 #: Y:\www\jm-bookingtest/admin_template.php:141
-msgid "(0/1)"
-msgstr "(0/1)"
+; $words["(0/1)"
+] = "(0/1)"
 
 #: Y:\www\jm-bookingtest/admin_template.php:48
-msgid "Entry type ID"
-msgstr "Type (ID)"
+; $words["Entry type ID"
+] = "Type (ID)"
 
 #: Y:\www\jm-bookingtest/admin_template.php:49
-msgid "Entry type"
-msgstr "Type"
+; $words["Entry type"
+] = "Type"
 
 #: Y:\www\jm-bookingtest/admin_template.php:50
-msgid "Number of children"
-msgstr "Antall barn"
+; $words["Number of children"
+] = "Antall barn"
 
 #: Y:\www\jm-bookingtest/admin_template.php:51
-msgid "Number of adults"
-msgstr "Antall voksne"
+; $words["Number of adults"
+] = "Antall voksne"
 
 #: Y:\www\jm-bookingtest/admin_template.php:52
 #: Y:\www\jm-bookingtest/admin_template.php:53
-msgid "Count in booking"
-msgstr "Tell i bookingsystem"
+; $words["Count in booking"
+] = "Tell i bookingsystem"
 
 #: Y:\www\jm-bookingtest/admin_template.php:57
-msgid "Program description"
-msgstr "Programbeskrivelse"
+; $words["Program description"
+] = "Programbeskrivelse"
 
 #: Y:\www\jm-bookingtest/admin_template.php:58
-msgid "Serve alcohol?"
-msgstr "Alkoholservering"
+; $words["Serve alcohol?"
+] = "Alkoholservering"
 
 #: Y:\www\jm-bookingtest/admin_template.php:59
-msgid "Service description"
-msgstr "Serveringsbeskrivelse"
+; $words["Service description"
+] = "Serveringsbeskrivelse"
 
 #: Y:\www\jm-bookingtest/admin_template.php:60
-msgid "Comment"
-msgstr "Kommentar"
+; $words["Comment"
+] = "Kommentar"
 
 #: Y:\www\jm-bookingtest/admin_template.php:61
-msgid "Text on infoscreen"
-msgstr "Tekst på infoskjerm"
+; $words["Text on infoscreen"
+] = "Tekst på infoskjerm"
 
 #: Y:\www\jm-bookingtest/admin_template.php:62
 #: Y:\www\jm-bookingtest/admin_template.php:63
@@ -377,251 +367,251 @@ msgstr "Tekst på infoskjerm"
 #: Y:\www\jm-bookingtest/admin_template.php:118
 #: Y:\www\jm-bookingtest/admin_template.php:130
 #: Y:\www\jm-bookingtest/admin_template.php:135
-msgid "Unixtime*"
-msgstr "Unixtid*"
+; $words["Unixtime*"
+] = "Unixtid*"
 
 #: Y:\www\jm-bookingtest/admin_template.php:63
-msgid "Finished"
-msgstr "Ferdig"
+; $words["Finished"
+] = "Ferdig"
 
 #: Y:\www\jm-bookingtest/admin_template.php:64
-msgid "Room ID"
-msgstr "Rom (ID)"
+; $words["Room ID"
+] = "Rom (ID)"
 
 #: Y:\www\jm-bookingtest/admin_template.php:65
 #: Y:\www\jm-bookingtest/admin_template.php:66
-msgid "Room"
-msgstr "Rom"
+; $words["Room"
+] = "Rom"
 
 #: Y:\www\jm-bookingtest/admin_template.php:66
-msgid "array with the names"
-msgstr "tabell med navnene"
+; $words["array with the names"
+] = "tabell med navnene"
 
 #: Y:\www\jm-bookingtest/admin_template.php:67
-msgid "Area ID"
-msgstr "Anleggsid"
+; $words["Area ID"
+] = "Anleggsid"
 
 #: Y:\www\jm-bookingtest/admin_template.php:69
-msgid "User(s) assigned"
-msgstr "Vert(er) med bruker"
+; $words["User(s) assigned"
+] = "Vert(er) med bruker"
 
 #: Y:\www\jm-bookingtest/admin_template.php:70
-msgid "Manuel user assigned"
-msgstr "Annen vert"
+; $words["Manuel user assigned"
+] = "Annen vert"
 
 #: Y:\www\jm-bookingtest/admin_template.php:71
-msgid "User(s) and manual user assigned"
-msgstr "Vert(er) med bruker og andre verter"
+; $words["User(s) and manual user assigned"
+] = "Vert(er) med bruker og andre verter"
 
 #: Y:\www\jm-bookingtest/admin_template.php:72
-msgid "User(s) and manual user assigned with links"
-msgstr "Vert(er) med bruker og andre verter med lenker på navn"
+; $words["User(s) and manual user assigned with links"
+] = "Vert(er) med bruker og andre verter med lenker på navn"
 
 #: Y:\www\jm-bookingtest/admin_template.php:73
-msgid "Any users assigned?"
-msgstr "Noen verter satt opp?"
+; $words["Any users assigned?"
+] = "Noen verter satt opp?"
 
 #: Y:\www\jm-bookingtest/admin_template.php:73
-msgid "true/false"
-msgstr "sann/usann"
+; $words["true/false"
+] = "sann/usann"
 
 #: Y:\www\jm-bookingtest/admin_template.php:74
-msgid "Customer ID"
-msgstr "KundeID"
+; $words["Customer ID"
+] = "KundeID"
 
 #: Y:\www\jm-bookingtest/admin_template.php:75
 #: Y:\www\jm-bookingtest/customer.php:45
-msgid "Customer"
-msgstr "Kunde"
+; $words["Customer"
+] = "Kunde"
 
 #: Y:\www\jm-bookingtest/admin_template.php:77
-msgid "Contact telephone"
-msgstr "Telefon"
+; $words["Contact telephone"
+] = "Telefon"
 
 #: Y:\www\jm-bookingtest/admin_template.php:78
-msgid "Contact email"
-msgstr "E-post"
+; $words["Contact email"
+] = "E-post"
 
 #: Y:\www\jm-bookingtest/admin_template.php:79
-msgid "Municipal number"
-msgstr "Kommunenummer"
+; $words["Municipal number"
+] = "Kommunenummer"
 
 #: Y:\www\jm-bookingtest/admin_template.php:80
 #: Y:\www\jm-bookingtest/customer.php:60
-msgid "Municipal"
-msgstr "Kommune"
+; $words["Municipal"
+] = "Kommune"
 
 #: Y:\www\jm-bookingtest/admin_template.php:81
-msgid "Created by ID"
-msgstr "Oppettet av (ID)"
+; $words["Created by ID"
+] = "Oppettet av (ID)"
 
 #: Y:\www\jm-bookingtest/admin_template.php:82
-msgid "Created by"
-msgstr "Opprettet av"
+; $words["Created by"
+] = "Opprettet av"
 
 #: Y:\www\jm-bookingtest/admin_template.php:83
-msgid "Time created"
-msgstr "Tid opprettet"
+; $words["Time created"
+] = "Tid opprettet"
 
 #: Y:\www\jm-bookingtest/admin_template.php:84
-msgid "Edited by IDs"
-msgstr "Endret av IDer"
+; $words["Edited by IDs"
+] = "Endret av IDer"
 
 #: Y:\www\jm-bookingtest/admin_template.php:85
-msgid "Edited by"
-msgstr "Endret av"
+; $words["Edited by"
+] = "Endret av"
 
 #: Y:\www\jm-bookingtest/admin_template.php:86
-msgid "Last edited by"
-msgstr "Sist endret av"
+; $words["Last edited by"
+] = "Sist endret av"
 
 #: Y:\www\jm-bookingtest/admin_template.php:87
-msgid "Time of last edit"
-msgstr "Tid for sist endring"
+; $words["Time of last edit"
+] = "Tid for sist endring"
 
 #: Y:\www\jm-bookingtest/admin_template.php:88
-msgid "Number of changes"
-msgstr "Antall endringer"
+; $words["Number of changes"
+] = "Antall endringer"
 
 #: Y:\www\jm-bookingtest/admin_template.php:89
 #: Y:\www\jm-bookingtest/admin_template.php:90
 #: Y:\www\jm-bookingtest/admin_template.php:254
-msgid "Invoice"
-msgstr "Faktura"
+; $words["Invoice"
+] = "Faktura"
 
 #: Y:\www\jm-bookingtest/admin_template.php:91
-msgid "Status of invoice"
-msgstr "Status for faktura"
+; $words["Status of invoice"
+] = "Status for faktura"
 
 #: Y:\www\jm-bookingtest/admin_template.php:92
-msgid "Status in text"
-msgstr "Status i tekst"
+; $words["Status in text"
+] = "Status i tekst"
 
 #: Y:\www\jm-bookingtest/admin_template.php:93
 #: Y:\www\jm-bookingtest/admin_template.php:94
-msgid "Electronic invoice"
-msgstr "Elektronisk faktura"
+; $words["Electronic invoice"
+] = "Elektronisk faktura"
 
 #: Y:\www\jm-bookingtest/admin_template.php:95
-msgid "E-mail for electronic invoice"
-msgstr "E-post for elektronisk faktura"
+; $words["E-mail for electronic invoice"
+] = "E-post for elektronisk faktura"
 
 #: Y:\www\jm-bookingtest/admin_template.php:96
-msgid "Invoice comment - to customer"
-msgstr "Fakturakommentar - til kunde"
+; $words["Invoice comment - to customer"
+] = "Fakturakommentar - til kunde"
 
 #: Y:\www\jm-bookingtest/admin_template.php:97
-msgid "Invoice comment - internal"
-msgstr "Fakturakommentar - intern"
+; $words["Invoice comment - internal"
+] = "Fakturakommentar - intern"
 
 #: Y:\www\jm-bookingtest/admin_template.php:98
-msgid "Your referance"
-msgstr "Deres referanse"
+; $words["Your referance"
+] = "Deres referanse"
 
 #: Y:\www\jm-bookingtest/admin_template.php:99
-msgid "Invoice address ID"
-msgstr "FakturaadresseID"
+; $words["Invoice address ID"
+] = "FakturaadresseID"
 
 #: Y:\www\jm-bookingtest/admin_template.php:100
-msgid "Invoice address"
-msgstr "Fakturaadresse"
+; $words["Invoice address"
+] = "Fakturaadresse"
 
 #: Y:\www\jm-bookingtest/admin_template.php:101
-msgid "Product lines"
-msgstr "Produktlinjer"
+; $words["Product lines"
+] = "Produktlinjer"
 
 #: Y:\www\jm-bookingtest/admin_template.php:101
 #: Y:\www\jm-bookingtest/admin_template.php:137
-msgid "array"
-msgstr "tabell"
+; $words["array"
+] = "tabell"
 
 #: Y:\www\jm-bookingtest/admin_template.php:112
-msgid "Address for the system"
-msgstr "Adresse til bookingsystemet"
+; $words["Address for the system"
+] = "Adresse til bookingsystemet"
 
 #: Y:\www\jm-bookingtest/admin_template.php:113
 #: Y:\www\jm-bookingtest/auth_sql.inc.php:91
-msgid "Username"
-msgstr "Brukernavn"
+; $words["Username"
+] = "Brukernavn"
 
 #: Y:\www\jm-bookingtest/admin_template.php:113
 #: Y:\www\jm-bookingtest/admin_template.php:115
-msgid "For logged in user"
-msgstr "For innlogget bruker"
+; $words["For logged in user"
+] = "For innlogget bruker"
 
 #: Y:\www\jm-bookingtest/admin_template.php:114
-msgid "Short username"
-msgstr "Kort brukernavn"
+; $words["Short username"
+] = "Kort brukernavn"
 
 #: Y:\www\jm-bookingtest/admin_template.php:115
-msgid "Users email"
-msgstr "Brukers e-post"
+; $words["Users email"
+] = "Brukers e-post"
 
 #: Y:\www\jm-bookingtest/admin_template.php:118
-msgid "Time of change"
-msgstr "Endringstidspunkt"
+; $words["Time of change"
+] = "Endringstidspunkt"
 
 #: Y:\www\jm-bookingtest/admin_template.php:119
-msgid "Name of the action"
-msgstr "Navn på handlingen"
+; $words["Name of the action"
+] = "Navn på handlingen"
 
 #: Y:\www\jm-bookingtest/admin_template.php:120
-msgid "User that changed ID"
-msgstr "Endret av (ID)"
+; $words["User that changed ID"
+] = "Endret av (ID)"
 
 #: Y:\www\jm-bookingtest/admin_template.php:121
-msgid "User that changed"
-msgstr "Endret av"
+; $words["User that changed"
+] = "Endret av"
 
 #: Y:\www\jm-bookingtest/admin_template.php:122
-msgid "Changes"
-msgstr "Endringer"
+; $words["Changes"
+] = "Endringer"
 
 #: Y:\www\jm-bookingtest/admin_template.php:122
-msgid "Table*"
-msgstr "Tabell*"
+; $words["Table*"
+] = "Tabell*"
 
 #: Y:\www\jm-bookingtest/admin_template.php:131
 #: Y:\www\jm-bookingtest/admin_template.php:133
-msgid "YYYYDDMM*"
-msgstr "ÅÅÅÅDDMM*"
+; $words["YYYYDDMM*"
+] = "ÅÅÅÅDDMM*"
 
 #: Y:\www\jm-bookingtest/admin_template.php:132
 #: Y:\www\jm-bookingtest/admin_template.php:134
-msgid "array-time*"
-msgstr "tabell-tid*"
+; $words["array-time*"
+] = "tabell-tid*"
 
 #: Y:\www\jm-bookingtest/admin_template.php:160
-msgid "Confirmation"
-msgstr "Bekreftelse"
+; $words["Confirmation"
+] = "Bekreftelse"
 
 #: Y:\www\jm-bookingtest/admin_template.php:161
-msgid "Unknown"
-msgstr "Ukjent"
+; $words["Unknown"
+] = "Ukjent"
 
 #: Y:\www\jm-bookingtest/admin_template.php:178
-msgid "New template"
-msgstr "Ny mal"
+; $words["New template"
+] = "Ny mal"
 
 #: Y:\www\jm-bookingtest/admin_template.php:196
-msgid "Mail - New entry"
-msgstr "Epost - Ny booking"
+; $words["Mail - New entry"
+] = "Epost - Ny booking"
 
 #: Y:\www\jm-bookingtest/admin_template.php:207
-msgid "Mail - New user assigned"
-msgstr "Epost - Ny vert"
+; $words["Mail - New user assigned"
+] = "Epost - Ny vert"
 
 #: Y:\www\jm-bookingtest/admin_template.php:219
-msgid "Mail - User not assigned anymore"
-msgstr "Epost - Vert tatt vekk"
+; $words["Mail - User not assigned anymore"
+] = "Epost - Vert tatt vekk"
 
 #: Y:\www\jm-bookingtest/admin_template.php:231
-msgid "Mail - Changes of entry"
-msgstr "Epost - Endring av booking"
+; $words["Mail - Changes of entry"
+] = "Epost - Endring av booking"
 
 #: Y:\www\jm-bookingtest/admin_template.php:243
-msgid "Mail - Summary of entry"
-msgstr "Epost - Oppsummert booking (inkluderes i andre)"
+; $words["Mail - Summary of entry"
+] = "Epost - Oppsummert booking (inkluderes i andre)"
 
 #: Y:\www\jm-bookingtest/admin_template.php:282
 #: Y:\www\jm-bookingtest/admin_template.php:335
@@ -633,882 +623,882 @@ msgstr "Epost - Oppsummert booking (inkluderes i andre)"
 #: Y:\www\jm-bookingtest/admin_template.php:486
 #: Y:\www\jm-bookingtest/admin_template.php:543
 #: Y:\www\jm-bookingtest/admin_template.php:551
-msgid "Templates"
-msgstr "Maler"
+; $words["Templates"
+] = "Maler"
 
 #: Y:\www\jm-bookingtest/admin_template.php:321
-msgid "Delete"
-msgstr "Slett"
+; $words["Delete"
+] = "Slett"
 
 #: Y:\www\jm-bookingtest/admin_template.php:337
-msgid "Error. Template not found."
-msgstr "Feil: Mal ikke funnet."
+; $words["Error. Template not found."
+] = "Feil: Mal ikke funnet."
 
 #: Y:\www\jm-bookingtest/admin_template.php:365
-msgid "Error: Template ID is not a number."
-msgstr "Feil: MalID er ikke et nummer."
+; $words["Error: Template ID is not a number."
+] = "Feil: MalID er ikke et nummer."
 
 #: Y:\www\jm-bookingtest/admin_template.php:376
-msgid "Error: Template was not found."
-msgstr "Feil: Mal ikke funnet."
+; $words["Error: Template was not found."
+] = "Feil: Mal ikke funnet."
 
 #: Y:\www\jm-bookingtest/admin_template.php:389
-msgid "Error: Template file do not exist."
-msgstr "Feil: Mal-filen eksisterer ikke."
+; $words["Error: Template file do not exist."
+] = "Feil: Mal-filen eksisterer ikke."
 
 #: Y:\www\jm-bookingtest/admin_template.php:402
-msgid "Delete template"
-msgstr "Slett mal"
+; $words["Delete template"
+] = "Slett mal"
 
 #: Y:\www\jm-bookingtest/admin_template.php:403
 #: Y:\www\jm-bookingtest/admin_template.php:552
-msgid "Back to template list"
-msgstr "Tilbake til liste med maler"
+; $words["Back to template list"
+] = "Tilbake til liste med maler"
 
 #: Y:\www\jm-bookingtest/admin_template.php:405
-msgid "Are you sure you want to delete the template?"
-msgstr "Er du sikker på at du vil slette denne malen?"
+; $words["Are you sure you want to delete the template?"
+] = "Er du sikker på at du vil slette denne malen?"
 
 #: Y:\www\jm-bookingtest/admin_template.php:407
 #: Y:\www\jm-bookingtest/customer.php:107
-msgid "Yes"
-msgstr "Ja"
+; $words["Yes"
+] = "Ja"
 
 #: Y:\www\jm-bookingtest/admin_template.php:409
 #: Y:\www\jm-bookingtest/customer.php:109
-msgid "No"
-msgstr "Nei"
+; $words["No"
+] = "Nei"
 
 #: Y:\www\jm-bookingtest/admin_template.php:434
-msgid "Error: No template type is defined."
-msgstr "Feil: Ingen maltype er definert."
+; $words["Error: No template type is defined."
+] = "Feil: Ingen maltype er definert."
 
 #: Y:\www\jm-bookingtest/admin_template.php:443
-msgid "Error: No template name is made."
-msgstr "Feil: Intet malnavn er laget."
+; $words["Error: No template name is made."
+] = "Feil: Intet malnavn er laget."
 
 #: Y:\www\jm-bookingtest/admin_template.php:488
-msgid "Error: Could not save template file."
-msgstr "Feil: Kunne ikke lagre malfil"
+; $words["Error: Could not save template file."
+] = "Feil: Kunne ikke lagre malfil"
 
 #: Y:\www\jm-bookingtest/admin_template.php:526
-msgid "Error with getting the template. Try again."
-msgstr "Feil ved henting av malen. Prøv igjen."
+; $words["Error with getting the template. Try again."
+] = "Feil ved henting av malen. Prøv igjen."
 
 #: Y:\www\jm-bookingtest/admin_template.php:545
-msgid "Error: Could not read template file."
-msgstr "Feil: Kunne ikke lese malfil"
+; $words["Error: Could not read template file."
+] = "Feil: Kunne ikke lese malfil"
 
 #: Y:\www\jm-bookingtest/admin_template.php:556
-msgid "The template in its original form:"
-msgstr "Malen i sin originale form:"
+; $words["The template in its original form:"
+] = "Malen i sin originale form:"
 
 #: Y:\www\jm-bookingtest/admin_template.php:560
 #: Y:\www\jm-bookingtest/admin_template.php:565
-msgid "Preview"
-msgstr "Forhåndvis"
+; $words["Preview"
+] = "Forhåndvis"
 
 #: Y:\www\jm-bookingtest/admin_template.php:560
-msgid "Test"
-msgstr "Test"
+; $words["Test"
+] = "Test"
 
 #: Y:\www\jm-bookingtest/admin_template.php:560
-msgid "againts an entry"
-msgstr "mot en booking"
+; $words["againts an entry"
+] = "mot en booking"
 
 #: Y:\www\jm-bookingtest/admin_template.php:564
-msgid "Must be valid"
-msgstr "Må være gyldig"
+; $words["Must be valid"
+] = "Må være gyldig"
 
 #: Y:\www\jm-bookingtest/admin_template.php:577
 #: Y:\www\jm-bookingtest/admin_template.php:582
-msgid "Template name"
-msgstr "Malnavn"
+; $words["Template name"
+] = "Malnavn"
 
 #: Y:\www\jm-bookingtest/admin_template.php:578
 #: Y:\www\jm-bookingtest/admin_template.php:592
-msgid "Template type"
-msgstr "Maltype"
+; $words["Template type"
+] = "Maltype"
 
 #: Y:\www\jm-bookingtest/admin_template.php:595
-msgid "Save"
-msgstr "Lagre"
+; $words["Save"
+] = "Lagre"
 
 #: Y:\www\jm-bookingtest/admin_template.php:599
-msgid "How to make templates"
-msgstr "Hvordan lage maler"
+; $words["How to make templates"
+] = "Hvordan lage maler"
 
 #: Y:\www\jm-bookingtest/admin_template.php:601
-msgid "The template system is using Smarty. Please se Smarty's own descriptions on how to make templates. Click on the variables to the right to insert them in the template you are writing on."
-msgstr "Malsystemet som er i bruk heter Smarty. "
+; $words["The template system is using Smarty. Please se Smarty's own descriptions on how to make templates. Click on the variables to the right to insert them in the template you are writing on."
+] = "Malsystemet som er i bruk heter Smarty. "
 
 #: Y:\www\jm-bookingtest/admin_template.php:606
-msgid "*Unixtime is a given second of time and can be converted to a readable format (like Monday 15:30 04.12.2000). To do this write |date_format:\"%A %H:%M %d.%m.%Y\" after the variabel (like {$log_time|date_format:\"%M\"}). Please see Smartys documentation about date_format for different datevalues."
-msgstr "*Unixtid er et gitt sekund/tidspunkt og kan bli konvertert til et lesbart format (som f.eks. mandag 15:30 04.12.2000). For å få dette til skriv f.eks. |date_format:\"%A %H:%M %d.%m.%Y\" etter variabelen (f.eks {$log_time|date_format:\"%M\"}). Se Smarty sin dokumentasjon om date_format for andre datoverdier."
+; $words['*Unixtime is a given second of time and can be converted to a readable format (like Monday 15:30 04.12.2000). To do this write |date_format:\"%A %H:%M %d.%m.%Y\" after the variabel (like {$log_time|date_format:\"%M\"}). Please see Smartys documentation about date_format for different datevalues.'
+] = '*Unixtid er et gitt sekund/tidspunkt og kan bli konvertert til et lesbart format (som f.eks. mandag 15:30 04.12.2000). For å få dette til skriv f.eks. |date_format:\"%A %H:%M %d.%m.%Y\" etter variabelen (f.eks {$log_time|date_format:\"%M\"}). Se Smarty sin dokumentasjon om date_format for andre datoverdier.'
 
 #: Y:\www\jm-bookingtest/admin_template.php:612
-msgid "*Table means that you can not just print it. Please see the Smartys documentation about foreach for how to print a table."
-msgstr "*Tabell betyr at du ikke bare kan skrive den ut i ren tekst. Se Smarty sin dokumentasjon om foreach for hvordan du kan skrive ut en tabell."
+; $words["*Table means that you can not just print it. Please see the Smartys documentation about foreach for how to print a table."
+] = "*Tabell betyr at du ikke bare kan skrive den ut i ren tekst. Se Smarty sin dokumentasjon om foreach for hvordan du kan skrive ut en tabell."
 
 #: Y:\www\jm-bookingtest/admin_template.php:615
-msgid "*Array-time means that the time is returned in an array with the day, month and year. Access by typing in {$something.year}, {$something.month} and {$something.day}."
-msgstr "*Tabell-tid betyr at tiden er returnert i en tabell med dag, måned og år. Kan bli hentet ut ved {$variabelnavn.year}, {$variabelnavn.month} og {$variabelnavn.day}."
+; $words['*Array-time means that the time is returned in an array with the day, month and year. Access by typing in {$something.year}, {$something.month} and {$something.day}.'
+] = '*Tabell-tid betyr at tiden er returnert i en tabell med dag, måned og år. Kan bli hentet ut ved {$variabelnavn.year}, {$variabelnavn.month} og {$variabelnavn.day}.'
 
 #: Y:\www\jm-bookingtest/admin_template.php:618
-msgid "*YYYYMMDD means that the time is in the format year month day, without spaces."
-msgstr "*ÅÅÅÅMMDD betyr at tiden er i formatet år måned dag, uten mellomrom."
+; $words["*YYYYMMDD means that the time is in the format year month day, without spaces."
+] = "*ÅÅÅÅMMDD betyr at tiden er i formatet år måned dag, uten mellomrom."
 
 #: Y:\www\jm-bookingtest/admin_template.php:621
-msgid "Variables:"
-msgstr "Variabler:"
+; $words["Variables:"
+] = "Variabler:"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:56
-msgid "No password was supplied."
-msgstr "Intet passord gitt."
+; $words["No password was supplied."
+] = "Intet passord gitt."
 
 #: Y:\www\jm-bookingtest/admin_user2.php:111
 #: Y:\www\jm-bookingtest/auth_sql.inc.php:94
-msgid "Password"
-msgstr "Passord"
+; $words["Password"
+] = "Passord"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:119
 #: Y:\www\jm-bookingtest/admin_user2.php:262
-msgid "Default area"
-msgstr "Standard anlegg"
+; $words["Default area"
+] = "Standard anlegg"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:133
-msgid "Userrights"
-msgstr "Brukerrettigheter"
+; $words["Userrights"
+] = "Brukerrettigheter"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:137
-msgid "Access to edit area and room"
-msgstr "Tilgang til å endre anlegg og rom"
+; $words["Access to edit area and room"
+] = "Tilgang til å endre anlegg og rom"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:193
-msgid "New user"
-msgstr "Ny bruker"
+; $words["New user"
+] = "Ny bruker"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:198
-msgid "List of users"
-msgstr "Liste med brukere i systemet"
+; $words["List of users"
+] = "Liste med brukere i systemet"
 
 #: Y:\www\jm-bookingtest/admin_user2.php:201
-msgid "No users found."
-msgstr "Ingen brukere funnet."
+; $words["No users found."
+] = "Ingen brukere funnet."
 
 #: Y:\www\jm-bookingtest/auth_sql.inc.php:56
-msgid "JM-booking"
-msgstr "JM-booking"
+; $words["JM-booking"
+] = "JM-booking"
 
 #: Y:\www\jm-bookingtest/auth_sql.inc.php:58
 #: Y:\www\jm-bookingtest/auth_sql.inc.php:97
-msgid "Log in"
-msgstr "Logg inn"
+; $words["Log in"
+] = "Logg inn"
 
 #: Y:\www\jm-bookingtest/auth_sql.inc.php:83
-msgid "Username and/or password is wrong"
-msgstr "Brukernavn og/eller passord er feil"
+; $words["Username and/or password is wrong"
+] = "Brukernavn og/eller passord er feil"
 
 #: Y:\www\jm-bookingtest/auth_sql.inc.php:88
-msgid "The account is disabled"
-msgstr "Kontoen er deaktivert"
+; $words["The account is disabled"
+] = "Kontoen er deaktivert"
 
 #: Y:\www\jm-bookingtest/customer.php:32
-msgid "Error: Customer ID is invalid."
-msgstr "Feil: KundeID er ugyldig."
+; $words["Error: Customer ID is invalid."
+] = "Feil: KundeID er ugyldig."
 
 #: Y:\www\jm-bookingtest/customer.php:39
-msgid "Error: Customer not found."
-msgstr "Feil: Kunde ikke funnet."
+; $words["Error: Customer not found."
+] = "Feil: Kunde ikke funnet."
 
 #: Y:\www\jm-bookingtest/customer.php:52
-msgid "Edit customer"
-msgstr "Endre kunde"
+; $words["Edit customer"
+] = "Endre kunde"
 
 #: Y:\www\jm-bookingtest/customer.php:55
-msgid "Customer name"
-msgstr "Kundenavn"
+; $words["Customer name"
+] = "Kundenavn"
 
 #: Y:\www\jm-bookingtest/customer.php:56
-msgid "Type of customer"
-msgstr "Kundetype"
+; $words["Type of customer"
+] = "Kundetype"
 
 #: Y:\www\jm-bookingtest/customer.php:57
-msgid "Private person"
-msgstr "Privatperson"
+; $words["Private person"
+] = "Privatperson"
 
 #: Y:\www\jm-bookingtest/customer.php:58
-msgid "School, company, organization, etc"
-msgstr "Skole, firma, organisasjon, osv"
+; $words["School, company, organization, etc"
+] = "Skole, firma, organisasjon, osv"
 
 #: Y:\www\jm-bookingtest/customer.php:64
-msgid "Non selected"
-msgstr "Ingen valgt"
+; $words["Non selected"
+] = "Ingen valgt"
 
 #: Y:\www\jm-bookingtest/customer.php:66
-msgid "Phone number(s)"
-msgstr "Telefonnumre"
+; $words["Phone number(s)"
+] = "Telefonnumre"
 
 #: Y:\www\jm-bookingtest/customer.php:67
-msgid "See also any entries on this customer that might contain phone numbers."
-msgstr "Se også bookinger som er knyttet til kunden. Disse kan inneholde telefonnumre til kontaktpersoner."
+; $words["See also any entries on this customer that might contain phone numbers."
+] = "Se også bookinger som er knyttet til kunden. Disse kan inneholde telefonnumre til kontaktpersoner."
 
 #: Y:\www\jm-bookingtest/customer.php:72
-msgid "Number"
-msgstr "Nummer"
+; $words["Number"
+] = "Nummer"
 
 #: Y:\www\jm-bookingtest/customer.php:85
-msgid "No phone numbers."
-msgstr "Ingen telefonnummer."
+; $words["No phone numbers."
+] = "Ingen telefonnummer."
 
 #: Y:\www\jm-bookingtest/customer.php:87
-msgid "Address(es)"
-msgstr "Adresse(r)"
+; $words["Address(es)"
+] = "Adresse(r)"
 
 #: Y:\www\jm-bookingtest/customer.php:93
-msgid "Address"
-msgstr "Adresse"
+; $words["Address"
+] = "Adresse"
 
 #: Y:\www\jm-bookingtest/customer.php:94
-msgid "Invoice address?"
-msgstr "Fakturaadresse?"
+; $words["Invoice address?"
+] = "Fakturaadresse?"
 
 #: Y:\www\jm-bookingtest/customer.php:116
-msgid "No addresses."
-msgstr "Ingen adresser."
+; $words["No addresses."
+] = "Ingen adresser."
 
 #: Y:\www\jm-bookingtest/customer.php:118
-msgid "Entries for"
-msgstr "Bookinger for"
+; $words["Entries for"
+] = "Bookinger for"
 
 #: Y:\www\jm-bookingtest/customer.php:127
-msgid "No entries found for this customer"
-msgstr "Ingen bookinger funnet for denne kunden"
+; $words["No entries found for this customer"
+] = "Ingen bookinger funnet for denne kunden"
 
 #: Y:\www\jm-bookingtest/customer_address_choose.php:437
-msgid "Choose address from"
-msgstr "Velg adresse fra"
+; $words["Choose address from"
+] = "Velg adresse fra"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:48
-msgid "Can't find the customer you are looking for."
-msgstr "Finner ikke kunden du leter etter."
+; $words["Can't find the customer you are looking for."
+] = "Finner ikke kunden du leter etter."
 
 #: Y:\www\jm-bookingtest/customer_edit.php:137
-msgid "Viewing"
-msgstr "Viser"
+; $words["Viewing"
+] = "Viser"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:143
-msgid "Customer has been created."
-msgstr "Kunde ble opprettet."
+; $words["Customer has been created."
+] = "Kunde ble opprettet."
 
 #: Y:\www\jm-bookingtest/customer_edit.php:145
-msgid "Customer has been edited."
-msgstr "Kunden ble endret."
+; $words["Customer has been edited."
+] = "Kunden ble endret."
 
 #: Y:\www\jm-bookingtest/customer_edit.php:167
 #: Y:\www\jm-bookingtest/customer_edit.php:600
-msgid "Choose this customer"
-msgstr "Velg denne kunden"
+; $words["Choose this customer"
+] = "Velg denne kunden"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:184
 #: Y:\www\jm-bookingtest/customer_edit.php:187
-msgid "You must type in a name for the customer."
-msgstr "Du må skrive inn et navn for kunden."
+; $words["You must type in a name for the customer."
+] = "Du må skrive inn et navn for kunden."
 
 #: Y:\www\jm-bookingtest/customer_edit.php:698
 #: Y:\www\jm-bookingtest/customer_list.php:36
-msgid "Create new customer"
-msgstr "Opprett ny kunde"
+; $words["Create new customer"
+] = "Opprett ny kunde"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:707
-msgid "There was one or more errors in your inputdata"
-msgstr "Det var en eller flere feil i inndataene dine"
+; $words["There was one or more errors in your inputdata"
+] = "Det var en eller flere feil i inndataene dine"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:726
 #: Y:\www\jm-bookingtest/customer_edit.php:733
-msgid "Generell"
-msgstr "Generell"
+; $words["Generell"
+] = "Generell"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:727
 #: Y:\www\jm-bookingtest/customer_edit.php:767
-msgid "Phone numbers"
-msgstr "Telefonnumre"
+; $words["Phone numbers"
+] = "Telefonnumre"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:728
 #: Y:\www\jm-bookingtest/customer_edit.php:791
-msgid "Addresses"
-msgstr "Adresser"
+; $words["Addresses"
+] = "Adresser"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:750
 #: Y:\www\jm-bookingtest/edit_entry2.php:103
-msgid "Choose"
-msgstr "Velg"
+; $words["Choose"
+] = "Velg"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:784
-msgid "Add one more phone fields"
-msgstr "Legg til telefonfelt"
+; $words["Add one more phone fields"
+] = "Legg til telefonfelt"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:795
-msgid "Address name/info"
-msgstr "Adressenavn/-info"
+; $words["Address name/info"
+] = "Adressenavn/-info"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:797
-msgid "Postalnumber"
-msgstr "Postnummer"
+; $words["Postalnumber"
+] = "Postnummer"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:798
-msgid "Country"
-msgstr "Land"
+; $words["Country"
+] = "Land"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:862
-msgid "Add one more address field"
-msgstr "Legg til adressefelt"
+; $words["Add one more address field"
+] = "Legg til adressefelt"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:864
-msgid "Max 5 lines in each address"
-msgstr "Maks 5 linjer i hver adresse"
+; $words["Max 5 lines in each address"
+] = "Maks 5 linjer i hver adresse"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:865
-msgid "Place will be automaticlly found from the postalnumber. If the number is not valid, the field will just be empty."
-msgstr "Poststedet vil automatisk bli lagt inn fra postnummeret. Hvis nummeret er ugyldig, så vil feltet bli stående tomt."
+; $words["Place will be automaticlly found from the postalnumber. If the number is not valid, the field will just be empty."
+] = "Poststedet vil automatisk bli lagt inn fra postnummeret. Hvis nummeret er ugyldig, så vil feltet bli stående tomt."
 
 #: Y:\www\jm-bookingtest/customer_edit.php:865
-msgid "You can also type a postal place in the field below."
-msgstr "Du kan også taste inn et poststed i feltet under."
+; $words["You can also type a postal place in the field below."
+] = "Du kan også taste inn et poststed i feltet under."
 
 #: Y:\www\jm-bookingtest/customer_edit.php:866
-msgid "For Norway, please leave this field empty."
-msgstr "For Norge, la dette feltet være tomt."
+; $words["For Norway, please leave this field empty."
+] = "For Norge, la dette feltet være tomt."
 
 #: Y:\www\jm-bookingtest/customer_edit.php:876
-msgid "Create customer"
-msgstr "Opprett kunde"
+; $words["Create customer"
+] = "Opprett kunde"
 
 #: Y:\www\jm-bookingtest/customer_edit.php:878
-msgid "Save changes"
-msgstr "Lagre endringer"
+; $words["Save changes"
+] = "Lagre endringer"
 
 #: Y:\www\jm-bookingtest/customer_list.php:34
-msgid "Customers"
-msgstr "Kunder"
+; $words["Customers"
+] = "Kunder"
 
 #: Y:\www\jm-bookingtest/customer_list.php:62
-msgid "View entries"
-msgstr "Vis bookinger"
+; $words["View entries"
+] = "Vis bookinger"
 
 #: Y:\www\jm-bookingtest/day.php:83
-msgid "This area has no rooms"
-msgstr "Dette anlegget har ingen rom"
+; $words["This area has no rooms"
+] = "Dette anlegget har ingen rom"
 
 #: Y:\www\jm-bookingtest/day.php:126
 #: Y:\www\jm-bookingtest/day.php:341
-msgid "started"
-msgstr "startet"
+; $words["started"
+] = "startet"
 
 #: Y:\www\jm-bookingtest/day.php:221
-msgid "Go to previous day"
-msgstr "Gå til forrige dag"
+; $words["Go to previous day"
+] = "Gå til forrige dag"
 
 #: Y:\www\jm-bookingtest/day.php:222
-msgid "Go to today"
-msgstr "Gå til i dag"
+; $words["Go to today"
+] = "Gå til i dag"
 
 #: Y:\www\jm-bookingtest/day.php:223
-msgid "Go to next day"
-msgstr "Gå til neste dag"
+; $words["Go to next day"
+] = "Gå til neste dag"
 
 #: Y:\www\jm-bookingtest/day.php:229
-msgid "Go to other dayview"
-msgstr "Gå til annen dagsvisning"
+; $words["Go to other dayview"
+] = "Gå til annen dagsvisning"
 
 #: Y:\www\jm-bookingtest/day.php:313
-msgid "Make entry"
-msgstr "Opprett booking"
+; $words["Make entry"
+] = "Opprett booking"
 
 #: Y:\www\jm-bookingtest/day.php:363
-msgid "Time"
-msgstr "Tid"
+; $words["Time"
+] = "Tid"
 
 #: Y:\www\jm-bookingtest/day.php:363
 #: Y:\www\jm-bookingtest/entry_list.php:149
-msgid "C/A"
-msgstr "B/V"
+; $words["C/A"
+] = "B/V"
 
 #: Y:\www\jm-bookingtest/day.php:363
-msgid "What"
-msgstr "Hva"
+; $words["What"
+] = "Hva"
 
 #: Y:\www\jm-bookingtest/day.php:365
 #: Y:\www\jm-bookingtest/day.php:376
-msgid "Nothing"
-msgstr "Ingen"
+; $words["Nothing"
+] = "Ingen"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:74
 #: Y:\www\jm-bookingtest/edit_entry2.php:127
 #: Y:\www\jm-bookingtest/edit_entry2.php:153
-msgid "Save entry"
-msgstr "Lagre booking"
+; $words["Save entry"
+] = "Lagre booking"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:75
-msgid "What this is. Can be empty. Entryname is generated from the title and some other values."
-msgstr "Hva er dette for noe? Kan være tom. Navnet for bookingen blir generert fra tittel, type og noen andre verdier."
+; $words["What this is. Can be empty. Entryname is generated from the title and some other values."
+] = "Hva er dette for noe? Kan være tom. Navnet for bookingen blir generert fra tittel, type og noen andre verdier."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:76
-msgid "What type of entry this is."
-msgstr "Hvilken type booking er dette."
+; $words["What type of entry this is."
+] = "Hvilken type booking er dette."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:78
-msgid "Start time"
-msgstr "Starttid"
+; $words["Start time"
+] = "Starttid"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:78
-msgid "When does this event start. Should be set in the calendar."
-msgstr "Starttidspunkt for bookingen. Letteste er å sette denne via kalenderen. Formater er tt:mm dd-mm-yyyy (t = time, m=minutt, osv)."
+; $words["When does this event start. Should be set in the calendar."
+] = "Starttidspunkt for bookingen. Letteste er å sette denne via kalenderen. Formater er tt:mm dd-mm-yyyy (t = time, m=minutt, osv)."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:80
-msgid "End time"
-msgstr "Slutt-tid"
+; $words["End time"
+] = "Slutt-tid"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:80
-msgid "When is the event finished."
-msgstr "Når det hele er slutt. Samme format som over."
+; $words["When is the event finished."
+] = "Når det hele er slutt. Samme format som over."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:87
-msgid "Users assigned"
-msgstr "Verter"
+; $words["Users assigned"
+] = "Verter"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:87
-msgid "Which users are assigned to this event. Event will appear in Groupwise."
-msgstr "Hvilke personer som skal være verter for gjennomføringen. Disse får opp bookingen i sin kalender i Groupwise."
+; $words["Which users are assigned to this event. Event will appear in Groupwise."
+] = "Hvilke personer som skal være verter for gjennomføringen. Disse får opp bookingen i sin kalender i Groupwise."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:88
-msgid "If someone other than the normal users are assigned. Use this field to add his or her name."
-msgstr "Hvis noen andre enn de normale brukerne blir satt som vert, så brukes dette feltet til å taste inn navnet til vedkommende."
+; $words["If someone other than the normal users are assigned. Use this field to add his or her name."
+] = "Hvis noen andre enn de normale brukerne blir satt som vert, så brukes dette feltet til å taste inn navnet til vedkommende."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:91
-msgid "Type in parts for the customers name to search."
-msgstr "For å søke etter allerede inntastede kunder, så bare begynn å skriv i ruten. Hvis det er en ny kunde, så skriver du inn navnet og trykker på pluss-knappen."
+; $words["Type in parts for the customers name to search."
+] = "For å søke etter allerede inntastede kunder, så bare begynn å skriv i ruten. Hvis det er en ny kunde, så skriver du inn navnet og trykker på pluss-knappen."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:98
-msgid "The municipal which the customer belong to."
-msgstr "Hvilken kommune kunden hører til"
+; $words["The municipal which the customer belong to."
+] = "Hvilken kommune kunden hører til"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:106
-msgid "The contact person of the customer."
-msgstr "Kundens kontaktperson."
+; $words["The contact person of the customer."
+] = "Kundens kontaktperson."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:108
-msgid "Telephone number where the contact person can be reached. Preferably a mobile number."
-msgstr "Telefonnummer hvor kontaktpersonen kan bli nådd. Helst et mobilnummer."
+; $words["Telephone number where the contact person can be reached. Preferably a mobile number."
+] = "Telefonnummer hvor kontaktpersonen kan bli nådd. Helst et mobilnummer."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:109
-msgid "The contact persons email address. For more than one, please seperate by a space, comma or semicolon."
-msgstr "Kontaktpersonens epost. Ved flere enn en e-post, sett inn mellomrom, komma eller semikolon for å separere de. E-posten(e) blir brukt for å sende bekreftelse (hvis dette blir gjort)."
+; $words["The contact persons email address. For more than one, please seperate by a space, comma or semicolon."
+] = "Kontaktpersonens epost. Ved flere enn en e-post, sett inn mellomrom, komma eller semikolon for å separere de. E-posten(e) blir brukt for å sende bekreftelse (hvis dette blir gjort)."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:114
-msgid "Count these numbers"
-msgstr "Tell med i statistikk"
+; $words["Count these numbers"
+] = "Tell med i statistikk"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:114
-msgid "If yes the number of children and adults will be counted from the booking system and not the counter."
-msgstr "Hvis ja, så vil antall barn og voksne bli telt med i statistikken fra bookingsystemet. Hvis ikke, så må de telles i kassen (ved betaling)."
+; $words["If yes the number of children and adults will be counted from the booking system and not the counter."
+] = "Hvis ja, så vil antall barn og voksne bli telt med i statistikken fra bookingsystemet. Hvis ikke, så må de telles i kassen (ved betaling)."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:116
-msgid "Description of the services we should provide. Food can be one."
-msgstr "Beskrivelse av serveringen vi eller andre skal stille med. Mat er noe som kan spesifiseres."
+; $words["Description of the services we should provide. Food can be one."
+] = "Beskrivelse av serveringen vi eller andre skal stille med. Mat er noe som kan spesifiseres."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:117
-msgid "Will there be served alcohol?"
-msgstr "Vil det bli servert alkohol?"
+; $words["Will there be served alcohol?"
+] = "Vil det bli servert alkohol?"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:124
-msgid "This text will be on the infoscreens in the reception if the booking is between 16:00 and 06:00. Please check that the playlist on the infosystem is running."
-msgstr "Denne teksten vil vise på infoskjermene i resepsjonen hvis bookingen er mellom 16:00 og 06:00 (dagen etter). Forutsetter at playlistene på infosystemet kjører korrekt."
+; $words["This text will be on the infoscreens in the reception if the booking is between 16:00 and 06:00. Please check that the playlist on the infosystem is running."
+] = "Denne teksten vil vise på infoskjermene i resepsjonen hvis bookingen er mellom 16:00 og 06:00 (dagen etter). Forutsetter at playlistene på infosystemet kjører korrekt."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:130
-msgid "Choose yes if invoice should be made from this entry."
-msgstr "Velg ja hvis faktura skal lages fra denne bookingen."
+; $words["Choose yes if invoice should be made from this entry."
+] = "Velg ja hvis faktura skal lages fra denne bookingen."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:131
-msgid "Your reference"
-msgstr "Kundens referanse"
+; $words["Your reference"
+] = "Kundens referanse"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:131
-msgid "The customers internal reference."
-msgstr "Kundens interne referanse. Valgtfritt, men noen kunder ønsker en slik."
+; $words["The customers internal reference."
+] = "Kundens interne referanse. Valgtfritt, men noen kunder ønsker en slik."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:132
-msgid "Comment that is displayed in the top of the invoice."
-msgstr "Kommentar som blir vist på toppen av fakturaen (over produktlinjene)."
+; $words["Comment that is displayed in the top of the invoice."
+] = "Kommentar som blir vist på toppen av fakturaen (over produktlinjene)."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:133
-msgid "Internal comment on the invoice (not shown to the customer)."
-msgstr "Intern kommentar til fakturaen (ikke synlig for kunden)."
+; $words["Internal comment on the invoice (not shown to the customer)."
+] = "Intern kommentar til fakturaen (ikke synlig for kunden)."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:134
-msgid "E-delivery"
-msgstr "E-sending"
+; $words["E-delivery"
+] = "E-sending"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:134
-msgid "Choose yes if the customer want to have the invoice delivery by e-mail."
-msgstr "Velg ja hvis kunden vil ha fakturaen sendt på e-post."
+; $words["Choose yes if the customer want to have the invoice delivery by e-mail."
+] = "Velg ja hvis kunden vil ha fakturaen sendt på e-post."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:138
-msgid "Choose a address from the customer. This will be the address that the invoice will be sent to. To change the addresses please press the edit button for the customer."
-msgstr "Velg en adresse fra kunden. Denne vil være adressen som fakturaen blir sendt til. For å endre adressen(e), trykk på endre-knappen for kunden (+-tegnet)."
+; $words["Choose a address from the customer. This will be the address that the invoice will be sent to. To change the addresses please press the edit button for the customer."
+] = "Velg en adresse fra kunden. Denne vil være adressen som fakturaen blir sendt til. For å endre adressen(e), trykk på endre-knappen for kunden (+-tegnet)."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:149
-msgid "E-mail that the customer wants the invoice delivery to."
-msgstr "E-postadressen som kunden ønsker fakturaen tilsendt på."
+; $words["E-mail that the customer wants the invoice delivery to."
+] = "E-postadressen som kunden ønsker fakturaen tilsendt på."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:150
-msgid "Content"
-msgstr "Innhold"
+; $words["Content"
+] = "Innhold"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:235
-msgid "Select one"
-msgstr "Velg en"
+; $words["Select one"
+] = "Velg en"
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:331
-msgid "No customer set."
-msgstr "Ingen kunde valgt."
+; $words["No customer set."
+] = "Ingen kunde valgt."
 
 #: Y:\www\jm-bookingtest/edit_entry2.php:355
 #: Y:\www\jm-bookingtest/entry.php:51
-msgid "Can't find entry"
-msgstr "Finner ikke bookingen"
+; $words["Can't find entry"
+] = "Finner ikke bookingen"
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:44
-msgid "Entrytype is invalid."
-msgstr "Type er ugyldig."
+; $words["Entrytype is invalid."
+] = "Type er ugyldig."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:57
-msgid "Can't find entrytype in database"
-msgstr "Finner ikke type i database"
+; $words["Can't find entrytype in database"
+] = "Finner ikke type i database"
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:70
-msgid "Invalid date. Please check the format."
-msgstr "Ugyldig dato. Vennligst sjekk formatet på datoen."
+; $words["Invalid date. Please check the format."
+] = "Ugyldig dato. Vennligst sjekk formatet på datoen."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:79
-msgid "Area is invalid."
-msgstr "Anlegget er ugyldig."
+; $words["Area is invalid."
+] = "Anlegget er ugyldig."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:89
-msgid "Area must be selected."
-msgstr "Anlegg må bli valgt."
+; $words["Area must be selected."
+] = "Anlegg må bli valgt."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:96
-msgid "Can't find area in database"
-msgstr "Finner ikke anlegget i databasen."
+; $words["Can't find area in database"
+] = "Finner ikke anlegget i databasen."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:117
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:123
-msgid "One of the rooms is not found."
-msgstr "Et av rommene ble ikke funnet."
+; $words["One of the rooms is not found."
+] = "Et av rommene ble ikke funnet."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:154
-msgid "One of the users you assigned is not found."
-msgstr "En av personene du valgte ble ikke funnet."
+; $words["One of the users you assigned is not found."
+] = "En av personene du valgte ble ikke funnet."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:160
-msgid "One of user you assigned is not found."
-msgstr "En av personene du valgte ble ikke funnet."
+; $words["One of user you assigned is not found."
+] = "En av personene du valgte ble ikke funnet."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:181
-msgid "Can't find the customer you tried to select"
-msgstr "Kan ikke finne kunden du prøvde å velge"
+; $words["Can't find the customer you tried to select"
+] = "Kan ikke finne kunden du prøvde å velge"
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:237
-msgid "Fixed program is invalid."
-msgstr "Fast program er ugyldig."
+; $words["Fixed program is invalid."
+] = "Fast program er ugyldig."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:249
-msgid "Can't find the fixed program in database"
-msgstr "Finner ikke det faste programmet i databasen."
+; $words["Can't find the fixed program in database"
+] = "Finner ikke det faste programmet i databasen."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:266
-msgid "Invoice address is invalid."
-msgstr "Fakturaadressen er ugyldig."
+; $words["Invoice address is invalid."
+] = "Fakturaadressen er ugyldig."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:276
-msgid "Can't find the invoice address in database"
-msgstr "Finner ikke fakturaadressen i databasen"
+; $words["Can't find the invoice address in database"
+] = "Finner ikke fakturaadressen i databasen"
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:341
-msgid "Number of children must be a number, if anything."
-msgstr "Antall barn må være et helt tall, hvis det skal være med (\"ca 20\" eller \"20-25\" går ikke an å skrive)"
+; $words["Number of children must be a number, if anything."
+] = "Antall barn må være et helt tall, hvis det skal være med (\"ca 20\" eller \"20-25\" går ikke an å skrive)"
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:343
-msgid "Number of adults must be a number, if anything."
-msgstr "Antall voksne må være et helt tall, hvis det skal være med (\"ca 20\" eller \"20-25\" går ikke an å skrive)"
+; $words["Number of adults must be a number, if anything."
+] = "Antall voksne må være et helt tall, hvis det skal være med (\"ca 20\" eller \"20-25\" går ikke an å skrive)"
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:411
-msgid "Start time must be before end time for the entry."
-msgstr "Start-tid må være før slutt-tid for bookingen."
+; $words["Start time must be before end time for the entry."
+] = "Start-tid må være før slutt-tid for bookingen."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:415
-msgid "Start and end time must be set for all entries."
-msgstr "Start- og slutt-tid må være satt for alle bookinger."
+; $words["Start and end time must be set for all entries."
+] = "Start- og slutt-tid må være satt for alle bookinger."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:436
-msgid "No title for the entry was made. Please spesify either a title, a customer or a bookingtype."
-msgstr "Intet navn for bookingen ble laget. Vennligst spesifiser enten en tittel, en kunde eller en type (disse blir brukt for å lage navnet på bookingen)."
+; $words["No title for the entry was made. Please spesify either a title, a customer or a bookingtype."
+] = "Intet navn for bookingen ble laget. Vennligst spesifiser enten en tittel, en kunde eller en type (disse blir brukt for å lage navnet på bookingen)."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:442
-msgid "Please be advised: You have set a customer name but no customer in the database where selected. The result of this is that no customer is selected."
-msgstr "Obs: Du har tastet inn navnet på kunden, men ingen kunde ble opprettet eller valgt i databasen. Resultatet er at ingen kunde ble valgt."
+; $words["Please be advised: You have set a customer name but no customer in the database where selected. The result of this is that no customer is selected."
+] = "Obs: Du har tastet inn navnet på kunden, men ingen kunde ble opprettet eller valgt i databasen. Resultatet er at ingen kunde ble valgt."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:480
-msgid "One of the rooms you have selected is already booked for"
-msgstr "Et av rommene du valgte er allerede booked innenfor tidspunktet til"
+; $words["One of the rooms you have selected is already booked for"
+] = "Et av rommene du valgte er allerede booked innenfor tidspunktet til"
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:482
-msgid " is already booked at the time you have selected for"
-msgstr " er allerede booked på tidspunktet du valgte til"
+; $words[" is already booked at the time you have selected for"
+] = " er allerede booked på tidspunktet du valgte til"
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:536
-msgid "One of the users you have selected is already booked."
-msgstr "En av personene du valge er allerede booked innenfor tidspunktet."
+; $words["One of the users you have selected is already booked."
+] = "En av personene du valge er allerede booked innenfor tidspunktet."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:538
-msgid " is already booked at the time you have selected."
-msgstr " er allerede booked på tidspunktet du valgte."
+; $words[" is already booked at the time you have selected."
+] = " er allerede booked på tidspunktet du valgte."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:545
-msgid "You have selected rooms from more than one area."
-msgstr "Du har valgt rom fra mer enn et anlegg."
+; $words["You have selected rooms from more than one area."
+] = "Du har valgt rom fra mer enn et anlegg."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:553
-msgid "You have selected a starttime in the past."
-msgstr "Du har valgt starttidspunkt i fortiden."
+; $words["You have selected a starttime in the past."
+] = "Du har valgt starttidspunkt i fortiden."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:555
-msgid "Are you sure you want to let the entry end over a year into the future?"
-msgstr "Er du sikker på at du vil la bookingen være ferdig over et år inn i framtiden?"
+; $words["Are you sure you want to let the entry end over a year into the future?"
+] = "Er du sikker på at du vil la bookingen være ferdig over et år inn i framtiden?"
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:557
-msgid "The entry goes over more than 7 days. I think this might be wrong."
-msgstr "Bookingen er for mer enn 7 dager. Jeg tror dette kan være feil."
+; $words["The entry goes over more than 7 days. I think this might be wrong."
+] = "Bookingen er for mer enn 7 dager. Jeg tror dette kan være feil."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:762
-msgid "Can't log the new entry."
-msgstr "Kan ikke loggføre den nye bookingen."
+; $words["Can't log the new entry."
+] = "Kan ikke loggføre den nye bookingen."
 
 #: Y:\www\jm-bookingtest/edit_entry2_datasubmit.php:942
 #: Y:\www\jm-bookingtest/entry_confirm.php:213
-msgid "Can't log the changes for the entry."
-msgstr "Kan ikke loggføre endringene for bookingen."
+; $words["Can't log the changes for the entry."
+] = "Kan ikke loggføre endringene for bookingen."
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:192
-msgid "Add entry"
-msgstr "Ny booking"
+; $words["Add entry"
+] = "Ny booking"
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:195
-msgid "Edit entry"
-msgstr "Endre bookingen"
+; $words["Edit entry"
+] = "Endre bookingen"
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:196
 #: Y:\www\jm-bookingtest/entry_confirm.php:265
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:63
-msgid "Back to entry"
-msgstr "Tilbake til booking"
+; $words["Back to entry"
+] = "Tilbake til booking"
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:196
-msgid "Entry will not be saved!"
-msgstr "Booking vil ikke bli lagret!"
+; $words["Entry will not be saved!"
+] = "Booking vil ikke bli lagret!"
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:205
-msgid "One or more errors occured in the data submited"
-msgstr "En eller flere feil oppsto i dataene du prøvde å legge inn"
+; $words["One or more errors occured in the data submited"
+] = "En eller flere feil oppsto i dataene du prøvde å legge inn"
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:236
-msgid "One or more warnings where generated."
-msgstr "En eller flere advarsler oppsto."
+; $words["One or more warnings where generated."
+] = "En eller flere advarsler oppsto."
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:243
-msgid "Changes are still not saved. Please fix warnings or ignore them to get the changes saved."
-msgstr "Endringene er enda ikke lagret. Vennligst fiks advarslene eller ignorer de for å få lagret det du har tastet inn."
+; $words["Changes are still not saved. Please fix warnings or ignore them to get the changes saved."
+] = "Endringene er enda ikke lagret. Vennligst fiks advarslene eller ignorer de for å få lagret det du har tastet inn."
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:246
-msgid "I have seen the warnings and still want to proceed."
-msgstr "Jeg har sett advarslene og vil fremdeles fortsette."
+; $words["I have seen the warnings and still want to proceed."
+] = "Jeg har sett advarslene og vil fremdeles fortsette."
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:247
-msgid "Proceed"
-msgstr "Fortsett"
+; $words["Proceed"
+] = "Fortsett"
 
 #: Y:\www\jm-bookingtest/edit_entry2_form.php:512
-msgid "Error with inputfields for entry."
-msgstr "Feil med inndata-felt for entry."
+; $words["Error with inputfields for entry."
+] = "Feil med inndata-felt for entry."
 
 #: Y:\www\jm-bookingtest/entry.php:44
-msgid "Error: No entry spesified."
-msgstr "Feil: Ingen booking spesifisert."
+; $words["Error: No entry spesified."
+] = "Feil: Ingen booking spesifisert."
 
 #: Y:\www\jm-bookingtest/entry.php:97
-msgid "hide"
-msgstr "skjul"
+; $words["hide"
+] = "skjul"
 
 #: Y:\www\jm-bookingtest/entry_confirm.php:265
-msgid "Will not send a confirmation"
-msgstr "Vil ikke sende bekreftelese"
+; $words["Will not send a confirmation"
+] = "Vil ikke sende bekreftelese"
 
 #: Y:\www\jm-bookingtest/entry_confirm.php:271
-msgid "Template"
-msgstr "Mal"
+; $words["Template"
+] = "Mal"
 
 #: Y:\www\jm-bookingtest/entry_confirm.php:287
-msgid "No template"
-msgstr "Ingen mal"
+; $words["No template"
+] = "Ingen mal"
 
 #: Y:\www\jm-bookingtest/entry_confirm.php:304
-msgid "Send to"
-msgstr "Send til"
+; $words["Send to"
+] = "Send til"
 
 #: Y:\www\jm-bookingtest/entry_confirm.php:324
-msgid "Add field"
-msgstr "Legg til felt"
+; $words["Add field"
+] = "Legg til felt"
 
 #: Y:\www\jm-bookingtest/entry_confirm.php:432
-msgid "Internal comment"
-msgstr "Intern kommentar"
+; $words["Internal comment"
+] = "Intern kommentar"
 
 #: Y:\www\jm-bookingtest/entry_confirm.php:433
-msgid "Send confirmation"
-msgstr "Send bekreftelse"
+; $words["Send confirmation"
+] = "Send bekreftelse"
 
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:39
-msgid "Can not find confirmation from the confirmation ID you gave."
-msgstr "Kunne ikke finne bekreftelsen fra bekreftelsesIDen du gav."
+; $words["Can not find confirmation from the confirmation ID you gave."
+] = "Kunne ikke finne bekreftelsen fra bekreftelsesIDen du gav."
 
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:48
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:57
-msgid "Error."
-msgstr "Feil."
+; $words["Error."
+] = "Feil."
 
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:67
-msgid "Entry"
-msgstr "Booking"
+; $words["Entry"
+] = "Booking"
 
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:72
-msgid "Sent"
-msgstr "Sendt"
+; $words["Sent"
+] = "Sendt"
 
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:92
-msgid "Sent to"
-msgstr "Sendt til"
+; $words["Sent to"
+] = "Sendt til"
 
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:97
-msgid "Sent by"
-msgstr "Sendt av"
+; $words["Sent by"
+] = "Sendt av"
 
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:120
-msgid "E-mail that was sent"
-msgstr "E-posten som ble sendt"
+; $words["E-mail that was sent"
+] = "E-posten som ble sendt"
 
 #: Y:\www\jm-bookingtest/entry_confirm_view.php:142
-msgid "Template that was sent"
-msgstr "Mal som ble brukt for å lage e-posten"
+; $words["Template that was sent"
+] = "Mal som ble brukt for å lage e-posten"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:96
-msgid "View / Edit filters"
-msgstr "Vis / Endre filtre"
+; $words["View / Edit filters"
+] = "Vis / Endre filtre"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:179
 #: Y:\www\jm-bookingtest/entry_filters.php:205
 #: Y:\www\jm-bookingtest/entry_filters.php:377
-msgid "Is exactly"
-msgstr "Er akkurat"
+; $words["Is exactly"
+] = "Er akkurat"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:182
 #: Y:\www\jm-bookingtest/entry_filters.php:208
 #: Y:\www\jm-bookingtest/entry_filters.php:382
-msgid "Bigger than"
-msgstr "Større enn"
+; $words["Bigger than"
+] = "Større enn"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:185
 #: Y:\www\jm-bookingtest/entry_filters.php:211
 #: Y:\www\jm-bookingtest/entry_filters.php:387
-msgid "Bigger than or same as"
-msgstr "Større enn eller samme som"
+; $words["Bigger than or same as"
+] = "Større enn eller samme som"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:188
 #: Y:\www\jm-bookingtest/entry_filters.php:214
 #: Y:\www\jm-bookingtest/entry_filters.php:392
-msgid "Less than"
-msgstr "Mindre enn"
+; $words["Less than"
+] = "Mindre enn"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:191
 #: Y:\www\jm-bookingtest/entry_filters.php:217
 #: Y:\www\jm-bookingtest/entry_filters.php:397
-msgid "Less than or same as"
-msgstr "Mindre enn eller samme som"
+; $words["Less than or same as"
+] = "Mindre enn eller samme som"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:235
-msgid "Return to"
-msgstr "Returner til"
+; $words["Return to"
+] = "Returner til"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:239
 #: Y:\www\jm-bookingtest/entry_ical.php:61
 #: Y:\www\jm-bookingtest/entry_list.php:102
-msgid "Entry list"
-msgstr "Bookingliste"
+; $words["Entry list"
+] = "Bookingliste"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:244
-msgid "Entry stats"
-msgstr "Bookingstatistikk"
+; $words["Entry stats"
+] = "Bookingstatistikk"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:273
-msgid "Choose filter"
-msgstr "Velg filter"
+; $words["Choose filter"
+] = "Velg filter"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:276
-msgid "About filters"
-msgstr "Om filtre"
+; $words["About filters"
+] = "Om filtre"
 
 #: Y:\www\jm-bookingtest/entry_filters.php:277
-msgid "For text fields, % can be used to match any or zero characters. Type _ for one character. If \"Per\" and \"P&aring;l\" was in the database, P_r would match only Per and P__ whould match both. Per% or Pe% whould match Per. P% whould match everybody/everything that starts with P."
-msgstr "For tekstfelter; % kan bli brukt til å match flere eller ingen bokstaver. Å taste inn _ vil match en enkeltbokstav. Hvis \"Per\" og \"Pål\" er i databasen, så vil P_r matche par Per mens P__ vil mache begge. Per% eller Pe% vil mache Per. P% vil matche alle som starter med P."
+; $words["For text fields, % can be used to match any or zero characters. Type _ for one character. If \"Per\" and \"P&aring;l\" was in the database, P_r would match only Per and P__ whould match both. Per% or Pe% whould match Per. P% whould match everybody/everything that starts with P."
+] = "For tekstfelter; % kan bli brukt til å match flere eller ingen bokstaver. Å taste inn _ vil match en enkeltbokstav. Hvis \"Per\" og \"Pål\" er i databasen, så vil P_r matche par Per mens P__ vil mache begge. Per% eller Pe% vil mache Per. P% vil matche alle som starter med P."
 
 #: Y:\www\jm-bookingtest/entry_filters.php:279
-msgid "Dates are specified as YY-mm-dd hh:mm. 20 of june 2008 at 15:32 should be entered as 2008-06-20 15:32. Can also be 08-6-20 15.32 if you like. The current time is always specified by entering \"current\"."
-msgstr "Datoer er spesifisert som ÅÅ-MM-DD TT:MM. Hvis man vil sette inn 20. juni 2008 klokken 15:32 så bør dette tastes inn som 08-06-20 15:32. Det kan også bli tastet inn som 2008-6-20 15.32 hvis du heller vil det. Den nåværende tiden er alltid spesifisert ved å trykke inn \"current\"."
+; $words["Dates are specified as YY-mm-dd hh:mm. 20 of june 2008 at 15:32 should be entered as 2008-06-20 15:32. Can also be 08-6-20 15.32 if you like. The current time is always specified by entering \"current\"."
+] = "Datoer er spesifisert som ÅÅ-MM-DD TT:MM. Hvis man vil sette inn 20. juni 2008 klokken 15:32 så bør dette tastes inn som 08-06-20 15:32. Det kan også bli tastet inn som 2008-6-20 15.32 hvis du heller vil det. Den nåværende tiden er alltid spesifisert ved å trykke inn \"current\"."
 
 #: Y:\www\jm-bookingtest/entry_list.php:43
-msgid "Entries without confirmation sent"
-msgstr "Bookinger uten bekreftelse sent"
+; $words["Entries without confirmation sent"
+] = "Bookinger uten bekreftelse sent"
 
 #: Y:\www\jm-bookingtest/entry_list.php:44
 #: Y:\www\jm-bookingtest/entry_list.php:56
 #: Y:\www\jm-bookingtest/entry_list.php:69
 #: Y:\www\jm-bookingtest/entry_list.php:80
-msgid "Entries in the past is not shown."
-msgstr "Bookinger i fortiden blir ikke vist."
+; $words["Entries in the past is not shown."
+] = "Bookinger i fortiden blir ikke vist."
 
 #: Y:\www\jm-bookingtest/entry_list.php:55
-msgid "Entries without any assigned user"
-msgstr "Bookinger uten vert"
+; $words["Entries without any assigned user"
+] = "Bookinger uten vert"
 
 #: Y:\www\jm-bookingtest/entry_list.php:68
-msgid "Next 100 entries"
-msgstr "Neste 100 bookinger"
+; $words["Next 100 entries"
+] = "Neste 100 bookinger"
 
 #: Y:\www\jm-bookingtest/entry_list.php:127
-msgid "No entries found."
-msgstr "Ingen bookinger funnet."
+; $words["No entries found."
+] = "Ingen bookinger funnet."
 
 #: Y:\www\jm-bookingtest/entry_list.php:131
-msgid "entries found."
-msgstr "bookinger funnet."
+; $words["entries found."
+] = "bookinger funnet."
 
 #: Y:\www\jm-bookingtest/entry_list.php:148
-msgid "Ends"
-msgstr "Slutter"
+; $words["Ends"
+] = "Slutter"
 
 #: Y:\www\jm-bookingtest/entry_list.php:260
-msgid "Can't find room"
-msgstr "Finner ikke room"
+; $words["Can't find room"
+] = "Finner ikke room"
 
 #: Y:\www\jm-bookingtest/entry_stat.php:53
 #: Y:\www\jm-bookingtest/entry_stat.php:104
@@ -1516,8 +1506,8 @@ msgstr "Finner ikke room"
 #: Y:\www\jm-bookingtest/entry_stat.php:206
 #: Y:\www\jm-bookingtest/entry_stat.php:257
 #: Y:\www\jm-bookingtest/entry_stat.php:309
-msgid "Children"
-msgstr "Barn"
+; $words["Children"
+] = "Barn"
 
 #: Y:\www\jm-bookingtest/entry_stat.php:56
 #: Y:\www\jm-bookingtest/entry_stat.php:107
@@ -1525,8 +1515,8 @@ msgstr "Barn"
 #: Y:\www\jm-bookingtest/entry_stat.php:209
 #: Y:\www\jm-bookingtest/entry_stat.php:260
 #: Y:\www\jm-bookingtest/entry_stat.php:312
-msgid "Adults"
-msgstr "Voksne"
+; $words["Adults"
+] = "Voksne"
 
 #: Y:\www\jm-bookingtest/entry_stat.php:57
 #: Y:\www\jm-bookingtest/entry_stat.php:76
@@ -1540,8 +1530,8 @@ msgstr "Voksne"
 #: Y:\www\jm-bookingtest/entry_stat.php:282
 #: Y:\www\jm-bookingtest/entry_stat.php:313
 #: Y:\www\jm-bookingtest/entry_stat.php:334
-msgid "Total"
-msgstr "Totalt"
+; $words["Total"
+] = "Totalt"
 
 #: Y:\www\jm-bookingtest/entry_stat.php:60
 #: Y:\www\jm-bookingtest/entry_stat.php:111
@@ -1549,8 +1539,8 @@ msgstr "Totalt"
 #: Y:\www\jm-bookingtest/entry_stat.php:213
 #: Y:\www\jm-bookingtest/entry_stat.php:264
 #: Y:\www\jm-bookingtest/entry_stat.php:316
-msgid "Entries"
-msgstr "Bookinger"
+; $words["Entries"
+] = "Bookinger"
 
 #: Y:\www\jm-bookingtest/entry_stat.php:65
 #: Y:\www\jm-bookingtest/entry_stat.php:116
@@ -1558,298 +1548,298 @@ msgstr "Bookinger"
 #: Y:\www\jm-bookingtest/entry_stat.php:218
 #: Y:\www\jm-bookingtest/entry_stat.php:269
 #: Y:\www\jm-bookingtest/entry_stat.php:321
-msgid "Non"
-msgstr "Ingen"
+; $words["Non"
+] = "Ingen"
 
 #: Y:\www\jm-bookingtest/export_excel.php:320
-msgid "is"
-msgstr "er"
+; $words["is"
+] = "er"
 
 #: Y:\www\jm-bookingtest/export_excel.php:321
-msgid "is bigger than"
-msgstr "er større enn"
+; $words["is bigger than"
+] = "er større enn"
 
 #: Y:\www\jm-bookingtest/export_excel.php:322
-msgid "is bigger than or same as"
-msgstr "er større enn eller samme som"
+; $words["is bigger than or same as"
+] = "er større enn eller samme som"
 
 #: Y:\www\jm-bookingtest/export_excel.php:323
-msgid "is less than"
-msgstr "er mindre enn"
+; $words["is less than"
+] = "er mindre enn"
 
 #: Y:\www\jm-bookingtest/export_excel.php:324
-msgid "is less than or same as"
-msgstr "er mindre enn eller samme som"
+; $words["is less than or same as"
+] = "er mindre enn eller samme som"
 
 #: Y:\www\jm-bookingtest/export_excel.php:336
-msgid "true"
-msgstr "sann"
+; $words["true"
+] = "sann"
 
 #: Y:\www\jm-bookingtest/export_excel.php:338
-msgid "false"
-msgstr "usann"
+; $words["false"
+] = "usann"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:99
-msgid "View day"
-msgstr "Vis dag"
+; $words["View day"
+] = "Vis dag"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:129
-msgid "View week"
-msgstr "Vis uke"
+; $words["View week"
+] = "Vis uke"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:161
-msgid "View month"
-msgstr "Vis måned"
+; $words["View month"
+] = "Vis måned"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:169
-msgid "Enter entry ID"
-msgstr "Tast inn bookingid"
+; $words["Enter entry ID"
+] = "Tast inn bookingid"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:171
-msgid "Find"
-msgstr "Finn"
+; $words["Find"
+] = "Finn"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:181
-msgid "Logged in as"
-msgstr "Logget inn som"
+; $words["Logged in as"
+] = "Logget inn som"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:184
-msgid "Log out"
-msgstr "Logg ut"
+; $words["Log out"
+] = "Logg ut"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:187
-msgid "Administration"
-msgstr "Administrasjon"
+; $words["Administration"
+] = "Administrasjon"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:196
-msgid "Make a new entry"
-msgstr "Opprett ny booking"
+; $words["Make a new entry"
+] = "Opprett ny booking"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:204
-msgid "Not confirmed"
-msgstr "Ikke bekreftet"
+; $words["Not confirmed"
+] = "Ikke bekreftet"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:208
-msgid "No users assigned"
-msgstr "Ingen vert"
+; $words["No users assigned"
+] = "Ingen vert"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:240
-msgid "Userlist"
-msgstr "Brukerliste"
+; $words["Userlist"
+] = "Brukerliste"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:272
-msgid "Years"
-msgstr "År"
+; $words["Years"
+] = "År"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:275
-msgid "Weeks"
-msgstr "Uker"
+; $words["Weeks"
+] = "Uker"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:278
-msgid "Days"
-msgstr "Dayer"
+; $words["Days"
+] = "Dayer"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:281
-msgid "Hours"
-msgstr "Timer"
+; $words["Hours"
+] = "Timer"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:284
-msgid "Minutes"
-msgstr "Minutter"
+; $words["Minutes"
+] = "Minutter"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:287
-msgid "Secounds"
-msgstr "Sekunder"
+; $words["Secounds"
+] = "Sekunder"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:297
-msgid "Monday"
-msgstr "Mandag"
+; $words["Monday"
+] = "Mandag"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:298
-msgid "Tuedsay"
-msgstr "Tirsdag"
+; $words["Tuedsay"
+] = "Tirsdag"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:299
-msgid "Wednesday"
-msgstr "Onsdag"
+; $words["Wednesday"
+] = "Onsdag"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:300
-msgid "Thursday"
-msgstr "Torsdag"
+; $words["Thursday"
+] = "Torsdag"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:301
-msgid "Friday"
-msgstr "Fredag"
+; $words["Friday"
+] = "Fredag"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:302
-msgid "Saturday"
-msgstr "Lørdag"
+; $words["Saturday"
+] = "Lørdag"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:303
-msgid "Sunday"
-msgstr "Søndag"
+; $words["Sunday"
+] = "Søndag"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:305
-msgid "Mon"
-msgstr "Man"
+; $words["Mon"
+] = "Man"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:306
-msgid "Tue"
-msgstr "Tirs"
+; $words["Tue"
+] = "Tirs"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:307
-msgid "Wed"
-msgstr "Ons"
+; $words["Wed"
+] = "Ons"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:308
-msgid "Thu"
-msgstr "Tors"
+; $words["Thu"
+] = "Tors"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:309
-msgid "Fri"
-msgstr "Fre"
+; $words["Fri"
+] = "Fre"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:310
-msgid "Sat"
-msgstr "Lør"
+; $words["Sat"
+] = "Lør"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:311
-msgid "Sun"
-msgstr "Søn"
+; $words["Sun"
+] = "Søn"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:313
-msgid "January"
-msgstr "Januar"
+; $words["January"
+] = "Januar"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:314
-msgid "February"
-msgstr "Februar"
+; $words["February"
+] = "Februar"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:315
-msgid "March"
-msgstr "Mars"
+; $words["March"
+] = "Mars"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:316
-msgid "April"
-msgstr "April"
+; $words["April"
+] = "April"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:317
 #: Y:\www\jm-bookingtest/functions.inc.php:330
-msgid "May"
-msgstr "Mai"
+; $words["May"
+] = "Mai"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:318
-msgid "June"
-msgstr "Juni"
+; $words["June"
+] = "Juni"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:319
-msgid "July"
-msgstr "Juli"
+; $words["July"
+] = "Juli"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:320
-msgid "August"
-msgstr "August"
+; $words["August"
+] = "August"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:321
-msgid "September"
-msgstr "September"
+; $words["September"
+] = "September"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:322
-msgid "October"
-msgstr "Oktober"
+; $words["October"
+] = "Oktober"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:323
-msgid "November"
-msgstr "November"
+; $words["November"
+] = "November"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:324
-msgid "December"
-msgstr "Desember"
+; $words["December"
+] = "Desember"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:326
-msgid "Jan"
-msgstr "Jan"
+; $words["Jan"
+] = "Jan"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:327
-msgid "Feb"
-msgstr "Feb"
+; $words["Feb"
+] = "Feb"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:328
-msgid "Mar"
-msgstr "Mar"
+; $words["Mar"
+] = "Mar"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:329
-msgid "Apr"
-msgstr "Apr"
+; $words["Apr"
+] = "Apr"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:331
-msgid "Jun"
-msgstr "Jun"
+; $words["Jun"
+] = "Jun"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:332
-msgid "Jul"
-msgstr "Jul"
+; $words["Jul"
+] = "Jul"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:333
-msgid "Aug"
-msgstr "Aug"
+; $words["Aug"
+] = "Aug"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:334
-msgid "Sep"
-msgstr "Sep"
+; $words["Sep"
+] = "Sep"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:335
-msgid "Oct"
-msgstr "Okt"
+; $words["Oct"
+] = "Okt"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:336
-msgid "Nov"
-msgstr "Nov"
+; $words["Nov"
+] = "Nov"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:337
-msgid "Dec"
-msgstr "Des"
+; $words["Dec"
+] = "Des"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1015
-msgid "Unspesified title"
-msgstr "Uspesifisert tittel"
+; $words["Unspesified title"
+] = "Uspesifisert tittel"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1501
 #: Y:\www\jm-bookingtest/functions.inc.php:1516
-msgid "UNKNOWN AREA"
-msgstr "UKJENT ANLEGG"
+; $words["UNKNOWN AREA"
+] = "UKJENT ANLEGG"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1641
-msgid "New entry."
-msgstr "Opprett booking."
+; $words["New entry."
+] = "Opprett booking."
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1653
-msgid "Invoice is registered as sent."
-msgstr "Faktura er registert som behandlet."
+; $words["Invoice is registered as sent."
+] = "Faktura er registert som behandlet."
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1658
-msgid "Confirmation was sent."
-msgstr "Bekreftelse ble sendt."
+; $words["Confirmation was sent."
+] = "Bekreftelse ble sendt."
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1661
-msgid "Confirmation email is sent to"
-msgstr "Bekreftelses-epost er sendt til"
+; $words["Confirmation email is sent to"
+] = "Bekreftelses-epost er sendt til"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1665
-msgid "Icalendar element is sent to"
-msgstr "Kalenderelement er sendt til"
+; $words["Icalendar element is sent to"
+] = "Kalenderelement er sendt til"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1669
-msgid "Entry was edited."
-msgstr "Bookingen ble endret."
+; $words["Entry was edited."
+] = "Bookingen ble endret."
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1711
-msgid "set to"
-msgstr "satt til"
+; $words["set to"
+] = "satt til"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1713
-msgid "changed to"
-msgstr "endret til"
+; $words["changed to"
+] = "endret til"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1724
 #: Y:\www\jm-bookingtest/functions.inc.php:1731
@@ -1872,431 +1862,432 @@ msgstr "endret til"
 #: Y:\www\jm-bookingtest/functions.inc.php:1961
 #: Y:\www\jm-bookingtest/functions.inc.php:1992
 #: Y:\www\jm-bookingtest/functions.inc.php:2005
-msgid "not set"
-msgstr "ikke satt"
+; $words["not set"
+] = "ikke satt"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1749
-msgid "Name not found"
-msgstr "Navn ikke funnet"
+; $words["Name not found"
+] = "Navn ikke funnet"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1777
 #: Y:\www\jm-bookingtest/functions.inc.php:1784
-msgid "Nobody"
-msgstr "Ingen"
+; $words["Nobody"
+] = "Ingen"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1798
 #: Y:\www\jm-bookingtest/functions.inc.php:1800
-msgid "Manual user assigned"
-msgstr "Annen vert"
+; $words["Manual user assigned"
+] = "Annen vert"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1847
 #: Y:\www\jm-bookingtest/functions.inc.php:1849
-msgid "Contact persons phone number"
-msgstr "Kontaktperson-tlf"
+; $words["Contact persons phone number"
+] = "Kontaktperson-tlf"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1854
 #: Y:\www\jm-bookingtest/functions.inc.php:1856
-msgid "Contact persons email"
-msgstr "Kontaktpersons epost"
+; $words["Contact persons email"
+] = "Kontaktpersons epost"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1876
-msgid "not count in booking system / Datanova / cash register"
-msgstr "ikke tell i bookingsystemet, men i Datanova/kasseapparat"
+; $words["not count in booking system / Datanova / cash register"
+] = "ikke tell i bookingsystemet, men i Datanova/kasseapparat"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1878
-msgid "count in booking system"
-msgstr "tell i bookingsystemet"
+; $words["count in booking system"
+] = "tell i bookingsystemet"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1890
 #: Y:\www\jm-bookingtest/functions.inc.php:1892
-msgid "Alcohol"
-msgstr "Alkohol"
+; $words["Alcohol"
+] = "Alkohol"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1890
-msgid "is to be served"
-msgstr "skal serveres"
+; $words["is to be served"
+] = "skal serveres"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1892
-msgid "is not to be served"
-msgstr "skal ikke serveres"
+; $words["is not to be served"
+] = "skal ikke serveres"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1918
-msgid "should be made"
-msgstr "skal lages"
+; $words["should be made"
+] = "skal lages"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1920
-msgid "should not be made"
-msgstr "skal ikke lages"
+; $words["should not be made"
+] = "skal ikke lages"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1947
-msgid "is to be sendt by e-mail"
-msgstr "ønskes sendt via e-post"
+; $words["is to be sendt by e-mail"
+] = "ønskes sendt via e-post"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1949
-msgid "is to be sendt by regular mail"
-msgstr "ønskes sendt via vanlig post"
+; $words["is to be sendt by regular mail"
+] = "ønskes sendt via vanlig post"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1949
-msgid "Not"
-msgstr "Ikke"
+; $words["Not"
+] = "Ikke"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1980
-msgid "line"
-msgstr "linje"
+; $words["line"
+] = "linje"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1981
-msgid "name"
-msgstr "navn"
+; $words["name"
+] = "navn"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1983
-msgid "amount"
-msgstr "antall"
+; $words["amount"
+] = "antall"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1984
-msgid "tax"
-msgstr "MVA"
+; $words["tax"
+] = "MVA"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1992
 #: Y:\www\jm-bookingtest/functions.inc.php:1997
-msgid "Fixed program"
-msgstr "Program"
+; $words["Fixed program"
+] = "Program"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:1999
-msgid "ID of fixed program"
-msgstr "ID til fast program"
+; $words["ID of fixed program"
+] = "ID til fast program"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:2012
-msgid "ID of entry type"
-msgstr "ID til type"
+; $words["ID of entry type"
+] = "ID til type"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:2017
-msgid "Confirmation sent"
-msgstr "Bekreftelse sendt"
+; $words["Confirmation sent"
+] = "Bekreftelse sendt"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:2026
-msgid "Confirmation was <b>not sent</b> to"
-msgstr "Bekreftelses-epost ble <b>ikke sendt</b> til"
+; $words["Confirmation was <b>not sent</b> to"
+] = "Bekreftelses-epost ble <b>ikke sendt</b> til"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:2029
-msgid "Confirmation was sent to"
-msgstr "Bekreftelses-epost ble sendt til"
+; $words["Confirmation was sent to"
+] = "Bekreftelses-epost ble sendt til"
 
 #: Y:\www\jm-bookingtest/functions.inc.php:2401
-msgid "Icon"
-msgstr "Ikon"
+; $words["Icon"
+] = "Ikon"
 
 #: Y:\www\jm-bookingtest/glob_inc.inc.php:83
-msgid "FATAL ERROR: Couldn't connect to database."
-msgstr "FATAL FEIL: Kunne ikke koble til database."
+; $words["FATAL ERROR: Couldn't connect to database."
+] = "FATAL FEIL: Kunne ikke koble til database."
 
 #: Y:\www\jm-bookingtest/invoice_create.php:278
-msgid "Error:"
-msgstr "Feil:"
+; $words["Error:"
+] = "Feil:"
 
 #: Y:\www\jm-bookingtest/invoice_create.php:278
-msgid "Can't find the entry/one of the entries you tried to make an invoice from."
-msgstr "Kan ikke finne booknigen/en av bookingene du prøvde å lage en faktura fra."
+; $words["Can't find the entry/one of the entries you tried to make an invoice from."
+] = "Kan ikke finne booknigen/en av bookingene du prøvde å lage en faktura fra."
 
 #: Y:\www\jm-bookingtest/invoice_create.php:478
 #: Y:\www\jm-bookingtest/invoice_create.php:745
-msgid "Unknown sourcetype"
-msgstr "Ukjent kildetype"
+; $words["Unknown sourcetype"
+] = "Ukjent kildetype"
 
 #: Y:\www\jm-bookingtest/invoice_main.php:33
-msgid "Main page"
-msgstr "Hovedside"
+; $words["Main page"
+] = "Hovedside"
 
 #: Y:\www\jm-bookingtest/invoice_view.php:36
 #: Y:\www\jm-bookingtest/invoice_view.php:43
-msgid "Can't find invoice."
-msgstr "Finner ikke faktura."
+; $words["Can't find invoice."
+] = "Finner ikke faktura."
 
 #: Y:\www\jm-bookingtest/login.php:124
-msgid "You're already logged in."
-msgstr "Du er allerede logget inn."
+; $words["You're already logged in."
+] = "Du er allerede logget inn."
 
 #: Y:\www\jm-bookingtest/month.php:84
 #: Y:\www\jm-bookingtest/roomlist.php:139
 #: Y:\www\jm-bookingtest/roomlist.php:184
-msgid "Week"
-msgstr "Uke"
+; $words["Week"
+] = "Uke"
 
 #: Y:\www\jm-bookingtest/month.php:86
-msgid "Tuesday"
-msgstr "Tirsdag"
+; $words["Tuesday"
+] = "Tirsdag"
 
 #: Y:\www\jm-bookingtest/mrbs_auth.inc.php:50
-msgid "Access denied"
-msgstr "Ingen tilgang"
+; $words["Access denied"
+] = "Ingen tilgang"
 
 #: Y:\www\jm-bookingtest/mrbs_auth.inc.php:52
-msgid "You don't have the neccessary rights to do this action."
-msgstr "Du har ikke tilstrekkelige rettigheter for å gjøre denne handlingen."
+; $words["You don't have the neccessary rights to do this action."
+] = "Du har ikke tilstrekkelige rettigheter for å gjøre denne handlingen."
 
 #: Y:\www\jm-bookingtest/municipal_choose.php:97
-msgid "Choose municipal"
-msgstr "Velg kommune"
+; $words["Choose municipal"
+] = "Velg kommune"
 
 #: Y:\www\jm-bookingtest/municipal_choose.php:98
-msgid "Choose one or search at the bottom."
-msgstr "Velg en eller søk på bunnen."
+; $words["Choose one or search at the bottom."
+] = "Velg en eller søk på bunnen."
 
 #: Y:\www\jm-bookingtest/municipal_choose.php:130
-msgid "Search for others"
-msgstr "Søk etter andre"
+; $words["Search for others"
+] = "Søk etter andre"
 
 #: Y:\www\jm-bookingtest/municipal_choose.php:131
-msgid "Select none"
-msgstr "Velg en"
+; $words["Select none"
+] = "Velg en"
 
 #: Y:\www\jm-bookingtest/new_entries.php:38
-msgid "50 newest entries"
-msgstr "50 endringer i bookinger"
+; $words["50 newest entries"
+] = "50 endringer i bookinger"
 
 #: Y:\www\jm-bookingtest/new_entries.php:40
-msgid "Colour explaination"
-msgstr "Fargekoder"
+; $words["Colour explaination"
+] = "Fargekoder"
 
 #: Y:\www\jm-bookingtest/new_entries.php:41
-msgid "Entry has not changes since last view"
-msgstr "Booking ble ikke endret siden sist visning"
+; $words["Entry has not changes since last view"
+] = "Booking ble ikke endret siden sist visning"
 
 #: Y:\www\jm-bookingtest/new_entries.php:42
-msgid "New entry"
-msgstr "Opprett booking"
+; $words["New entry"
+] = "Opprett booking"
 
 #: Y:\www\jm-bookingtest/new_entries.php:43
-msgid "Changed entry"
-msgstr "Endret booking"
+; $words["Changed entry"
+] = "Endret booking"
 
 #: Y:\www\jm-bookingtest/new_entries.php:50
-msgid "Entry id"
-msgstr "Bookingid"
+; $words["Entry id"
+] = "Bookingid"
 
 #: Y:\www\jm-bookingtest/new_entries.php:52
-msgid "Last change"
-msgstr "Sist endret"
+; $words["Last change"
+] = "Sist endret"
 
 #: Y:\www\jm-bookingtest/new_entries.php:53
-msgid "Changed by"
-msgstr "Endret av"
+; $words["Changed by"
+] = "Endret av"
 
 #: Y:\www\jm-bookingtest/new_entries.php:54
-msgid "Last action"
-msgstr "Siste handling"
+; $words["Last action"
+] = "Siste handling"
 
 #: Y:\www\jm-bookingtest/new_entries.php:107
-msgid "Log not found"
-msgstr "Logg ble ikke funnet"
+; $words["Log not found"
+] = "Logg ble ikke funnet"
 
 #: Y:\www\jm-bookingtest/new_entries.php:115
-msgid "Mark all entries in this list as read"
-msgstr "Marker alle endringer i denne listen som lest"
+; $words["Mark all entries in this list as read"
+] = "Marker alle endringer i denne listen som lest"
 
 #: Y:\www\jm-bookingtest/roomlist.php:70
-msgid "Areas"
-msgstr "Anlegg"
+; $words["Areas"
+] = "Anlegg"
 
 #: Y:\www\jm-bookingtest/roomlist.php:109
-msgid "Device"
-msgstr "Rom"
+; $words["Device"
+] = "Rom"
 
 #: Y:\www\jm-bookingtest/roomlist.php:172
-msgid "Data collected/printed"
-msgstr "Data hentet"
+; $words["Data collected/printed"
+] = "Data hentet"
 
 #: Y:\www\jm-bookingtest/roomlist.php:172
-msgid "by"
-msgstr "av"
+; $words["by"
+] = "av"
 
 #: Y:\www\jm-bookingtest/roomlist.php:174
-msgid "Type of view"
-msgstr "Visningstype"
+; $words["Type of view"
+] = "Visningstype"
 
 #: Y:\www\jm-bookingtest/roomlist.php:175
-msgid "day"
-msgstr "dag"
+; $words["day"
+] = "dag"
 
 #: Y:\www\jm-bookingtest/roomlist.php:176
-msgid "week"
-msgstr "uke"
+; $words["week"
+] = "uke"
 
 #: Y:\www\jm-bookingtest/roomlist.php:177
-msgid "month"
-msgstr "måned"
+; $words["month"
+] = "måned"
 
 #: Y:\www\jm-bookingtest/roomlist.php:178
-msgid "unknown"
-msgstr "ukjent"
+; $words["unknown"
+] = "ukjent"
 
 #: Y:\www\jm-bookingtest/style.inc.php:32
-msgid "iso-8859-1"
-msgstr "iso-8859-1"
+; $words["iso-8859-1"
+] = "iso-8859-1"
 
 #: Y:\www\jm-bookingtest/user.php:37
-msgid "Error: No user spesified."
-msgstr "Feil: Ingen bruker spesifisert."
+; $words["Error: No user spesified."
+] = "Feil: Ingen bruker spesifisert."
 
 #: Y:\www\jm-bookingtest/user.php:44
-msgid "Can't find user"
-msgstr "Finner ikke brukeren"
+; $words["Can't find user"
+] = "Finner ikke brukeren"
 
 #: Y:\www\jm-bookingtest/user.php:51
-msgid "Viewing user details"
-msgstr "Viser brukerdetaljer"
+; $words["Viewing user details"
+] = "Viser brukerdetaljer"
 
 #: Y:\www\jm-bookingtest/user.php:54
-msgid "This user is deactivated."
-msgstr "Brukeren er deaktivert."
+; $words["This user is deactivated."
+] = "Brukeren er deaktivert."
 
 #: Y:\www\jm-bookingtest/user.php:63
-msgid "UserID"
-msgstr "BrukerID"
+; $words["UserID"
+] = "BrukerID"
 
 #: Y:\www\jm-bookingtest/user.php:76
-msgid "Upcoming entries for "
-msgstr "Kommende bookinger for "
+; $words["Upcoming entries for "
+] = "Kommende bookinger for "
 
 #: Y:\www\jm-bookingtest/user.php:92
-msgid "No upcoming entries found"
-msgstr "Ingen kommende bookinger funnet"
+; $words["No upcoming entries found"
+] = "Ingen kommende bookinger funnet"
 
 #: Y:\www\jm-bookingtest/week.php:131
 #: Y:\www\jm-bookingtest/week_old.php:147
-msgid "go to last week"
-msgstr "gå til sist uke"
+; $words["go to last week"
+] = "gå til sist uke"
 
 #: Y:\www\jm-bookingtest/week.php:133
 #: Y:\www\jm-bookingtest/week_old.php:149
-msgid "go to this week"
-msgstr "gå til denne uken"
+; $words["go to this week"
+] = "gå til denne uken"
 
 #: Y:\www\jm-bookingtest/week.php:135
 #: Y:\www\jm-bookingtest/week_old.php:151
-msgid "go to next week"
-msgstr "gå til neste uke"
+; $words["go to next week"
+] = "gå til neste uke"
 
 #: Y:\www\jm-bookingtest/week_old.php:120
-msgid "This room couldn't be found."
-msgstr "Dette rommet ble ikke funnet."
+; $words["This room couldn't be found."
+] = "Dette rommet ble ikke funnet."
 
 #: Y:\www\jm-bookingtest/functions/email.php:147
-msgid "Assigned to"
-msgstr "Vert"
+; $words["Assigned to"
+] = "Vert"
 
 #: Y:\www\jm-bookingtest/functions/email.php:225
-msgid "Booking created by"
-msgstr "Opprettet av"
+; $words["Booking created by"
+] = "Opprettet av"
 
 #: Y:\www\jm-bookingtest/functions/entry.php:32
-msgid "No entry found."
-msgstr "Ingen bookinger funnet."
+; $words["No entry found."
+] = "Ingen bookinger funnet."
 
 #: Y:\www\jm-bookingtest/functions/filter.php:89
-msgid "Invoice - Your referance"
-msgstr "Faktura - Deres referanse"
+; $words["Invoice - Your referance"
+] = "Faktura - Deres referanse"
 
 #: Y:\www\jm-bookingtest/functions/filter.php:126
-msgid "Not to be made"
-msgstr "Skal ikke lages"
+; $words["Not to be made"
+] = "Skal ikke lages"
 
 #: Y:\www\jm-bookingtest/functions/filter.php:127
-msgid "To be made"
-msgstr "Skal lages"
+; $words["To be made"
+] = "Skal lages"
 
 #: Y:\www\jm-bookingtest/functions/filter.php:128
-msgid "Ready to be made"
-msgstr "Klar til å lages"
+; $words["Ready to be made"
+] = "Klar til å lages"
 
 #: Y:\www\jm-bookingtest/functions/filter.php:290
-msgid "Statistics"
-msgstr "Statistikk"
+; $words["Statistics"
+] = "Statistikk"
 
 #: Y:\www\jm-bookingtest/functions/filter.php:301
-msgid "Getting entries where "
-msgstr "Henter bookinger hvor "
+; $words["Getting entries where "
+] = "Henter bookinger hvor "
 
 #: Y:\www\jm-bookingtest/functions/filter.php:313
-msgid "and"
-msgstr "og"
+; $words["and"
+] = "og"
 
 #: Y:\www\jm-bookingtest/functions/filter.php:324
-msgid "contains"
-msgstr "inneholder"
+; $words["contains"
+] = "inneholder"
 
 #: Y:\www\jm-bookingtest/functions/filter.php:327
-msgid "matches"
-msgstr "matcher"
+; $words["matches"
+] = "matcher"
 
 #: Y:\www\jm-bookingtest/functions/filter.php:341
-msgid "current time"
-msgstr "nåværende tid"
+; $words["current time"
+] = "nåværende tid"
 
 #: Y:\www\jm-bookingtest/functions/template.php:41
 #: Y:\www\jm-bookingtest/functions/template.php:64
 #: Y:\www\jm-bookingtest/functions/template.php:82
 #: Y:\www\jm-bookingtest/functions/template.php:213
 #: Y:\www\jm-bookingtest/functions/template.php:230
-msgid "yes"
-msgstr "ja"
+; $words["yes"
+] = "ja"
 
 #: Y:\www\jm-bookingtest/functions/template.php:43
 #: Y:\www\jm-bookingtest/functions/template.php:66
 #: Y:\www\jm-bookingtest/functions/template.php:84
 #: Y:\www\jm-bookingtest/functions/template.php:217
 #: Y:\www\jm-bookingtest/functions/template.php:234
-msgid "no"
-msgstr "nei"
+; $words["no"
+] = "nei"
 
 #: Y:\www\jm-bookingtest/functions/template.php:222
-msgid "not to be made"
-msgstr "skal ikke lages"
+; $words["not to be made"
+] = "skal ikke lages"
 
 #: Y:\www\jm-bookingtest/include/entry_stat.php:48
-msgid "Entry statistics"
-msgstr "Bookingstatistikk"
+; $words["Entry statistics"
+] = "Bookingstatistikk"
 
 #: Y:\www\jm-bookingtest/include/entry_stat.php:329
-msgid " "
-msgstr ""
+; $words[" "
+] = ""
 
 #: Y:\www\jm-bookingtest/include/invoice_top.php:39
-msgid "No access"
-msgstr "Ingen tilgang"
+; $words["No access"
+] = "Ingen tilgang"
 
 #: Y:\www\jm-bookingtest/include/invoice_top.php:50
-msgid "Can't find the area you want data from."
-msgstr "Finner ikke anlegget du vil ha data fra."
+; $words["Can't find the area you want data from."
+] = "Finner ikke anlegget du vil ha data fra."
 
 #: Y:\www\jm-bookingtest/libs/editor.class.php:353
 #: Y:\www\jm-bookingtest/libs/editor.class.php:382
 #: Y:\www\jm-bookingtest/libs/editor.class.php:423
-msgid "A required field"
-msgstr "Et obligatorisk felt"
+; $words["A required field"
+] = "Et obligatorisk felt"
 
 #: Y:\www\jm-bookingtest/libs/editor.class.php:353
 #: Y:\www\jm-bookingtest/libs/editor.class.php:382
 #: Y:\www\jm-bookingtest/libs/editor.class.php:423
-msgid "is empty"
-msgstr "er tomt"
+; $words["is empty"
+] = "er tomt"
 
 #: Y:\www\jm-bookingtest/libs/invoice.class.php:1251
-msgid "Invoice time"
-msgstr "Fakturadato"
+; $words["Invoice time"
+] = "Fakturadato"
 
 #: Y:\www\jm-bookingtest/libs/invoice.class.php:1255
-msgid "Invoice time due"
-msgstr "Forfallsdato"
+; $words["Invoice time due"
+] = "Forfallsdato"
 
 #: Y:\www\jm-bookingtest/libs/invoice.class.php:1280
-msgid "Invoice was created."
-msgstr "Faktura ble opprettet."
+; $words["Invoice was created."
+] = "Faktura ble opprettet."
 
 #: Y:\www\jm-bookingtest/libs/invoice.class.php:1288
-msgid "Invoice is registered as payed."
-msgstr "Faktura er registert som betalt."
+; $words["Invoice is registered as payed."
+] = "Faktura er registert som betalt."
 
 #: Y:\www\jm-bookingtest/libs/invoice.class.php:1290
-msgid "Invoice was edited."
-msgstr "Faktura ble endret."
+; $words["Invoice was edited."
+] = "Faktura ble endret."
 
+;

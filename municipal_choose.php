@@ -94,8 +94,8 @@ require "libs/municipals_norway.php";
 
 echo '<table width="100%" height="100%" style="border: 1px solid black;">'.chr(10);
 echo '<tr><td align="center" height="40">'.chr(10);
-echo '<h1>'._('Choose municipal').'</h1>'.chr(10);
-echo '<b>'._('Choose one or search at the bottom.').'</b>'.chr(10);
+echo '<h1>'.__('Choose municipal').'</h1>'.chr(10);
+echo '<b>'.__('Choose one or search at the bottom.').'</b>'.chr(10);
 echo '</td></tr>';
 
 echo '<tr><td>'.chr(10);
@@ -127,8 +127,8 @@ if(defined('COUNTY'))
 echo '<tr><td><br></td><td><br></td></tr>'.chr(10);
 
 // Search
-echo '<tr><td><b>'._('Search for others').'</b><br><input type="text" name="municipal_search" id="municipal_search"></td>'.chr(10);
-echo '<td><br><input type="button" onclick="choose_municipal(\'\', \'\');" value="'._('Select none').'"></td></tr>'.chr(10);
+echo '<tr><td><b>'.__('Search for others').'</b><br><input type="text" name="municipal_search" id="municipal_search"></td>'.chr(10);
+echo '<td><br><input type="button" onclick="choose_municipal(\'\', \'\');" value="'.__('Select none').'"></td></tr>'.chr(10);
 echo '</table>'.chr(10);
 
 echo '</td></tr>'.chr(10);

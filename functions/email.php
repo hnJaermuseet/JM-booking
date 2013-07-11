@@ -129,11 +129,11 @@ function template_ical ($entry)
 		return '';
 	
 	$return = '';
-	$return .= _('Entry name').': '.$entry['entry_name'].chr(10);
-	$return .= _('Entry ID').': '.$entry['entry_id'].chr(10);
-	$return .= _('Entry type').': ';
+	$return .= __('Entry name').': '.$entry['entry_name'].chr(10);
+	$return .= __('Entry ID').': '.$entry['entry_id'].chr(10);
+	$return .= __('Entry type').': ';
 	if($entry['entry_type_id'] == '0')
-		$return .= _('Non');
+		$return .= __('Non');
 	else
 	{
 		$entry_type = getEntryType($entry['entry_type_id']);
@@ -141,18 +141,18 @@ function template_ical ($entry)
 			$return .= $entry_type['entry_type_name'];
 	}
 	$return .= chr(10);
-	$return .= _('Starts').': '.date('H:i d-m-Y', $entry['time_start']).chr(10);
-	$return .= _('Finished').': '.date('H:i d-m-Y', $entry['time_end']).chr(10);
+	$return .= __('Starts').': '.date('H:i d-m-Y', $entry['time_start']).chr(10);
+	$return .= __('Finished').': '.date('H:i d-m-Y', $entry['time_end']).chr(10);
 	if(count($entry['user_assigned']) > 1) $return .= chr(10);
-	$return .= _('Assigned to').': ';
+	$return .= __('Assigned to').': ';
 	if(!count($entry['user_assigned']))
-		$return .= _('Nobody').chr(10);
+		$return .= __('Nobody').chr(10);
 	elseif(count($entry['user_assigned']) == '1')
 	{
 		foreach ($entry['user_assigned'] as $user_id)
 		{
 			if($user_id == '0')
-				$return .= _('Nobody').chr(10);
+				$return .= __('Nobody').chr(10);
 			else
 			{
 				$user = getUser($user_id);
@@ -172,24 +172,24 @@ function template_ical ($entry)
 	}
 	
 	$area = getArea($entry['area_id']);
-	$return .= _('Area').': '.$area['area_name'].chr(10);
-	$return .= _('Room').': ';
+	$return .= __('Area').': '.$area['area_name'].chr(10);
+	$return .= __('Room').': ';
 	if(!count($entry['room_id']))
-		$return .= _('Whole area').chr(10);
+		$return .= __('Whole area').chr(10);
 	elseif(count($entry['room_id']) == '1')
 	{
 		// Single room
 		foreach ($entry['room_id'] as $rid)
 		{
 			if ($rid == '0')
-				$return .= _('Whole area').chr(10);
+				$return .= __('Whole area').chr(10);
 			else
 			{
 				$room = getRoom($rid);
 				if(count($room))
 					$return .= $room['room_name'].chr(10);
 				else
-					$return .= _('Can\'t find room').chr(10);
+					$return .= __('Can\'t find room').chr(10);
 			}
 		}
 	}
@@ -207,24 +207,24 @@ function template_ical ($entry)
 			}
 		}
 		if(!$rooms)
-			$return .= _('Whole area').chr(10);
+			$return .= __('Whole area').chr(10);
 	}
 
 	if($entry['customer_id'] == '0')
-		$return .= _('Customer').': '._('Non selected').chr(10);
+		$return .= __('Customer').': '.__('Non selected').chr(10);
 	else
-		$return .= _('Customer').': '.$entry['customer_name'].' ('._('Customer ID').' '.$entry['customer_id'].')'.chr(10);
-	$return .= _('Customer').': '.$entry['customer_name'].chr(10);
-	$return .= _('Contact person').': '.$entry['contact_person_name'].chr(10);
-	$return .= _('Contact telephone').': '.$entry['contact_person_phone'].chr(10);
-	$return .= _('Contact persons email').': '.$entry['contact_person_email'].chr(10);
-	$return .= _('Municipal').': '.$entry['customer_municipal'].chr(10);
+		$return .= __('Customer').': '.$entry['customer_name'].' ('.__('Customer ID').' '.$entry['customer_id'].')'.chr(10);
+	$return .= __('Customer').': '.$entry['customer_name'].chr(10);
+	$return .= __('Contact person').': '.$entry['contact_person_name'].chr(10);
+	$return .= __('Contact telephone').': '.$entry['contact_person_phone'].chr(10);
+	$return .= __('Contact persons email').': '.$entry['contact_person_email'].chr(10);
+	$return .= __('Municipal').': '.$entry['customer_municipal'].chr(10);
 	
 	$user_created = getUser($entry['created_by']);
 	if(count($user_created))
-		$return .= _('Booking created by').': '.$user_created['user_name'].chr(10);
+		$return .= __('Booking created by').': '.$user_created['user_name'].chr(10);
 	
-	$return .= _('Comment').':'.chr(10);
+	$return .= __('Comment').':'.chr(10);
 	$return .= nl2br($entry['comment']);
 	
 	return $return;

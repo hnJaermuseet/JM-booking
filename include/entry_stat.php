@@ -46,7 +46,7 @@ if(!isset($noprint))
 {
 	print_header($day, $month, $year, $area);
 	
-	echo '<h1>'._('Entry statistics').'</h1>';
+	echo '<h1>'.__('Entry statistics').'</h1>';
 	echo '<div class="hiddenprint">'; filterLink($filters, 'entry_stat');	echo '</div><br>'.chr(10);
 	filterPrint($filters);				echo '<br>'.chr(10);
 	echo '<br>'.chr(10).chr(10);
@@ -206,7 +206,7 @@ while($tamed_booking && $R = mysql_fetch_assoc($Q))
 			'p' => ($entry['num_person_child'] + $entry['num_person_adult']),
 			'e' => 1
 		);
-		$stats_month[$thisone]['Name'] = _(date('F', $entry['time_start'])).' '.date('Y', $entry['time_start']);
+		$stats_month[$thisone]['Name'] = __(date('F', $entry['time_start'])).' '.date('Y', $entry['time_start']);
 	}
 	else
 	{
@@ -382,7 +382,7 @@ while($tamed_datanova && $R = mysql_fetch_assoc($Q_datanova))
 			'p' => ($entry['num_person_child'] + $entry['num_person_adult']),
 			'e' => 1
 		);
-		$stats_month[$thisone]['Name'] = _(date('F', $entry['time_start'])).' '.date('Y', $entry['time_start']);
+		$stats_month[$thisone]['Name'] = __(date('F', $entry['time_start'])).' '.date('Y', $entry['time_start']);
 	}
 	else
 	{
@@ -525,7 +525,7 @@ foreach($stats_month as $id => $val)
 				'p' => 0,
 				'e' => 0
 			);
-			$stats_month[$last]['Name'] = _(date('F', getTimeFromYYYYMM($last)).' '.
+			$stats_month[$last]['Name'] = __(date('F', getTimeFromYYYYMM($last)).' '.
 				date('Y', getTimeFromYYYYMM($last)));
 		}
 	}

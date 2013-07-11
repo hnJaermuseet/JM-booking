@@ -35,8 +35,8 @@ else
 if(!count($confirm))
 {
 	print_header($day,$month,$year,$area);
-	echo '<h1>'._('Confirmation').'</h1>'.chr(10);
-	echo _('Can not find confirmation from the confirmation ID you gave.');
+	echo '<h1>'.__('Confirmation').'</h1>'.chr(10);
+	echo __('Can not find confirmation from the confirmation ID you gave.');
 	exit();
 }
 
@@ -44,8 +44,8 @@ $entry = getEntry($confirm['entry_id']);
 if(!count($entry))
 {
 	print_header($day,$month,$year,$area);
-	echo '<h1>'._('Confirmation').'</h1>'.chr(10);
-	echo _('Error.');
+	echo '<h1>'.__('Confirmation').'</h1>'.chr(10);
+	echo __('Error.');
 	exit();
 }
 
@@ -53,8 +53,8 @@ $user = getUser($confirm['user_id']);
 if(!count($user))
 {
 	print_header($day,$month,$year,$area);
-	echo '<h1>'._('Confirmation').'</h1>'.chr(10);
-	echo _('Error.');
+	echo '<h1>'.__('Confirmation').'</h1>'.chr(10);
+	echo __('Error.');
 	exit();
 }
 
@@ -62,17 +62,17 @@ print_header($day,$month,$year,$area);
 echo '<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/hide_unhide.js" type="text/javascript"></script>'.chr(10);
 
-echo '<h1>'._('Confirmation').', '.$entry['entry_name'].'</h1>'.chr(10);
-echo '- <a href="entry.php?entry_id='.$entry['entry_id'].'">'._('Back to entry').'</a><br><br>';
+echo '<h1>'.__('Confirmation').', '.$entry['entry_name'].'</h1>'.chr(10);
+echo '- <a href="entry.php?entry_id='.$entry['entry_id'].'">'.__('Back to entry').'</a><br><br>';
 
 echo '<table class="prettytable">'.chr(10);
 echo '	<tr>'.chr(10);
-echo '		<th>'._('Entry').'</th>'.chr(10);
+echo '		<th>'.__('Entry').'</th>'.chr(10);
 echo '		<td><a href="entry.php?entry_id='.$entry['entry_id'].'">'.$entry['entry_name'].'</a></td>'.chr(10);
 echo '	</tr>'.chr(10);
 
 echo '	<tr>'.chr(10);
-echo '		<th>'._('Sent').'</th>'.chr(10);
+echo '		<th>'.__('Sent').'</th>'.chr(10);
 echo '		<td>'.date('H:i:s d.m.Y', $confirm['confirm_time']).'</td>'.chr(10);
 echo '	</tr>'.chr(10);
 
@@ -90,19 +90,19 @@ echo '		<td>';
 echo '</td>'.chr(10);
 echo '	</tr>'.chr(10);
 
-// TODO: Få opp om noen feilet (fra entry-log)
+// TODO: Get a message if something failed (from entry-log)
 echo '	<tr>'.chr(10);
-echo '		<th>'._('Sent to').'</th>'.chr(10);
+echo '		<th>'.__('Sent to').'</th>'.chr(10);
 echo '		<td>'.implode(', ', $confirm['confirm_to']).'</td>'.chr(10);
 echo '	</tr>'.chr(10);
 
 echo '	<tr>'.chr(10);
-echo '		<th>'._('Sent by').'</th>'.chr(10);
+echo '		<th>'.__('Sent by').'</th>'.chr(10);
 echo '		<td><a href="user.php?user_id='.$confirm['user_id'].'">'.$user['user_name'].'</a></td>'.chr(10);
 echo '	</tr>'.chr(10).chr(10);
 
 echo '	<tr>'.chr(10);
-echo '		<th>'._('Comment').'</th>'.chr(10);
+echo '		<th>'.__('Comment').'</th>'.chr(10);
 echo '		<td>'.$confirm['confirm_comment'].'</td>'.chr(10);
 echo '	</tr>'.chr(10).chr(10);
 
@@ -130,7 +130,7 @@ echo '<div class="showButton" id="buttonIdCONFIRMTPL">'.
 
 if($confirm['confirm_pdf'] == '1')
 {
-	echo '<h2>Følgende vedlegg var med bekreftelsen:</h2>';
+	echo '<h2>F&oslash;lgende vedlegg var med bekreftelsen:</h2>';
 	echo '<ul>';
 	if($confirm['confirm_pdffile'] != '')
 		echo '<li>'.

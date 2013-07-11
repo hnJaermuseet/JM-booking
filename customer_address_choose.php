@@ -434,7 +434,7 @@ else
 
 echo '<table width="100%" height="100%" style="border: 1px solid black;">'.chr(10);
 echo '<tr><td align="center" height="40">'.chr(10);
-echo '<h1>'._('Choose address from').' '.$customer['customer_name'].'</h1>'.chr(10);
+echo '<h1>'.__('Choose address from').' '.$customer['customer_name'].'</h1>'.chr(10);
 echo 'En kunde kan i systemet v&aring;rt kan ha mange adresser koblet til seg.';
 echo '</td></tr>';
 
@@ -445,8 +445,8 @@ if(count($customer['customer_address']))
 	echo '<table style="border-collapse: collapse;" width="100%">'.chr(10);
 	echo '	<tr>'.chr(10);
 	echo '		<td class="border" width="40">&nbsp;</td>'.chr(10);
-	echo '		<td class="border"><b>'._('Name').'</b></td>'.chr(10);
-	echo '		<td class="border"><b>'._('Address').'</b></td>'.chr(10);
+	echo '		<td class="border"><b>'.__('Name').'</b></td>'.chr(10);
+	echo '		<td class="border"><b>'.__('Address').'</b></td>'.chr(10);
 	//echo '		<td class="border"><b>'._('Invoice address?').'</b></td>'.chr(10);
 	echo '		<td class="border">&nbsp;</td>'.chr(10);
 	echo '	</tr>'.chr(10);
@@ -491,7 +491,7 @@ if(count($customer['customer_address']))
 	
 }
 else
-	echo _('No addresses.').'<br>';
+	echo __('No addresses.').'<br>';
 
 echo '<br>';
 echo '<a href="'.$_SERVER['PHP_SELF'].'?'.$string.'&amp;address_id=0">Ny adresse</a>';

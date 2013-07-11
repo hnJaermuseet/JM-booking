@@ -57,7 +57,6 @@ Libs:
 - pChart, GPLv1, v2, v3 or later
 - cpdf, public domain
 - pear, PHP license v3, and some PHP license v2
-- php-gettext, GPLv2 or later
 - phpmailer, LGPL, see license
 - Smarty, LGPLv2.1 or later
 - iCalcreator, LGPLv2.1 or later

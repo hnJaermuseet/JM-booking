@@ -50,11 +50,11 @@ foreach($filters as $filter) {
 
 if(!$tamed_booking || !mysql_num_rows($Q))
 {
-	echo _('No entries found.');
+	echo __('No entries found.');
 }
 else
 {
-	echo mysql_num_rows($Q).' '._('entries found.');
+	echo mysql_num_rows($Q).' '.__('entries found.');
 	//echo '<br><br>'.chr(10).chr(10);
 	echo '<table class="prettytable">'.chr(10);
 	echo ' <tr>'.chr(10);
@@ -70,17 +70,17 @@ else
 	}
 	else
 	{
-		echo '  <th style="vertical-align: bottom;">'._('Starts').'</th>'.chr(10);
-		echo '  <th style="vertical-align: bottom;">'._('Ends').'</th>'.chr(10);
-		echo '  <th style="vertical-align: bottom;">'._('C/A').'</th>'.chr(10);
-		echo '  <th style="vertical-align: bottom;">'._('Entry type').'</th>'.chr(10);
-		echo '  <th style="vertical-align: bottom;">'._('Name').'</th>'.chr(10);
+		echo '  <th style="vertical-align: bottom;">'.__('Starts').'</th>'.chr(10);
+		echo '  <th style="vertical-align: bottom;">'.__('Ends').'</th>'.chr(10);
+		echo '  <th style="vertical-align: bottom;">'.__('C/A').'</th>'.chr(10);
+		echo '  <th style="vertical-align: bottom;">'.__('Entry type').'</th>'.chr(10);
+		echo '  <th style="vertical-align: bottom;">'.__('Name').'</th>'.chr(10);
 		if($listtype == 'servering')
 		{
 			echo '  <th style="vertical-align: bottom;">Alkohol?</th>'.chr(10);
-			echo '  <th style="vertical-align: bottom;">'._('Service description').'</th>'.chr(10);
+			echo '  <th style="vertical-align: bottom;">'.__('Service description').'</th>'.chr(10);
 		}
-		echo '  <th style="vertical-align: bottom;">'._('Room').'</th>'.chr(10);
+		echo '  <th style="vertical-align: bottom;">'.__('Room').'</th>'.chr(10);
 	}
 	echo ' </tr>'.chr(10);
 	
@@ -124,7 +124,7 @@ else
 			echo '  <td>';
 			echo date('H:i', $entry['time_start']).'&nbsp;';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'._(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			
@@ -132,7 +132,7 @@ else
 			echo '  <td>';
 			echo date('H:i', $entry['time_end']).'&nbsp;';
 			echo '<a href="day.php?year='.date('Y', $entry['time_end']).'&amp;month='.date('m', $entry['time_end']).'&amp;day='.date('d', $entry['time_end']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_end']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_end']).'&amp;month='.date('m', $entry['time_end']).'&amp;day='.date('d', $entry['time_end']).'&amp;area='.$entry['area_id'].'">'._(date('m',$entry['time_end'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_end']).'&amp;month='.date('m', $entry['time_end']).'&amp;day='.date('d', $entry['time_end']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_end'])).'</a>-';
 			echo date('Y', $entry['time_end']);
 			echo '</td>'.chr(10);
 			
@@ -169,21 +169,21 @@ else
 			echo '  <td>';
 			$rooms = array();
 			if(!count($entry['room_id']))
-				$rooms[] = '<i>'._('Whole area').'</i>';
+				$rooms[] = '<i>'.__('Whole area').'</i>';
 			elseif(count($entry['room_id']) == '1')
 			{
 				// Single room
 				foreach ($entry['room_id'] as $rid)
 				{
 					if ($rid == '0')
-						$rooms[] = '<i>'._('Whole area').'</i>';
+						$rooms[] = '<i>'.__('Whole area').'</i>';
 					else
 					{
 						$room = getRoom($rid);
 						if(count($room))
 							$rooms[] = $room['room_name'];
 						else
-							$rooms[] = _('Can\'t find room');
+							$rooms[] = __('Can\'t find room');
 					}
 				}
 			}
@@ -200,7 +200,7 @@ else
 					}
 				}
 				if(!$rooms)
-					$rooms[] = _('Whole area');
+					$rooms[] = __('Whole area');
 			}
 			echo implode(', ', $rooms);
 			echo '</td>'.chr(10);

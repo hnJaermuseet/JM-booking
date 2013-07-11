@@ -329,11 +329,11 @@ foreach($filters as $filter)
 		case 'date':
 		case 'num':
 			switch($filter[2]) {
-				case '=':	$worksheetMeta->write($linje, 1, _('is'));							break;
-				case '>';	$worksheetMeta->write($linje, 1, _('is bigger than'));				break;
-				case '>=':	$worksheetMeta->write($linje, 1, _('is bigger than or same as'));	break;
-				case '<':	$worksheetMeta->write($linje, 1, _('is less than'));				break;
-				case '<=':	$worksheetMeta->write($linje, 1, _('is less than or same as'));		break;
+				case '=':	$worksheetMeta->write($linje, 1, __('is'));							break;
+				case '>';	$worksheetMeta->write($linje, 1, __('is bigger than'));				break;
+				case '>=':	$worksheetMeta->write($linje, 1, __('is bigger than or same as'));	break;
+				case '<':	$worksheetMeta->write($linje, 1, __('is less than'));				break;
+				case '<=':	$worksheetMeta->write($linje, 1, __('is less than or same as'));		break;
 			}
 	}
 
@@ -345,9 +345,9 @@ foreach($filters as $filter)
 	}
 	elseif($alternatives[$filter[0]]['type'] == 'bool') {
 		if($filter[1])
-			$worksheetMeta->write($linje, 2, _('true'));
+			$worksheetMeta->write($linje, 2, __('true'));
 		else
-			$worksheetMeta->write($linje, 2, _('false'));
+			$worksheetMeta->write($linje, 2, __('false'));
 	}
 	elseif($alternatives[$filter[0]]['type'] == 'select') {
 		$worksheetMeta->write($linje, 2, $alternatives[$filter[0]]['choice'][$filter[1]]);

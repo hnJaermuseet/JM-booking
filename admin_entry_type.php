@@ -46,21 +46,21 @@ if(isset($_GET['editor']))
 	if($id <= 0)
 	{
 		$editor = new editor('entry_type', $_SERVER['PHP_SELF'].'?editor=1');
-		$editor->setHeading(_('New entrytype'));
-		$editor->setSubmitTxt(_('Add'));
+		$editor->setHeading(__('New entrytype'));
+		$editor->setSubmitTxt(__('Add'));
 	}
 	else
 	{
 		$editor = new editor('entry_type', $_SERVER['PHP_SELF'].'?editor=1', $id);
-		$editor->setHeading(_('Change entrytype'));
-		$editor->setSubmitTxt(_('Change'));
+		$editor->setHeading(__('Change entrytype'));
+		$editor->setSubmitTxt(__('Change'));
 	}
 	
 	$editor->setDBFieldID('entry_type_id');
 	$editor->showID (TRUE);
 	
-	$editor->makeNewField('entry_type_name', _('Entrytype name'), 'text');
-	$editor->makeNewField('entry_type_name_short', _('Short entrytype name'), 'text');
+	$editor->makeNewField('entry_type_name', __('Entrytype name'), 'text');
+	$editor->makeNewField('entry_type_name_short', __('Short entrytype name'), 'text');
 	$editor->makeNewField('resourcenum_length', _h('Length of resource number').'<br />('._h('If zero, resource number will not be required').')', 'text');
 	
 	$editor->getDB();
@@ -98,7 +98,7 @@ elseif(isset($_GET['entry_type_id']) && isset($_GET['area_id']))
 	$area = getArea($_GET['area_id']);
 	if(!count($area))
 	{
-		echo _('Can\'t find the area.');
+		echo __('Can\'t find the area.');
 		exit();
 	}
 	
@@ -203,17 +203,17 @@ else
 	
 	if($login['user_access_entrytypeadmin'])
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.
-		iconHTML('page_white_stack_add').' '._('New entrytype').'</a><br><br>'.chr(10);
+		iconHTML('page_white_stack_add').' '.__('New entrytype').'</a><br><br>'.chr(10);
 		
 	echo '<a href="javascript:void();" class="showAll">Vis vedlegg p&aring; alle / Ikke vis vedlegg p&aring; alle</a>';
 	echo '<table class="prettytable">'.chr(10).chr(10);
 	echo '	<tr>'.chr(10);
-	echo '		<th>'._('ID').'</th>'.chr(10);
-	echo '		<th>'._('Entrytype').'</th>'.chr(10);
-	echo '		<th>'._('Short name').'</th>'.chr(10);
+	echo '		<th>'.__('ID').'</th>'.chr(10);
+	echo '		<th>'.__('Entrytype').'</th>'.chr(10);
+	echo '		<th>'.__('Short name').'</th>'.chr(10);
 	echo '		<th>Automatisk vedlegg ved bekreftelse</th>'.chr(10);
 	if($login['user_access_entrytypeadmin'])
-		echo '		<th>'._('Options').'</th>'.chr(10);
+		echo '		<th>'.__('Options').'</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
 	while($ROW = mysql_fetch_assoc($Q_programs))
 	{
@@ -271,7 +271,7 @@ else
 		echo '		<td>';
 		if($login['user_access_entrytypeadmin'])
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$ROW['entry_type_id'].'">'.
-			iconHTML('page_white_edit').' '._('Edit').' -:- ';
+			iconHTML('page_white_edit').' '.__('Edit').' -:- ';
 		
 		echo '</td>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);

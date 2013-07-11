@@ -117,23 +117,6 @@ else
 	debugAddToLog(__FILE__, __LINE__, 'Site config not found ('.$path_site_config.')');
 }
 
-
-/* ## Language settings ## */
-debugAddToLog(__FILE__, __LINE__, 'Setting language to '.$locale);
-if (!defined('LC_MESSAGES'))
-	define('LC_MESSAGES', 6); // windows workaround for LC_MESSAGES
-
-//putenv ("LANGUAGE=nb_NO");
-putenv ('LANG='.$locale); 
-
-//setlocale(LC_MESSAGES, $locale);
-bindtextdomain('arbs', './lang');
-
-textdomain('arbs');
-
-setlocale(LC_TIME, '');
-
-
 /* ## Database connection ## */
 // Establish a database connection.
 // On connection error, the message will be output without a proper HTML
@@ -145,7 +128,7 @@ $db_c = mysql_connect($db_host, $db_login, $db_password);
 
 if (!$db_c || !mysql_select_db ($db_database)){
 	echo chr(10).'<p>'.chr(10).
-		_("FATAL ERROR: Couldn't connect to database OR could not access database.").chr(10);
+		__("FATAL ERROR: Couldn't connect to database OR could not access database.").chr(10);
 	echo '<br />'.mysql_error();
 	exit;
 }
@@ -174,9 +157,9 @@ function showAccessDenied($day, $month, $year, $area, $admin)
 		print_header($day, $month, $year, $area);
 	
 	echo chr(10).
-	'<H1>'._("Access denied").'</H1>'.chr(10).
+	'<H1>'.__("Access denied").'</H1>'.chr(10).
 	'	<P>'.chr(10).
-	'		'._("You don't have the neccessary rights to do this action.").chr(10).
+	'		'.__("You don't have the neccessary rights to do this action.").chr(10).
 	'	</P>'.chr(10).
 	'</BODY>'.chr(10).
 	'</HTML>';
@@ -229,7 +212,7 @@ if (
 	substr($_SERVER['REMOTE_ADDR'],0,strlen($ip_filter_okeyaddresses)) != $ip_filter_okeyaddresses
 )
 {
-	echo _('Access denied. This page is not accessable for external users.');
+	echo __('Access denied. This page is not accessable for external users.');
 	exit();
 }
 

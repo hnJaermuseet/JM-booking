@@ -67,7 +67,7 @@ if($area_spesific)
 
 //layout
 echo '<div class="hiddenprint">';
-echo '<h2>'._("Invoice");
+echo '<h2>'.__("Invoice");
 if($area_spesific)
 	echo ' - viser '.$area_invoice['area_name'];
 echo '</h2>'.chr(10);
@@ -78,11 +78,11 @@ if(!$area_spesific && $area_failed)
 }
 echo '<a href="invoice_main.php"';
 if($section=="main") echo "style='color:red'";
-echo '>'._('Main page').'</a> -:- ';
+echo '>'.__('Main page').'</a> -:- ';
 
 echo '<a href="invoice_soon.php'.$add_to_href.'"';
 if($section=="soon") echo "style='color:red'";
-echo '>Ikke gjennomført</a> ('.$num_invoice_soon.') -:- ';
+echo '>Ikke gjennomf&oslash;rt</a> ('.$num_invoice_soon.') -:- ';
 
 echo '<a href="invoice_tobemade.php'.$add_to_href.'"';
 if($section=="tobemade") echo "style='color:red'";
