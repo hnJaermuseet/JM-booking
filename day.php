@@ -263,7 +263,7 @@ else
 	
 	if($dayview == 1)
 	{
-		echo '<a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'">'._h('Go to other dayview').'</a><br>';
+		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'">'._h('Go to other dayview').'</a><br></span>';
 		
 		/* ## START DISPLAYING! ## */
 		echo '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="timetable">';
@@ -372,7 +372,7 @@ else
 	}
 	else
 	{
-		echo '<a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'&amp;dayview=1">'._h('Go to other dayview').'</a><br>';
+		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'&amp;dayview=1">'._h('Go to other dayview').'</a><br></span>';
 		
 		echo '<table width="100%" cellspacing="0" style="border-collapse: collapse;">';
 		echo '<tr><td class="dayplan"><b>'.__('Time').'</b></td><td class="dayplan"><b>'.__('Room').'</b></td><td class="dayplan"><b>'.__('C/A').'</b></td><td class="dayplan" width="100%"><b>'.__('What').'</b></td></tr>';
