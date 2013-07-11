@@ -34,106 +34,104 @@ if (!isset($room))
 else
 {
 	$theROOM = getRoom($room);
-	if(!count($theROOM))
+	if(!count($theROOM)) {
 		$room = 0;
-	elseif($theROOM['area_id'] != $area)
+    }
+	elseif($theROOM['area_id'] != $area) {
 		$room = 0;
+    }
 }
 
-if($room == 0)
+if($room == 0) {
 	$theROOM = array (
 				'room_id'			=> 0,
 				'room_name'			=> __('Whole area'),
 				'area_id'			=> $area
 			);
+}
 
-if (basename($_SERVER['PHP_SELF']) == 'day.php' || basename($_SERVER['PHP_SELF']) == 'day2.php')
+if (basename($_SERVER['PHP_SELF']) == 'day.php' || basename($_SERVER['PHP_SELF']) == 'day2.php') {
 	$thisFile = 'day.php';
-elseif (basename($_SERVER['PHP_SELF']) == 'month.php')
+}
+elseif (basename($_SERVER['PHP_SELF']) == 'month.php') {
 	$thisFile = 'month.php';
-else
+}
+else {
 	$thisFile = 'week.php';
+}
 
 # Table with areas, rooms, minicals.
 ?>
 <table height="140" width="100%" class="hiddenprint">
     <tr>
-<?php
-$this_area_name = "";
-$this_room_name = "";
-$infolink="";
-?>
+        <?php
+        $this_area_name = "";
+        $this_room_name = "";
+        $infolink="";
+        ?>
         <!-- All areas -->
         <td width="200">
             <img src="./img/icons/house.png" style="border: 0px solid black; vertical-align: middle;">
-                <span style="text-decoration: underline"><?=__("Areas") ?></span><br>
-                <?php
+            <span style="text-decoration: underline"><?=__("Areas") ?></span><br>
+            <?php
 
-$res = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
-if (mysql_num_rows($res)) {
-	while($row = mysql_fetch_assoc($res))
-	{
-        $this_area_name = htmlspecialchars($row['area_name']);
-        ?>
-            <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$row['area_id']?>"
-                <?=($row['area_id'] == $area)?' style="color: red;"':''?>><?=$this_area_name?></a><br>
-        <?php
-	}
-}
-        ?>
+            $res = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
+            if (mysql_num_rows($res)) {
+                while($row = mysql_fetch_assoc($res))
+                {
+                    $this_area_name = htmlspecialchars($row['area_name']);
+                    ?>
+                        <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$row['area_id']?>"
+                            <?=($row['area_id'] == $area)?' style="color: red;"':''?>><?=$this_area_name?></a><br>
+                    <?php
+                }
+            }
+            ?>
             <br><br><br>
         </td>
+        <td width="200">
+            <img src="./img/icons/shape_square.png" style="border: 0px solid black; vertical-align: middle;">
 
-<?php
-$cID=0;
-?>
-    <td width="200">
-        <img src="./img/icons/shape_square.png" style="border: 0px solid black; vertical-align: middle;">
+            <span style="text-decoration: underline"><?=__("Device")?></span><br>
 
-        <span style="text-decoration: underline"><?=__("Device")?></span><br>
+            <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=0"
+                <?=($room == 0)?' style="color: red;"':''?>><?=__('Whole area')?></a><br>
+            <?php
 
-    <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=0"
-        <?=($room == 0)?' style="color: red;"':''?>><?=__('Whole area')?></a><br>
-<?php
+            $i = 1;
+            $Q_room = mysql_query("SELECT id, room_name FROM mrbs_room WHERE area_id=$area AND hidden='false' ORDER BY room_name");
+            while($R_room = mysql_fetch_assoc($Q_room))
+            {
+                if ($i>0 && $i%6==0) {
+                    echo "</td><td width=200><br>";
+                }
 
-$i = 1;
-$Q_room = mysql_query("SELECT id, room_name FROM mrbs_room WHERE area_id=$area AND hidden='false' ORDER BY room_name");
-while($R_room = mysql_fetch_assoc($Q_room))
-{
-	if ($i>0 && $i%6==0) {
-		echo "</td><td width=200><br>";
-    }
+                $this_room_name = htmlspecialchars($R_room['room_name']);
+                ?>
+                <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=<?=$R_room['id']?>"
+                    <?=($R_room['id'] == $room)?' style="color: red;"':''?>><?=$this_room_name?></a><br>
 
-    $this_room_name = htmlspecialchars($R_room['room_name']);
-    ?>
-	<a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=<?=$R_room['id']?>"
-        <?=($R_room['id'] == $room)?' style="color: red;"':''?>><?=$this_room_name?></a><br>
+                <?php
+                $i++;
+            }
 
-    <?php
-	$i++;
-}
-
+echo '</td><td style="padding: 10px 10px 10px 10px;">'.chr(10);
 if($thisFile == 'week.php')
 {
 	// Headings:
-	echo '</td><td style="padding: 10px 10px 10px 10px;">'.chr(10);
 	echo '<h1 align=center>'.__('Week').' '.$thisWeek.'</h1>'.chr(10);
-	echo '<h3 align=center>'.$this_area_name.' - '.$theROOM['room_name'].'</h3>'.chr(10);
 }
 elseif($thisFile == 'day.php')
 {
 	// Headings:
-	echo '</td><td style="padding: 10px 10px 10px 10px;">'.chr(10);
 	echo '<h1 align=center>'.ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.__(strtolower(date('F', $am7))).' '.date('Y', $am7).'</h1>'.chr(10);
-	echo '<h3 align=center>'.$this_area_name.' - '.$theROOM['room_name'].'</h3>'.chr(10);
 }
 elseif($thisFile == 'month.php')
 {
 	// Headings:
-	echo '</td><td style="padding: 10px 10px 10px 10px;">'.chr(10);
 	echo '<h1 align=center>'.ucfirst(strtolower(parseDate(strftime("%B %Y", $monthstart)))).'</h1>'.chr(10);
-	echo '<h3 align=center>'.$this_area_name.' - '.$theROOM['room_name'].'</h3>'.chr(10);
 }
+echo '<h3 align=center>'.$this_area_name.' - '.$theROOM['room_name'].'</h3>'.chr(10);
 
 /* ## ADDING CALENDAR ## */
 $print_in_top = TRUE;
