@@ -255,3 +255,8 @@ switch (date('w', $thistime))
 }
 echo ' </tr>'.chr(10);
 echo '</table>'.chr(10);
+
+?>
+
+
+<?=debugPrintTimeTotal();?>

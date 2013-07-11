@@ -297,3 +297,4 @@ foreach ($weekdays as $daynum => $weekday)
 }
 ?>
 </table>
+<?=debugPrintTimeTotal();?>

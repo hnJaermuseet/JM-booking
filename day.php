@@ -444,3 +444,7 @@ else
 }
 
 include("trailer.inc.php");
+
+?>
+
+<?=debugPrintTimeTotal();?>

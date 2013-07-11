@@ -33,10 +33,10 @@ date_default_timezone_set('Europe/Oslo');
 
 $debug_log = '';
 $debug = false;
+$debug_time_start = microtime(true);
 if($debug)
 {
-	$debug_time_start = microtime(true);
-	ini_set('display_errors', '1');
+    ini_set('display_errors', '1');
 	error_reporting(E_ALL);
 }
 function debugAddToLog($file, $line, $txt = '')
@@ -74,6 +74,11 @@ function debugPrintLog ()
 	{
 		echo '<!-- '.$debug_log.' -->';
 	}
+}
+function debugPrintTimeTotal() {
+    global $debug_time_start;
+    $time = ((microtime(true) - $debug_time_start))*1000;
+    return '<!-- TIME: '.$time.' ms-->';
 }
 
 debugAddToLog(__FILE__, __LINE__, 'Start of glob_inc.inc.php');

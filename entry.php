@@ -148,3 +148,6 @@ echo '</td></tr></table>';
 
 debugAddToLog(__FILE__, __LINE__, 'entry.php finished');
 debugPrintLog();
+?>
+
+<?=debugPrintTimeTotal();?>
