@@ -281,7 +281,7 @@ echo '- <a href="entry.php?entry_id='.$entry['entry_id'].'">'._('Back to entry')
 
 echo '<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/jquery.blockUI.js" type="text/javascript"></script>'.chr(10);
-echo '<script src="js/jquery-validation/jquery.validate.min.js" type="text/javascript"></script>'.chr(10);
+echo '<script src="js/jquery-validation/jquery.validate.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/check_email.js" type="text/javascript"></script>'.chr(10);
 echo '<script src="js/entry-confirm.js" type="text/javascript"></script>'.chr(10);
 
