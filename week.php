@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	JM-booking - week display
 */
 
-include_once("glob_inc.inc.php");
+include_once('glob_inc.inc.php');
 
 
 if(isset($_GET['room']))
@@ -59,9 +59,9 @@ if (isset($_GET['week']) && isset($_GET['year']))
 
 # If we don't know the right date then use today:
 if (!isset($_GET['day']) or !isset($_GET['month']) or !isset($_GET['year'])){
-	$day   = date("d",time());
-	$month = date("m",time());
-	$year  = date("Y",time());
+	$day   = date('d',time());
+	$month = date('m',time());
+	$year  = date('Y',time());
 }
 else {
 # Make the date valid if day is more then number of days in month:
@@ -74,13 +74,13 @@ else {
 
 # Set the date back to the previous $weekstarts day (Sunday, if 0):
 $time = mktime(0, 0, 0, $month, $day, $year);
-$weekday = (date("w", $time) - $weekstarts + 7) % 7;
+$weekday = (date('w', $time) - $weekstarts + 7) % 7;
 if ($weekday > 0){
 	$timeNew = $time - $weekday * 86400;
 	$time=$timeNew;
-	$day   = date("d", $timeNew);
-	$month = date("m", $timeNew);
-	$year  = date("Y", $timeNew);
+	$day   = date('d', $timeNew);
+	$month = date('m', $timeNew);
+	$year  = date('Y', $timeNew);
 }
 
 # print the page header
@@ -97,20 +97,20 @@ $selected = date('W', mktime(0, 0, 0, $month, $day, $year));
 $thisWeek = $selected;
 
 
-include "roomlist.php";
+include 'roomlist.php';
 
 #y? are year, month and day of the previous week.
 #t? are year, month and day of the next week.
 
 $i= mktime(0,0,0,$month,$day-7,$year);
-$yy = date("Y",$i);
-$ym = date("m",$i);
-$yd = date("d",$i);
+$yy = date('Y',$i);
+$ym = date('m',$i);
+$yd = date('d',$i);
 
 $i= mktime(0,0,0,$month,$day+7,$year);
-$ty = date("Y",$i);
-$tm = date("m",$i);
-$td = date("d",$i);
+$ty = date('Y',$i);
+$tm = date('m',$i);
+$td = date('d',$i);
 
 $Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
 $rooms = array();
@@ -127,10 +127,10 @@ if($room != 0)
 ?>
 <table width="100%" class="hiddenprint"><tr><td>
 <a href="week.php?year=<?=$yy?>&month=<?=$ym?>&day=<?=$yd?>&area=<?=$area?>&room=<?=$room?>">&lt;&lt;
-<?=__("go to last week")?>
-	</a></td><td align=center><a href="week.php?area=<?=$area?>&room=<?=$room?>"><?=__("go to this week")?>
+<?=__('go to last week')?>
+	</a></td><td align=center><a href="week.php?area=<?=$area?>&room=<?=$room?>"><?=__('go to this week')?>
 	</a></td><td align=right><a href="week.php?year=<?=$ty?>&month=<?=$tm?>&day=<?=$td?>&area=<?=$area?>&room=<?=$room?>">
-<?=__("go to next week")?>
+<?=__('go to next week')?>
 	&gt;&gt;</a></td></tr></table>
 <?php
 $weekdays = array();
@@ -159,8 +159,8 @@ foreach ($weekdays as $daynum => $weekday)
 		echo ' <td>'.chr(10);
     }
 	echo '<a class="graybg" href="day.php?year='.date('Y',$weekday).'&amp;month='.date('m',$weekday).'&amp;day='.date('d',$weekday).'&amp;area='.$area.'&amp;room='.$room.'">';
-	echo '<b>'.ucfirst(strtolower(parseDate(strftime("%A", $weekday)))).'</b>';
-	echo '<br>'. ucfirst(strtolower(parseDate(strftime("%d. %B", $weekday))));
+	echo '<b>'.ucfirst(strtolower(parseDate(strftime('%A', $weekday)))).'</b>';
+	echo '<br>'. ucfirst(strtolower(parseDate(strftime('%d. %B', $weekday))));
 	echo '</td>'.chr(10);
 	if($daynum == 6 || $daynum == 7) {
 		?>
