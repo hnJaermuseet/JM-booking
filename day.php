@@ -85,7 +85,7 @@ if(!mysql_num_rows($Q_room))
 else
 {
 	$entries_room	= array();
-	$room_max_rows	= array();
+    $room_max_col	= array();
 	$room_time		= array(); //  Used to keep track of when an entry starts to display
 	$room_time2		= array(); // Used to check if the entry is parallell to an other
 	$room_time3		= array(); // Used to keep track of where to put <td> and at what colspan
@@ -243,7 +243,7 @@ else
 	
 	$entries = array();
 	$timed_entries = array();
-	
+
 	if($room != 0)
 	{
 		$rooms = array();
@@ -396,9 +396,9 @@ else
 			echo '<tr><td class="dayplan"><b>00:00-23:59</b></td><td class="dayplan">&nbsp;</td><td class="dayplan">&nbsp;</td><td class="dayplan"><font color="gray"><i>'.__('Nothing').'</i></font></td></tr>';
 		else
 		{
-			$last_time = $start;
-			ksort($timed_entries);
-			foreach ($timed_entries as $t => $thisentries)
+            ksort($timed_entries);
+            $last_time = null;
+            foreach ($timed_entries as $t => $thisentries)
 			{
 				foreach($thisentries as $entry_id)
 				{
@@ -430,9 +430,9 @@ else
 							echo str_replace(' ', '&nbsp;', implode(', ', $room_name));
 					}
 					echo '</td>';
-					echo '<td class="dayplan"><font size="1">';
+					echo '<td class="dayplan" style="font-size: 10px;">';
 					echo $entries[$entry_id]['num_person_child'].'&nbsp;/&nbsp;'.$entries[$entry_id]['num_person_adult'];
-					echo '</font></td>';
+					echo '</td>';
 					echo '<td class="dayplan"><a href="entry.php?entry_id='.$entry_id.'">'.$entries[$entry_id]['entry_name'].'</a></td></tr>';
 					if($last_time < $entries[$entry_id]['time_end'])
 						$last_time = $entries[$entry_id]['time_end'];
