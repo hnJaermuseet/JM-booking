@@ -196,28 +196,39 @@ foreach ($weekdays as $daynum => $weekday)
     }
 	else
 	{
-        function printWeekdayWithEntries($timed_entries, $entries) {
-            ksort($timed_entries);
-            $last_time = $start;
-            foreach ($timed_entries as $t => $thisentries)
+
+        printWeekdayWithEntries($events['timedEntries'], $events['allEntries'], $start);
+	}
+    ?>
+	</table>
+	</td>
+	</tr>
+	<tr><td colspan="2"><hr></td></tr>
+    <?php
+}
+
+function printWeekdayWithEntries($timed_entries, $entries, $start) {
+    ksort($timed_entries);
+    $last_time = $start;
+    foreach ($timed_entries as $t => $thisentries)
+    {
+        foreach($thisentries as $entry_id)
+        {
+            if($last_time < $t)
             {
-                foreach($thisentries as $entry_id)
-                {
-                    if($last_time < $t)
-                    {
-                        ?>
-                        <tr>
-                            <td class="dayplan" style="font-weight: bold;"><?=date('H:i', $last_time).'-'.date('H:i', $t)?></td>
-                            <td class="dayplan">&nbsp;</td>
-                            <td class="dayplan">&nbsp;</td>
-                            <td class="dayplan" style="color: gray; font-style: italic;"><?=__('Nothing')?></td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                    <tr>
-                        <td class="dayplan"><b><?=date('H:i', $entries[$entry_id]['time_start']).'-'.date('H:i', $entries[$entry_id]['time_end'])?></b></td>
-                        <td class="dayplan">
+                ?>
+                <tr>
+                    <td class="dayplan" style="font-weight: bold;"><?=date('H:i', $last_time).'-'.date('H:i', $t)?></td>
+                    <td class="dayplan">&nbsp;</td>
+                    <td class="dayplan">&nbsp;</td>
+                    <td class="dayplan" style="color: gray; font-style: italic;"><?=__('Nothing')?></td>
+                </tr>
+            <?php
+            }
+            ?>
+            <tr>
+                <td class="dayplan"><b><?=date('H:i', $entries[$entry_id]['time_start']).'-'.date('H:i', $entries[$entry_id]['time_end'])?></b></td>
+                <td class="dayplan">
                     <?php
                     // Rooms
                     $room_name = array();
@@ -243,28 +254,18 @@ foreach ($weekdays as $daynum => $weekday)
                             echo implode(', ', $room_name);
                     }
                     ?>
-                        </td>
-                        <td class="dayplan" style="font-size: 10px"><?php
-                        echo $entries[$entry_id]['num_person_child'].'&nbsp;/&nbsp;'.$entries[$entry_id]['num_person_adult'];
-                        ?></td>
-                        <td class="dayplan"><a href="entry.php?entry_id='.$entry_id.'"><?=$entries[$entry_id]['entry_name']?></a></td>
-                    </tr>
-                    <?php
-                    if($last_time < $entries[$entry_id]['time_end']) {
-                        $last_time = $entries[$entry_id]['time_end'];
-                    }
-                }
+                </td>
+                <td class="dayplan" style="font-size: 10px"><?php
+                    echo $entries[$entry_id]['num_person_child'].'&nbsp;/&nbsp;'.$entries[$entry_id]['num_person_adult'];
+                    ?></td>
+                <td class="dayplan"><a href="entry.php?entry_id='.$entry_id.'"><?=$entries[$entry_id]['entry_name']?></a></td>
+            </tr>
+            <?php
+            if($last_time < $entries[$entry_id]['time_end']) {
+                $last_time = $entries[$entry_id]['time_end'];
             }
-		}
-
-        printWeekdayWithEntries($events['timedEntries'], $events['allEntries']);
-	}
-    ?>
-	</table>
-	</td>
-	</tr>
-	<tr><td colspan="2"><hr></td></tr>
-    <?php
+        }
+    }
 }
 ?>
 </table>

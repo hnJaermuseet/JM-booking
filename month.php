@@ -127,24 +127,6 @@ for ($i = 1; $i < $numDays + 1; $i++)
         // 1 = Monday   = 0 cells
         $numberOfEmptyCells = date('w', mktime (0, 0, 0, $month, $i, $year));
         printEmptyTableCells($numberOfEmptyCells=='0'?6:$numberOfEmptyCells-1);
-        /*
-		switch ()
-		{
-			case '0': // Sunday
-				echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
-			case '6': // Saturday
-				echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
-			case '5': // Friday
-				echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
-			case '4': // Thursday
-				echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
-			case '3': // Wednesday
-				echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
-			case '2': // Tuesday
-				echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
-			case '1': // Mondag, non added
-				break;
-		}                  */
 		
 		$printedWeeks[] = $thisWeek;
 	}
