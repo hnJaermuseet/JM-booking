@@ -88,7 +88,7 @@ else
     }
 }
 
-if (basename($_SERVER['PHP_SELF']) == 'day.php' || basename($_SERVER['PHP_SELF']) == 'day2.php') {
+if (basename($_SERVER['PHP_SELF']) == 'day.php') {
 	$thisFile = 'day.php';
 }
 elseif (basename($_SERVER['PHP_SELF']) == 'month.php') {
@@ -137,7 +137,7 @@ else {
             <?php
 
             $i = 1;
-            $Q_room = mysql_query("SELECT id, room_name FROM mrbs_room WHERE area_id=$area AND hidden='false' ORDER BY room_name");
+            $Q_room = mysql_query('SELECT id, room_name FROM mrbs_room WHERE area_id="'.$area.'" AND hidden=\'false\' ORDER BY room_name');
             while($R_room = mysql_fetch_assoc($Q_room))
             {
                 if ($i>0 && $i%6==0) {
@@ -189,15 +189,12 @@ echo '<tr><td>'.__('Type of view').': ';
 if($thisFile == 'day.php') {        echo __('day'); }
 elseif($thisFile == 'week.php') {   echo __('week'); }
 elseif($thisFile == 'month.php') {  echo __('month'); }
-else {                              echo __('unknown'); }
 echo '</td></tr>'.chr(10);
 
 echo '<tr><td>&nbsp;</td></tr>'.chr(10);
 
 echo '<tr><td>';
-if($thisFile == 'week.php')	{       echo '<h1>'.__('Week').' '.$thisWeek.':</h1>'; }
-elseif($thisFile == 'day.php') {    echo '<h1>'.__(strftime("%A", $am7)).', '.date('j', $am7). '. '. strtolower(__(strftime("%B", $am7))).' '.date('Y', $am7).':</h1>'; }
-elseif($thisFile == 'month.php') {  echo '<h1>'.__(strftime("%B", $monthstart)).' '.date('Y', $monthstart).':</h1>'.chr(10); }
+echo '<h1>'.$heading.':</h1>'.chr(10);
 echo '</td></tr>'.chr(10);
 
 echo '</table>';
