@@ -37,12 +37,9 @@ require_once 'functions/login.php';
 require_once 'lang/lang.php';
 
 function print_header($day, $month, $year, $area){
-	global $search_str,$nrbs_pageheader, $testSystem, $selected_room, $login;
+	global $search_str,$nrbs_pageheader, $testSystem, $login;
 	
 	debugAddToLog(__FILE__, __LINE__, 'Start of glob_inc.inc.php');
-	
-	if(!isset($selected_room))
-		$selected_room = 0;
 
 	# If we dont know the right date then make it up 
 	if(!$day)
@@ -193,7 +190,7 @@ function print_header($day, $month, $year, $area){
         '		</table>'.chr(10);
 
 
-    echo '		 -:- <a class="menubar" href="./edit_entry2.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$selected_room.'">'.
+    echo '		 -:- <a class="menubar" href="./edit_entry2.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room=">'.
     iconHTML('page_white_add').' '.
     __('Make a new entry').'</a>'.chr(10);
 
@@ -322,9 +319,8 @@ function round_t_up($t, $resolution){
 }
 
 
-function printMonth ($year, $month, $selected, $selectedType1 = 'day')
+function printMonth ($area, $rooms, $roomUrlString, $year, $month, $selected, $selectedType1 = 'day')
 {
-	global $area, $room;
 	
 	switch ($selectedType1)
 	{
@@ -343,13 +339,11 @@ function printMonth ($year, $month, $selected, $selectedType1 = 'day')
 	$monthTime	= mktime (0, 0, 0, $month, 1, $year);
 	$monthLast	= mktime (0, 0, 0, ($month+1), 1, $year);
 	$numDays	= date('t', $monthTime);
-	$startWeek	= date('W', $monthTime);
-	
-	$room = (int)$room;
-	$checkTime = checkTime($monthTime, $monthLast, $area, $room);
+
+	$checkTime = checkTime($monthTime, $monthLast, $area, $rooms);
 	
 	echo '<table style="width: 100%;">'.chr(10);
-	echo ' <tr><td class="B"><center><b><a class="graybg" href="month.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day=1&amp;area='.$area.'&amp;room='.$room.'">';
+	echo ' <tr><td class="B"><center><b><a class="graybg" href="month.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day=1&amp;area='.$area.'&amp;room='.$roomUrlString.'">';
 	if($selectedType == 'month')
 		echo '<font color="red">'.__(date('M', $monthTime)).' '.date('Y', $monthTime).'</font>';
 	else
@@ -379,7 +373,7 @@ function printMonth ($year, $month, $selected, $selectedType1 = 'day')
 			
 			echo '    <tr>'.chr(10);
 			echo '     <td class="weeknum"><center>'.
-			'<a class="graybg" href="week.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day='.$i.'&amp;area='.$area.'&amp;room='.$room.'">';
+			'<a class="graybg" href="week.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day='.$i.'&amp;area='.$area.'&amp;room='.$roomUrlString.'">';
 			// Is it selected?
 			if($selectedType == 'week' && $selected == $thisWeek)
 				echo '<font color="red">'.$thisWeek.'</font>';
@@ -412,7 +406,7 @@ function printMonth ($year, $month, $selected, $selectedType1 = 'day')
 			$printedWeeks[] = $thisWeek;
 		}
 		
-		echo '     <td><center><a href="day.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day='.$i.'&amp;area='.$area.'&amp;room='.$room.'">';
+		echo '     <td><center><a href="day.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day='.$i.'&amp;area='.$area.'&amp;room='.$roomUrlString.'">';
 		$ymd = date('Y',$monthTime);
 		if(strlen(date('m',$monthTime)) == 1)
 			$ymd .= '0';
@@ -2069,7 +2063,7 @@ function checkTime_User ($start, $end, $user = 0)
 	return $return;
 }
 
-function checkTime ($start, $end, $area_id, $room = 0)
+function checkTime ($start, $end, $area_id, array $rooms)
 {
 	/*
 		Checks a time for entries
@@ -2079,32 +2073,22 @@ function checkTime ($start, $end, $area_id, $room = 0)
 		$array[Ymd][entryid] = entryid;
 	*/
 	
-	if(is_array($room))
-	{
-		$whole_area = FALSE;
-		$room_query = " and (";
-		foreach ($room as $rid)
-		{
-			if($rid == '0' && count($room) == 1)
-				$whole_area = TRUE;
-			$room_query .= "room_id like '%;$rid;%' || ";
-		}
-		$room_query .= "room_id like '%;0;%')";
-		
-		if($whole_area)
-		{
-			$room_query = '';
-			$room = array();
-			// Getting all rooms in area
-			$Q_rooms = mysql_query("select id as room_id from `mrbs_room` where area_id = '$area_id'");
-			while($R_room = mysql_fetch_assoc($Q_rooms))
-				$room[$R_room['room_id']] = $R_room['room_id'];
-		}
-	}
-	elseif($room != 0)
-		$room_query = " and (room_id like '%;$room;%' || room_id like '%;0;%')"; // This room or the whole building
-	else
-		$room_query = '';
+
+    $whole_area = FALSE;
+    $room_query = " and (";
+    foreach ($rooms as $room)
+    {
+        if($room['room_id'] == '0' && count($rooms) == 1) {
+            $whole_area = TRUE;
+        }
+        $room_query .= 'room_id like \'%;'.$room['room_id'].';%\' || ';
+    }
+    $room_query .= "room_id like '%;0;%')";
+
+    if($whole_area)
+    {
+        $room_query = '';
+    }
 	
 	$Q_checktime = mysql_query("select entry_id, time_start, time_end from `entry` where 
 		(

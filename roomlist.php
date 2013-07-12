@@ -67,28 +67,55 @@ function getRoomEventList($rooms, $start, $end, $area) {
     );
 }
 
-function roomList($area, $room, $heading, $thisFile, $year, $month, $day) {
-    global $login, $printed_in_top;
+function getRoomIds($area_id) {
+    if(isset($_GET['room']))
+    {
+        $room = (int)$_GET['room'];
+    }
+    else {
+        $room = 0;
+    }
 
-//room has been registred before if it was set in _GET
-$wholeAreaRoom = array (
-    'room_id'			=> 0,
-    'room_name'			=> __('Whole area'),
-    'area_id'			=> $area
-);
-if (!isset($room))
-{
-	$room = 0;
-    $theROOM = $wholeAreaRoom;
-}
-else
-{
-	$theROOM = getRoom($room);
-	if(!count($theROOM) || $theROOM['area_id'] != $area) {
-		$room = 0;
-        $theROOM = $wholeAreaRoom;
+    $wholeAreaRoom = array(0 => array (
+        'room_id'			=> 0,
+        'room_name'			=> __('Whole area'),
+        'area_id'			=> $area_id
+    ));
+
+    if($room != 0) {
+        // -> Room given AND it is a non int value
+
+        $theROOM = getRoom($room);
+        if(!count($theROOM) || $theROOM['area_id'] != $area_id) {
+            // -> Room not found OR on a different area
+            return $wholeAreaRoom;
+        }
+        return array($room => $theROOM);
+    }
+    else {
+        return $wholeAreaRoom;
     }
 }
+
+/**
+ * @param  array[] $rooms   Rooms array (array of arrays), room_id => array('room_id' => 12, 'room_name' => 'Something', (...))
+ * @return string    The rooom URL parameter. E.g. "1,14,3"
+ */
+function getRoomUrlString($rooms) {
+    $rooms2 = array();
+    foreach($rooms as $room) {
+        $rooms2[] = $room['room_id'];
+    }
+    return implode(',', $rooms2);
+}
+
+function roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected) {
+    global $login, $printed_in_top;
+
+    $room_names = array();
+    foreach($rooms as $room) {
+        $room_names[] = $room['room_name'];
+    }
 
 # Table with areas, rooms, minicals.
 ?>
@@ -126,7 +153,7 @@ else
             <span style="text-decoration: underline"><?=__("Device")?></span><br>
 
             <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=0"
-                <?=($room == 0)?' style="color: red;"':''?>><?=__('Whole area')?></a><br>
+                <?=(array_key_exists(0, $rooms))?' style="color: red;"':''?>><?=__('Whole area')?></a><br>
             <?php
 
             $i = 1;
@@ -140,7 +167,7 @@ else
                 $this_room_name = htmlspecialchars($R_room['room_name']);
                 ?>
                 <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=<?=$R_room['id']?>"
-                    <?=($R_room['id'] == $room)?' style="color: red;"':''?>><?=$this_room_name?></a><br>
+                    <?=(array_key_exists($R_room['id'], $rooms))?' style="color: red;"':''?>><?=$this_room_name?></a><br>
 
                 <?php
                 $i++;
@@ -151,7 +178,7 @@ else
         <!-- Headings -->
         <td style="padding: 10px 10px 10px 10px;">
         <h1 align=center><?=$heading?></h1>
-        <h3 align=center><?=$this_area_name.' - '.$theROOM['room_name']?></h3>
+        <h3 align=center><?=$this_area_name.' - '.implode(', ', $room_names) ?></h3>
         <?php
 
 /* ## ADDING CALENDAR ## */
@@ -164,7 +191,7 @@ echo "</td>\n";
 echo "</tr></table>\n";
 
 echo '<table class="print" width="100%">'.chr(10);
-echo '<tr><td><b>'.__('Area').':</b> '.$this_area_name.', <b>'.__('Room').':</b> '.$theROOM['room_name'].'</td></tr>'.chr(10);
+echo '<tr><td><b>'.__('Area').':</b> '.$this_area_name.', <b>'.__('Room').':</b> '.implode(', ', $room_names).'</td></tr>'.chr(10);
 echo '<tr><td>'.__('Data collected/printed').' '.date('H:i:s d-m-Y').' '.__('by').' '.$login['user_name'].'</td></tr>'.chr(10);
 
 echo '<tr><td>'.__('Type of view').': ';

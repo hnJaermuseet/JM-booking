@@ -32,10 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 include_once("glob_inc.inc.php");
 
-if(isset($_GET['room'])) {
-	$room = (int)$_GET['room'];
-}
-
 # If we don't know the right date then use today:
 if (!isset($_GET['day'])) {
     $day = date('d', time());
@@ -67,7 +63,9 @@ $thisMonth = $selected;
 include "roomlist.php";
 $heading = __(strftime("%B", $monthstart)).' '.date('Y', $monthstart);
 $thisFile = 'month.php';
-roomList($area, $room, $heading, $thisFile, $year, $month, $day);
+$rooms = getRoomIds($area);
+$roomUrlString = getRoomUrlString($rooms);
+roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected);
 
 function printEmptyTableCells($numberOfCells) {
     for($i = 0; $i < $numberOfCells; $i++) {
@@ -82,6 +80,7 @@ $numDays	= date('t', $monthTime);
 $startWeek	= date('W', $monthTime);
 
 $Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
+// TODO: rename variable, conflict
 $rooms = array();
 while($R_room = mysql_fetch_assoc($Q_room)) {
 	$rooms[$R_room['room_id']]			= $R_room['room_name'];

@@ -31,13 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 include_once('glob_inc.inc.php');
 
-
-if(isset($_GET['room']))
-{
-	$room=(int)$_GET['room'];
-	$selected_room = $room;
-}
-
 // Got a week
 if (isset($_GET['week']) && isset($_GET['year']))
 {
@@ -100,7 +93,9 @@ $thisWeek = $selected;
 include 'roomlist.php';
 $heading = __('Week').' '.$thisWeek;
 $thisFile = 'week.php';
-roomList($area, $room, $heading, $thisFile, $year, $month, $day);
+$rooms = getRoomIds($area);
+$roomUrlString = getRoomUrlString($rooms);
+roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected);
 
 #y? are year, month and day of the previous week.
 #t? are year, month and day of the next week.

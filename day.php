@@ -27,12 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 include_once('glob_inc.inc.php');
 
-if(isset($_GET['room']))
-{
-	$room=(int)$_GET['room'];
-	$selected_room = $room;
-}
-
 if (!isset($_GET['day']) or !isset($_GET['month']) or !isset($_GET['year'])){
 	$day   = date('d',time());
 	$month = date('m',time());
@@ -56,7 +50,9 @@ $pm7=mktime($eveningends,$eveningends_minutes,0,$month,$day,$year);
 include 'roomlist.php';
 $heading = ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.strtolower(__(date('F', $am7))).' '.date('Y', $am7);
 $thisFile = 'day.php';
-roomList($area, $room, $heading, $thisFile, $year, $month, $day);
+$rooms = getRoomIds($area);
+$roomUrlString = getRoomUrlString($rooms);
+roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day);
 
 /* ## Tomorrow and yesterday ## */
 #y- are year, month and day of yesterday
@@ -81,9 +77,17 @@ else {
 	$dayview = 2;
 }
 
-/* ## Get rooms ## */
+/* ## Get all rooms for area ## */
 $Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
-if(!mysql_num_rows($Q_room))
+if(mysql_num_rows($Q_room))
+{
+    $rooms = array();
+    while ($R_room = mysql_fetch_assoc($Q_room)) {
+        $rooms[$R_room['room_id']] = $R_room;
+    }
+}
+
+if(!count($rooms))
 {
 	echo '<h1>'.__('This area has no rooms').'</h1>';
 }
@@ -91,11 +95,10 @@ else
 {
 	$entries_room	= array();
     $room_max_col	= array();
-	$room_time		= array(); //  Used to keep track of when an entry starts to display
+	$room_time		= array(); // Used to keep track of when an entry starts to display
 	$room_time2		= array(); // Used to check if the entry is parallell to an other
 	$room_time3		= array(); // Used to keep track of where to put <td> and at what colspan
-	$rooms			= array();
-	while($R_room = mysql_fetch_assoc($Q_room))
+	foreach($rooms as $R_room)
 	{
 		if($dayview == 1)
 		{
@@ -119,8 +122,7 @@ else
 		}
 		$entries_room[$R_room['room_id']]	= array();
 		$room_max_col[$R_room['room_id']]	= 1;
-		$rooms[$R_room['room_id']]			= $R_room['room_name'];
-		
+
 		if($dayview == 1)
 		{
 			$am7 = $am7_tmp;
@@ -188,8 +190,6 @@ else
 				$room_max_col[$R_room['room_id']] = count($entries);
 			}
 		}
-		//echo 'Max: '.$room_max_col[$R_room['room_id']];
-		//$room_max_col[$R_room['room_id']];
 		
 		foreach ($room_time3[$R_room['room_id']] as $t => $array)
 		{
@@ -242,18 +242,11 @@ else
 	}
 	
 	
-	echo "<table width=\"100%\" border=\"0\" class=\"hiddenprint\"><tr><td><a href=\"".$_SERVER['PHP_SELF']."?year=$yy&month=$ym&day=$yd&area=$area&room=$room\">&lt;&lt; " . _h('Go to previous day') . "</a></td>
-	<td align=center><a href=\"".$_SERVER['PHP_SELF']."?area=$area&amp;room=$room\">" . _h('Go to today') . "</a></td>
-	<td align=right><a href=\"".$_SERVER['PHP_SELF']."?year=$ty&amp;month=$tm&amp;day=$td&amp;area=$area&amp;room=$room\">" . _h('Go to next day') . ' &gt;&gt;</a></td></tr></table>';
+	echo "<table width=\"100%\" border=\"0\" class=\"hiddenprint\"><tr><td><a href=\"".$_SERVER['PHP_SELF']."?year=$yy&month=$ym&day=$yd&area=$area&room=$roomUrlString\">&lt;&lt; " . _h('Go to previous day') . "</a></td>
+	<td align=center><a href=\"".$_SERVER['PHP_SELF']."?area=$area&amp;room=$roomUrlString\">" . _h('Go to today') . "</a></td>
+	<td align=right><a href=\"".$_SERVER['PHP_SELF']."?year=$ty&amp;month=$tm&amp;day=$td&amp;area=$area&amp;room=$roomUrlString\">" . _h('Go to next day') . ' &gt;&gt;</a></td></tr></table>';
 	
 	echo chr(10).chr(10);
-
-    // TODO: put this if in roomlist.php
-    if($room != 0)
-    {
-        $rooms = array();
-        $rooms[$room] = getRoom($room);
-    }
 
     $start	= mktime(0,0,0,$month,$day,$year);
     $end	= mktime(23,59,59,$month,$day,$year);
@@ -266,15 +259,15 @@ else
 	
 	if($dayview == 1)
 	{
-		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'">'._h('Go to other dayview').'</a><br></span>';
+		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$roomUrlString.'">'._h('Go to other dayview').'</a><br></span>';
 		
 		/* ## START DISPLAYING! ## */
 		echo '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="timetable">';
 		echo '<tr><th width="1%" class="time3">&nbsp;</th>';
 	
 		$room_column_width = (int)(95 / mysql_num_rows($Q_room));
-		foreach($rooms as $room_id => $room_name) {
-			echo '<th width="'.$room_column_width.'%" colspan="'.($room_max_col[$room_id] + 1).'" class="time3">' . htmlspecialchars($room_name). '</th>';
+		foreach($rooms as $room_id => $room) {
+			echo '<th width="'.$room_column_width.'%" colspan="'.($room_max_col[$room_id] + 1).'" class="time3">' . htmlspecialchars($room['room_name']). '</th>';
         }
 		
 		echo '</tr>'.chr(10);
@@ -313,7 +306,7 @@ else
 			}
 			
 			// Drawing the rooms
-			foreach ($rooms as $room_id => $room_name)
+			foreach ($rooms as $room_id => $room)
 			{
 				if($t % (60*60) == 0) {
 					$td_style = 'time';
@@ -375,7 +368,7 @@ else
 	}
 	else
 	{
-		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$room.'&amp;dayview=1">'._h('Go to other dayview').'</a><br></span>';
+		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$roomUrlString.'&amp;dayview=1">'._h('Go to other dayview').'</a><br></span>';
 		
 		echo '<table width="100%" cellspacing="0" style="border-collapse: collapse;">';
 		echo '<tr><td class="dayplan"><b>'.__('Time').'</b></td><td class="dayplan"><b>'.__('Room').'</b></td><td class="dayplan"><b>'.__('C/A').'</b></td><td class="dayplan" width="100%"><b>'.__('What').'</b></td></tr>';
@@ -403,7 +396,7 @@ else
 					}
 					echo '<tr><td class="dayplan"><b>'.date('H:i', $entries[$entry_id]['time_start']).'-'.date('H:i', $entries[$entry_id]['time_end']).'</b></td><td class="dayplan">';
 					// Rooms
-					$room_name = array();
+					$room_names = array();
 					if(!count($entries[$entry_id]['room_id'])) {
 						echo '<i>'.__('Whole area').'</i>';
                     }
@@ -417,14 +410,14 @@ else
 								$Any_rooms = true;
 								$room_tmp = getRoom($rid);
 								if(count($room_tmp))
-									$room_name[] = $room_tmp['room_name'];
+									$room_names[] = $room_tmp['room_name'];
 							}
 						}
 						if(!$Any_rooms) {
 							echo '<i>'.str_replace(' ', '&nbsp;', __('Whole area')).'</i>';
                         }
 						else {
-							echo str_replace(' ', '&nbsp;', implode(', ', $room_name));
+							echo str_replace(' ', '&nbsp;', implode(', ', $room_names));
                         }
 					}
 					echo '</td>';
@@ -441,8 +434,6 @@ else
 		echo '</table>'.chr(10);
 	}
 }
-
-include('trailer.inc.php');
 
 ?>
 

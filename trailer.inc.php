@@ -43,8 +43,7 @@ if (!isset($printed_in_top))
 		$month = date('m');
 	if(!isset($day))
 		$day = date('d');
-	
-	// printMonth ($year, $month, $theSelectedDay/Week/Month, $selectedType)
+
 	if(!isset($selectedType))
 	{
 		$selectedType = 'day';
@@ -52,13 +51,14 @@ if (!isset($printed_in_top))
 	}
 	if(!isset($selected))
 		$selected = 0;
-	
+
+    // TODO: wrap in a function to isolate and contain variables
 	echo '<table><tr><td style="border: 1px solid black;">'.chr(10);
-	printMonth ($year, $month, $selected, $selectedType);
+	printMonth ($area, $rooms, $roomUrlString, $year, $month, $selected, $selectedType);
 	echo '</td><td style="border: 1px solid black;">'.chr(10);
-	printMonth ($year, $month + 1, 0);
+	printMonth ($area, $rooms, $roomUrlString, $year, $month + 1, 0);
 	echo '</td><td style="border: 1px solid black;">'.chr(10);
-	printMonth ($year, $month + 2, 0);
+	printMonth ($area, $rooms, $roomUrlString, $year, $month + 2, 0);
 	echo '</td></tr></table>'.chr(10);
 
 }
