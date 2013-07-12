@@ -171,7 +171,7 @@ function roomList(array $areas, $areaUrlString, array $rooms, $roomUrlString, $h
 
 # Table with areas, rooms, minicals.
 ?>
-<table height="140" width="100%" class="hiddenprint">
+<table height="140" width="100%" class="hiddenprint" id="roomlist">
     <tr>
         <?php
         $area_names = array();
@@ -191,9 +191,12 @@ function roomList(array $areas, $areaUrlString, array $rooms, $roomUrlString, $h
                 while($row = mysql_fetch_assoc($res))
                 {
                     $area_name = htmlspecialchars($row['area_name']);
+                    $area_selected = (array_key_exists($row['area_id'], $areas));
                     ?>
+                        <input type="checkbox" name="roomlist_areaSelector"
+                              value="<?=$row['area_id']?>"<?=$area_selected?' checked="checked"':''?>>
                         <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$row['area_id']?>"
-                            <?=(array_key_exists($row['area_id'], $areas))?' style="color: red;"':''?>><?=$area_name?></a><br>
+                            <?=$area_selected?' style="color: red;"':''?>><?=$area_name?></a><br>
                     <?php
                 }
             }
@@ -201,12 +204,22 @@ function roomList(array $areas, $areaUrlString, array $rooms, $roomUrlString, $h
             <br><br><br>
         </td>
         <td width="200">
+            <?php
+            function printRoomSelector($room_id, $room_name) {
+                global $thisFile, $year, $month, $day, $areaUrlString, $rooms;
+                $room_selected = (array_key_exists($room_id, $rooms));
+                ?>
+                <input type="checkbox" name="roomlist_roomSelector"
+                   value="<?=$room_id?>"<?=$room_selected?' checked="checked"':''?>>
+                <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$areaUrlString?>&room=<?=$room_id?>"
+                <?=$room_selected?' style="color: red;"':''?>><?=$room_name?></a><br>
+                <?php
+            }
+            ?>
             <img src="./img/icons/shape_square.png" style="border: 0 solid black; vertical-align: middle;" alt="<?=__('Device')?>">
 
             <span style="text-decoration: underline"><?=__("Device")?></span><br>
-
-            <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$areaUrlString?>&room=0"
-                <?=(array_key_exists(0, $rooms))?' style="color: red;"':''?>><?=__('Whole area')?></a><br>
+            <?php printRoomSelector(0, __('Whole area')) ?>
             <?php
 
             $i = 1;
@@ -222,11 +235,9 @@ function roomList(array $areas, $areaUrlString, array $rooms, $roomUrlString, $h
                 }
 
                 $this_room_name = htmlspecialchars($R_room['room_name']);
-                ?>
-                <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$areaUrlString?>&room=<?=$R_room['id']?>"
-                    <?=(array_key_exists($R_room['id'], $rooms))?' style="color: red;"':''?>><?=$this_room_name?></a><br>
 
-                <?php
+                printRoomSelector($R_room['id'], $this_room_name);
+
                 $i++;
             }
         ?>
@@ -265,5 +276,15 @@ echo '<h1>'.$heading.':</h1>'.chr(10);
 echo '</td></tr>'.chr(10);
 
 echo '</table>';
+?>
+    <form method="GET" action="<?=$thisFile?>" id="roomlistForm">
+        <input type="hidden" name="year"  value="<?=$year?>"          />
+        <input type="hidden" name="month" value="<?=$month?>"         />
+        <input type="hidden" name="day"   value="<?=$day?>"           />
+        <input type="hidden" name="area"  value="<?=$areaUrlString?>" />
+        <input type="hidden" name="room"  value="<?=$roomUrlString?>" />
+    </form>
+<?php
+echo '<script type="text/javascript" src="js/entry-overview.js"></script>';
 
 }
