@@ -110,7 +110,7 @@ function getRoomUrlString($rooms) {
 }
 
 function roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected) {
-    global $login, $printed_in_top;
+    global $login;
 
     $room_names = array();
     foreach($rooms as $room) {
@@ -186,6 +186,7 @@ $print_in_top = TRUE;
 echo '</td><td align="right">'.chr(10);
 
 include("trailer.inc.php");
+printMonths($area, $rooms, $roomUrlString, $year, $month, $day, $selected, $selectedType);
 
 echo "</td>\n";
 echo "</tr></table>\n";

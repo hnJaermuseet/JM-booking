@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if (!isset($printed_in_top))
+function printMonths($area, $rooms, $roomUrlString, $year, $month, $day, $selected, $selectedType)
 {
 	/* New overview of dates */
 	
@@ -61,17 +61,4 @@ if (!isset($printed_in_top))
 	printMonth ($area, $rooms, $roomUrlString, $year, $month + 2, 0);
 	echo '</td></tr></table>'.chr(10);
 
-}
-
-if(!isset($print_in_top))
-{
-echo '
-</BODY>
-</HTML>
-';
-}
-else
-{
-	unset($print_in_top);
-	$printed_in_top = TRUE;
 }
