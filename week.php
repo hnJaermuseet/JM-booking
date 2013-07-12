@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	JM-booking - week display
 */
 
+$supportMultipleAreas = true;
 include_once('glob_inc.inc.php');
 
 // Got a week
@@ -93,9 +94,10 @@ $thisWeek = $selected;
 include 'roomlist.php';
 $heading = __('Week').' '.$thisWeek;
 $thisFile = 'week.php';
-$rooms = getRoomIds($area);
+$areaUrlString = getAreaUrlString($areas);
+$rooms = getRoomIds($areas);
 $roomUrlString = getRoomUrlString($rooms);
-roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected);
+roomList($areas, $areaUrlString, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected);
 
 #y? are year, month and day of the previous week.
 #t? are year, month and day of the next week.
@@ -110,24 +112,13 @@ $ty = date('Y',$i);
 $tm = date('m',$i);
 $td = date('d',$i);
 
-$Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
-$rooms = array();
-while($R_room = mysql_fetch_assoc($Q_room))
-	$rooms[$R_room['room_id']]			= $R_room['room_name'];
-
-if($room != 0)
-{
-	$rooms = array();
-	$rooms[$room] = getRoom($room);
-}
-
 #Show Go to week before and after links
 ?>
 <table width="100%" class="hiddenprint"><tr><td>
-<a href="week.php?year=<?=$yy?>&month=<?=$ym?>&day=<?=$yd?>&area=<?=$area?>&room=<?=$room?>">&lt;&lt;
+<a href="week.php?year=<?=$yy?>&month=<?=$ym?>&day=<?=$yd?>&area=<?=$areaUrlString?>&room=<?=$room?>">&lt;&lt;
 <?=__('go to last week')?>
-	</a></td><td align=center><a href="week.php?area=<?=$area?>&room=<?=$room?>"><?=__('go to this week')?>
-	</a></td><td align=right><a href="week.php?year=<?=$ty?>&month=<?=$tm?>&day=<?=$td?>&area=<?=$area?>&room=<?=$room?>">
+	</a></td><td align=center><a href="week.php?area=<?=$areaUrlString?>&room=<?=$room?>"><?=__('go to this week')?>
+	</a></td><td align=right><a href="week.php?year=<?=$ty?>&month=<?=$tm?>&day=<?=$td?>&area=<?=$areaUrlString?>&room=<?=$room?>">
 <?=__('go to next week')?>
 	&gt;&gt;</a></td></tr></table>
 <?php
@@ -156,7 +147,7 @@ foreach ($weekdays as $daynum => $weekday)
 	else {
 		echo ' <td>'.chr(10);
     }
-	echo '<a class="graybg" href="day.php?year='.date('Y',$weekday).'&amp;month='.date('m',$weekday).'&amp;day='.date('d',$weekday).'&amp;area='.$area.'&amp;room='.$room.'">';
+	echo '<a class="graybg" href="day.php?year='.date('Y',$weekday).'&amp;month='.date('m',$weekday).'&amp;day='.date('d',$weekday).'&amp;area='.$areaUrlString.'&amp;room='.$roomUrlString.'">';
 	echo '<b>'.__(strftime('%A', $weekday)).'</b>';
 	echo '<br>'. date('j', $weekday).'. '.strtolower(__(date('F', $weekday)));
 	echo '</td>'.chr(10);
@@ -172,7 +163,7 @@ foreach ($weekdays as $daynum => $weekday)
     }
     $start	= mktime(0, 0, 0, date('m', $weekday), date('d', $weekday), date('Y', $weekday));
     $end	= mktime(23, 59, 59, date('m', $weekday), date('d', $weekday), date('Y', $weekday));
-    $events = getRoomEventList($rooms, $start, $end, $area);
+    $events = getRoomEventList($rooms, $start, $end);
     ?>
 	<table width="100%" cellspacing="0" style="border-collapse: collapse;">
 	<tr>

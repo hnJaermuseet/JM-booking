@@ -319,7 +319,7 @@ function round_t_up($t, $resolution){
 }
 
 
-function printMonth ($area, $rooms, $roomUrlString, $year, $month, $selected, $selectedType1 = 'day')
+function printMonth ($areaUrlString, array $rooms, $roomUrlString, $year, $month, $selected, $selectedType1 = 'day')
 {
 	
 	switch ($selectedType1)
@@ -340,10 +340,10 @@ function printMonth ($area, $rooms, $roomUrlString, $year, $month, $selected, $s
 	$monthLast	= mktime (0, 0, 0, ($month+1), 1, $year);
 	$numDays	= date('t', $monthTime);
 
-	$checkTime = checkTime($monthTime, $monthLast, $area, $rooms);
+	$checkTime = checkTime($monthTime, $monthLast, $rooms);
 	
 	echo '<table style="width: 100%;">'.chr(10);
-	echo ' <tr><td class="B"><center><b><a class="graybg" href="month.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day=1&amp;area='.$area.'&amp;room='.$roomUrlString.'">';
+	echo ' <tr><td class="B"><center><b><a class="graybg" href="month.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day=1&amp;area='.$areaUrlString.'&amp;room='.$roomUrlString.'">';
 	if($selectedType == 'month')
 		echo '<font color="red">'.__(date('M', $monthTime)).' '.date('Y', $monthTime).'</font>';
 	else
@@ -373,7 +373,7 @@ function printMonth ($area, $rooms, $roomUrlString, $year, $month, $selected, $s
 			
 			echo '    <tr>'.chr(10);
 			echo '     <td class="weeknum"><center>'.
-			'<a class="graybg" href="week.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day='.$i.'&amp;area='.$area.'&amp;room='.$roomUrlString.'">';
+			'<a class="graybg" href="week.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day='.$i.'&amp;area='.$areaUrlString.'&amp;room='.$roomUrlString.'">';
 			// Is it selected?
 			if($selectedType == 'week' && $selected == $thisWeek)
 				echo '<font color="red">'.$thisWeek.'</font>';
@@ -406,7 +406,7 @@ function printMonth ($area, $rooms, $roomUrlString, $year, $month, $selected, $s
 			$printedWeeks[] = $thisWeek;
 		}
 		
-		echo '     <td><center><a href="day.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day='.$i.'&amp;area='.$area.'&amp;room='.$roomUrlString.'">';
+		echo '     <td><center><a href="day.php?year='.date('Y', $monthTime).'&amp;month='.date('m', $monthTime).'&amp;day='.$i.'&amp;area='.$areaUrlString.'&amp;room='.$roomUrlString.'">';
 		$ymd = date('Y',$monthTime);
 		if(strlen(date('m',$monthTime)) == 1)
 			$ymd .= '0';
@@ -415,14 +415,18 @@ function printMonth ($area, $rooms, $roomUrlString, $year, $month, $selected, $s
 			$ymd .= '0';
 		$ymd .= $i;
 		
-		if(isset($checkTime[$ymd]))
+		if(isset($checkTime[$ymd])) {
 			echo '<b>';
-		if($selectedType == 'day' && $selected == $i)
+        }
+		if($selectedType == 'day' && $selected == $i) {
 			echo '<font color="red">'.$i.'</font>';
-		else
+        }
+		else {
 			echo $i;
-		if(isset($checkTime[$ymd]))
+        }
+		if(isset($checkTime[$ymd])) {
 			echo '</b>';
+        }
 		echo '</a></center></td>'.chr(10);
 	}
 	echo '    </tr>'.chr(10);
@@ -1423,7 +1427,7 @@ function printEntryLog($log, $printData = FALSE, $to_return = FALSE)
 					if(is_array($log['log_data']['emails']))
 					{
 						$return .= ' ';
-						foreach ($log['log_data']['emails'] as $email)
+						foreach ($log['log_data']['emails'] as $i => $email)
 						{
 							$return .= $email;
 							if($i < count($log['log_data']['emails']))
@@ -1975,14 +1979,14 @@ function checkTime_Room ($start, $end, $area_id, $room = 0)
 	else
 		$room_query = '';
 	
-	
-	$Q_checktime = mysql_query("select entry_id, room_id from `entry` where 
+	$sql = "select entry_id, room_id from `entry` where
 		(
-			(time_start <= '$start' and time_end > '$start') or 
+			(time_start <= '$start' and time_end > '$start') or
 			(time_start < '$end' and time_end >= '$end') or
 			(time_start > '$start' and time_end < '$end')
 		)
-		and area_id = '$area_id'$room_query");
+		and area_id = '$area_id'".$room_query;
+	$Q_checktime = mysql_query($sql);
 	
 	$return = array();
 	if(mysql_num_rows($Q_checktime))
@@ -2038,7 +2042,7 @@ function checkTime_User ($start, $end, $user = 0)
 			(time_start < '$end' and time_end >= '$end') or
 			(time_start > '$start' and time_end < '$end')
 		)
-		$user_query");
+		".$user_query);
 	
 	$return = array();
 	if(!mysql_num_rows($Q_checktime))
@@ -2063,7 +2067,7 @@ function checkTime_User ($start, $end, $user = 0)
 	return $return;
 }
 
-function checkTime ($start, $end, $area_id, array $rooms)
+function checkTime ($start, $end, array $rooms)
 {
 	/*
 		Checks a time for entries
@@ -2075,10 +2079,12 @@ function checkTime ($start, $end, $area_id, array $rooms)
 	
 
     $whole_area = FALSE;
-    $room_query = " and (";
+    $area_queries = array();
+    $room_query = " AND (";
     foreach ($rooms as $room)
     {
-        if($room['room_id'] == '0' && count($rooms) == 1) {
+        $area_queries[$room['area_id']] = 'area_id = \''.$room['area_id'].'\'';
+        if($room['room_id'] == '0') {
             $whole_area = TRUE;
         }
         $room_query .= 'room_id like \'%;'.$room['room_id'].';%\' || ';
@@ -2089,14 +2095,16 @@ function checkTime ($start, $end, $area_id, array $rooms)
     {
         $room_query = '';
     }
-	
-	$Q_checktime = mysql_query("select entry_id, time_start, time_end from `entry` where 
+
+    $sql = "select entry_id, time_start, time_end from `entry` where
 		(
-			(time_start <= '$start' and time_end > '$start') or 
+			(time_start <= '$start' and time_end > '$start') or
 			(time_start < '$end' and time_end >= '$end') or
-			(time_start > '$start' and time_end < '$end')
+			(time_start > '$start' and time_end < '".$end.'\')
 		)
-		and area_id = '$area_id'$room_query");
+		AND ('.implode(' OR ', $area_queries).')
+		'.$room_query;
+	$Q_checktime = mysql_query($sql);
 	
 	$return = array();
 	if(mysql_num_rows($Q_checktime))

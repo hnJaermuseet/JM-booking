@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-function printMonths($area, $rooms, $roomUrlString, $year, $month, $day, $selected, $selectedType)
+function printMonths($areaUrlString, array $rooms, $roomUrlString, $year, $month, $day, $selected, $selectedType)
 {
 	/* New overview of dates */
 	
@@ -36,29 +36,13 @@ function printMonths($area, $rooms, $roomUrlString, $year, $month, $day, $select
 		
 		Current month is set by the date currently selected
 	*/
-	
-	if(!isset($year))
-		$year = date('Y');
-	if(!isset($month))
-		$month = date('m');
-	if(!isset($day))
-		$day = date('d');
 
-	if(!isset($selectedType))
-	{
-		$selectedType = 'day';
-		$selected = $day;
-	}
-	if(!isset($selected))
-		$selected = 0;
-
-    // TODO: wrap in a function to isolate and contain variables
 	echo '<table><tr><td style="border: 1px solid black;">'.chr(10);
-	printMonth ($area, $rooms, $roomUrlString, $year, $month, $selected, $selectedType);
+	printMonth ($areaUrlString, $rooms, $roomUrlString, $year, $month, $selected, $selectedType);
 	echo '</td><td style="border: 1px solid black;">'.chr(10);
-	printMonth ($area, $rooms, $roomUrlString, $year, $month + 1, 0);
+	printMonth ($areaUrlString, $rooms, $roomUrlString, $year, $month + 1, 0);
 	echo '</td><td style="border: 1px solid black;">'.chr(10);
-	printMonth ($area, $rooms, $roomUrlString, $year, $month + 2, 0);
+	printMonth ($areaUrlString, $rooms, $roomUrlString, $year, $month + 2, 0);
 	echo '</td></tr></table>'.chr(10);
 
 }

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * JM-booking - Month
  */
 
-
+$supportMultipleAreas = true;
 include_once("glob_inc.inc.php");
 
 # If we don't know the right date then use today:
@@ -63,9 +63,10 @@ $thisMonth = $selected;
 include "roomlist.php";
 $heading = __(strftime("%B", $monthstart)).' '.date('Y', $monthstart);
 $thisFile = 'month.php';
-$rooms = getRoomIds($area);
+$areaUrlString = getAreaUrlString($areas);
+$rooms = getRoomIds($areas);
 $roomUrlString = getRoomUrlString($rooms);
-roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected);
+roomList($areas, $areaUrlString, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected);
 
 function printEmptyTableCells($numberOfCells) {
     for($i = 0; $i < $numberOfCells; $i++) {
@@ -78,13 +79,6 @@ $monthTime	= mktime (0, 0, 0, $month, 1, $year);
 $monthLast	= mktime (0, 0, 0, ($month+1), 1, $year);
 $numDays	= date('t', $monthTime);
 $startWeek	= date('W', $monthTime);
-
-$Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
-// TODO: rename variable, conflict
-$rooms = array();
-while($R_room = mysql_fetch_assoc($Q_room)) {
-	$rooms[$R_room['room_id']]			= $R_room['room_name'];
-}
 
 
 echo '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="timetable">'.chr(10);
@@ -117,7 +111,7 @@ for ($i = 1; $i < $numDays + 1; $i++)
 			
 		echo '    <tr>'.chr(10);
 		echo '     <td class="time3"><center><h2>';
-		echo '<a class="graybg" href="week.php?year='.$year.'&amp;month='.$month.'&amp;day='.$i.'&amp;area='.$area.'&amp;room='.$room.'" style="padding: 2px 5px 2px 5px;">';
+		echo '<a class="graybg" href="week.php?year='.$year.'&amp;month='.$month.'&amp;day='.$i.'&amp;area='.$areaUrlString.'&amp;room='.$roomUrlString.'" style="padding: 2px 5px 2px 5px;">';
 		echo $thisWeek;
 		echo '</a>';
 		echo '</h2></center></td>'.chr(10);
@@ -136,7 +130,7 @@ for ($i = 1; $i < $numDays + 1; $i++)
 	echo '     <td class="time3">';
 	echo '<img src="img/pixel.gif" width="100" height="1">';
 	echo '<table width="100%"><tr><td>';
-	echo '<center><a href="day.php?year='.$year.'&amp;month='.$month.'&amp;day='.$i.'&amp;area='.$area.'&amp;room='.$room.'">';
+	echo '<center><a href="day.php?year='.$year.'&amp;month='.$month.'&amp;day='.$i.'&amp;area='.$areaUrlString.'&amp;room='.$room.'">';
 	$ymd = $year;
 	if(strlen($month) == 1) {
 		$ymd .= '0';
@@ -154,17 +148,13 @@ for ($i = 1; $i < $numDays + 1; $i++)
 	
 	$entries = array();
 	$timed_entries = array();
-	
-	if($room != 0)
+
+	foreach ($rooms as $room3)
 	{
-		$rooms = array();
-		$rooms[$room] = getRoom($room);
-	}
-	foreach ($rooms as $room_id => $room3)
-	{
+        $room_id = $room3['room_id'];
 		$start	= mktime(0,0,0,$month,$i,$year);
 		$end	= mktime(23,59,59,$month,$i,$year);
-		$events_room = checktime_Room ($start, $end, $area, $room_id);
+		$events_room = checktime_Room ($start, $end, $room3['area_id'], $room3['room_id']);
 		if(isset($events_room[$room_id]))
 		{
 			foreach ($events_room[$room_id] as $entry_id)

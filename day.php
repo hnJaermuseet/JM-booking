@@ -25,6 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+$supportMultipleAreas = true;
 include_once('glob_inc.inc.php');
 
 if (!isset($_GET['day']) or !isset($_GET['month']) or !isset($_GET['year'])){
@@ -44,15 +45,18 @@ else {
 # print the page header
 print_header($day, $month, $year, $area);
 
-$am7=mktime($morningstarts,0,0,$month,$day,$year);
-$pm7=mktime($eveningends,$eveningends_minutes,0,$month,$day,$year);
+$am7=mktime($morningstarts, 0, 0, $month, $day, $year);
+$pm7=mktime($eveningends, $eveningends_minutes, 0, $month, $day, $year);
 
 include 'roomlist.php';
 $heading = ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.strtolower(__(date('F', $am7))).' '.date('Y', $am7);
 $thisFile = 'day.php';
-$rooms = getRoomIds($area);
+$areaUrlString = getAreaUrlString($areas);
+$rooms = getRoomIds($areas);
 $roomUrlString = getRoomUrlString($rooms);
-roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day);
+$selectedType = 'day';
+$selected = $day;
+roomList($areas, $areaUrlString, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected);
 
 /* ## Tomorrow and yesterday ## */
 #y- are year, month and day of yesterday
@@ -77,17 +81,14 @@ else {
 	$dayview = 2;
 }
 
-/* ## Get all rooms for area ## */
-$Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
-if(mysql_num_rows($Q_room))
-{
-    $rooms = array();
-    while ($R_room = mysql_fetch_assoc($Q_room)) {
-        $rooms[$R_room['room_id']] = $R_room;
-    }
+if(array_key_exists(0, $rooms)) {
+    $rooms_displayed = getAllRoomsForAreas($areas);
+}
+else {
+    $rooms_displayed = $rooms;
 }
 
-if(!count($rooms))
+if(!count($rooms_displayed))
 {
 	echo '<h1>'.__('This area has no rooms').'</h1>';
 }
@@ -98,7 +99,7 @@ else
 	$room_time		= array(); // Used to keep track of when an entry starts to display
 	$room_time2		= array(); // Used to check if the entry is parallell to an other
 	$room_time3		= array(); // Used to keep track of where to put <td> and at what colspan
-	foreach($rooms as $R_room)
+	foreach($rooms_displayed as $R_room)
 	{
 		if($dayview == 1)
 		{
@@ -128,8 +129,8 @@ else
 			$am7 = $am7_tmp;
 			$pm7 = $pm7_tmp;
 		}
-		
-		$events_room = checktime_Room ($start, $end, $area, $R_room['room_id']);
+
+		$events_room = checktime_Room ($start, $end, $R_room['area_id'], $R_room['room_id']);
 		if(isset($events_room[$R_room['room_id']]))
 		{
 			foreach ($events_room[$R_room['room_id']] as $entry_id)
@@ -242,15 +243,15 @@ else
 	}
 	
 	
-	echo "<table width=\"100%\" border=\"0\" class=\"hiddenprint\"><tr><td><a href=\"".$_SERVER['PHP_SELF']."?year=$yy&month=$ym&day=$yd&area=$area&room=$roomUrlString\">&lt;&lt; " . _h('Go to previous day') . "</a></td>
-	<td align=center><a href=\"".$_SERVER['PHP_SELF']."?area=$area&amp;room=$roomUrlString\">" . _h('Go to today') . "</a></td>
-	<td align=right><a href=\"".$_SERVER['PHP_SELF']."?year=$ty&amp;month=$tm&amp;day=$td&amp;area=$area&amp;room=$roomUrlString\">" . _h('Go to next day') . ' &gt;&gt;</a></td></tr></table>';
+	echo "<table width=\"100%\" border=\"0\" class=\"hiddenprint\"><tr><td><a href=\"".$_SERVER['PHP_SELF']."?year=$yy&month=$ym&day=$yd&area=$areaUrlString&room=$roomUrlString\">&lt;&lt; " . _h('Go to previous day') . "</a></td>
+	<td align=center><a href=\"".$_SERVER['PHP_SELF']."?area=$areaUrlString&amp;room=$roomUrlString\">" . _h('Go to today') . "</a></td>
+	<td align=right><a href=\"".$_SERVER['PHP_SELF']."?year=$ty&amp;month=$tm&amp;day=$td&amp;area=$areaUrlString&amp;room=$roomUrlString\">" . _h('Go to next day') . ' &gt;&gt;</a></td></tr></table>';
 	
 	echo chr(10).chr(10);
 
-    $start	= mktime(0,0,0,$month,$day,$year);
-    $end	= mktime(23,59,59,$month,$day,$year);
-    $events = getRoomEventList($rooms, $start, $end, $area);
+    $start	= mktime(0, 0, 0, $month, $day, $year);
+    $end	= mktime(23, 59, 59, $month, $day, $year);
+    $events = getRoomEventList($rooms_displayed, $start, $end);
 	$entries = $events['allEntries'];
 	$timed_entries = $events['timedEntries'];
 
@@ -259,14 +260,14 @@ else
 	
 	if($dayview == 1)
 	{
-		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$roomUrlString.'">'._h('Go to other dayview').'</a><br></span>';
+		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$areaUrlString.'&amp;room='.$roomUrlString.'">'._h('Go to other dayview').'</a><br></span>';
 		
 		/* ## START DISPLAYING! ## */
 		echo '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="timetable">';
 		echo '<tr><th width="1%" class="time3">&nbsp;</th>';
 	
 		$room_column_width = (int)(95 / mysql_num_rows($Q_room));
-		foreach($rooms as $room_id => $room) {
+		foreach($rooms_displayed as $room_id => $room) {
 			echo '<th width="'.$room_column_width.'%" colspan="'.($room_max_col[$room_id] + 1).'" class="time3">' . htmlspecialchars($room['room_name']). '</th>';
         }
 		
@@ -306,7 +307,7 @@ else
 			}
 			
 			// Drawing the rooms
-			foreach ($rooms as $room_id => $room)
+			foreach ($rooms_displayed as $room_id => $room)
 			{
 				if($t % (60*60) == 0) {
 					$td_style = 'time';
@@ -368,7 +369,9 @@ else
 	}
 	else
 	{
-		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$area.'&amp;room='.$roomUrlString.'&amp;dayview=1">'._h('Go to other dayview').'</a><br></span>';
+        // -> Normal day view
+
+		echo '<span class="hiddenprint"><a href="day.php?day='.$day.'&amp;month='.$month.'&amp;year='.$year.'&amp;area='.$areaUrlString.'&amp;room='.$roomUrlString.'&amp;dayview=1">'._h('Go to other dayview').'</a><br></span>';
 		
 		echo '<table width="100%" cellspacing="0" style="border-collapse: collapse;">';
 		echo '<tr><td class="dayplan"><b>'.__('Time').'</b></td><td class="dayplan"><b>'.__('Room').'</b></td><td class="dayplan"><b>'.__('C/A').'</b></td><td class="dayplan" width="100%"><b>'.__('What').'</b></td></tr>';

@@ -248,8 +248,9 @@ getUserinfoLoggedin();
 
 if(isset($_GET['area']))
 {
-	if($_GET['area'] == '')
+	if($_GET['area'] == '') {
 		unset($_GET['area']);
+    }
 	$area = (int)$_GET['area'];
 }
 else
@@ -258,4 +259,31 @@ else
 		$area = $login['user_area_default'];
 	else
 		$area = get_default_area();
+}
+
+function getAreaIds($area_id_from_default) {
+    $area_ids = array();
+    if(isset($_GET['area'])) {
+        $split = explode(',', $_GET['area']);
+        foreach($split as $id) {
+            $area_ids[] = (int)$id;
+        }
+    }
+
+    if(!count($area_ids)) {
+        $area_ids = array($area_id_from_default);
+    }
+
+    $areas = array();
+    foreach($area_ids as $area_id) {
+        $area = getArea($area_id);
+        if(count($area)) {
+            $areas[$area['area_id']] = $area;
+        }
+    }
+    return $areas;
+}
+
+if(isset($supportMultipleAreas) && $supportMultipleAreas) {
+    $areas = getAreaIds($area);
 }

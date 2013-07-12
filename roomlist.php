@@ -25,12 +25,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-function getRoomEventList($rooms, $start, $end, $area) {
+function getRoomEventList(array $rooms, $start, $end) {
     $entries = array();
     $timed_entries = array();
     foreach ($rooms as $room_id => $room)
     {
-        $events_room = checktime_Room ($start, $end, $area, $room_id);
+        $events_room = checktime_Room ($start, $end, $room['area_id'], $room['room_id']);
         if(isset($events_room[$room_id]))
         {
             foreach ($events_room[$room_id] as $entry_id)
@@ -67,34 +67,70 @@ function getRoomEventList($rooms, $start, $end, $area) {
     );
 }
 
-function getRoomIds($area_id) {
+function getAllRoomsForAreas (array $areas) {
+    $all_rooms = array();
+
+    $area_id_queries = array();
+    foreach($areas as $area) {
+        $area_id_queries[] = 'area_id = \''.$area['area_id'].'\'';
+    }
+    $Q_room = mysql_query('select id as room_id, room_name, area_id from `mrbs_room` where ('.implode(' OR ', $area_id_queries).') AND hidden = \'false\'');
+    if(mysql_num_rows($Q_room))
+    {
+        while ($R_room = mysql_fetch_assoc($Q_room)) {
+            $all_rooms[$R_room['room_id']] = $R_room;
+        }
+    }
+
+    return $all_rooms;
+}
+
+function getRoomIds(array $areas) {
+    $room_ids = array();
     if(isset($_GET['room']))
     {
-        $room = (int)$_GET['room'];
+        $split = explode(',', $_GET['room']);
+        foreach($split as $room) {
+            $room_ids[] = (int)$room;
+        }
     }
     else {
-        $room = 0;
+        $room_ids[] = 0;
     }
 
-    $wholeAreaRoom = array(0 => array (
-        'room_id'			=> 0,
-        'room_name'			=> __('Whole area'),
-        'area_id'			=> $area_id
-    ));
 
-    if($room != 0) {
-        // -> Room given AND it is a non int value
+    $wholeAreaRoom = array();
+    foreach($areas as $area) {
+        if(!isset($wholeAreaRoom[0])) {
+            $wholeAreaRoomKey = 0;
+        }
+        else {
+            $wholeAreaRoomKey = 0-$area['area_id'];
+        }
 
-        $theROOM = getRoom($room);
-        if(!count($theROOM) || $theROOM['area_id'] != $area_id) {
+        $wholeAreaRoom[$wholeAreaRoomKey] = array (
+            'room_id'			=> 0,
+            'room_name'			=> __('Whole area'),
+            'area_id'			=> $area['area_id']
+        );
+    }
+
+    $rooms = array();
+    foreach($room_ids as $room_id) {
+
+        $theROOM = getRoom($room_id);
+        if(!count($theROOM) || !array_key_exists($theROOM['area_id'], $areas)) {
             // -> Room not found OR on a different area
             return $wholeAreaRoom;
         }
-        return array($room => $theROOM);
+        $rooms[$theROOM['room_id']] = $theROOM;
     }
-    else {
+
+    if(!count($rooms)) {
         return $wholeAreaRoom;
     }
+
+    return $rooms;
 }
 
 /**
@@ -109,7 +145,15 @@ function getRoomUrlString($rooms) {
     return implode(',', $rooms2);
 }
 
-function roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected) {
+function getAreaUrlString(array $areas) {
+    $area_ids = array();
+    foreach($areas as $area) {
+        $area_ids[] = $area['area_id'];
+    }
+    return implode(',', $area_ids);
+}
+
+function roomList(array $areas, $areaUrlString, array $rooms, $roomUrlString, $heading, $thisFile, $year, $month, $day, $selectedType, $selected) {
     global $login;
 
     $room_names = array();
@@ -122,6 +166,10 @@ function roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $mo
 <table height="140" width="100%" class="hiddenprint">
     <tr>
         <?php
+        $area_names = array();
+        foreach($areas as $area_tmp) {
+            $area_names[] = $area_tmp['area_name'];
+        }
         $this_area_name = '';
         ?>
         <!-- All areas -->
@@ -137,11 +185,8 @@ function roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $mo
                     $area_name = htmlspecialchars($row['area_name']);
                     ?>
                         <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$row['area_id']?>"
-                            <?=($row['area_id'] == $area)?' style="color: red;"':''?>><?=$area_name?></a><br>
+                            <?=(array_key_exists($row['area_id'], $areas))?' style="color: red;"':''?>><?=$area_name?></a><br>
                     <?php
-                    if($row['area_id'] == $area) {
-                        $this_area_name = $area_name;
-                    }
                 }
             }
             ?>
@@ -152,12 +197,16 @@ function roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $mo
 
             <span style="text-decoration: underline"><?=__("Device")?></span><br>
 
-            <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=0"
+            <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$areaUrlString?>&room=0"
                 <?=(array_key_exists(0, $rooms))?' style="color: red;"':''?>><?=__('Whole area')?></a><br>
             <?php
 
             $i = 1;
-            $Q_room = mysql_query('SELECT id, room_name FROM mrbs_room WHERE area_id="'.$area.'" AND hidden=\'false\' ORDER BY room_name');
+            $area_ids = array();
+            foreach($areas as $area) {
+                $area_ids[] = 'area_id = \''.$area['area_id'].'\'';
+            }
+            $Q_room = mysql_query('SELECT id, room_name FROM mrbs_room WHERE ('.implode(' OR ', $area_ids).') AND hidden=\'false\' ORDER BY room_name');
             while($R_room = mysql_fetch_assoc($Q_room))
             {
                 if ($i>0 && $i%6==0) {
@@ -166,7 +215,7 @@ function roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $mo
 
                 $this_room_name = htmlspecialchars($R_room['room_name']);
                 ?>
-                <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$area?>&room=<?=$R_room['id']?>"
+                <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$areaUrlString?>&room=<?=$R_room['id']?>"
                     <?=(array_key_exists($R_room['id'], $rooms))?' style="color: red;"':''?>><?=$this_room_name?></a><br>
 
                 <?php
@@ -178,7 +227,7 @@ function roomList($area, $rooms, $roomUrlString, $heading, $thisFile, $year, $mo
         <!-- Headings -->
         <td style="padding: 10px 10px 10px 10px;">
         <h1 align=center><?=$heading?></h1>
-        <h3 align=center><?=$this_area_name.' - '.implode(', ', $room_names) ?></h3>
+        <h3 align=center><?=implode(', ', $area_names).' - '.implode(', ', $room_names) ?></h3>
         <?php
 
 /* ## ADDING CALENDAR ## */
@@ -186,13 +235,13 @@ $print_in_top = TRUE;
 echo '</td><td align="right">'.chr(10);
 
 include("trailer.inc.php");
-printMonths($area, $rooms, $roomUrlString, $year, $month, $day, $selected, $selectedType);
+printMonths($areaUrlString, $rooms, $roomUrlString, $year, $month, $day, $selected, $selectedType);
 
 echo "</td>\n";
 echo "</tr></table>\n";
 
 echo '<table class="print" width="100%">'.chr(10);
-echo '<tr><td><b>'.__('Area').':</b> '.$this_area_name.', <b>'.__('Room').':</b> '.implode(', ', $room_names).'</td></tr>'.chr(10);
+echo '<tr><td><b>'.__('Area').':</b> '.implode(', ', $area_names).', <b>'.__('Room').':</b> '.implode(', ', $room_names).'</td></tr>'.chr(10);
 echo '<tr><td>'.__('Data collected/printed').' '.date('H:i:s d-m-Y').' '.__('by').' '.$login['user_name'].'</td></tr>'.chr(10);
 
 echo '<tr><td>'.__('Type of view').': ';
