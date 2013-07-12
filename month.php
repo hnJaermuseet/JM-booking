@@ -130,7 +130,7 @@ for ($i = 1; $i < $numDays + 1; $i++)
 	echo '     <td class="time3">';
 	echo '<img src="img/pixel.gif" width="100" height="1">';
 	echo '<table width="100%"><tr><td>';
-	echo '<center><a href="day.php?year='.$year.'&amp;month='.$month.'&amp;day='.$i.'&amp;area='.$areaUrlString.'&amp;room='.$room.'">';
+	echo '<center><a href="day.php?year='.$year.'&amp;month='.$month.'&amp;day='.$i.'&amp;area='.$areaUrlString.'&amp;room='.$roomUrlString.'">';
 	$ymd = $year;
 	if(strlen($month) == 1) {
 		$ymd .= '0';

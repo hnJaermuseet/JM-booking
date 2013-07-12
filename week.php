@@ -115,10 +115,10 @@ $td = date('d',$i);
 #Show Go to week before and after links
 ?>
 <table width="100%" class="hiddenprint"><tr><td>
-<a href="week.php?year=<?=$yy?>&month=<?=$ym?>&day=<?=$yd?>&area=<?=$areaUrlString?>&room=<?=$room?>">&lt;&lt;
+<a href="week.php?year=<?=$yy?>&month=<?=$ym?>&day=<?=$yd?>&area=<?=$areaUrlString?>&room=<?=$roomUrlString?>">&lt;&lt;
 <?=__('go to last week')?>
-	</a></td><td align=center><a href="week.php?area=<?=$areaUrlString?>&room=<?=$room?>"><?=__('go to this week')?>
-	</a></td><td align=right><a href="week.php?year=<?=$ty?>&month=<?=$tm?>&day=<?=$td?>&area=<?=$areaUrlString?>&room=<?=$room?>">
+	</a></td><td align=center><a href="week.php?area=<?=$areaUrlString?>&room=<?=$roomUrlString?>"><?=__('go to this week')?>
+	</a></td><td align=right><a href="week.php?year=<?=$ty?>&month=<?=$tm?>&day=<?=$td?>&area=<?=$areaUrlString?>&room=<?=$roomUrlString?>">
 <?=__('go to next week')?>
 	&gt;&gt;</a></td></tr></table>
 <?php

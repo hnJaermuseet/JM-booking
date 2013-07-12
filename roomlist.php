@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 function getRoomEventList(array $rooms, $start, $end) {
     $entries = array();
     $timed_entries = array();
-    foreach ($rooms as $room_id => $room)
+    foreach ($rooms as $room)
     {
         $events_room = checktime_Room ($start, $end, $room['area_id'], $room['room_id']);
-        if(isset($events_room[$room_id]))
+        if(isset($events_room[$room['room_id']]))
         {
-            foreach ($events_room[$room_id] as $entry_id)
+            foreach ($events_room[$room['room_id']] as $entry_id)
             {
                 $event = getEntry ($entry_id);
                 if(count($event))
