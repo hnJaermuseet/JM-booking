@@ -67,6 +67,8 @@ function getRoomEventList($rooms, $start, $end, $area) {
     );
 }
 
+function roomList($area, $room, $heading, $thisFile, $year, $month, $day) {
+    global $login, $printed_in_top;
 
 //room has been registred before if it was set in _GET
 $wholeAreaRoom = array (
@@ -88,24 +90,12 @@ else
     }
 }
 
-if (basename($_SERVER['PHP_SELF']) == 'day.php') {
-	$thisFile = 'day.php';
-}
-elseif (basename($_SERVER['PHP_SELF']) == 'month.php') {
-	$thisFile = 'month.php';
-}
-else {
-	$thisFile = 'week.php';
-}
-
 # Table with areas, rooms, minicals.
 ?>
 <table height="140" width="100%" class="hiddenprint">
     <tr>
         <?php
-        $this_area_name = "";
-        $this_room_name = "";
-        $infolink="";
+        $this_area_name = '';
         ?>
         <!-- All areas -->
         <td width="200">
@@ -117,11 +107,14 @@ else {
             if (mysql_num_rows($res)) {
                 while($row = mysql_fetch_assoc($res))
                 {
-                    $this_area_name = htmlspecialchars($row['area_name']);
+                    $area_name = htmlspecialchars($row['area_name']);
                     ?>
                         <a href="<?=$thisFile?>?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&area=<?=$row['area_id']?>"
-                            <?=($row['area_id'] == $area)?' style="color: red;"':''?>><?=$this_area_name?></a><br>
+                            <?=($row['area_id'] == $area)?' style="color: red;"':''?>><?=$area_name?></a><br>
                     <?php
+                    if($row['area_id'] == $area) {
+                        $this_area_name = $area_name;
+                    }
                 }
             }
             ?>
@@ -157,17 +150,6 @@ else {
 
         <!-- Headings -->
         <td style="padding: 10px 10px 10px 10px;">
-        <?php
-        if($thisFile == 'day.php') {
-            $heading = ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.strtolower(__(date('F', $am7))).' '.date('Y', $am7);
-        }
-        elseif($thisFile == 'month.php') {
-            $heading = __(strftime("%B", $monthstart)).' '.date('Y', $monthstart);
-        }
-        else {
-            $heading = __('Week').' '.$thisWeek;
-        }
-        ?>
         <h1 align=center><?=$heading?></h1>
         <h3 align=center><?=$this_area_name.' - '.$theROOM['room_name']?></h3>
         <?php
@@ -198,3 +180,5 @@ echo '<h1>'.$heading.':</h1>'.chr(10);
 echo '</td></tr>'.chr(10);
 
 echo '</table>';
+
+}

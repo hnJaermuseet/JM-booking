@@ -65,6 +65,9 @@ $selected = date('mY', mktime(0, 0, 0, $month, $day, $year));
 $thisMonth = $selected;
 
 include "roomlist.php";
+$heading = __(strftime("%B", $monthstart)).' '.date('Y', $monthstart);
+$thisFile = 'month.php';
+roomList($area, $room, $heading, $thisFile, $year, $month, $day);
 
 function printEmptyTableCells($numberOfCells) {
     for($i = 0; $i < $numberOfCells; $i++) {

@@ -98,6 +98,9 @@ $thisWeek = $selected;
 
 
 include 'roomlist.php';
+$heading = __('Week').' '.$thisWeek;
+$thisFile = 'week.php';
+roomList($area, $room, $heading, $thisFile, $year, $month, $day);
 
 #y? are year, month and day of the previous week.
 #t? are year, month and day of the next week.

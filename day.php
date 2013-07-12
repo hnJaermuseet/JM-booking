@@ -54,6 +54,9 @@ $am7=mktime($morningstarts,0,0,$month,$day,$year);
 $pm7=mktime($eveningends,$eveningends_minutes,0,$month,$day,$year);
 
 include 'roomlist.php';
+$heading = ucfirst(__(strftime("%A", $am7))).', '.date('j', $am7).'. '.strtolower(__(date('F', $am7))).' '.date('Y', $am7);
+$thisFile = 'day.php';
+roomList($area, $room, $heading, $thisFile, $year, $month, $day);
 
 /* ## Tomorrow and yesterday ## */
 #y- are year, month and day of yesterday
