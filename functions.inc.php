@@ -1968,16 +1968,19 @@ function checkTime_Room ($start, $end, $area_id, $room = 0)
 			$room = array();
 			// Getting all rooms in area
 			$Q_rooms = mysql_query("select id as room_id from `mrbs_room` where area_id = '$area_id'");
-			while($R_room = mysql_fetch_assoc($Q_rooms))
+			while($R_room = mysql_fetch_assoc($Q_rooms)) {
 				$room[$R_room['room_id']] = $R_room['room_id'];
+            }
 		}
 		
 		$room[0] = 0; // Whole area means that the whole area is reserved!
 	}
-	elseif($room != 0)
+	elseif($room != 0) {
 		$room_query = " and (room_id like '%;$room;%' || room_id like '%;0;%')"; // This room or the whole building
-	else
+    }
+	else {
 		$room_query = '';
+    }
 	
 	$sql = "select entry_id, room_id from `entry` where
 		(
@@ -1987,7 +1990,7 @@ function checkTime_Room ($start, $end, $area_id, $room = 0)
 		)
 		and area_id = '$area_id'".$room_query;
 	$Q_checktime = mysql_query($sql);
-	
+
 	$return = array();
 	if(mysql_num_rows($Q_checktime))
 	{
@@ -1998,12 +2001,14 @@ function checkTime_Room ($start, $end, $area_id, $room = 0)
 				$R_entry['room_id'] = splittIDs($R_entry['room_id']);
 				foreach ($room as $rid)
 				{
-					if(in_array($rid, $R_entry['room_id']))
+					if(in_array($rid, $R_entry['room_id'])) {
 						$return[$rid][$R_entry['entry_id']] = $R_entry['entry_id'];
+                    }
 				}
 			}
-			else
+			else {
 				$return[$room][$R_entry['entry_id']] = $R_entry['entry_id'];
+            }
 		}
 	}
 	return $return;
