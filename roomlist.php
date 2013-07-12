@@ -157,8 +157,16 @@ function roomList(array $areas, $areaUrlString, array $rooms, $roomUrlString, $h
     global $login;
 
     $room_names = array();
+    $allRoomsNameAlreadyAdded = false;
     foreach($rooms as $room) {
+        if($room['room_id'] == 0) {
+            if($allRoomsNameAlreadyAdded) {
+                continue;
+            }
+            $allRoomsNameAlreadyAdded = true;
+        }
         $room_names[] = $room['room_name'];
+
     }
 
 # Table with areas, rooms, minicals.
