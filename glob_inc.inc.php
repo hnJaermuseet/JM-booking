@@ -75,10 +75,10 @@ function debugPrintLog ()
 		echo '<!-- '.$debug_log.' -->';
 	}
 }
-function debugPrintTimeTotal() {
+function debugPrintTimeTotal($optionalText = '') {
     global $debug_time_start;
     $time = ((microtime(true) - $debug_time_start))*1000;
-    return '<!-- TIME: '.$time.' ms-->';
+    return '<!-- TIME: '.$time.' ms '.$optionalText.'-->';
 }
 
 debugAddToLog(__FILE__, __LINE__, 'Start of glob_inc.inc.php');

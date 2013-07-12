@@ -32,23 +32,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 include_once("glob_inc.inc.php");
 
-if(isset($_GET['room']))
-	$room=(int)$_GET['room'];
+if(isset($_GET['room'])) {
+	$room = (int)$_GET['room'];
+}
 
 # If we don't know the right date then use today:
-if (!isset($_GET['day']))
-	$day = date('d', time());
+if (!isset($_GET['day'])) {
+    $day = date('d', time());
+}
 if(!isset($_GET['month']) or !isset($_GET['year'])){
 	$month = date("m",time());
 	$year  = date("Y",time());
 }
 else {
 	# Make the date valid if day is more then number of days in month:
-	$day=(int)$_GET['day'];
-	$month=(int)$_GET['month'];
-	$year=(int)$_GET['year'];
-	while (!checkdate($month, $day, $year))
+	$day    = (int)$_GET['day'];
+	$month  = (int)$_GET['month'];
+	$year   = (int)$_GET['year'];
+	while (!checkdate($month, $day, $year)) {
 		$day--;
+    }
 }
 
 # Set the date back to the start of month
@@ -63,6 +66,13 @@ $thisMonth = $selected;
 
 include "roomlist.php";
 
+function printEmptyTableCells($numberOfCells) {
+    for($i = 0; $i < $numberOfCells; $i++) {
+        echo '     <td class="time3" style="background-color: lightgray;">&nbsp;</td>'.chr(10);
+    }
+}
+
+
 $monthTime	= mktime (0, 0, 0, $month, 1, $year);
 $monthLast	= mktime (0, 0, 0, ($month+1), 1, $year);
 $numDays	= date('t', $monthTime);
@@ -70,15 +80,12 @@ $startWeek	= date('W', $monthTime);
 
 $Q_room = mysql_query("select id as room_id, room_name from `mrbs_room` where area_id = '".$area."' and hidden = 'false'");
 $rooms = array();
-while($R_room = mysql_fetch_assoc($Q_room))
+while($R_room = mysql_fetch_assoc($Q_room)) {
 	$rooms[$R_room['room_id']]			= $R_room['room_name'];
+}
 
 
 echo '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="timetable">'.chr(10);
-//echo ' <tr><td class="time3" colspan="9"><center><h2><a class="graybg" href="month.php?year='.$year.'&amp;month='.$month.'&amp;day=1&amp;area='.$area.'&amp;room='.$room.'">';
-//echo _(date('M', $monthTime)).' '.$year;
-//echo '</h2></center></td>';
-//echo '</tr>'.chr(10);
 
 echo ' <tr>'.chr(10);
 echo '  <td class="time3"><center>'.__('Week').'</center></td>'.chr(10);
@@ -94,7 +101,6 @@ $printedWeeks = array();
 $firstWeek = true;
 for ($i = 1; $i < $numDays + 1; $i++)
 {
-	
 	$thisWeek = date('W', mktime(0, 0, 0, $month, $i, $year));
 	// If this week isn't printed, lets print it
 	if(!in_array($thisWeek, $printedWeeks))
@@ -103,8 +109,9 @@ for ($i = 1; $i < $numDays + 1; $i++)
 		{
 			$firstWeek = false;
 		}
-		else
+		else {
 			echo '    </tr>'.chr(10);
+        }
 			
 		echo '    <tr>'.chr(10);
 		echo '     <td class="time3"><center><h2>';
@@ -114,7 +121,14 @@ for ($i = 1; $i < $numDays + 1; $i++)
 		echo '</h2></center></td>'.chr(10);
 		
 		// Checking the weekday and adding spaces
-		switch (date('w', mktime (0, 0, 0, $month, $i, $year)))
+        // 0 = Sunday   = 6 cells
+        // 6 = Saturday = 5 cells
+        // (...)
+        // 1 = Monday   = 0 cells
+        $numberOfEmptyCells = date('w', mktime (0, 0, 0, $month, $i, $year));
+        printEmptyTableCells($numberOfEmptyCells=='0'?6:$numberOfEmptyCells-1);
+        /*
+		switch ()
 		{
 			case '0': // Sunday
 				echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
@@ -130,7 +144,7 @@ for ($i = 1; $i < $numDays + 1; $i++)
 				echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
 			case '1': // Mondag, non added
 				break;
-		}
+		}                  */
 		
 		$printedWeeks[] = $thisWeek;
 	}
@@ -140,11 +154,13 @@ for ($i = 1; $i < $numDays + 1; $i++)
 	echo '<table width="100%"><tr><td>';
 	echo '<center><a href="day.php?year='.$year.'&amp;month='.$month.'&amp;day='.$i.'&amp;area='.$area.'&amp;room='.$room.'">';
 	$ymd = $year;
-	if(strlen($month) == 1)
+	if(strlen($month) == 1) {
 		$ymd .= '0';
+    }
 	$ymd .= $month;
-	if(strlen($i) == 1)
+	if(strlen($i) == 1) {
 		$ymd .= '0';
+    }
 	$ymd .= $i;
 	
 	echo $i;
@@ -212,17 +228,19 @@ for ($i = 1; $i < $numDays + 1; $i++)
 				$entry = $entries[$entry_id];
 				echo '<table cellpadding="0" cellspacing="0"><tr><td style="font-size: x-small;">';
 				echo '<b>';
-				if(date('Ymd', $thistime) != date('Ymd', $entry['time_start']))
-					//echo ', '.date('d-m-Y', $entry['time_start']);
+				if(date('Ymd', $thistime) != date('Ymd', $entry['time_start'])) {
 					echo '00:00';
-				else
+                }
+				else {
 					echo date('H:i', $entry['time_start']);
+                }
 				echo '&nbsp;-&nbsp;';
-				if(date('Ymd', $thistime) != date('Ymd', $entry['time_end']))
-					//echo ', '.date('d-m-Y', $entry['time_end']);
+				if(date('Ymd', $thistime) != date('Ymd', $entry['time_end'])) {
 					echo '23:59';
-				else
+                }
+				else {
 					echo date('H:i', $entry['time_end']);
+                }
 				echo '</b>&nbsp;';
 				echo '</td><td style="font-size: x-small;">';
 				echo '<a href="entry.php?entry_id='.$entry['entry_id'].'">'.$entry['entry_name'].'</a>';
@@ -230,8 +248,9 @@ for ($i = 1; $i < $numDays + 1; $i++)
 			}
 		}
 	}
-	else
+	else {
 		echo '&nbsp;';
+    }
 	echo '</td></tr>'.chr(10);
 	echo '</table>'.chr(10);
 }
@@ -239,17 +258,23 @@ for ($i = 1; $i < $numDays + 1; $i++)
 switch (date('w', $thistime))
 {
 	case '1': // Sunday
-		echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
+        printEmptyTableCells(6);
+        break;
 	case '2': // Saturday
-		echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
+        printEmptyTableCells(5);
+        break;
 	case '3': // Friday
-		echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
+        printEmptyTableCells(4);
+        break;
 	case '4': // Thursday
-		echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
+        printEmptyTableCells(3);
+        break;
 	case '5': // Wednesday
-		echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
+        printEmptyTableCells(2);
+        break;
 	case '6': // Tuesday
-		echo '     <td class="time3" style="background-color: grey;">&nbsp;</td>'.chr(10);
+        printEmptyTableCells(1);
+        break;
 	case '0': // Mondag, non added
 		break;
 }
