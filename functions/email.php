@@ -290,7 +290,7 @@ function emailSendEntryChanges ($entry, $rev_num, $user_id)
 		templateAssignEntryChanges('smarty', $entry, $rev_num, true);
 		$message = $smarty->fetch('file:mail-entry-changes.tpl');
 		$subject = "[booking]".$entry['entry_id'].' '.
-		date('d.m.Y', $entry['time_start']).' Endring';
+		date('d.m.Y', $entry['time_start']).' Endring - ' . $entry['entry_name'];
 		
 		emailSend($user_id, $subject, $message);
 	}
@@ -308,7 +308,7 @@ function emailSendEntryNew ($entry, $user_id)
 		templateAssignSystemvars('smarty');
 		$message = $smarty->fetch('file:mail-entry-new.tpl');
 		$subject = "[booking]".$entry['entry_id'].' '.
-		date('d.m.Y', $entry['time_start']).' Ny booking';
+		date('d.m.Y', $entry['time_start']).' Ny booking - ' . $entry['entry_name'];
 		
 		emailSend($user_id, $subject, $message);
 	}
@@ -327,7 +327,7 @@ function emailSendEntryNewUser ($entry, $rev_num, $user_id)
 		templateAssignEntryChanges('smarty', $entry, $rev_num);
 		$message = $smarty->fetch('file:mail-entry-newuser.tpl');
 		$subject = "[booking]".$entry['entry_id'].' '.
-		date('d.m.Y', $entry['time_start']).' Ny som vert';
+		date('d.m.Y', $entry['time_start']).' Ny som vert - ' . $entry['entry_name'];
 		
 		emailSend($user_id, $subject, $message);
 	}
@@ -346,7 +346,7 @@ function emailSendEntryUserDeleted ($entry, $rev_num, $user_id)
 		templateAssignEntryChanges('smarty', $entry, $rev_num);
 		$message = $smarty->fetch('file:mail-entry-userdeleted.tpl');
 		$subject = "[booking]".$entry['entry_id'].' '.
-		date('d.m.Y', $entry['time_start']).' Ikke lenger vert';
+		date('d.m.Y', $entry['time_start']).' Ikke lenger vert - ' . $entry['entry_name'];
 		
 		emailSend($user_id, $subject, $message);
 	}
@@ -364,7 +364,7 @@ function emailSendEntryDeleted ($entry, $user_id)
 		templateAssignSystemvars('smarty');
 		$message = $smarty->fetch('file:mail-entry-deleted.tpl');
 		$subject = "[booking]".$entry['entry_id'].' '.
-		date('d.m.Y', $entry['time_start']).' Slettet';
+		date('d.m.Y', $entry['time_start']).' Slettet - ' . $entry['entry_name'];
 		
 		emailSend($user_id, $subject, $message);
 	}
@@ -382,7 +382,7 @@ function emailSendEntryUndeleted ($entry, $user_id)
 		templateAssignSystemvars('smarty');
 		$message = $smarty->fetch('file:mail-entry-undeleted.tpl');
 		$subject = "[booking]".$entry['entry_id'].' '.
-		date('d.m.Y', $entry['time_start']).' Gjenopprettet';
+		date('d.m.Y', $entry['time_start']).' Gjenopprettet - ' . $entry['entry_name'];
 		
 		emailSend($user_id, $subject, $message);
 	}
