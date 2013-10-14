@@ -247,7 +247,7 @@ function printWeekdayWithEntries($timed_entries, $entries, $start) {
                 <td class="dayplan" style="font-size: 10px"><?php
                     echo $entries[$entry_id]['num_person_child'].'&nbsp;/&nbsp;'.$entries[$entry_id]['num_person_adult'];
                     ?></td>
-                <td class="dayplan"><a href="entry.php?entry_id='.$entry_id.'"><?=$entries[$entry_id]['entry_name']?></a></td>
+                <td class="dayplan"><a href="entry.php?entry_id=<?=$entry_id?>"><?=$entries[$entry_id]['entry_name']?></a></td>
             </tr>
             <?php
             if($last_time < $entries[$entry_id]['time_end']) {
