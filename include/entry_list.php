@@ -14,6 +14,7 @@ else
 	$listtype = $_GET['listtype'];
 $addAdfterSQL = '';
 $return_to = 'entry_list';
+$entry_list_ingress = '';
 switch($listtype)
 {
 	case 'not_confirmed':

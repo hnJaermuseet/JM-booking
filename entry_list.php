@@ -124,7 +124,7 @@ else
 			echo '  <td>';
 			echo date('H:i', $entry['time_start']).'&nbsp;';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('m',$entry['time_start']).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			
@@ -132,7 +132,7 @@ else
 			echo '  <td>';
 			echo date('H:i', $entry['time_end']).'&nbsp;';
 			echo '<a href="day.php?year='.date('Y', $entry['time_end']).'&amp;month='.date('m', $entry['time_end']).'&amp;day='.date('d', $entry['time_end']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_end']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_end']).'&amp;month='.date('m', $entry['time_end']).'&amp;day='.date('d', $entry['time_end']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_end'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_end']).'&amp;month='.date('m', $entry['time_end']).'&amp;day='.date('d', $entry['time_end']).'&amp;area='.$entry['area_id'].'">'.date('m',$entry['time_end']).'</a>-';
 			echo date('Y', $entry['time_end']);
 			echo '</td>'.chr(10);
 			
