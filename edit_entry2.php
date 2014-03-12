@@ -186,6 +186,10 @@ function addChoiceBeforeAndAfter ($var, $before, $after)
 	$entry_fields[$var]['choice_before']	= $before;
 	$entry_fields[$var]['choice_after']		= $after;
 }
+function addChoiceAttribute ($var, $attributes) {
+    global $entry_fields;
+    $entry_fields[$var]['choice_attribute'] = $attributes;
+}
 function addID ($var, $id)
 {
 	global $entry_fields;
@@ -232,14 +236,20 @@ addOnchange ('area_id', 'choose_area(this.options[this.selectedIndex].value);');
 /* Making choices */
 
 // Entry_type_id
-$Q_entry_type = mysql_query("select entry_type_id, entry_type_name, resourcenum_length from `entry_type` order by entry_type_name");
+$Q_entry_type = mysql_query("select entry_type_id, entry_type_name, resourcenum_length, entry_type_inactive from `entry_type` order by entry_type_name");
 $choices = array('0' => __('Non selected'));
 $entry_type_resourcenum_length = array();
+$attributes = array();
 while( $r_choice = mysql_fetch_assoc($Q_entry_type)) {
 	$choices[$r_choice['entry_type_id']] = $r_choice['entry_type_name'];
     $entry_type_resourcenum_length[$r_choice['entry_type_id']] = $r_choice['resourcenum_length'];
+
+    if($r_choice['entry_type_inactive'] == '1') {
+        $attributes[$r_choice['entry_type_id']] = ' data-inactive="true" style="display: none;"';
+    }
 }
 addChoice ('entry_type_id', $choices);
+addChoiceAttribute('entry_type_id', $attributes);
 
 // Area_id
 $Q_area = mysql_query("select id as area_id, area_name, area_group from `mrbs_area` order by area_name");

@@ -692,3 +692,7 @@ ALTER TABLE  `entry_type` ADD  `resourcenum_length` INT NOT NULL AFTER  `day_end
 
 -- 2012-06-15, new field in program: program_inactive
 ALTER TABLE  `programs` ADD  `program_inactive` BOOLEAN NOT NULL AFTER  `program_desc`;
+
+
+-- 2014-03-04, new field in entry_type: entry_type_inactive
+ALTER TABLE  `entry_type` ADD  `entry_type_inactive` BOOLEAN NOT NULL AFTER  `resourcenum_length`;

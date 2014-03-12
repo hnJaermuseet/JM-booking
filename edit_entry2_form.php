@@ -442,6 +442,9 @@ foreach ($entry_fields as $field)
 						echo '<option value="'.$choiceid.'"';
 						if($choiceid == $field['value'])
 							echo ' selected';
+                        if(isset($field['choice_attribute'][$choiceid])) {
+                            echo $field['choice_attribute'][$choiceid];
+                        }
 						echo '>'.$choice.'</option>';
 					}
 					echo '</select>'.$after;
@@ -647,6 +650,14 @@ echo 'var options = {
 var as = new bsn.AutoSuggest(\'customer_name\', options, \'customer_id\', \'customer_id2\');
 ';
 echo '</script>'.chr(10);
+
+?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select[name=entry_type_id] option:selected').show();
+        });
+    </script>
+<?php
 
 echo '<script type="text/javascript">
 '.$after_run.'

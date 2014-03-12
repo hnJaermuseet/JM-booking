@@ -62,6 +62,9 @@ if(isset($_GET['editor']))
 	$editor->makeNewField('entry_type_name', __('Entrytype name'), 'text');
 	$editor->makeNewField('entry_type_name_short', __('Short entrytype name'), 'text');
 	$editor->makeNewField('resourcenum_length', _h('Length of resource number').'<br />('._h('If zero, resource number will not be required').')', 'text');
+    $editor->makeNewField('entry_type_inactive', _l('Inactive'), 'select');
+    $editor->addChoice('entry_type_inactive', 0, _l('No'));
+    $editor->addChoice('entry_type_inactive', 1, _l('Yes'));
 	
 	$editor->getDB();
 	
@@ -217,7 +220,7 @@ else
 	echo '	</tr>'.chr(10).chr(10);
 	while($ROW = mysql_fetch_assoc($Q_programs))
 	{
-		echo '	<tr>'.chr(10);
+        echo '	<tr'.($ROW['entry_type_inactive']?' class="strike graytext"':'').'>'.chr(10);
 		echo '		<td><b>'.$ROW['entry_type_id'].'</b></td>'.chr(10);
 		echo '		<td>'.iconHTML('page_white_stack').' '.$ROW['entry_type_name'].'</td>'.chr(10);
 		echo '		<td>'.$ROW['entry_type_name_short'].'</td>'.chr(10);
@@ -269,13 +272,12 @@ else
 		
 		
 		echo '		<td>';
-		if($login['user_access_entrytypeadmin'])
+		if($login['user_access_entrytypeadmin']) {
 			echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1&amp;id='.$ROW['entry_type_id'].'">'.
 			iconHTML('page_white_edit').' '.__('Edit').' -:- ';
-		
+        }
+
 		echo '</td>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 	}
 }
-
-?>
