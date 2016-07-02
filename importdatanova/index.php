@@ -35,6 +35,10 @@ J�rmuseet
 http://jaermuseet.no/
 
 */
+function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+}
+set_error_handler("exception_error_handler");
 
 $alert_admin = false;
 $require_login = false;
@@ -116,9 +120,20 @@ try {
                     $varegruppe_til
                 );
             printout($printout_prefix . ' Webreport retrived.');
+            if ($webreport == 'Not found.') {
+                printout($printout_prefix . ' - No results found.');
+                continue;
+            }
 
-            printout($printout_prefix . ' Parsing retrived HTML.');
-            $data_rows_year = datanova_webreport_parser($webreport);
+            // Remove HTTP headers
+		if (strpos($webreport, '<?xml') === FALSE) {
+               throw new Exception('Missing HTTP headers? 1000 first chars: '. substr($webreport, 0, 1000));
+            }
+            $webreport = substr($webreport, strpos($webreport, '<?xml'));
+            $webreport = substr($webreport, strpos($webreport, chr(10).chr(10)));
+
+            printout($printout_prefix . ' Parsing retrived HTML. Rows: ' . substr_count($webreport, '<row'));
+            $data_rows_year = datanova_webreport_parser($webreport, date('d.m.Y'));
 
             $data_rows = array_merge_recursive($data_rows, $data_rows_year);
             printout($printout_prefix . ' Datarows parsed: ' . count($data_rows_year) . ' (total: ' . count($data_rows) . ')');
@@ -232,9 +247,10 @@ try {
         }
     }
 } catch (Exception $e) {
-    printout('Exception: ' . $e->getMessage());
+
+    printout('Exception: ' . $e->getMessage() . chr(10) . $e->getTraceAsString());
     $alert_admin = true;
-    $alerts[] = 'Exception: ' . $e->getMessage();
+    $alerts[] = 'Exception: ' . $e->getMessage() . chr(10) . $e->getTraceAsString();
 }
 
 if ($alert_admin)

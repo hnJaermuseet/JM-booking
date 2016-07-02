@@ -25,22 +25,35 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-function datanova_webreport_login($baseurl, $username, $password, $shop, &$ch, $relogin = false)
+function curl_execute (array $options, $ch) {
+    curl_setopt_array($ch, $options);
+    if ($options[CURLOPT_POST] === 1) {
+        echo 'POST ' . $options[CURLOPT_URL].chr(10);
+    }
+    else {
+        echo 'GET ' . $options[CURLOPT_URL].chr(10);
+    }
+    return curl_exec($ch);
+}
+
+function datanova_webreport_login($baseurl, $username, $password, $shop, &$ch, $viewstategenerator, $eventvalidation, $viewstate)
 {
     $url = $baseurl . '/';
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS,
+    $options = array();
+    $options[CURLOPT_URL] = $url;
+    $options[CURLOPT_POST] = 1;
+    $options[CURLOPT_POSTFIELDS] =
+        '__VIEWSTATE='.$viewstate.'&'.
         '__EVENTARGUMENT=&' .
         '__EVENTTARGET=&' .
-        '__EVENTVALIDATION=%2FwEWBgKD%2BameBALerNSyAQKG87HkBgK1qbSRCwLCi9reAwKT%2BPmaCOggkRMmzvBRUaODy9GRtkyi%2FxHG&' .
+        '__VIEWSTATEGENERATOR='.$viewstategenerator.'&' .
+        '__EVENTVALIDATION='.$eventvalidation.'&' .
         '__LASTFOCUS=&' .
-        '__VIEWSTATE=%2FwEPDwUKLTY2Nzg3NjgzNw9kFgICAw9kFgQCAw8PFgIeBFRleHQFAk9LZGQCBA8PFgIfAAUHQXZzbHV0dGRkZF7uMzjbgEjAEfvEtDliGVIPXb8X&' .
         'ucUserLogin$btnLogin.x=14&' .
         'ucUserLogin$btnLogin.y=16&' .
         'ucUserLogin$txtUID=' . $username .'&' .
-        'ucUserLogin$txtPWD=' . $password .'&');
-    $result = curl_exec($ch);
+        'ucUserLogin$txtPWD=' . $password;
+    $result = curl_execute($options, $ch);
 
     $wrong_usernameorpassword = '<script type=\'text/javascript\'>alert(\'Feil brukernavn og/eller passord\')</script></form>';
     $login_failedorsomething_message = '<span id="lblMessage"><font face="Arial Narrow" color="Red" size="5">Vennligst legg inn riktig informasjon</font></span>';
@@ -51,15 +64,11 @@ function datanova_webreport_login($baseurl, $username, $password, $shop, &$ch, $
     }
 }
 
-/*
 function datanova_webreport_logout ($baseurl, &$ch)
 {
-	$url = $baseurl.'/default.aspx?flag=logout';
-	curl_setopt ($ch, CURLOPT_URL, $url);
-	curl_setopt ($ch, CURLOPT_POST, 0);
-	$result = curl_exec ($ch);
+	$url = $baseurl.'/ajax/UserControl_LoggedIn,App_Web_yvfx3v1s.ashx?_method=updateLogout&_session=nodefault.aspx';
+	$result = curl_execute (array(CURLOPT_URL => $url, CURLOPT_POST => 0), $ch);
 }
-*/
 
 function datanova_webreport_getreport($baseurl, $username, $password, $shop, $year, $varegruppe_fra, $varegruppe_til)
 {
@@ -76,125 +85,19 @@ function datanova_webreport_getreport($baseurl, $username, $password, $shop, $ye
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLINFO_HEADER_OUT, true);
 
-    /* Login */
-    datanova_webreport_login($baseurl, $username, $password, $shop, $ch);
+    // Set headers
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        //'User-Agent: JM-Booking',
+        'Accept: image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-ms-application, application/x-ms-xbap, application/vnd.ms-xpsdocument, application/xaml+xml, */*', 
+'Accept-Language: no', 
+'User-Agent: Mozilla/4.0 (compatible; JM-Booking)', 
+ 'Host: 192.168.114.43',
+'Connection: Keep-Alive',
+    ));
 
+    $url = $baseurl . '/';
 
-    /* Generate report */
-    $url = $baseurl . '/MainReport.aspx?nodeid=6.4';
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, 0);
-    $result = curl_exec($ch);
-
-    // Get viewstate and eventvalidation (needed in this ASP.NET application to verify the origin of the form)
-    preg_match_all("#<input.*?name=\"__viewstate\".*?value=\"(.*?)\".*?>.*?<input.*?name=\"__viewstategenerator\".*?value=\"(.*?)\".*?>#mis", $result, $arr_viewstate);
-    if (!isset($arr_viewstate[1][0]) || !isset($arr_viewstate[2][0])) {
-        throw new Exception ('Viewstate/Eventvalidation not found in result from dnrepparam.aspx in first request after login. HTML fetching failed.' .
-            chr(10) . 'HTML body: ' . chr(10) . $result);
-    }
-    $viewstate = $arr_viewstate[1][0];
-    $eventvalidation = $arr_viewstate[2][0];
-
-    // Set up post data
-    $post = array(
-            /*
-        'B11[]=1-Garborgsenteret', 'B11[]=3-Vitenfabrikken', 'B11[]=4-Vitengarden', 'B11[]=5-Garborgstova',
-        'D1=' . $year, 'D2=' . $year,
-        'P13=' . $varegruppe_fra, 'P14=' . $varegruppe_til,
-
-        'D10=', 'D21=', 'D22=', 'D23=', 'D24=', 'D25=', 'D26=', 'D27=', 'D28=', 'D29=', 'D3=', 'D30=', 'D4=', 'D5=', 'D6=', 'D9=',
-        'DropDownListGraphic=Sylinder',
-        'Emailsubmit=',
-        'Grid1_Data=',
-        'Grid1_EventList=',
-        'H8=8',
-        'ImageButton13.x=48',
-        'ImageButton13.y=13',
-        'L7=', 'L8=',
-        'P15=', 'P16=', 'P17=', 'P18=', 'P19=', 'P20=', 'T18=1',
-        '__EVENTARGUMENT=',
-        '__EVENTTARGET=',
-        // Example - eventvalidation:
-        //'__EVENTVALIDATION=%2FwEW3gICtMGshQECkuD%2F5AgC3O%2Fm7QwCn%2FixrA0Cn%2FiN8QYC9MG%2F6AEC9MGLjQkC9MGn5A8C9MGziQcC9MGP0ggC9MGb9wEC9MH3mwkC9MHDvAIC9MHfwQsC9MGr6gwCsKLCnAkCsKLeoQICsKLqmAcCsKLGvQgCsKLSxgECsKKu6woCsKK6jAICsKKW0QsCsKLi9QwCsKL%2BngQCjYvgsQcCjYv82ggCjYuIsg0CjYvk1gYCjYvw%2Bw8CjYvMnAcCjYvYoQgCjYu0ygECjYuA7woCjYucsAICuuGg9wgCuuG8GAK64cjzBgK64aSUDgK64bC5BwK64YzCCAK64ZjnAQK64fSLCQK64cCsAgK64dzxCwKXys7oBgKXytqNDgKXyvbkDAKXysKJBAKXyt7SDQKXyqr3BgKXyoaYDgKXypK9BwKXyu7BCAKXyvrqAQLs0%2BydAwLs0%2FimBALs05SeCQLs0%2BCiAgLs0%2FzHCwLs08joDALs06SNBALs07DWDQLs04z7BgLs05icDgLc7%2BLtDAKf%2BLWsDQKf%2BInxBgL0wbvoAQL0wY%2BNCQL0waPkDwL0wbeJBwL0wYvSCAL0wZ%2F3AQL0wfObCQL0wce8AgL0wdvBCwL0wa%2FqDAKwosacCQKwotqhAgKwou6YBwKwosK9CAKwotbGAQKwoqrrCgKwor6MAgKwopLRCwKwoub1DAKwovqeBAKNi%2BSxBwKNi%2FjaCAKNi4yyDQKNi%2BDWBgKNi%2FT7DwKNi8icBwKNi9yhCAKNi7DKAQKNi4TvCgKNi5iwAgK64aT3CAK64bgYArrhzPMGArrhoJQOArrhtLkHArrhiMIIArrhnOcBArrh8IsJArrhxKwCArrh2PELApfKyugGApfK3o0OApfK8uQMApfKxokEApfK2tINApfKrvcGApfKgpgOApfKlr0HApfK6sEIApfK%2FuoBAuzT6J0DAuzT%2FKYEAuzTkJ4JAuzT5KICAuzT%2BMcLAuzTzOgMAuzToI0EAuzTtNYNAuzTiPsGAuzTnJwOAtzv3u0MAtOA9AMC0oD0AwLRgPQDAtCA9AMC14D0AwLWgPQDAtWA9AMCxID0AwLLgPQDAtOANALTgDgC04A8Atzv2u0MAtOA8AMC0oDwAwLRgPADAtCA8AMC14DwAwLWgPADAtWA8AMCxIDwAwLLgPADAtOAMALTgDwC04A4Atzv1u0MAtOA%2FAMC0oD8AwLRgPwDAtCA%2FAMC14D8AwLWgPwDAtWA%2FAMCxID8AwLLgPwDAtOAPALTgDAC04A0AtOACALTgAwCUwLTgAQC04AYAtOA3AMC04DQAwLSgDwC0oAwAtKANALSgAgC0oAMAlIC0oAEAtKAGALSgNwDAtKA0AMC0YA8AtGAMALRgDQC0YAIAtGADAJRAtGABALRgBgC0YDcAwLRgNADAtCAPALQgDAC0IA0AtCACALQgAwCUALQgAQC0IAYAtCA3AMC0IDQAwLXgDwC14AwAteANALXgAgC3O%2FS7QwC04D4AwLSgPgDAtGA%2BAMC0ID4AwLXgPgDAtaA%2BAMC1YD4AwLEgPgDAsuA%2BAMC04A4AtOANALTgDAC04AMAtOACALTgAQCUwLTgBwC04DYAwLTgNQDAtKAOALSgDQC0oAwAtKADALSgAgC0oAEAlIC0oAcAtKA2AMC0oDUAwLRgDgC0YA0AtGAMALRgAwC0YAIAtGABAJRAtGAHALRgNgDAtGA1AMC0IA4AtCANALQgDAC0IAMAtCACALQgAQCUALQgBwC0IDYAwLQgNQDAteAOALXgDQC14AwAteADALk787tDALk74ruDALc74buDALMgCwC04AsAtGALALQgCwC14DsAwL2rom6CwLmwaPUBwL5waPUBwL7waPUBwL6waPUBwL9wePXBwKaz8j9DALNt9iuBgKsjr4iApi%2Fr%2FkBApLrlMEDAtvq4vkJAvbTgI8EApG9nqQOAqymvLkIAseP2s4CArLlmpAKAs3OuKUEAoqvhboLApGYo88FAqyBweQPAsfq3vkJAuLT%2FI4EAv28mqQOApimuLkIArOP1s4CAp7llpAKArnOtKUEAvaugboLAoztgtQGArKM4aYMAqHCgpEHAsKoi5kMApSHz4sOAqPA4dYJAujviu4MAq7lmpAKAszzsqwNAvrl05MGAvWVpqAKAord6dACAoWxguoPAqrh0LQKAtLCmdMIAo%2BlvtIOAteu16YJAv2P844PAreHjOEEArPervEKAoypjxICj6mPEgKOqY8SAvb4%2BJQEAqS8%2BNIKAomTpZ4FAua8h6EPAsOlmbQBAoCFyqEKAv2urMsNAvDDqskKAoutyN4EArrx7p4GAtXajDQC0efw4woCk%2B2Uyw8CxI%2FhlQ0C8PPPwgoCpbGOUALy8vSpDALOrNveAgK1v8L3BgLp3uL5BAKQmLX2BwKRlq1qArnCucoFAs7t4tAHApmEiscOAv%2FExeMKAoiE2LoMApbf880B3WPWF1S6LV%2B9lTTVS2Xe9cunLVM%3D',
-        '__EVENTVALIDATION=' . $eventvalidation,
-        '__LASTFOCUS=',
-        // Example - viewstate:
-        //'__VIEWSTATE=%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%2BPC9MZXZlbHM%2BZGQCAw8PFgYfDGYfDQURPExldmVscz48L0xldmVscz4fDmZkZAILD2QWBgIJDxAPZBYCHgVzdHlsZQURdmlzaWJpbGl0eTpoaWRkZW5kZGQCFw8PZBYCHwQFHmphdmFzY3JpcHQ6cmV0dXJuIHNhdmVFbWFpbCgpO2QCGQ8PFgIfAwUQRW1haWwgYW5tZWxkZWxzZRYCHwQFIGphdmFzY3JpcHQ6cmV0dXJuIG9wRW1haWxQYWdlKCk7ZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WFwUDQjExBQVjdGwyNgUMSW1hZ2VCdXR0b24xBQ1JbWFnZUJ1dHRvbjExBQ1JbWFnZUJ1dHRvbjEyBQ1JbWFnZUJ1dHRvbjEzBQ5iYWNrdXBvbnNlcnZlcgUPUmFkaW9CdXR0b25GcmUxBQ9SYWRpb0J1dHRvbkZyZTEFD1JhZGlvQnV0dG9uRnJlMgUPUmFkaW9CdXR0b25GcmUyBQ9SYWRpb0J1dHRvbkZyZTMFD1JhZGlvQnV0dG9uRnJlMwUPUmFkaW9CdXR0b25GcmU0BQ9SYWRpb0J1dHRvbkZyZTQFD1JhZGlvQnV0dG9uRnJlNQUPUmFkaW9CdXR0b25GcmU1BQ9DaGVja0JveExpc3QxJDAFD0NoZWNrQm94TGlzdDEkMQUPQ2hlY2tCb3hMaXN0MSQyBQ9DaGVja0JveExpc3QxJDMFD0NoZWNrQm94TGlzdDEkMwUMYnRuRW1haWxTYXZlK9T2aYh4y%2FBHZuSBJqMp460JClU%3D',
-        '__VIEWSTATE=' . $viewstate,
-        'ctl22=sum(GrossSalesVal)',
-        'ctl24=t.copkShopNo%2B' - '%2Bt.coShopName',
-        'ctl26=on',
-        'hdnAlert1=',
-        'hdnEmail=',
-        'hdnExePath=',
-        'hdnFileName=',
-        'hdnGraphField=1',
-        'hdnGraphOption=',
-        'hdnLanguage=NOR',
-        'hdnMQry=select%20%20coshopno%2C(select%20coshopname%20from%20tashop%20where%20copkshopno%3Dcoshopno)%20as%20coshopname%2C%20coitemname%2Ccoitemno%2CN_cofkitemgroupno%2CCodate%2Csalesqty%2CMRP%2CGrossSalesVal%2Ccodiscamt%2CCoPuramt%2CTurnoverExDisc%2Ccosaleswovat%2Cvatamt%2CcoActivitySalesAmt%2CcoCredSalesAmt%2Ccogrossprofitamt%2CGrossProfitPercent%2CBudGrossProfitPercent%2CVariance%2CCoWeekno%2CCoSupplierNo%2C(select%20t1.cosupitemno%20from%20talinkitem_supplier%20t1%20join%20talinkitem_profile%20t2%20%20on%20%20copfksupprofileno%3Dcopfkprofileno%20and%20t1.copfksupplierno%3Dt2.cofkactivesupplierno%20and%20t1.copfkitemno%3Dt2.copfkitemno%20%20where%20t1.copfkitemno%3DViDnRepItemDailySales_FSM.coItemNo%20and%20copfksupprofileno%3Ddbo.profile())%20as%20suppitemno%2Ccocolourname%20as%20Farge%2C%20CONVERT(VARCHAR(30)%2Ccosizename)%20as%20~St%C3%B8rrelse~%2C%20comodelname%20as%20Modell%2C(select%20cofkmanufno%20from%20taelectrical%20where%20copfkitemno%20%3Dcoitemno)%20as%20%20copkmanufno%20%20from%20%20ViDnRepItemDailySales_FSM%20%20where%20coyear%3E%3D\'2011\'%20and%20%20coyear%3C%3D\'2011\'%20and%20%20coshopno%20in%20(1%2C3%2C4%2C5)%20and%20%20n_cofkitemgroupno%3E%3D\'' . $varegruppe_fra . '\'%20and%20%20n_cofkitemgroupno%3C%3D\'' . $varegruppe_til . '\'%20order%20by%20N_cofkitemgroupno%2CCoitemname%2CCodate',
-        'hdnMemberId=1003',
-        'hdnPreview=0',
-        'hdnReportName=6.04%20Salg%20pr.%20vare%20pr.%20dag%20(%20spesifisert%20)',
-        'hdnSavePath=',
-        'hdnTab=0',
-        'hdnTotaliseFieldValues=0~0~0~0~0~0~28342.000~0~1067890.00~1831.00~0.00~1066059.00~1011152.14~54906.86~0.00~0.00~403416.64~39.90~39.14~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0',
-        'hdnYaxisvalue=Butikk',
-        'hdnYvalue=',
-        'hdnbackupserver=',
-        'hdnfieldnames=Butikk%20nr.%2CButikk%20navn%2CVarenavn%2CVarenr.%2CVaregruppenr.%2CTrans.-dato%2CAnt.solgt%2CS.pris%2CBruttooms.%2CRabatt%20bel%C3%B8p%2CInnkj%C3%B8ps-bel%C3%B8p%2COms.etter%20rab.%2COms.%20u%2Fmva%2Cmvabel%C3%B8p%2CKamp.salg%2CKredittsalg%2CBruttofortj.%20kr.%2CBruttooms.fortj.%20%25%2CBud.%20bto.fortj.%20%25%2CAvvik%2CUkenr.%2CLev.nr.%2CLev.Varenr.%2C',
-        'hidChildName=6.4',
-        'hidField=',
-        'searchVal=',
-        */
-
-        '__EVENTTARGET=ctl00$Content$ucParam$btnSend',
-        '__EVENTARGUMENT=',
-        '__VIEWSTATE=' . $viewstate,
-        '__VIEWSTATEGENERATOR=9B61073C',
-        'ctl00$ucLoggedIn$hdnUserid=' . $username,
-        'ctl00$Content$txtSearch=Søk',
-        'ctl00$Content$ucParam$selddl1=' . $year,
-        'ctl00$Content$ucParam$dt71=',
-        'ctl00$Content$ucParam$dt81=',
-        // Garborgsenteret
-        'ctl00$Content$ucParam$selddl11=1',
-        // Vitenfabrikken
-        'ctl00$Content$ucParam$selddl11=3',
-        // Vitengarden
-        'ctl00$Content$ucParam$selddl11=4',
-        // Garborgstova
-        'ctl00$Content$ucParam$selddl11=5',
-        'ctl00$Content$ucParam$txt131=' . $varegruppe_fra,
-        'ctl00$Content$ucParam$txt141=' . $varegruppe_til,
-        'ctl00$Content$ucParam$txt151=',
-        'ctl00$Content$ucParam$txt161=',
-        'ctl00$Content$ucParam$txt171=',
-        'ctl00$Content$ucParam$txt181=',
-        'ctl00$Content$ucParam$txt191=',
-        'ctl00$Content$ucParam$txt201=',
-        'ctl00$Content$ucParam$txt341=',
-        'ctl00$Content$ucParam$txt351=',
-        'ctl00$Content$ucParam$ddlXaxis=coshopno',
-        'ctl00$Content$ucParam$ddlYaxis=salesqty',
-        'ctl00$Content$ucParam$ddlGraph=Bar',
-        'ctl00$Content$ucParam$hdnTextId=',
-        'ctl00$Content$ucParam$hdnNodeid=6.4',
-        'ctl00$Content$ucParam$hdnstock=',
-        'ctl00$Content$ucParam$hdnXaxis=',
-        'ctl00$Content$ucParam$hdnYaxis=',
-        'ctl00$Content$ucParam$hdnGraphType=',
-        'ctl00$Content$ucParam$hdnorderby=0',
-        'ctl00$Content$ucParam$hdnsort=',
-    );
-
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-    $result = curl_exec($ch);
-
-    //$info = curl_getinfo($ch);
-    //echo '<h3>'.nl2br($info['request_header']).'</h3>';
-    //echo '<div style="width: 500px; height: 250px; display: inline-block; clear: none; overflow: scroll;">'.$result.'</div><br>';
+    $result = curl_execute(array(CURLOPT_URL => $url, CURLOPT_POST => 0), $ch);
 
     // Extract viewstate and eventvalidation
     preg_match_all("#<input.*?name=\"__viewstate\".*?value=\"(.*?)\".*?>.*?<input.*?name=\"__viewstategenerator\".*?value=\"(.*?)\".*?>.*?<input.*?name=\"__eventvalidation\".*?value=\"(.*?)\".*?>#mis", $result, $arr_viewstate);
@@ -202,63 +105,160 @@ function datanova_webreport_getreport($baseurl, $username, $password, $shop, $ye
     $viewstategenerator = $arr_viewstate[2][0];
     $eventvalidation = $arr_viewstate[3][0];
 
-    /* Download report */
-    $url = $baseurl . '/ShowReport.aspx?childid=6.4&childtext=6.04+Salg+pr.+vare+pr.+dag+(+spesifisert+)';
 
-    $post = array(
-        '__EVENTTARGET=ctl00$Content$ucParam$btnXmlExport',
-        '__EVENTARGUMENT=Click',
-        'ctl00$ucLoggedIn$hdnUserid=' . $username,
-        'ctl00$Content$ucParam$grid$DXSelInput=',
-        'ctl00$Content$ucParam$grid$CallbackState=asdfasdfasdf',
-        'ctl00$Content$ucParam$grid$DXColResizedInput=',
-        'ctl00$Content$ucParam$grid$DXSyncInput=',
-        'ctl00$Content$ucParam$hdnGroupBy=',
-        'ctl00$Content$ucParam$hdnGroupBy2=',
-        'ctl00$Content$ucParam$hdnHiddenCol1=',
-        'ctl00$Content$ucParam$hdnHiddenCol2=',
-        'ctl00$Content$ucShowGraph$ddlXaxis=coshopno',
-        'ctl00$Content$ucShowGraph$ddlYaxis=salesqty',
-        'ctl00$Content$ucShowGraph$hdnGraphOption=bar',
-        'ctl00$Content$ucShowGraph$hdnPrev=1',
-        'ctl00$Content$ucShowGraph$hdnNext=1',
-        'ctl00$Content$ucShowGraph$hdnNodeId=6.4',
-        'ctl00$Content$ucShowGraphLine$ddlXaxis=coshopno',
-        'ctl00$Content$ucShowGraphLine$ddlYaxis=salesqty',
-        'ctl00$Content$ucShowGraphLine$hdnGraphOption=line',
-        'ctl00$Content$ucShowGraphLine$hdnPrev=1',
-        'ctl00$Content$ucShowGraphLine$hdnNext=1',
-        'ctl00$Content$ucShowGraphLine$hdnNodeId=6.4',
-        'ctl00$Content$ucShowGraphArea$ddlXaxis=coshopno',
-        'ctl00$Content$ucShowGraphArea$ddlYaxis=salesqty',
-        'ctl00$Content$ucShowGraphArea$hdnGraphOption=area',
-        'ctl00$Content$ucShowGraphArea$hdnPrev=1',
-        'ctl00$Content$ucShowGraphArea$hdnNext=1',
-        'ctl00$Content$ucShowGraphArea$hdnNodeId=6.4',
-        'ctl00$Content$ucShowGraphPie$ddlXaxis=coshopno',
-        'ctl00$Content$ucShowGraphPie$ddlYaxis=salesqty',
-        'ctl00$Content$ucShowGraphPie$hdnGraphOption=pie',
-        'ctl00$Content$ucShowGraphPie$hdnPrev=1',
-        'ctl00$Content$ucShowGraphPie$hdnNext=1',
-        'ctl00$Content$ucShowGraphPie$hdnNodeId=6.4',
-        'ctl00$Content$hdnReportId=6.4',
-        'ctl00$Content$ucDownload$Emailsubmit=',
-        'ctl00$Content$ucDownload$hdnMemberId=' . $username
-    );
+    /* Login */
+    datanova_webreport_login($baseurl, $username, $password, $shop, $ch, $viewstategenerator, $eventvalidation, $viewstate);
 
-    $validations = array(
-        '__VIEWSTATE=' . $viewstate,
-        '__VIEWSTATEGENERATOR=' . $viewstategenerator.
-        '__EVENTVALIDATION=',
-    );
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, implode('&', $post) . '&' . http_build_query($validations));
-    $result = curl_exec($ch);
+
+    /* Generate report */
+    $url = $baseurl . '/MainReport.aspx?nodeid=6.4';
+    $result = curl_execute(array(CURLOPT_URL => $url, CURLOPT_POST => 0), $ch);
+
+    // Get viewstate and eventvalidation (needed in this ASP.NET application to verify the origin of the form)
+    preg_match_all("#<input.*?name=\"__viewstate\".*?value=\"(.*?)\".*?>.*?<input.*?name=\"__viewstategenerator\".*?value=\"(.*?)\".*?>#mis", $result, $arr_viewstate);
+    if (!isset($arr_viewstate[1][0]) || !isset($arr_viewstate[2][0])) {
+        throw new Exception ('Viewstate/Eventvalidation not found in result from MainReport.aspx in first request after login. HTML fetching failed.' .
+            chr(10) . 'HTML body: ' . chr(10) . $result);
+    }
+    $viewstate = $arr_viewstate[1][0];
+    $viewstategenerator = $arr_viewstate[2][0];
+	
+    // Set up post data
+    $post =
+        '__EVENTTARGET=ctl00$Content$ucParam$btnSend&'.
+        '__EVENTARGUMENT=&'.
+        '__VIEWSTATE=' . rawurlencode($viewstate).'&'.
+        '__VIEWSTATEGENERATOR=' . $viewstategenerator.'&'.
+        rawurlencode('ctl00$ucLoggedIn$hdnUserid').'=' . $username.'&'.
+        rawurlencode('ctl00$Content$txtSearch').'=Søk&'.
+        rawurlencode('ctl00$Content$ucParam$selddl1').'=' . $year.'&'.
+        rawurlencode('ctl00$Content$ucParam$dt71').'=&'.
+        rawurlencode('ctl00$Content$ucParam$dt81').'=&'.
+        // Garborgsenteret
+        rawurlencode('ctl00$Content$ucParam$selddl11').'=1&'.
+        // Vitenfabrikken
+        rawurlencode('ctl00$Content$ucParam$selddl11').'=3&'.
+        // Vitengarden
+        rawurlencode('ctl00$Content$ucParam$selddl11').'=4&'.
+        // Garborgstova
+        rawurlencode('ctl00$Content$ucParam$selddl11').'=5&'.
+        rawurlencode('ctl00$Content$ucParam$txt131').'=' . $varegruppe_fra.'&'.
+        rawurlencode('ctl00$Content$ucParam$txt141').'=' . $varegruppe_til.'&'.
+        rawurlencode('ctl00$Content$ucParam$txt151').'=&'.
+        rawurlencode('ctl00$Content$ucParam$txt161').'=&'.
+        rawurlencode('ctl00$Content$ucParam$txt171').'=&'.
+        rawurlencode('ctl00$Content$ucParam$txt181').'=&'.
+        rawurlencode('ctl00$Content$ucParam$txt191').'=&'.
+        rawurlencode('ctl00$Content$ucParam$txt201').'=&'.
+        rawurlencode('ctl00$Content$ucParam$txt341').'=&'.
+        rawurlencode('ctl00$Content$ucParam$txt351').'=&'.
+        rawurlencode('ctl00$Content$ucParam$ddlXaxis').'=coshopno&'.
+        rawurlencode('ctl00$Content$ucParam$ddlYaxis').'=salesqty&'.
+        rawurlencode('ctl00$Content$ucParam$ddlGraph').'=Bar&'.
+        rawurlencode('ctl00$Content$ucParam$hdnTextId').'=&'.
+        rawurlencode('ctl00$Content$ucParam$hdnNodeid').'=6.4&'.
+        rawurlencode('ctl00$Content$ucParam$hdnstock').'=&'.
+        rawurlencode('ctl00$Content$ucParam$hdnXaxis').'=&'.
+        rawurlencode('ctl00$Content$ucParam$hdnYaxis').'=&'.
+        rawurlencode('ctl00$Content$ucParam$hdnGraphType').'=&'.
+        rawurlencode('ctl00$Content$ucParam$hdnorderby').'=0&'.
+        rawurlencode('ctl00$Content$ucParam$hdnsort').'=';
+
+    $options = array(CURLOPT_URL => $url, CURLOPT_POST => 1, CURLOPT_POSTFIELDS => $post);
+    $result = curl_execute($options, $ch);
+
+    if($varegruppe_fra == $varegruppe_til && strpos($result, '302 Found') !== FALSE && strpos($result, '500 Internal Server Error') !== FALSE) {
+         return 'Not found.';
+    }
 
     //$info = curl_getinfo($ch);
     //echo '<h3>'.nl2br($info['request_header']).'</h3>';
+    //echo '<div style="width: 500px; height: 250px; display: inline-block; clear: none; overflow: scroll;">'.$result.'</div><br>';
+
+    // Extract viewstate and eventvalidation
+    preg_match_all("#<input.*?name=\"__viewstate\".*?value=\"(.*?)\".*?>".
+        ".*?<input.*?name=\"__viewstategenerator\".*?value=\"(.*?)\".*?>".
+        ".*?<input.*?name=\"__eventvalidation\".*?value=\"(.*?)\".*?>".
+        ".*?<input.*?name=\"ctl00\\\$Content\\\$ucParam\\\$grid\\\$CallbackState\".*?value=\"(.*?)\".*?>".
+        "#mis", $result, $arr_viewstate);
+    if (!isset($arr_viewstate[1][0])) {
+        echo "-------------------------------\n\r";
+        echo "------ NO VIEW STATE\n\r";
+        echo "-------------------------------\n\r";
+        echo $result;
+        echo "-------------------------------\n\r";
+        throw new Exception('No viewstate');
+    }
+
+    $viewstate = $arr_viewstate[1][0];
+    $viewstategenerator = $arr_viewstate[2][0];
+    $eventvalidation = $arr_viewstate[3][0];  
+    $callbackstate = $arr_viewstate[4][0];
+
+//echo base64_decode($viewstate).chr(10).chr(10);
+//echo base64_decode($viewstategenerator).chr(10).chr(10);
+//echo base64_decode($eventvalidation).chr(10).chr(10);
+//echo $callbackstate;
+//echo base64_decode($callbackstate).chr(10).chr(10);
+//exit;
+
+    /* Download report */
+    $url = $baseurl . '/ShowReport.aspx?childid=6.4&childtext=6.04+Salg+pr.+vare+pr.+dag+(+spesifisert+)';
+    $url = $baseurl . '/ShowReport.aspx?nodeid=6.4';
+
+    $post = array(
+        '__EVENTTARGET='.rawurlencode('ctl00$Content$ucParam$btnXmlExport'),
+        '__EVENTARGUMENT=Click',
+        '__VIEWSTATE=' . rawurlencode(html_entity_decode($viewstate, ENT_QUOTES)),
+        '__VIEWSTATEGENERATOR=' . rawurlencode($viewstategenerator),
+        '__EVENTVALIDATION=' . rawurlencode(html_entity_decode($eventvalidation, ENT_QUOTES)),
+        rawurlencode('ctl00$ucLoggedIn$hdnUserid').'=' . $username,
+        rawurlencode('ctl00$Content$ucParam$grid$DXSelInput').'=',
+        rawurlencode('ctl00$Content$ucParam$grid$CallbackState').'='.rawurlencode(html_entity_decode($callbackstate, ENT_QUOTES)),
+        rawurlencode('ctl00$Content$ucParam$grid$DXColResizedInput').'=',
+        rawurlencode('ctl00$Content$ucParam$grid$DXSyncInput').'=',
+        rawurlencode('ctl00$Content$ucParam$hdnGroupBy').'=',
+        rawurlencode('ctl00$Content$ucParam$hdnGroupBy2').'=',
+        rawurlencode('ctl00$Content$ucParam$hdnHiddenCol1').'=',
+        rawurlencode('ctl00$Content$ucParam$hdnHiddenCol2').'=',
+        rawurlencode('ctl00$Content$ucShowGraph$ddlXaxis').'=coshopno',
+        rawurlencode('ctl00$Content$ucShowGraph$ddlYaxis').'=salesqty',
+        rawurlencode('ctl00$Content$ucShowGraph$hdnGraphOption').'=bar',
+        rawurlencode('ctl00$Content$ucShowGraph$hdnPrev').'=1',
+        rawurlencode('ctl00$Content$ucShowGraph$hdnNext').'=1',
+        rawurlencode('ctl00$Content$ucShowGraph$hdnNodeId').'=6.4',
+        rawurlencode('ctl00$Content$ucShowGraphLine$ddlXaxis').'=coshopno',
+        rawurlencode('ctl00$Content$ucShowGraphLine$ddlYaxis').'=salesqty',
+        rawurlencode('ctl00$Content$ucShowGraphLine$hdnGraphOption').'=line',
+        rawurlencode('ctl00$Content$ucShowGraphLine$hdnPrev').'=1',
+        rawurlencode('ctl00$Content$ucShowGraphLine$hdnNext').'=1',
+        rawurlencode('ctl00$Content$ucShowGraphLine$hdnNodeId').'=6.4',
+        rawurlencode('ctl00$Content$ucShowGraphArea$ddlXaxis').'=coshopno',
+        rawurlencode('ctl00$Content$ucShowGraphArea$ddlYaxis').'=salesqty',
+        rawurlencode('ctl00$Content$ucShowGraphArea$hdnGraphOption').'=area',
+        rawurlencode('ctl00$Content$ucShowGraphArea$hdnPrev').'=1',
+        rawurlencode('ctl00$Content$ucShowGraphArea$hdnNext').'=1',
+        rawurlencode('ctl00$Content$ucShowGraphArea$hdnNodeId').'=6.4',
+        rawurlencode('ctl00$Content$ucShowGraphPie$ddlXaxis').'=coshopno',
+        rawurlencode('ctl00$Content$ucShowGraphPie$ddlYaxis').'=salesqty',
+        rawurlencode('ctl00$Content$ucShowGraphPie$hdnGraphOption').'=pie',
+        rawurlencode('ctl00$Content$ucShowGraphPie$hdnPrev').'=1',
+        rawurlencode('ctl00$Content$ucShowGraphPie$hdnNext').'=1',
+        rawurlencode('ctl00$Content$ucShowGraphPie$hdnNodeId').'=6.4',
+        rawurlencode('ctl00$Content$hdnReportId').'=6.4',
+        rawurlencode('ctl00$Content$ucDownload$Emailsubmit').'=',
+        rawurlencode('ctl00$Content$ucDownload$hdnMemberId').'=' . $username,
+    );
+
+    $options = array(CURLOPT_URL => $url, CURLOPT_POST => 1, CURLOPT_POSTFIELDS => implode($post, '&'));
+    $result = curl_execute($options, $ch);
+    //$info = curl_getinfo($ch);
+    //echo '<h3>'.nl2br($info['request_header']).'</h3>';
     //echo implode('&', $post).'&'.http_build_query($validations).'&'.implode('&', $post_last).chr(10).chr(10);
+
+    /* Logout */
+    datanova_webreport_logout($baseurl, $ch);
+    unlink($cookie);
 
     /* Clean up */
     curl_close($ch);
@@ -281,7 +281,7 @@ function datanova_webreport_parser($result, $current_date_dd_mm_yyyy)
 {
     $result = utf8_decode($result);
     $lines = explode("\n", $result);
-    if (!str_starts_with(trim(substr($lines[0], 1)), '<?xml version="1.0" encoding="utf-8"')) {
+    if (!str_starts_with(trim($lines[0]), '<?xml version="1.0" encoding="utf-8"')) {
         echo '---------'.chr(10);
         var_dump($lines[0]);
         echo '---------'.chr(10);
@@ -304,6 +304,8 @@ function datanova_webreport_parser($result, $current_date_dd_mm_yyyy)
 
     $heading = array();
     $data = array();
+    $number_of_fields = count($columns);
+    $varenavn_column_num = -1;
 
     foreach($columns as $i => $column) {
         // Cleaning
@@ -334,6 +336,9 @@ function datanova_webreport_parser($result, $current_date_dd_mm_yyyy)
             $td == 'Transdato'
         ) {
             $heading[$i] = $td;
+            if ($td == 'Varenavn') {
+                $varenavn_column_num = $i;
+            }
         }
         else {
             //echo 'Ignoring '. $i .': '.$td.chr(10);
@@ -352,6 +357,31 @@ function datanova_webreport_parser($result, $current_date_dd_mm_yyyy)
                 str_replace('<row values="', '',
                 str_replace('" />', '', $lines[$j]))
             ));
+        if (count($line) != $number_of_fields) {
+            //echo 'Line with funky column number: '. $lines[$j] . "\r\n";
+            //echo "- Merging varenavn...\r\n";
+            $columns_to_merge = count($line) - $number_of_fields;
+            $new_line = array();
+            foreach ($line as $i => $item) {
+               if ($i <= $varenavn_column_num) {
+                   // -> Before varenavn
+                   $new_line[$i] = $item;
+               }
+               elseif ($i <= ($varenavn_column_num + $columns_to_merge)) {
+                   // -> Varenavn, merge
+                   $new_line[$varenavn_column_num] .= '|' . $item;
+               }
+               else {
+                   // -> After. Adjust column num.
+                   $new_line[$i - $columns_to_merge] = $item;
+               }
+            }
+            $line = $new_line;
+            //print_r($line);
+            if (count($line) != $number_of_fields) {
+                throw new Exception('Faulty merge: ' . print_r($line, true));
+            }
+        }
         $row = array();
         foreach ($line as $i => $item) {
             // Cleaning / fixing
@@ -378,7 +408,8 @@ function datanova_webreport_parser($result, $current_date_dd_mm_yyyy)
                     $td = explode(' ', $td);
                     $td = explode('/', $td[0]);
                     if (count($td) != 3) {
-                        throw new Exception('Unknown date: ' . $item);
+                        echo 'HEADING: '.$lines[2]."\n\r";
+                        throw new Exception('Unknown date: ' . $item . '. Line: '. $lines[$j]);
                     }
                     $td = str_pad($td[1], 2, '0', STR_PAD_LEFT)
                         . '.' . str_pad($td[0], 2, '0', STR_PAD_LEFT)
