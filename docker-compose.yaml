@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+    web:
+        build: ./dockerfiles/www
+        ports:
+            - "10080:80"
+            - "10443:443"
+        links: 
+            - mysql:mysql
+        volumes:
+            - .:/www-root
+
+    webphp7:
+        build: ./dockerfiles/www-php7
+        ports:
+            - "11080:80"
+            - "11443:443"
+        links:
+            - mysql:mysql
+        volumes:
+            - .:/www-root
+
+    mysql:
+        build: ./dockerfiles/db 
+        ports:
+            - "13306:3306"
+        environment: 
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_ROOT_PASSWORD=root
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "10081:80"
+        links:
+            - mysql:db
+
