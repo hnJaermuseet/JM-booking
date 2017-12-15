@@ -266,7 +266,7 @@ else
 		echo '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="timetable">';
 		echo '<tr><th width="1%" class="time3">&nbsp;</th>';
 	
-		$room_column_width = (int)(95 / mysql_num_rows($Q_room));
+		$room_column_width = (int)(95 / count($rooms_displayed));
 		foreach($rooms_displayed as $room_id => $room) {
 			echo '<th width="'.$room_column_width.'%" colspan="'.($room_max_col[$room_id] + 1).'" class="time3">' . htmlspecialchars($room['room_name']). '</th>';
         }
