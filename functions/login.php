@@ -96,25 +96,28 @@ function isLoggedIn ()
 	else
 	{
 		$external_failed = false;
-		$Q_login = mysql_query("select user_id, deactivated, user_password_complex, user_password_lastchanged from `users` where user_id = '".$login['user_id']."' and user_password = '".$login['user_password']."' limit 1");
-		if(mysql_num_rows($Q_login) > '0')
+		$Q_login = db()->prepare("select user_id, deactivated, user_password_complex, user_password_lastchanged from `users` where user_id = :user_id and user_password = :user_password limit 1");
+        $Q_login->bindValue(':user_id', $login['user_id'], PDO::PARAM_STR);
+        $Q_login->bindValue(':user_password', $login['user_password'], PDO::PARAM_STR);
+        $Q_login->execute();
+		if($Q_login->rowCount() > 0)
 		{
+            $row = $Q_login->fetch();
 			$is_external = isExternal();
 			if($is_external)
 			{
 				try {
-					$user_login = array('user_password_lastchanged' => mysql_result($Q_login, 0, 'user_password_lastchanged'));
+					$user_login = array('user_password_lastchanged' => $row['user_password_lastchanged']);
 					loginPWcheckAge($user_login);
 				} catch (Exception $e) {
 					return false;
 				}
 			}
-			
-			if(mysql_result($Q_login,0,'deactivated'))
+			if($row['deactivated'])
 			{
 				return false;
 			}
-			elseif($is_external && !mysql_result($Q_login, 0, 'user_password_complex'))
+			elseif($is_external && !$row['user_password_complex'])
 			{
 				return false;
 			}
@@ -123,8 +126,9 @@ function isLoggedIn ()
 				return TRUE;
 			}
 		}
-		else
+		else {
 			return FALSE;
+		}
 	}
 	return FALSE;
 }
