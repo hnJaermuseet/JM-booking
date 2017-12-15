@@ -50,7 +50,7 @@ if(isset($_GET['filter'])
  && isset($_GET['time_end_nu'])
  && is_array($_GET['filter']))
 {
-	// TODO: Sjekk alle variabler som blir sendt, en del må være array
+	// TODO: Sjekk alle variabler som blir sendt, en del m&aring; v&aelig;re array
 	/*
 	 * Behandler greiene
 	 * 
@@ -165,7 +165,7 @@ echo '<td style="border: 1px solid black; padding: 5px;">
 <input type="radio" name="time_start_nu" value="0" checked="checked">
 <input type="text" name="time_start" id="time_start" value="'.date('00:00 01-01-Y').'" 
 	style="font-size: 1.3em; width: 150px;"><br>
-<label style="font-size: 1.3em;"><input type="radio" name="time_start_nu" value="1"> Nåværende tidspunkt*</label></td>';
+<label style="font-size: 1.3em;"><input type="radio" name="time_start_nu" value="1"> N&aring;v&aelig;rende tidspunkt*</label></td>';
 echo '<td style="border: 1px solid black; padding: 5px;">
 <b>Til og med</b><br>
 <input type="hidden" name="rows[]" value="1">
@@ -174,7 +174,7 @@ echo '<td style="border: 1px solid black; padding: 5px;">
 <input type="radio" name="time_end_nu" value="0">
 <input type="text" name="time_end" id="time_end" value="'.date('23:59 31-12-Y').'" 
 	style="font-size: 1.3em; width: 150px;"><br>
-<label style="font-size: 1.3em;"><input type="radio" name="time_end_nu" value="1" checked="checked"> Nåværende tidspunkt*</label></td>';
+<label style="font-size: 1.3em;"><input type="radio" name="time_end_nu" value="1" checked="checked"> N&aring;v&aelig;rende tidspunkt*</label></td>';
 echo '</tr><tr style="margin-top: 5px;">';
 
 echo '<td style="border: 1px solid black; padding: 10px; text-align: center;">
@@ -188,10 +188,11 @@ echo '</tr><tr>';
 // Bookingtyper
 echo '<td style="border: 1px solid black; padding: 5px;">
 <b>Bookingtyper:</b><br>
-<i>Hvis ingen er valgt, så hentes alle ut</i><br>
+<i>Hvis ingen er valgt, s&aring; hentes alle ut</i><br>
 ';
-$Q_typer = mysql_query("select * from `entry_type` order by `entry_type_name`");
-while($R = mysql_fetch_assoc($Q_typer)) {
+$Q_typer = db()->prepare("select * from `entry_type` order by `entry_type_name`");
+$Q_typer->execute();
+while($R = $Q_typer->fetch()) {
 	echo '<label><input type="checkbox" name="entry_type[]" value="'.$R['entry_type_id'].'"> '.$R['entry_type_name'].'</label><br>';
 }
 echo '</td>
@@ -200,10 +201,11 @@ echo '</td>
 // Datanova-typer
 echo '<td style="border: 1px solid black; padding: 5px;">
 <b>Kategorier fra kasseapparat:</b><br>
-<i>Hvis ingen er valgt, så hentes alle ut</i><br>
+<i>Hvis ingen er valgt, s&aring; hentes alle ut</i><br>
 ';
-$Q_typer = mysql_query("select * from `import_dn_kategori` order by `kat_navn`");
-while($R = mysql_fetch_assoc($Q_typer)) {
+$Q_typer = db()->prepare("select * from `import_dn_kategori` order by `kat_navn`");
+$Q_typer->execute();
+while($R = $Q_typer->fetch()) {
 	echo '<label><input type="checkbox" name="dn_kategori[]" value="'.$R['kat_id'].'"> '.$R['kat_navn'].'</label><br>';
 }
 echo '</td>
@@ -221,10 +223,11 @@ echo '<td style="border: 1px solid black; padding: 5px;">
 <label><input type="checkbox" name="num_person_count" value="1" checked="checked"> <b>De som skal telles i booking</b></label>';
 
 // Area
-$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by area_name");
+$Q_area = db()->prepare("select id as area_id, area_name from `mrbs_area` order by area_name");
+$Q_area->execute();
 echo '<br><br><b>'.__('Area').':</b><br><select name="area_id">';
 echo '<option value="0">Alle anleggene</option>';
-while ($R = mysql_fetch_assoc($Q_area)) {
+while ($R = $Q_area->fetch()) {
 	echo '<option value="'.$R['area_id'].'"';
 	if(($area == '' || $area == 0) && $R['area_name'] == 'Vitenfabrikken')
 		echo ' selected="selected"';
@@ -242,5 +245,5 @@ echo '
 
 echo '</tr></table>';
 echo '</form><br /><br />';
-echo '* Vil alltid være nåværende tidspunkt. Hvis du åpner samme liste om 3 dager, så vil du hente fra/til det tidspunktet.';
+echo '* Vil alltid v&aelig;re n&aring;v&aelig;rende tidspunkt. Hvis du &aring;pner samme liste om 3 dager, s&aring; vil du hente fra/til det tidspunktet.';
 ?>

@@ -48,13 +48,13 @@ foreach($filters as $filter) {
 	}
 }
 
-if(!$tamed_booking || !mysql_num_rows($Q))
+if(!$tamed_booking || $Q->rowCount() <= 0)
 {
 	echo __('No entries found.');
 }
 else
 {
-	echo mysql_num_rows($Q).' '.__('entries found.');
+	echo $Q->rowCount().' '.__('entries found.');
 	//echo '<br><br>'.chr(10).chr(10);
 	echo '<table class="prettytable">'.chr(10);
 	echo ' <tr>'.chr(10);
@@ -84,7 +84,7 @@ else
 	}
 	echo ' </tr>'.chr(10);
 	
-	while($R = mysql_fetch_assoc($Q))
+	while($R = $Q->fetch(PDO::FETCH_ASSOC))
 	{
 		$entry = getEntryParseDatabaseArray($R);
 		

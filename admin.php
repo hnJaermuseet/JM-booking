@@ -53,5 +53,3 @@ if(isset($pid))
 	$section="periods";
 
 include "include/admin_middel.php";
-
-?>

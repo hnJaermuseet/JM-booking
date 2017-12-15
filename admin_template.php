@@ -120,9 +120,11 @@ $vars_entrychanges = array(
 		'log_changes'				=> __('Changes').' '.__('Table*')
 	);
 
-$Q_template = mysql_query("select * from `template` order by `template_name`");
+$Q_template = db()->prepare("select * from `template` order by `template_name`");
+
+$Q_template->execute();
 $temp = array();
-while($R_tpl = mysql_fetch_assoc($Q_template))
+while($R_tpl = $Q_template->fetch())
 {
 	$a = '';
 	switch ($R_tpl['template_type'])
@@ -389,9 +391,9 @@ if($tpl_db)
 		}
 		
 		$id = (int)$id;
-		$Q_tpl = mysql_query("select template_id from `template` where template_id = '$id'");
-		if(!mysql_num_rows($Q_tpl))
-		{
+		$Q_tpl = db()->prepare("select template_id from `template` where template_id = '$id'");
+		$Q_tpl->execute();
+		if($Q_tpl->rowCount() <= 0) {
 			include "include/admin_middel.php";
 			echo '<h1>'.__('Templates').'</h1>';
 			
@@ -433,7 +435,7 @@ if($template[6] == '' || $login[$template[6]])
 		}
 		else
 		{
-			mysql_query("DELETE FROM `template` WHERE `template_id` = $id LIMIT 1");
+			db()->prepare("DELETE FROM `template` WHERE `template_id` = $id LIMIT 1")->execute();
 			header('Location: '.$_SERVER['PHP_SELF']);
 			exit();
 		}
@@ -470,7 +472,7 @@ if($template[6] == '' || $login[$template[6]])
 			if($id == 'new')
 			{
 				// Insert
-				mysql_query("INSERT INTO `template` (
+				$Q = db()->prepare("INSERT INTO `template` (
 					`template_id` ,
 					`template` ,
 					`template_name` ,
@@ -479,21 +481,31 @@ if($template[6] == '' || $login[$template[6]])
 				)
 				VALUES (
 					NULL , 
-					'$txt', 
-					'$template_name', 
-					'".$_POST['template_type']."',
-					'".time()."'
+					:txt,
+					:template_name,
+					:template_type,
+					:time_now
 				);");
+                $Q->bindValue(':txt', $txt, PDO::PARAM_STR);
+                $Q->bindValue(':template_name', $template_name, PDO::PARAM_STR);
+                $Q->bindValue(':template_type', $_POST['template_type'], PDO::PARAM_STR);
+                $Q->bindValue(':time_now', time(), PDO::PARAM_STR);
+                $Q->execute();
 			}
 			else
 			{
 				// Update
-				mysql_query("UPDATE `template` SET 
-					`template` = '$txt',
-					`template_name` = '$template_name',
-					`template_type` = '".$_POST['template_type']."',
-					`template_time_last_edit` = '".time()."'
+				$Q = db()->prepare("UPDATE `template` SET
+					`template` = :txt,
+					`template_name` = :template_name,
+					`template_type` = :template_type,
+					`template_time_last_edit` = :time_now
 				WHERE `template_id` =$id LIMIT 1 ;");
+                $Q->bindValue(':txt', $txt, PDO::PARAM_STR);
+                $Q->bindValue(':template_name', $template_name, PDO::PARAM_STR);
+                $Q->bindValue(':template_type', $_POST['template_type'], PDO::PARAM_STR);
+                $Q->bindValue(':time_now', time(), PDO::PARAM_STR);
+                $Q->execute();
 			}
 		}
 		else
@@ -537,11 +549,13 @@ if(isset($_GET['preview']))
 // Getting file
 if($tpl_db && $id != 'new')
 {
-	$Q_tpl = mysql_query("select template, template_name from `template` where template_id = '$id'");
-	if(mysql_num_rows($Q_tpl))
+	$Q_tpl = db()->prepare("select template, template_name from `template` where template_id = '$id'");
+	$Q_tpl->execute();
+	if($Q_tpl->rowCount() > 0)
 	{
-		$template_txt	= mysql_result($Q_tpl, 0, 'template');
-		$template_name	= mysql_result($Q_tpl, 0, 'template_name');
+        $row = $Q_tpl->fetch();
+		$template_txt	= $row['template'];
+		$template_name	= $row['template_name'];
 	}
 	else
 	{

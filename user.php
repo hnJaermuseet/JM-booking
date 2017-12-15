@@ -83,7 +83,8 @@ $filters = addFilter($filters, 'user_assigned', $user['user_id']);
 $filters = addFilter($filters, 'time_start', 'current', '>');
 filterLink($filters);	echo '<br><br>'.chr(10).chr(10);
 $SQL = genSQLFromFilters($filters, 'entry_id').' order by time_start';
-$Q_next_entries = mysql_query($SQL);
+$Q_next_entries = db()->prepare($SQL);
+$Q_next_entries->execute();
 /*
 $Q_next_entries = mysql_query("select entry_id from `entry` where 
 	user_assigned like '%;".$user['user_id'].";%' and
@@ -91,7 +92,7 @@ $Q_next_entries = mysql_query("select entry_id from `entry` where
 	order by time_start
 	limit 50;");*/
 
-if(!mysql_num_rows($Q_next_entries))
+if($Q_next_entries->rowCount() <= 0)
 	echo '<i>'.__('No upcoming entries found').'</i>'.chr(10);
 else
 {
@@ -101,7 +102,7 @@ else
 	echo '  <td class="border"><b>'.__('Name').'</b></td>'.chr(10);
 	echo '  <td class="border"><b>'.__('Where').'</b></td>'.chr(10);
 	echo ' </tr>'.chr(10);
-	while($R_entry = mysql_fetch_assoc($Q_next_entries))
+	while($R_entry = $Q_next_entries->fetch(PDO::FETCH_ASSOC))
 	{
 		$entry = getEntry($R_entry['entry_id']);
 		if(count($entry))

@@ -351,31 +351,33 @@ if(isset($_POST['form_submit']))
 		}
 	}
 	
-	if(substr($data['customer_address_id_invoice'], 0, 5) == 'oldid')
-		$data['customer_address_id_invoice'] = 0;
+	if(substr($data['customer_address_id_invoice'], 0, 5) == 'oldid') {
+        $data['customer_address_id_invoice'] = 0;
+    }
 	
 	if($customer_id != 0)
 	{
 		// Checking if some of the phones or addresses are to be deleted
 		$delete_phone = array();
 		foreach ($customer['customer_phone'] as $phone) {
-			if(!in_array($phone['phone_id'], $tmp_table_phone))
-				$delete_phone[$phone['phone_id']] = $phone['phone_id'];
+			if(!in_array($phone['phone_id'], $tmp_table_phone)) {
+                $delete_phone[$phone['phone_id']] = $phone['phone_id'];
+            }
 		}
 		$delete_address = array();
 		foreach ($customer['customer_address'] as $address) {
-			if(!in_array($address['address_id'], $tmp_table_address))
-				$delete_address[$address['address_id']] = $address['address_id'];
+			if(!in_array($address['address_id'], $tmp_table_address)) {
+                $delete_address[$address['address_id']] = $address['address_id'];
+            }
 		}
 	}
 	
 	if(!count($errors))
 	{
-		// MYSQL...
 		if($customer_id == 0)
 		{
 			// Add
-			mysql_query("INSERT INTO `customer` (
+			$Q = db()->prepare("INSERT INTO `customer` (
 				`customer_id` ,
 				`customer_name` ,
 				`customer_type` ,
@@ -383,25 +385,33 @@ if(isset($_POST['form_submit']))
 				`customer_address_id_invoice`
 			) VALUES (
 				NULL , 
-				'".$data['customer_name']."', 
-				'".$data['customer_type']."', 
-				'".$data['customer_municipal_num']."',
-				'".$data['customer_address_id_invoice']."'
+				:customer_name,
+				:customer_type,
+				:customer_municipal_num,
+                -1
 			);");
+            $Q->bindValue(':customer_name', $data['customer_name'], PDO::PARAM_STR);
+            $Q->bindValue(':customer_type', $data['customer_type'], PDO::PARAM_STR);
+            $Q->bindValue(':customer_municipal_num', $data['customer_municipal_num'], PDO::PARAM_STR);
+            $Q->execute();
 			
-			$customer_id = mysql_insert_id();
+			$customer_id = db()->lastInsertId();
 			
 			foreach ($data['customer_phone'] as $phone)
 			{
-				mysql_query("INSERT INTO `customer_phone` (
+				$Q = db()->prepare("INSERT INTO `customer_phone` (
 					`phone_id` , `customer_id` , `phone_num` , `phone_name`) 
-					VALUES (NULL , '$customer_id', '".$phone['phone_num']."', '".$phone['phone_name']."');");
-			}
+					VALUES (NULL , :customer_id, :phone_num, :phone_name);");
+                $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+                $Q->bindValue(':phone_num', $phone['phone_num'], PDO::PARAM_STR);
+                $Q->bindValue(':phone_name', $phone['phone_name'], PDO::PARAM_STR);
+                $Q->execute();
+            }
 			
 			$new_address_id = array();
 			foreach ($data['customer_address'] as $z => $address)
 			{
-				mysql_query("INSERT INTO `customer_address` (
+				$Q = db()->prepare("INSERT INTO `customer_address` (
 					`address_id` , `customer_id` , `address_info` , 
 						`address_line_1`,
 						`address_line_2`,
@@ -413,25 +423,42 @@ if(isset($_POST['form_submit']))
 						`address_full`,
 						`address_postalnum`
 						) 
-					VALUES (NULL , '$customer_id', '".$address['address_info']."', 
-						'".$address['address_line_1']."',
-						'".$address['address_line_2']."',
-						'".$address['address_line_3']."',
-						'".$address['address_line_4']."',
-						'".$address['address_line_5']."',
-						'".$address['address_line_6']."',
-						'".$address['address_line_7']."',
-						'".$address['address_full']."',
-						'".$address['address_postalnum']."'
+					VALUES (NULL,
+					    :customer_id,
+					    :address_info,
+						:address_line_1,
+						:address_line_2,
+						:address_line_3,
+						:address_line_4,
+						:address_line_5,
+						:address_line_6,
+						:address_line_7,
+						:address_full,
+						:address_postalnum
 						);");
-				$new_address_id[$z] = mysql_insert_id();
+                $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+                $Q->bindValue(':address_info', $address['address_info'], PDO::PARAM_STR);
+                $Q->bindValue(':address_line_1', $address['address_line_1'], PDO::PARAM_STR);
+                $Q->bindValue(':address_line_2', $address['address_line_2'], PDO::PARAM_STR);
+                $Q->bindValue(':address_line_3', $address['address_line_3'], PDO::PARAM_STR);
+                $Q->bindValue(':address_line_4', $address['address_line_4'], PDO::PARAM_STR);
+                $Q->bindValue(':address_line_5', $address['address_line_5'], PDO::PARAM_STR);
+                $Q->bindValue(':address_line_6', $address['address_line_6'], PDO::PARAM_STR);
+                $Q->bindValue(':address_line_7', $address['address_line_7'], PDO::PARAM_STR);
+                $Q->bindValue(':address_full', $address['address_full'], PDO::PARAM_STR);
+                $Q->bindValue(':address_postalnum', $address['address_postalnum'], PDO::PARAM_STR);
+                $Q->execute();
+				$new_address_id[$z] = db()->lastInsertId();
 			}
 			
 			if(substr($data['customer_address_id_invoice'], 0, 2) == 'id' && 
 				isset($new_address_id[substr($data['customer_address_id_invoice'], 2)])) {
-				mysql_query("UPDATE `customer` SET 
-				`customer_address_id_invoice` = '".(int)$new_address_id[substr($data['customer_address_id_invoice'], 2)]."'
-					WHERE `customer_id` = ".$customer_id." LIMIT 1 ;");
+				$Q = db()->prepare("UPDATE `customer` SET
+				`customer_address_id_invoice` = :customer_address_id_invoice
+					WHERE `customer_id` = :customer_id LIMIT 1 ;");
+                $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+                $Q->bindValue(':customer_address_id_invoice', $new_address_id[substr($data['customer_address_id_invoice'], 2)], PDO::PARAM_INT);
+                $Q->execute();
 			}
 			
 			
@@ -447,33 +474,45 @@ if(isset($_POST['form_submit']))
 		else
 		{
 			// Edit
-			mysql_query("UPDATE `customer` SET 
-				`customer_name` = '".$data['customer_name']."',
-				`customer_type` = '".$data['customer_type']."',
-				`customer_municipal_num` = '".$data['customer_municipal_num']."',
-				`customer_address_id_invoice` = '".$data['customer_address_id_invoice']."'
-			WHERE `customer_id` = ".$customer_id." LIMIT 1 ;");
+			$Q = db()->prepare("UPDATE `customer` SET
+				`customer_name` = :customer_name,
+				`customer_type` = :customer_type,
+				`customer_municipal_num` = :customer_municipal_num,
+				`customer_address_id_invoice` = :customer_address_id_invoice
+			WHERE `customer_id` = :customer_id LIMIT 1 ;");
+            $Q->bindValue(':customer_name', $data['customer_name'], PDO::PARAM_STR);
+            $Q->bindValue(':customer_type', $data['customer_type'], PDO::PARAM_STR);
+            $Q->bindValue(':customer_municipal_num', $data['customer_municipal_num'], PDO::PARAM_STR);
+            $Q->bindValue(':customer_address_id_invoice', $data['customer_address_id_invoice'], PDO::PARAM_INT);
+            $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+            $Q->execute();
 			
 			foreach ($data['customer_phone'] as $phone)
 			{
 				if($phone['phone_id'] == 0)
 				{
-					mysql_query("INSERT INTO `customer_phone` (
+					$Q = db()->prepare("INSERT INTO `customer_phone` (
 						`phone_id` , `customer_id` , `phone_num` , `phone_name`) 
-						VALUES (NULL , '$customer_id', '".$phone['phone_num']."', '".$phone['phone_name']."');");
-				} else {
-					mysql_query("UPDATE `customer_phone` SET 
-							`phone_num` = '".$phone['phone_num']."',
-							`phone_name` = '".$phone['phone_name']."' 
-						WHERE `phone_id` = ".$phone['phone_id']." LIMIT 1 ;");
+						VALUES (NULL , :customer_id, :phone_num, :phone_name);");
+                    $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
 				}
+                else {
+					$Q = db()->prepare("UPDATE `customer_phone` SET
+							`phone_num` = :phone_num,
+							`phone_name` = :phone_name
+						WHERE `phone_id` = :phone_id LIMIT 1 ;");
+                    $Q->bindValue(':phone_id', $phone['phone_id'], PDO::PARAM_INT);
+				}
+                $Q->bindValue(':phone_num', $phone['phone_num'], PDO::PARAM_STR);
+                $Q->bindValue(':phone_name', $phone['phone_name'], PDO::PARAM_STR);
+                $Q->execute();
 			}
 			
 			foreach ($data['customer_address'] as $z => $address)
 			{
 				if($address['address_id'] == 0)
 				{
-					mysql_query("INSERT INTO `customer_address` (
+					$Q = db()->prepare("INSERT INTO `customer_address` (
 						`address_id` , `customer_id` , `address_info` , 
 							`address_line_1`,
 							`address_line_2`,
@@ -485,48 +524,83 @@ if(isset($_POST['form_submit']))
 							`address_full`,
 							`address_postalnum`
 							) 
-						VALUES (NULL , '$customer_id', '".$address['address_info']."', 
-							'".$address['address_line_1']."',
-							'".$address['address_line_2']."',
-							'".$address['address_line_3']."',
-							'".$address['address_line_4']."',
-							'".$address['address_line_5']."',
-							'".$address['address_line_6']."',
-							'".$address['address_line_7']."',
-							'".$address['address_full']."',
-							'".$address['address_postalnum']."'
+						VALUES (NULL ,
+						    :customer_id,
+						    :address_info,
+							:address_line_1,
+							:address_line_2,
+							:address_line_3,
+							:address_line_4,
+							:address_line_5,
+							:address_line_6,
+							:address_line_7,
+							:address_full,
+							:address_postalnum
 							);");
-					$new_address_id[$z] = mysql_insert_id();
+                    $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+                    $Q->bindValue(':address_info', $address['address_info'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_1', $address['address_line_1'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_2', $address['address_line_2'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_3', $address['address_line_3'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_4', $address['address_line_4'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_5', $address['address_line_5'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_6', $address['address_line_6'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_7', $address['address_line_7'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_full', $address['address_full'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_postalnum', $address['address_postalnum'], PDO::PARAM_STR);
+                    $Q->execute();
+					$new_address_id[$z] = db()->lastInsertId();
 				} else {
-					mysql_query("UPDATE `customer_address` SET 
-							`address_info` = '".$address['address_info']."',
-							`address_line_1` = '".$address['address_line_1']."',
-							`address_line_2` = '".$address['address_line_2']."',
-							`address_line_3` = '".$address['address_line_3']."',
-							`address_line_4` = '".$address['address_line_4']."',
-							`address_line_5` = '".$address['address_line_5']."',
-							`address_line_6` = '".$address['address_line_6']."',
-							`address_line_7` = '".$address['address_line_7']."',
-							`address_full` = '".$address['address_full']."',
-							`address_postalnum` = '".$address['address_postalnum']."'
-						WHERE `address_id` = ".$address['address_id']." LIMIT 1 ;");
+					$Q = db()->prepare("UPDATE `customer_address` SET
+							`address_info` = :address_info,
+							`address_line_1` = :address_line_1,
+							`address_line_2` = :address_line_2,
+							`address_line_3` = :address_line_3,
+							`address_line_4` = :address_line_4,
+							`address_line_5` = :address_line_5,
+							`address_line_6` = :address_line_6,
+							`address_line_7` = :address_line_7,
+							`address_full` = :address_full,
+							`address_postalnum` = :address_postalnum
+						WHERE `address_id` = :address_id LIMIT 1 ;");
+                    $Q->bindValue(':address_id', $address['address_id'], PDO::PARAM_INT);
+                    $Q->bindValue(':address_info', $address['address_info'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_1', $address['address_line_1'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_2', $address['address_line_2'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_3', $address['address_line_3'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_4', $address['address_line_4'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_5', $address['address_line_5'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_6', $address['address_line_6'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_line_7', $address['address_line_7'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_full', $address['address_full'], PDO::PARAM_STR);
+                    $Q->bindValue(':address_postalnum', $address['address_postalnum'], PDO::PARAM_STR);
+                    $Q->execute();
 					$new_address_id[$z] = $address['address_id'];
 				}
 			}
 			
 			foreach ($delete_phone as $phone_id) {
-				mysql_query("DELETE FROM `customer_phone` WHERE `phone_id` = ".$phone_id." AND `customer_id` = ".$customer_id);
+				$Q = db()->prepare("DELETE FROM `customer_phone` WHERE `phone_id` = :phone_id AND `customer_id` = :customer_id");
+                $Q->bindValue(':phone_id', $phone_id, PDO::PARAM_INT);
+                $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+                $Q->execute();
 			}
 			
 			foreach ($delete_address as $address_id) {
-				mysql_query("DELETE FROM `customer_address` WHERE `address_id` = ".$address_id." AND `customer_id` = ".$customer_id);
+				$Q = db()->prepare("DELETE FROM `customer_address` WHERE `address_id` = :address_id AND `customer_id` = :customer_id");
+                $Q->bindValue(':address_id', $address_id, PDO::PARAM_INT);
+                $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+                $Q->execute();
 			}
 			
 			if(substr($data['customer_address_id_invoice'], 0, 2) == 'id' && 
 				isset($new_address_id[substr($data['customer_address_id_invoice'], 2)])) {
-				mysql_query("UPDATE `customer` SET 
-				`customer_address_id_invoice` = '".(int)$new_address_id[substr($data['customer_address_id_invoice'], 2)]."'
-					WHERE `customer_id` = ".$customer_id." LIMIT 1 ;");
+				$Q = db()->prepare("UPDATE `customer` SET
+				`customer_address_id_invoice` = :customer_address_id_invoice
+					WHERE `customer_id` = :customer_id LIMIT 1 ;");
+                $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+                $Q->bindValue(':customer_address_id_invoice', $new_address_id[substr($data['customer_address_id_invoice'], 2)], PDO::PARAM_INT);
+                $Q->execute();
 			}
 			
 			if(isset($_GET['returnToCustomerList']))
@@ -562,12 +636,14 @@ else
 			
 			if(!isset($_GET['customer_add_force']))
 			{
-				$Q_customer = mysql_query("select customer_id from `customer` 
+				$Q_customer = db()->prepare("select customer_id from `customer`
 					WHERE
-						`customer_name` = '".$data['customer_name']."' AND
+						`customer_name` = :customer_name AND
 						`slettet` = '0'
 					");
-				if(mysql_num_rows($Q_customer))
+                $Q_customer->bindValue(':customer_name', $data['customer_name'], PDO::PARAM_STR);
+                $Q_customer->execute();
+				if($Q_customer->rowCount() > 0)
 				{
 					filterMakeAlternatives();
 					
@@ -594,7 +670,7 @@ else
 					}
 					</script>';
 					echo '<table>';
-					while($R = mysql_fetch_assoc($Q_customer))
+					while($R = $Q_customer->fetch())
 					{
 						$customer = getCustomer($R['customer_id']);
 						$filter = addFilter(array(), 'customer_id', $customer['customer_id']);
@@ -606,14 +682,16 @@ else
 							'<a href="customer.php?customer_id='.$customer['customer_id'].'">'.
 							iconHTML('group').' '.
 							$customer['customer_name'].'</a></b></td>'.chr(10);
-						echo '		<td style="vertical-align: middle;">'.
+						echo '		<td style="vertical-align: middle;">';
 						//'<font size="1">'.
 						//'<a href="customer_edit.php?customer_id='.$customer['customer_id'].'">'.
 						//iconHTML('group_edit').' '.
 						//_('Edit').'</a>'.
 						' (<a href="entry_list.php?filters='.$filters_serialized.'">'.
 						//iconHTML('page_white').' '.
-						mysql_num_rows(mysql_query(genSQLFromFilters ($filter, 'entry_id'))).
+                        $Q_num = db()->prepare(genSQLFromFilters ($filter, 'entry_id'));
+                        $Q_num->execute();
+						echo $Q_num->execute().
 						' bookinger</a>)'.
 						//'</font>'.
 						'</td>'.chr(10);

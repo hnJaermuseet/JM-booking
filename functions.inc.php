@@ -720,47 +720,60 @@ function getCustomer ($customer_id)
 	else
 	{
 		$customer_id = (int)$customer_id;
-		$Q = mysql_query("select * from `customer` where customer_id = '".$customer_id."' limit 1");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare("select * from `customer` where customer_id = :customer_id limit 1");
+        $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+        $Q->execute();
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
 		else
 		{
+            $row = $Q->fetch();
 			$return = array (
-				'customer_id'				=> mysql_result	($Q, '0', 'customer_id'),
-				'customer_name'				=> mysql_result ($Q, '0', 'customer_name'),
-				'customer_type'				=> mysql_result ($Q, '0', 'customer_type'),
-				'customer_municipal_num'	=> mysql_result ($Q, '0', 'customer_municipal_num'),
-				'customer_address_id_invoice'	=>  mysql_result ($Q, '0', 'customer_address_id_invoice')
+				'customer_id'				=> $row['customer_id'],
+				'customer_name'				=> $row['customer_name'],
+				'customer_type'				=> $row['customer_type'],
+				'customer_municipal_num'	=> $row['customer_municipal_num'],
+				'customer_address_id_invoice'	=>  $row['customer_address_id_invoice']
 			);
 			
-			if(mysql_result($Q, '0', 'slettet') == '1')
-				$return['slettet'] = true;
-			else
-				$return['slettet'] = false;
+			if($row['slettet'] == '1') {
+                $return['slettet'] = true;
+            }
+			else {
+                $return['slettet'] = false;
+            }
 			
 			require "libs/municipals_norway.php";
-			if(isset($municipals [$return['customer_municipal_num']]))
-				$return ['customer_municipal'] = $municipals [$return['customer_municipal_num']];
-			else
-				$return ['customer_municipal'] = '';
+			if(isset($municipals [$return['customer_municipal_num']])) {
+                $return ['customer_municipal'] = $municipals [$return['customer_municipal_num']];
+            }
+			else {
+                $return ['customer_municipal'] = '';
+            }
 			
 			// Getting phone numbers
 			$return ['customer_phone'] = array();
-			$Q = mysql_query("select * from `customer_phone` where customer_id = '".$customer_id."'");
-			while($R = mysql_fetch_assoc($Q))
-				$return ['customer_phone'][$R['phone_id']] = array (
-					'phone_id'		=> $R['phone_id'],
-					'phone_num' 	=> $R['phone_num'],
-					'phone_name'	=> $R['phone_name']
-				);
+			$Q = db()->prepare('select * from `customer_phone` where customer_id = :customer_id');
+            $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+            $Q->execute();
+			while($R = $Q->fetch()) {
+                $return ['customer_phone'][$R['phone_id']] = array(
+                    'phone_id' => $R['phone_id'],
+                    'phone_num' => $R['phone_num'],
+                    'phone_name' => $R['phone_name']
+                );
+            }
 			
 			// Getting addresses
 			$return ['customer_address'] = array();
-			$Q = mysql_query("select * from `customer_address` where customer_id = '".$customer_id."'");
-			while($R = mysql_fetch_assoc($Q))
-				$return ['customer_address'][$R['address_id']] = $R;
+			$Q = db()->prepare('select * from `customer_address` where customer_id = :customer_id');
+            $Q->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+            $Q->execute();
+			while($R = $Q->fetch()) {
+                $return ['customer_address'][$R['address_id']] = $R;
+            }
 			
 			return $return;
 		}
@@ -776,14 +789,16 @@ function getAddress ($id)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select * from `customer_address` where address_id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare('select * from `customer_address` where address_id = :address_id limit 1');
+        $Q->bindValue(':address_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
 		else
 		{
-			return mysql_fetch_assoc($Q);
+			return $Q->fetch();
 		}
 	}
 }
@@ -812,8 +827,10 @@ function getUser ($id, $getGroups = false)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select * from `users` where user_id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare('select * from `users` where user_id = :user_id limit 1');
+        $Q->bindValue(':user_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+		if(!$Q->rowCount() > 0)
 		{
             $cache_getUser[$id] = array();
 			return $cache_getUser[$id];
@@ -827,24 +844,30 @@ function getUser ($id, $getGroups = false)
 				'user_email'		=> mysql_result ($Q, '0', 'user_email'),
 				'user_phone'		=> mysql_result ($Q, '0', 'user_phone')
 			);*/
-			$return = mysql_fetch_assoc($Q);
+			$return = $Q->fetch();
 			
-			if(mysql_result($Q, '0', 'user_invoice') == '1')
-				$return['user_invoice'] = true;
-			else
-				$return['user_invoice'] = false;
+			if($return['user_invoice'] == '1') {
+                $return['user_invoice'] = true;
+            }
+			else {
+                $return['user_invoice'] = false;
+            }
 			
-			if(mysql_result($Q, '0', 'user_invoice_setready') == '1')
-				$return['user_invoice_setready'] = true;
-			else
-				$return['user_invoice_setready'] = false;
+			if($return['user_invoice_setready'] == '1') {
+                $return['user_invoice_setready'] = true;
+            }
+			else {
+                $return['user_invoice_setready'] = false;
+            }
 			
 			if($getGroups)
 			{
 				$return['groups'] = array();
-				$Q_groups = mysql_query("select group_id from `groups` where user_ids like '%;".$return['user_id'].";%'");
-				while($R_group = mysql_fetch_assoc($Q_groups))
-					$return['groups'][$R_group['group_id']] = $R_group ['group_id'];
+				$Q_groups = db()->prepare("select group_id from `groups` where user_ids like '%;".$return['user_id'].";%'");
+                $Q_groups->execute();
+				while($R_group = $Q_groups->fetch()) {
+                    $return['groups'][$R_group['group_id']] = $R_group ['group_id'];
+                }
 			}
 
             $cache_getUser[$id] = $return;
@@ -862,8 +885,10 @@ function isUserDeactivated ($id)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select deactivated from `users` where user_id = '".$id."' limit 1");
-		return (bool)mysql_result($Q, 0, 'deactivated');
+		$Q = db()->prepare('select deactivated from `users` where user_id = :user_id limit 1');
+        $Q->bindValue(':user_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+		return (bool)($Q->fetch()['deactivated']);
 	}
 }
 
@@ -889,21 +914,24 @@ function getEntryType ( $id ) {
     else
     {
         $id = (int)$id;
-        $Q = mysql_query( "select * from `entry_type` where entry_type_id = '" . $id . "' limit 1" );
-        if ( !mysql_num_rows( $Q ) ) {
+        $Q = db()->prepare('select * from `entry_type` where entry_type_id = :entry_type_id limit 1');
+        $Q->bindValue(':entry_type_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+        if ( $Q->rowCount() <= 0 ) {
             // -> No entry found, return empty array
             $cache_getEntryType[$id] = array();
             return array();
         }
         else
         {
+            $row = $Q->fetch();
             $return = array(
-                'entry_type_id' => mysql_result( $Q, '0', 'entry_type_id' ),
-                'entry_type_name' => mysql_result( $Q, '0', 'entry_type_name' ),
-                'entry_type_name_short' => mysql_result( $Q, '0', 'entry_type_name_short' ),
-                'group_id' => mysql_result( $Q, '0', 'group_id' ),
-                'day_start' => mysql_result( $Q, '0', 'day_start' ),
-                'day_end' => mysql_result( $Q, '0', 'day_end' )
+                'entry_type_id' => $row['entry_type_id'],
+                'entry_type_name' => $row['entry_type_name'],
+                'entry_type_name_short' => $row['entry_type_name_short'],
+                'group_id' => $row['group_id'],
+                'day_start' => $row['day_start'],
+                'day_end' => $row['day_end']
             );
 
             $cache_getEntryType[$id] = $return;
@@ -921,14 +949,17 @@ function getEntryDeleted($id)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select * from `entry_deleted` where entry_id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare("select * from `entry_deleted` where entry_id = :entry_id limit 1");
+        $Q->bindValue(':entry_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
 		else
 		{
-			return getEntryParseDatabaseArray (mysql_fetch_assoc($Q));
+			return getEntryParseDatabaseArray ($Q->fetch());
 		}
 	}
 }
@@ -942,14 +973,16 @@ function getEntry($id)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select * from `entry` where entry_id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare("select * from `entry` where entry_id = :entry_id limit 1");
+        $Q->bindValue(':entry_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
 		else
 		{
-			return getEntryParseDatabaseArray (mysql_fetch_assoc($Q));
+			return getEntryParseDatabaseArray ($Q->fetch());
 		}
 	}
 }
@@ -960,13 +993,15 @@ function getEntryParseDatabaseArray ($return)
 	$return['edit_by']					= splittIDs($return['edit_by']);
 	$return['user_assigned']			= splittIDs($return['user_assigned']);
 	$return['contact_person_email2']	= splittEmails($return['contact_person_email']);
-	if($return['invoice_content'] == '' )
-		$return['invoice_content'] = array();
+	if($return['invoice_content'] == '' ) {
+        $return['invoice_content'] = array();
+    }
 	else
 	{
 		$return['invoice_content']			= unserialize($return['invoice_content']);
-		if(!is_array($return['invoice_content']))
-			$return['invoice_content'] = array();
+		if(!is_array($return['invoice_content'])) {
+            $return['invoice_content'] = array();
+        }
 	}
 	
 	
@@ -985,16 +1020,20 @@ function getEntryParseDatabaseArray ($return)
 		$vars['mva'] *= 100;
 		if($vars['mva'] > 0)
 		{
-			if(isset($return['mva'][$vars['mva']]))
-				$return['mva'][$vars['mva']] += $vars['mva_sum'];
-			else
-				$return['mva'][$vars['mva']] = $vars['mva_sum'];
+			if(isset($return['mva'][$vars['mva']])) {
+                $return['mva'][$vars['mva']] += $vars['mva_sum'];
+            }
+			else {
+                $return['mva'][$vars['mva']] = $vars['mva_sum'];
+            }
 			
 			$return['mva_grunnlag_sum'] += $vars['belop_sum_netto'];
-			if(isset($return['mva_grunnlag'][$vars['mva']]))
-				$return['mva_grunnlag'][$vars['mva']] += $vars['belop_sum_netto'];
-			else
-				$return['mva_grunnlag'][$vars['mva']] = $vars['belop_sum_netto'];
+			if(isset($return['mva_grunnlag'][$vars['mva']])) {
+                $return['mva_grunnlag'][$vars['mva']] += $vars['belop_sum_netto'];
+            }
+			else {
+                $return['mva_grunnlag'][$vars['mva']] = $vars['belop_sum_netto'];
+            }
 		}
 	}
 	$return['grunnlag_mva_tot'] = 0;
@@ -1006,8 +1045,9 @@ function getEntryParseDatabaseArray ($return)
 		}
 		$return['mva_vis'] = true;
 	}
-	else
-		$return['mva_vis'] = false;
+	else {
+        $return['mva_vis'] = false;
+    }
 	
 	return $return;
 }
@@ -1026,14 +1066,16 @@ function getArea ( $id ) {
     else
     {
         $id = (int)$id;
-        $Q = mysql_query( "select * from `mrbs_area` where id = '" . $id . "' limit 1" );
-        if ( !mysql_num_rows( $Q ) ) {
+        $Q = db()->prepare('select * from `mrbs_area` where id = :area_id limit 1');
+        $Q->bindValue(':area_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+        if ( $Q->rowCount() <= 0 ) {
             $cache_getArea[$id] = array();
             return array();
         }
         else
         {
-            $return = mysql_fetch_assoc( $Q );
+            $return = $Q->fetch();
             $return['area_id'] = $return['id'];
             unset($return['id']);
 
@@ -1057,17 +1099,20 @@ function getRoom ( $id ) {
     else
     {
         $id = (int)$id;
-        $Q = mysql_query( "select * from `mrbs_room` where id = '" . $id . "' limit 1" );
-        if ( !mysql_num_rows( $Q ) ) {
+        $Q = db()->prepare( "select * from `mrbs_room` where id = :room_id limit 1" );
+        $Q->bindValue(':room_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+        if ( $Q->rowCount() <= 0 ) {
             $cache_getRoom[$id] = array();
             return array();
         }
         else
         {
+            $row = $Q->fetch();
             $return = array(
-                'room_id' => mysql_result( $Q, '0', 'id' ),
-                'room_name' => mysql_result( $Q, '0', 'room_name' ),
-                'area_id' => mysql_result( $Q, '0', 'area_id' )
+                'room_id' => $row['id'],
+                'room_name' => $row['room_name'],
+                'area_id' => $row['area_id']
             );
 
             $cache_getRoom[$id] = $return;
@@ -1091,14 +1136,16 @@ function getProgram ( $id ) {
     else
     {
         $id = (int)$id;
-        $Q = mysql_query( "select * from `programs` where program_id = '" . $id . "' limit 1" );
-        if ( !mysql_num_rows( $Q ) ) {
+        $Q = db()->prepare( "select * from `programs` where program_id = :program_id limit 1" );
+        $Q->bindValue(':program_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+        if ( $Q->rowCount() <= 0 ) {
             $cache_getProgram[$id] = array();
             return array();
         }
         else
         {
-            $cache_getProgram[$id] = mysql_fetch_assoc( $Q );
+            $cache_getProgram[$id] = $Q->fetch();
             return $cache_getProgram[$id];
         }
     }
@@ -1113,19 +1160,22 @@ function getProgramDefaultAttachment($id)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select * from `programs_defaultattachment` where program_id = '".$id."'");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare("select * from `programs_defaultattachment` where program_id = :program_id");
+        $Q->bindValue(':program_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
 		else
 		{
 			$return = array();
-			while($R = mysql_fetch_assoc($Q))
+			while($R = $Q->fetch())
 			{
 				$att = getAttachment($R['att_id']);
-				if(count($att))
-					$return[$R['att_id']] = $att;
+				if(count($att)) {
+                    $return[$R['att_id']] = $att;
+                }
 			}
 			return $return;
 		}
@@ -1142,23 +1192,27 @@ function getEntryTypeDefaultAttachment($id, $areaid)
 	{
 		$id = (int)$id;
 		$areaid = (int)$areaid;
-		$Q = mysql_query("select * from `entry_type_defaultattachment` 
+		$Q = db()->prepare("select * from `entry_type_defaultattachment`
 			WHERE
-				entry_type_id = '".$id."' AND
-				area_id = '".$areaid."'
+				entry_type_id = :entry_type_id AND
+				area_id = :area_id
 			");
-		if(!mysql_num_rows($Q))
+        $Q->bindValue(':entry_type_id', $id, PDO::PARAM_INT);
+        $Q->bindValue(':area_id', $areaid, PDO::PARAM_INT);
+        $Q->execute();
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
 		else
 		{
 			$return = array();
-			while($R = mysql_fetch_assoc($Q))
+			while($R = $Q->fetch())
 			{
 				$att = getAttachment($R['att_id']);
-				if(count($att))
-					$return[$R['att_id']] = $att;
+				if(count($att)) {
+                    $return[$R['att_id']] = $att;
+                }
 			}
 			return $return;
 		}
@@ -1174,24 +1228,29 @@ function getConfirm($id)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select * from `entry_confirm` where confirm_id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare("select * from `entry_confirm` where confirm_id = :confirm_id limit 1");
+        $Q->bindValue(':confirm_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
 		else
 		{
-			$return = mysql_fetch_assoc($Q);
+			$return = $Q->fetch();
 			$return['confirm_to'] = unserialize($return['confirm_to']);
 			
 			
 			// Get used attachments, if any
 			$return['confirm_usedatt'] = array();
-			$Q = mysql_query("select att_id from `entry_confirm_usedatt` where confirm_id = '".$id."'");
-			while($R = mysql_fetch_assoc($Q)) {
+			$Q = db()->prepare("select att_id from `entry_confirm_usedatt` where confirm_id = :confirm_id");
+            $Q->bindValue(':confirm_id', $id, PDO::PARAM_INT);
+            $Q->execute();
+			while($R = $Q->fetch()) {
 				$att = getAttachment($R['att_id']);
-				if(count($att))
-					$return['confirm_usedatt'][$att['att_id']] = $att;
+				if(count($att)) {
+                    $return['confirm_usedatt'][$att['att_id']] = $att;
+                }
 			}
 			
 			
@@ -1209,37 +1268,44 @@ function getAttachment($id, $getAll = false)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select * from `entry_confirm_attachment` where att_id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare("select * from `entry_confirm_attachment` where att_id = :att_id limit 1");
+        $Q->bindValue(':att_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
 		else
 		{
-			$att = mysql_fetch_assoc($Q);
+			$att = $Q->fetch();
 			
 			if($getAll)
 			{
 				// Getting uploaded by
 				$user = getUser($att['user_id']);
-				if(count($user))
-					$att['user_name'] = $user['user_name'];
-				else
-					$att['user_name'] = '';
+				if(count($user)) {
+                    $att['user_name'] = $user['user_name'];
+                }
+				else {
+                    $att['user_name'] = '';
+                }
 				
 				
 				// Connections
 				$att['connections'] = array();
-				$Q_con = mysql_query("select * from `programs_defaultattachment` where `att_id` = '".$att['att_id']."'");
-				while($R = mysql_fetch_assoc($Q_con))
+				$Q_con = db()->prepare("select * from `programs_defaultattachment` where `att_id` = :att_id");
+                $Q_con->bindValue(':att_id', $id, PDO::PARAM_INT);
+                $Q_con->execute();
+				while($R = $Q_con->fetch())
 				{
 					$program = getProgram($R['program_id']);
 					
 					if(count($program))
 					{
 						$area = getArea($program['area_id']);
-						if(!count($area))
-							$area = array('area_name' => __('UNKNOWN AREA'));
+						if(!count($area)) {
+                            $area = array('area_name' => __('UNKNOWN AREA'));
+                        }
 						
 						$att['connections'][] = array(
 								'type' => 'Fast program',
@@ -1249,27 +1315,32 @@ function getAttachment($id, $getAll = false)
 							);
 					}
 				}
-				$Q_con = mysql_query("select * from `entry_type_defaultattachment` where `att_id` = '".$att['att_id']."'");
-				while($R = mysql_fetch_assoc($Q_con))
+				$Q_con = db()->prepare("select * from `entry_type_defaultattachment` where `att_id` = :att_id");
+                $Q_con->bindValue(':att_id', $id, PDO::PARAM_INT);
+                $Q_con->execute();
+                while($R = $Q_con->fetch())
 				{
 					$area = getArea($R['area_id']);
 					if(!count($area))
 						$area = array('area_name' => __('UNKNOWN AREA'));
 					
 					$entry_type = getEntryType($R['entry_type_id']);
-					if(count($entry_type))
-						$att['connections'][] = array(
-								'type' => 'Bookingtype',
-								'id' => $entry_type['entry_type_id'],
-								'name' => $area['area_name'].' - '.$entry_type['entry_type_name'],
-								'icon' => 'page_white_stack'
-							);
+					if(count($entry_type)) {
+                        $att['connections'][] = array(
+                            'type' => 'Bookingtype',
+                            'id' => $entry_type['entry_type_id'],
+                            'name' => $area['area_name'] . ' - ' . $entry_type['entry_type_name'],
+                            'icon' => 'page_white_stack'
+                        );
+                    }
 				}
 				
 				// Getting usage
-				$Q_usedatt = mysql_query("select * from `entry_confirm_usedatt` where `att_id` = '".$att['att_id']."'");
+				$Q_usedatt = db()->prepare("select * from `entry_confirm_usedatt` where `att_id` = :att_id");
+                $Q_usedatt->bindValue(':att_id', $id, PDO::PARAM_INT);
+                $Q_usedatt->execute();
 				$att['usedatt'] = array();
-				while($R = mysql_fetch_assoc($Q_usedatt))
+				while($R = $Q_usedatt->fetch())
 				{
 					$att['usedatt'][] = $R;
 				}
@@ -1288,20 +1359,23 @@ function getGroup($id)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select * from `groups` where group_id = '".$id."' limit 1");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare("select * from `groups` where group_id = :group_id limit 1");
+        $Q->bindValue(':group_id', $id, PDO::PARAM_INT);
+        $Q->execute();
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
 		else
 		{
-			$return = mysql_fetch_assoc($Q);
+			$return = $Q->fetch();
 			$return['users'] = splittIDs($return['user_ids']);
 			foreach($return['users'] as $key => $user_id)
 			{
 				$user = getUser($user_id);
-				if(isset($user['deactivated']) && $user['deactivated'])
-					unset($return['users'][$key]);
+				if(isset($user['deactivated']) && $user['deactivated']) {
+                    unset($return['users'][$key]);
+                }
 			}
 			return $return;
 		}
@@ -1310,10 +1384,12 @@ function getGroup($id)
 
 function getEntryLog($id, $entry=false)
 {
-	if($entry)
-		$id_type = 'entry_id';
-	else
-		$id_type = 'log_id';
+	if($entry) {
+        $id_type = 'entry_id';
+    }
+	else {
+        $id_type = 'log_id';
+    }
 	
 	if(!is_numeric($id) || $id == '0')
 	{
@@ -1322,8 +1398,10 @@ function getEntryLog($id, $entry=false)
 	else
 	{
 		$id = (int)$id;
-		$Q = mysql_query("select * from `entry_log` where $id_type = '".$id."'");
-		if(!mysql_num_rows($Q))
+		$Q = db()->prepare("select * from `entry_log` where $id_type = :id");
+        $Q->bindValue(':id', $id, PDO::PARAM_INT);
+        $Q->execute();
+		if($Q->rowCount() <= 0)
 		{
 			return array();
 		}
@@ -1331,20 +1409,21 @@ function getEntryLog($id, $entry=false)
 		{
 			if(!$entry)
 			{
+                $row = $Q->fetch();
 				$return = array (
-					'log_id'			=> mysql_result	($Q, '0', 'log_id'),
-					'entry_id'			=> mysql_result	($Q, '0', 'entry_id'),
-					'user_id'			=> mysql_result	($Q, '0', 'user_id'),
-					'log_action'		=> mysql_result	($Q, '0', 'log_action'),
-					'log_action2'		=> mysql_result	($Q, '0', 'log_action2'),
-					'log_time'			=> mysql_result	($Q, '0', 'log_time'),
-					'rev_num'			=> mysql_result	($Q, '0', 'rev_num'),
-					'log_data'			=> unserialize(mysql_result	($Q, '0', 'log_data'))
+					'log_id'			=> $row['log_id'],
+					'entry_id'			=> $row['entry_id'],
+					'user_id'			=> $row['user_id'],
+					'log_action'		=> $row['log_action'],
+					'log_action2'		=> $row['log_action2'],
+					'log_time'			=> $row['log_time'],
+					'rev_num'			=> $row['rev_num'],
+					'log_data'			=> unserialize($row['log_data'])
 				);
 			}
 			else
 			{
-				while ($R = mysql_fetch_assoc($Q))
+				while ($R = $Q->fetch())
 				{
 					$return[] = array (
 						'log_id'			=> $R['log_id'],
@@ -1855,8 +1934,9 @@ function newEntryLog($entry_id, $log_action, $log_action2, $rev_num, $log_data)
 {
 	global $login;
 	
-	if(!is_array($log_data))
-		return FALSE;
+	if(!is_array($log_data)) {
+        return FALSE;
+    }
 	
 	// Checking log_action
 	switch ($log_action)
@@ -1878,8 +1958,9 @@ function newEntryLog($entry_id, $log_action, $log_action2, $rev_num, $log_data)
 				case 'confirm_email':
 				case 'ical_sent':
 					// Requires $log_data['emails']
-					if(!isset($log_data['emails']) || !count($log_data['emails']))
-						return FALSE;
+					if(!isset($log_data['emails']) || !count($log_data['emails'])) {
+                        return FALSE;
+                    }
 					
 					break;
 				case '': // Normal edit
@@ -1892,15 +1973,17 @@ function newEntryLog($entry_id, $log_action, $log_action2, $rev_num, $log_data)
 			return FALSE;
 	}
 	
-	if(!is_numeric($rev_num))
-		return FALSE;
+	if(!is_numeric($rev_num)) {
+        return FALSE;
+    }
 	$rev_num = (int)$rev_num;
-	if(!is_numeric($entry_id))
-		return FALSE;
+	if(!is_numeric($entry_id)) {
+        return FALSE;
+    }
 	$entry_id = (int)$entry_id;
 	
 	// Inserting into database
-	mysql_query("INSERT INTO `entry_log` (
+	$Q = db()->prepare("INSERT INTO `entry_log` (
 			`log_id` ,
 			`entry_id` ,
 			`user_id` ,
@@ -1912,14 +1995,22 @@ function newEntryLog($entry_id, $log_action, $log_action2, $rev_num, $log_data)
 		)
 		VALUES (
 			NULL , 
-			'$entry_id', 
-			'".$login['user_id']."', 
-			'$log_action', 
-			'$log_action2', 
-			'".time()."', 
-			'$rev_num', 
-			'".serialize($log_data)."'
+			:entry_id,
+			:user_id,
+			:log_action,
+			:log_action2,
+			:thetime,
+			:rev_num,
+			:serialized_log_data
 		);");
+    $Q->bindValue(':entry_id', $entry_id, PDO::PARAM_INT);
+    $Q->bindValue(':user_id', $login['user_id'], PDO::PARAM_INT);
+    $Q->bindValue(':log_action', $log_action, PDO::PARAM_STR);
+    $Q->bindValue(':log_action2', $log_action2, PDO::PARAM_STR);
+    $Q->bindValue(':thetime', time(), PDO::PARAM_INT);
+    $Q->bindValue(':rev_num', $rev_num, PDO::PARAM_INT);
+    $Q->bindValue(':serialized_log_data', serialize($log_data), PDO::PARAM_STR);
+    $Q->execute();
 	
 	return TRUE;
 }
@@ -1931,7 +2022,7 @@ function readEntry ($entry_id, $rev_num)
 	$entry_id = (int)$entry_id;
 	$rev_num = (int)$rev_num;
 	
-	mysql_query("INSERT INTO `entry_read` (
+	$Q = db()->prepare("INSERT INTO `entry_read` (
 		`read_id` ,
 		`user_id` ,
 		`entry_id` ,
@@ -1939,8 +2030,13 @@ function readEntry ($entry_id, $rev_num)
 		`time_read`
 	)
 	VALUES (
-		NULL , '".$login['user_id']."', '$entry_id', '$rev_num', '".time()."'
+		NULL , :user_id, :entry_id, :rev_num, :thetime
 	);");
+    $Q->bindValue(':user_id', $login['user_id'], PDO::PARAM_INT);
+    $Q->bindValue(':entry_id', $entry_id, PDO::PARAM_INT);
+    $Q->bindValue(':rev_num', $rev_num, PDO::PARAM_INT);
+    $Q->bindValue(':thetime', time(), PDO::PARAM_INT);
+    $Q->execute();
 }
 
 function checkTime_Room ($start, $end, $area_id, $room = 0)
@@ -1956,8 +2052,9 @@ function checkTime_Room ($start, $end, $area_id, $room = 0)
 		$room_query = " and (";
 		foreach ($room as $rid)
 		{
-			if($rid == '0' && count($room) == 1)
-				$whole_area = TRUE;
+			if($rid == '0' && count($room) == 1) {
+                $whole_area = TRUE;
+            }
 			$room_query .= "room_id like '%;$rid;%' || ";
 		}
 		$room_query .= "room_id like '%;0;%')";
@@ -1967,8 +2064,10 @@ function checkTime_Room ($start, $end, $area_id, $room = 0)
 			$room_query = '';
 			$room = array();
 			// Getting all rooms in area
-			$Q_rooms = mysql_query("select id as room_id from `mrbs_room` where area_id = '$area_id'");
-			while($R_room = mysql_fetch_assoc($Q_rooms)) {
+			$Q_rooms = db()->prepare("select id as room_id from `mrbs_room` where area_id = :area_id");
+            $Q_rooms->bindValue(':area_id', $area_id, PDO::PARAM_INT);
+            $Q_rooms->execute();
+			while($R_room = $Q_rooms->fetch()) {
 				$room[$R_room['room_id']] = $R_room['room_id'];
             }
 		}
@@ -1984,17 +2083,21 @@ function checkTime_Room ($start, $end, $area_id, $room = 0)
 	
 	$sql = "select entry_id, room_id from `entry` where
 		(
-			(time_start <= '$start' and time_end > '$start') or
-			(time_start < '$end' and time_end >= '$end') or
-			(time_start > '$start' and time_end < '$end')
+			(time_start <= :time_start and time_end > :time_start) or
+			(time_start < :time_end and time_end >= :time_end) or
+			(time_start > :time_start and time_end < :time_end)
 		)
-		and area_id = '$area_id'".$room_query;
-	$Q_checktime = mysql_query($sql);
+		and area_id = :area_id".$room_query;
+	$Q_checktime = db()->prepare($sql);
+    $Q_checktime->bindValue(':area_id', $area_id, PDO::PARAM_INT);
+    $Q_checktime->bindValue(':time_start', $start, PDO::PARAM_INT);
+    $Q_checktime->bindValue(':time_end', $end, PDO::PARAM_INT);
+    $Q_checktime->execute();
 
 	$return = array();
-	if(mysql_num_rows($Q_checktime))
+	if($Q_checktime->rowCount() > 0)
 	{
-		while ($R_entry = mysql_fetch_assoc($Q_checktime))
+		while ($R_entry = $Q_checktime->fetch())
 		{
 			if(is_array($room))
 			{
@@ -2027,46 +2130,56 @@ function checkTime_User ($start, $end, $user = 0)
 		$i = 0;
 		foreach ($user as $uid)
 		{
-			if($uid == '0' && count($user) == 1)
-				return array();
+			if($uid == '0' && count($user) == 1) {
+                return array();
+            }
 			
 			$i++;
 			$user_query .= "user_assigned like '%;$uid;%'";
-			if($i < count($user))
-				$user_query .= " || ";
+			if($i < count($user)) {
+                $user_query .= " || ";
+            }
 		}
 		$user_query .= ")";
 	}
-	elseif($user != 0)
-		$user_query = " and (user_assigned like '%;$user;%')";
-	else
-		return array();
-	$Q_checktime = mysql_query("select entry_id, user_assigned from `entry` where 
+	elseif($user != 0) {
+        $user_query = " and (user_assigned like '%;$user;%')";
+    }
+	else {
+        return array();
+    }
+	$Q_checktime = db()->prepare("select entry_id, user_assigned from `entry` where
 		(
-			(time_start <= '$start' and time_end > '$start') or 
-			(time_start < '$end' and time_end >= '$end') or
-			(time_start > '$start' and time_end < '$end')
+			(time_start <= :time_start and time_end > :time_start) or
+			(time_start < :time_end and time_end >= :time_end) or
+			(time_start > :time_start and time_end < :time_end)
 		)
 		".$user_query);
+    $Q_checktime->bindValue(':time_start', $start, PDO::PARAM_INT);
+    $Q_checktime->bindValue(':time_end', $end, PDO::PARAM_INT);
+    $Q_checktime->execute();
 	
 	$return = array();
-	if(!mysql_num_rows($Q_checktime))
-		return $return;
+	if($Q_checktime->rowCount() <= 0) {
+        return $return;
+    }
 	else
 	{
-		while ($R_entry = mysql_fetch_assoc($Q_checktime))
+		while ($R_entry = $Q_checktime->execute())
 		{
 			if(is_array($user))
 			{
 				$R_entry['user_assigned'] = splittIDs($R_entry['user_assigned']);
 				foreach ($user as $uid)
 				{
-					if(in_array($uid, $R_entry['user_assigned']))
-						$return[$uid][$R_entry['entry_id']] = $R_entry['entry_id'];
+					if(in_array($uid, $R_entry['user_assigned'])) {
+                        $return[$uid][$R_entry['entry_id']] = $R_entry['entry_id'];
+                    }
 				}
 			}
-			else
-				$return[$user][$R_entry['entry_id']] = $R_entry['entry_id'];
+			else {
+                $return[$user][$R_entry['entry_id']] = $R_entry['entry_id'];
+            }
 		}
 	}
 	return $return;
@@ -2101,20 +2214,29 @@ function checkTime ($start, $end, array $rooms)
         $room_query = '';
     }
 
+    if (!count($area_queries)) {
+        $area_query = '';
+    }
+    else {
+        $area_query = 'AND ('.implode(' OR ', $area_queries).')';
+    }
+
     $sql = "select entry_id, time_start, time_end from `entry` where
 		(
-			(time_start <= '$start' and time_end > '$start') or
-			(time_start < '$end' and time_end >= '$end') or
-			(time_start > '$start' and time_end < '".$end.'\')
+			(time_start <= :time_start and time_end > :time_start) or
+			(time_start < :time_end and time_end >= :time_end) or
+			(time_start > :time_start and time_end < :time_end)
 		)
-		AND ('.implode(' OR ', $area_queries).')
-		'.$room_query;
-	$Q_checktime = mysql_query($sql);
+		".$area_query . $room_query;
+	$Q_checktime = db()->prepare($sql);
+    $Q_checktime->bindValue(':time_start', $start, PDO::PARAM_INT);
+    $Q_checktime->bindValue(':time_end', $end, PDO::PARAM_INT);
+    $Q_checktime->execute();
 	
 	$return = array();
-	if(mysql_num_rows($Q_checktime))
+	if($Q_checktime->rowCount() > 0)
 	{
-		while ($R_entry = mysql_fetch_assoc($Q_checktime))
+		while ($R_entry = $Q_checktime->fetch())
 		{
 			// Adding the days
 			// time_start
@@ -2275,8 +2397,9 @@ function invoiceContentNumbers ($content) {
 # lowest area ID in the database (no guaranty there is an area 1).
 # This could be changed to implement something like per-user defaults.
 function get_default_area(){
-	$Q_area = mysql_query("SELECT MIN(id) as thisid FROM mrbs_area");
-	$area = mysql_result($Q_area,0, 'thisid');
+	$Q_area = db()->prepare('SELECT MIN(id) as thisid FROM mrbs_area');
+    $Q_area->execute();
+    $area = $Q_area->fetch()['thisid'];
 	return ($area < 0 ? 0 : $area);
 }
 
@@ -2286,9 +2409,11 @@ function checkUser ($user_id = '0')
 		return FALSE;
 	else
 	{
-		$Q_user = mysql_query("select * from `users` where user_id = '".$user_id."'");
+		$Q_user = db()->prepare("select * from `users` where user_id = :user_id");
+        $Q_user->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $Q_user->execute();
 		
-		if(!mysql_num_rows($Q_user))
+		if($Q_user->rowCount() <= 0)
 			return FALSE;
 		else
 			return TRUE;

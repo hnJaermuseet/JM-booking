@@ -49,10 +49,11 @@ echo
 
 if(!isset($_GET['gid']))
 {
-	$Q_groups = mysql_query("select * from `groups` order by `group_name`");
+	$Q_groups = db()->prepare("select * from `groups` order by `group_name`");
+	$Q_groups->execute();
 	echo '<h1>Telefonliste fra bookingsystemet</h1>'.chr(10);
 	echo '<ul>'.chr(10);
-	while($R = mysql_fetch_assoc($Q_groups))
+	while($R = $Q_groups->fetch())
 		echo '<li><a href="'.$_SERVER['PHP_SELF'].'?gid='.$R['group_id'].'">'.$R['group_name'].'</a></li>';
 	echo '</ul>'.chr(10);
 }
@@ -63,7 +64,7 @@ else
 	{
 		echo '<h1>Telefonliste - '.$group['group_name'].'</h1>'.chr(10);
 		if(!count($group['users']))
-			echo '<i>Ingen brukere på denne listen</i>';
+			echo '<i>Ingen brukere p&aring; denne listen</i>';
 		else
 		{
 			echo '<table class="wikitable">';
@@ -87,7 +88,7 @@ else
 			echo '</table>'.chr(10);
 		}
 		echo '<br><br>';
-		echo '<i>For redigering av liste, så må du redigere brukerne i bookingsystemet.</i>';
+		echo '<i>For redigering av liste, s&aring; m&aring; du redigere brukerne i bookingsystemet.</i>';
 	}
 }
 

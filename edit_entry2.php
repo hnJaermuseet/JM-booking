@@ -236,11 +236,12 @@ addOnchange ('area_id', 'choose_area(this.options[this.selectedIndex].value);');
 /* Making choices */
 
 // Entry_type_id
-$Q_entry_type = mysql_query("select entry_type_id, entry_type_name, resourcenum_length, entry_type_inactive from `entry_type` order by entry_type_name");
+$Q_entry_type = db()->prepare("select entry_type_id, entry_type_name, resourcenum_length, entry_type_inactive from `entry_type` order by entry_type_name");
+$Q_entry_type->execute();
 $choices = array('0' => __('Non selected'));
 $entry_type_resourcenum_length = array();
 $attributes = array();
-while( $r_choice = mysql_fetch_assoc($Q_entry_type)) {
+while( $r_choice = $Q_entry_type->fetch()) {
 	$choices[$r_choice['entry_type_id']] = $r_choice['entry_type_name'];
     $entry_type_resourcenum_length[$r_choice['entry_type_id']] = $r_choice['resourcenum_length'];
 
@@ -252,11 +253,12 @@ addChoice ('entry_type_id', $choices);
 addChoiceAttribute('entry_type_id', $attributes);
 
 // Area_id
-$Q_area = mysql_query("select id as area_id, area_name, area_group from `mrbs_area` order by area_name");
+$Q_area = db()->prepare("select id as area_id, area_name, area_group from `mrbs_area` order by area_name");
+$Q_area->execute();
 $choices = array('0' => __('Select one'));
 $area2 = array();
 $area_group = array();
-while( $r_choice = mysql_fetch_assoc($Q_area))
+while( $r_choice = $Q_area->fetch())
 {
 	$choices[$r_choice['area_id']]		= $r_choice['area_name'];
 	$area2[$r_choice['area_id']]		= $r_choice['area_name'];
@@ -271,13 +273,14 @@ addChoice ('area_id', $choices);
 
 // Room_id
 // -> Making some special stuff
-$Q_room = mysql_query("select id as room_id, room_name, area_id from `mrbs_room` order by area_id, room_name");
+$Q_room = db()->prepare("select id as room_id, room_name, area_id from `mrbs_room` order by area_id, room_name");
+$Q_room->execute();
 $choices = array('0' => __('Whole area'));
 $area_id = 0;		$last_id = 0;
 $before = array();	$after = array();
-if(mysql_num_rows($Q_room))
+if($Q_room->rowCount() > 0)
 {
-	while( $r_choice = mysql_fetch_assoc($Q_room))
+	while( $r_choice = $Q_room->fetch())
 	{
 		if($r_choice['area_id'] != $area_id)
 		{
@@ -296,15 +299,18 @@ addChoice ('room_id', $choices);
 addChoiceBeforeAndAfter ('room_id', $before, $after);
 
 // User_assigned
-$Q_users = mysql_query("select user_id, user_name, deactivated from `users` order by user_name");
+$Q_users = db()->prepare("select user_id, user_name, deactivated from `users` order by user_name");
+$Q_users->execute();
 $choices = array();
 $before = array();	$after = array();
-while( $r_choice = mysql_fetch_assoc($Q_users))
+while( $r_choice = $Q_users->fetch())
 {
-	if($r_choice['deactivated'])
-		$deactivated = ' class="strike graytext"';
-	else
-		$deactivated = '';
+	if($r_choice['deactivated']) {
+        $deactivated = ' class="strike graytext"';
+    }
+	else {
+        $deactivated = '';
+    }
 	$before[$r_choice['user_id']] = '<span id="user_id'.$r_choice['user_id'].'" style="display: inline;"'.$deactivated.'>';
 	$choices[$r_choice['user_id']] = $r_choice['user_name'];
 	$after[$r_choice['user_id']] = '</span>';
@@ -314,14 +320,15 @@ addChoiceBeforeAndAfter ('user_assigned', $before, $after);
 addBeforeChoices ('user_assigned', '<span id="user_id0" style="display: none;"><a href="javascript:show_all_users();">Vis alle</a><br></span>');
 
 // Program_id
-$Q_programs = mysql_query("select program_id, program_name, area_id, program_desc, program_inactive from `programs` order by area_id, program_name");
+$Q_programs = db()->prepare("select program_id, program_name, area_id, program_desc, program_inactive from `programs` order by area_id, program_name");
+$Q_programs->execute();
 $choices = array('0' => __('Non selected'));
 $area_id = 0;		$last_id = 0;
 $before = array();	$after = array();
 $inactive_programs = array();
-if(mysql_num_rows($Q_programs))
+if($Q_programs->rowCount() > 0)
 {
-	while( $r_choice = mysql_fetch_assoc($Q_programs))
+	while( $r_choice = $Q_programs->fetch())
 	{
 		if($r_choice['area_id'] != $area_id)
 		{

@@ -52,7 +52,8 @@ if(isset($_GET['customer_name']))
 {
 	//$customer_name = slashes(preg_replace('/%([0-9a-f]{2})/ie', 'chr(hexdec($1))', (string) $_GET['customer_name']));
 	$customer_name = slashes(utf8_decode($_GET['customer_name']));
-	$sql = mysql_query("select customer_id, customer_name from `customer` where customer_name like '$customer_name%' and slettet = '0' order by `customer_name`$sql_limit");
+	$sql = db()->prepare("select customer_id, customer_name from `customer` where customer_name like '$customer_name%' and slettet = '0' order by `customer_name`$sql_limit");
+    $sql->execute();
 	//$customer_name = unicode_encode($customer_name, 'ISO-8859-1');
 	//$customer_name = unichr()
 	//echo strlen($customer_name);
@@ -62,7 +63,7 @@ if(isset($_GET['customer_name']))
 	//		'id'	=> 0,
 	//		'value'	=> $customer_name,
 	//		'info'	=> '');
-	while($row = mysql_fetch_assoc($sql))
+	while($row = $sql->fetch())
 	{
 		$aResults[] = array(
 			'id'	=> $row['customer_id'],
@@ -143,31 +144,30 @@ elseif(isset($_GET['address_id']))
 {
 	if(is_numeric($_GET['address_id']))
 	{
-		$Q = mysql_query("select * from `customer_address` where address_id = '".((int)$_GET['address_id'])."'");
-		if(mysql_num_rows($Q))
+		$Q = db()->prepare("select * from `customer_address` where address_id = ::address_id");
+        $Q->bindValue(':address_id', ((int)$_GET['address_id']), PDO::PARAM_INT);
+		if($Q->rowCount() > 0)
 		{
 			header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 			header ("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
 			header ("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 			header ("Pragma: no-cache"); // HTTP/1.0
-			
-			//header("Content-Type: application/json");
-			
-			//echo htmlentities(mysql_result($Q, 0, 'address_full'),ENT_QUOTES, 'ISO-8859-1', false);
-			//echo mysql_result($Q, 0, 'address_full');
-			if(!isset($_GET['address_format']) || $_GET['address_format'] != '2')
-				echo htmlentities(mysql_result($Q, 0, 'address_full'),ENT_QUOTES, 'ISO-8859-1', false);
+
+            $row = $Q->fetch();
+			if(!isset($_GET['address_format']) || $_GET['address_format'] != '2') {
+                echo htmlentities($row['address_full'], ENT_QUOTES, 'ISO-8859-1', false);
+            }
 			else
 			{
 				// address_format = 2
 				// => are using all the lines
-				echo htmlentities(mysql_result($Q, 0, 'address_line_1'),ENT_QUOTES, 'ISO-8859-1', false).chr(10);
-				echo htmlentities(mysql_result($Q, 0, 'address_line_2'),ENT_QUOTES, 'ISO-8859-1', false).chr(10);
-				echo htmlentities(mysql_result($Q, 0, 'address_line_3'),ENT_QUOTES, 'ISO-8859-1', false).chr(10);
-				echo htmlentities(mysql_result($Q, 0, 'address_line_4'),ENT_QUOTES, 'ISO-8859-1', false).chr(10);
-				echo htmlentities(mysql_result($Q, 0, 'address_line_5'),ENT_QUOTES, 'ISO-8859-1', false).chr(10);
-				echo htmlentities(mysql_result($Q, 0, 'address_line_6'),ENT_QUOTES, 'ISO-8859-1', false).chr(10);
-				echo htmlentities(mysql_result($Q, 0, 'address_line_7'),ENT_QUOTES, 'ISO-8859-1', false).chr(10);
+				echo htmlentities($row['address_line_1'],ENT_QUOTES, 'ISO-8859-1', false).chr(10);
+				echo htmlentities($row['address_line_2'],ENT_QUOTES, 'ISO-8859-1', false).chr(10);
+				echo htmlentities($row['address_line_3'],ENT_QUOTES, 'ISO-8859-1', false).chr(10);
+				echo htmlentities($row['address_line_4'],ENT_QUOTES, 'ISO-8859-1', false).chr(10);
+				echo htmlentities($row['address_line_5'],ENT_QUOTES, 'ISO-8859-1', false).chr(10);
+				echo htmlentities($row['address_line_6'],ENT_QUOTES, 'ISO-8859-1', false).chr(10);
+				echo htmlentities($row['address_line_7'],ENT_QUOTES, 'ISO-8859-1', false).chr(10);
 			}
 		}
 	}
@@ -177,8 +177,9 @@ elseif(isset($_GET['template_id']))
 {
 	if(is_numeric($_GET['template_id']))
 	{
-		$Q_tpl = mysql_query("select * from `template` where template_id = '".((int)$_GET['template_id'])."'");
-		if(mysql_num_rows($Q_tpl))
+		$Q_tpl = db()->prepare("select * from `template` where template_id = '".((int)$_GET['template_id'])."'");
+		$Q_tpl->execute();
+		if($Q_tpl->rowCount() > 0)
 		{
 			header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 			header ("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
@@ -187,7 +188,7 @@ elseif(isset($_GET['template_id']))
 			
 			//header("Content-Type: application/json");
 			
-			echo htmlentities(mysql_result($Q_tpl, 0, 'template'),ENT_QUOTES, 'ISO-8859-1', false);
+			echo htmlentities($Q_tpl->fetch()['template'],ENT_QUOTES, 'ISO-8859-1', false);
 		}
 	}
 	exit();
@@ -195,9 +196,10 @@ elseif(isset($_GET['template_id']))
 elseif(isset($_GET['attSearch']))
 {
 	// Searching for an attachment
-	$Q_att = mysql_query("select * from `entry_confirm_attachment` where att_filename_orig like '%".addslashes($_GET['attSearch'])."%' order by `att_filename_orig`");
+	$Q_att = db()->prepare("select * from `entry_confirm_attachment` where att_filename_orig like '%".addslashes($_GET['attSearch'])."%' order by `att_filename_orig`");
+	$Q_att->execute();
 	$dynamicPrint = true;
-	while($R_att = mysql_fetch_assoc($Q_att))
+	while($R_att = $Q_att->fetch())
 	{
 		$aResults[] = array(
 				'att_id'			=> $R_att['att_id'],
@@ -245,4 +247,3 @@ for ($i=0;$i<count($aResults);$i++)
 }
 echo implode(", ", $arr);
 echo "]}";
-?>

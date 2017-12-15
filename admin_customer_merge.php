@@ -59,12 +59,17 @@ if(
 		
 		echo '<h1>Kundeopprydding</h1>';
 		
-		$Q_entries = mysql_query("update `entry` set `customer_id` = '".$customer1['customer_id']."' where `customer_id` = '".$customer2['customer_id']."'");
-		echo 'Flyttet bookinger til kundeid '.$customer1['customer_id'].': <span style="color: green">OK, '.mysql_affected_rows().' bookinger flyttet</span><br>';
-		$Q_customer = mysql_query("update `customer` set `slettet` = '1' where `customer_id` = '".$customer2['customer_id']."'");
+		$Q_entries = db()->prepare("update `entry` set `customer_id` = :customer_id1 where `customer_id` = :customer_id2");
+        $Q_entries->bindValue(':customer_id1', $customer1['customer_id'], PDO::PARAM_INT);
+        $Q_entries->bindValue(':customer_id2', $customer2['customer_id'], PDO::PARAM_INT);
+		$Q_entries->execute();
+
+		echo 'Flyttet bookinger til kundeid '.$customer1['customer_id'].': <span style="color: green">OK, '.$Q_entries->rowCount().' bookinger flyttet</span><br>';
+		$Q_customer = db()->prepare("update `customer` set `slettet` = '1' where `customer_id` = :customer_id2");
+        $Q_customer->bindValue(':customer_id2', $customer2['customer_id'], PDO::PARAM_INT);
+		$Q_customer->execute();
 		echo 'Slette kundeid '.$customer2['customer_id'].': <span style="color: green">OK</span><br>';
-		echo '<br>'.
-			'<a href="admin_customer_merge.php">Tilbake til kundeopprydning</a>';
+		echo '<br><a href="admin_customer_merge.php">Tilbake til kundeopprydning</a>';
 		exit();
 	}
 	
@@ -133,10 +138,12 @@ if(
 	$filters = array();
 	$filters = addFilter($filters, 'customer_id', $customer1['customer_id']);
 	$SQL = genSQLFromFilters($filters, 'entry_id').' order by time_start';
-	$Q_next_entries = mysql_query($SQL);
+	$Q_next_entries = db()->prepare($SQL);
+	$Q_next_entries->execute();
 	
-	if(!mysql_num_rows($Q_next_entries))
-		echo '<i>Ingen</i>'.chr(10);
+	if($Q_next_entries->rowCount() <= 0) {
+        echo '<i>Ingen</i>' . chr(10);
+    }
 	else
 	{
 		echo '<table style="border-collapse: collapse;">'.chr(10);
@@ -148,7 +155,7 @@ if(
 		echo '  <td class="border"><b>'.__('Phone').'</b></td>'.chr(10);
 		echo '  <td class="border"><b>'.__('E-mail').'</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
-		while($R_entry = mysql_fetch_assoc($Q_next_entries))
+		while($R_entry = $Q_next_entries->fetch())
 		{
 			$entry = getEntry($R_entry['entry_id']);
 			if(count($entry))
@@ -188,10 +195,12 @@ if(
 	$filters = array();
 	$filters = addFilter($filters, 'customer_id', $customer2['customer_id']);
 	$SQL = genSQLFromFilters($filters, 'entry_id').' order by time_start';
-	$Q_next_entries = mysql_query($SQL);
+	$Q_next_entries = db()->prepare($SQL);
+	$Q_next_entries->execute();
 	
-	if(!mysql_num_rows($Q_next_entries))
-		echo '<i>Ingen</i>'.chr(10);
+	if($Q_next_entries->rowCount() <= 0) {
+        echo '<i>Ingen</i>' . chr(10);
+    }
 	else
 	{
 		echo '<span style="color:green">Flyttes til kunde 1:</span><br>';
@@ -204,7 +213,7 @@ if(
 		echo '  <td class="border"><b>'.__('Phone').'</b></td>'.chr(10);
 		echo '  <td class="border"><b>'.__('E-mail').'</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
-		while($R_entry = mysql_fetch_assoc($Q_next_entries))
+		while($R_entry = $Q_next_entries->fetch())
 		{
 			$entry = getEntry($R_entry['entry_id']);
 			if(count($entry))
@@ -214,13 +223,15 @@ if(
 				echo '  <td class="border"><a href="entry.php?entry_id='.$entry['entry_id'].'">'.$entry['entry_name'].'</a></td>'.chr(10);
 				echo '  <td class="border">';
 				$area = getArea($entry['area_id']);
-				if(count($area))
-					echo $area['area_name'].' - ';
+				if(count($area)) {
+                    echo $area['area_name'] . ' - ';
+                }
 				$rooms = array();
 				foreach ($entry['room_id'] as $rid)
 				{
-					if($rid == '0')
-						$rooms[] = __('Whole area');
+					if($rid == '0') {
+                        $rooms[] = __('Whole area');
+                    }
 					else
 					{
 						$room = getRoom($rid);
@@ -278,15 +289,16 @@ else
 			'<th>Kunde 2, denne slettes</th>'.
 			'<th>&nbsp;</th>'.
 		'</tr>';
-	$Q = mysql_query("
+	$Q = db()->prepare("
 			SELECT customer_id, customer_name 
 			FROM `customer` 
 			WHERE `slettet` = '0' 
 			ORDER BY customer_name
 		");
+    $Q->execute();
 	$last = '';
 	$last_id = 0;
-	while($R = mysql_fetch_assoc($Q))
+	while($R = $Q->fetch())
 	{
 		if(strtolower($last) == strtolower($R['customer_name']))
 		{

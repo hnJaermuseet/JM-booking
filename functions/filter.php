@@ -108,15 +108,17 @@ function filterMakeAlternatives () {
 	// Area_id
 	$alternatives['area_id']['choice'] = array();
 	$alternatives['area_id']['choice'][0] = __('Select one');
-	$Q = mysql_query("select id as area_id, area_name from `mrbs_area` order by 'area_name'");
-	while( $r_choice = mysql_fetch_assoc($Q))
+	$Q = db()->prepare("select id as area_id, area_name from `mrbs_area` order by 'area_name'");
+    $Q->execute();
+	while( $r_choice = $Q->fetch())
 		$alternatives['area_id']['choice'][$r_choice['area_id']]	= $r_choice['area_name'];
 	
 	// Room_id
 	$alternatives['room_id']['choice'] = array();
 	$alternatives['room_id']['choice'][0] = __('Whole area');
-	$Q = mysql_query("select id as room_id, room_name, area_id from `mrbs_room` order by area_id, room_name");
-	while( $r_choice = mysql_fetch_assoc($Q))
+	$Q = db()->prepare("select id as room_id, room_name, area_id from `mrbs_room` order by area_id, room_name");
+    $Q->execute();
+	while( $r_choice = $Q->fetch())
 		$alternatives['room_id']['choice'][$r_choice['room_id']]
 		 = 
 			$alternatives['area_id']['choice'][$r_choice['area_id']].
@@ -125,8 +127,9 @@ function filterMakeAlternatives () {
 	// User_id
 	$alternatives['user_assigned']['choice'] = array();
 	$alternatives['user_assigned']['choice'][0] = __('Nobody');
-	$Q = mysql_query("select user_id, user_name from `users` order by 'user_name'");
-	while( $r_choice = mysql_fetch_assoc($Q))
+	$Q = db()->prepare("select user_id, user_name from `users` order by 'user_name'");
+    $Q->execute();
+	while( $r_choice = $Q->fetch())
 		$alternatives['user_assigned']['choice'][$r_choice['user_id']]	= $r_choice['user_name'];
 	
 	
@@ -561,19 +564,25 @@ function filterToText ($filtertable) {
 			if(isset($alternatives[$filter[0]]['table']) && count($alternatives[$filter[0]]['table']))
 			{
 				$table = $alternatives[$filter[0]]['table'];
-				$Q_id = mysql_query('
+				$Q_id = db()->prepare('
 					SELECT 
 						'.$table['id_field'].' AS id, 
 						'.$table['value_field'].' AS value
 					FROM '.$table['table'].'
-					WHERE '.$table['id_field'].' = "'.$filter[1].'"');
-				if(mysql_num_rows($Q_id))
-					$return .= mysql_result($Q_id, '0', 'value').' (id '.mysql_result($Q_id, '0', 'id').')';
-				else
-					$return .= 'id '.$filter[1];
+					WHERE '.$table['id_field'].' = :id_field');
+                $Q_id->bindValue(':id_field', $filter[1]);
+                $Q_id->execute();
+				if($Q_id->rowCount() > 0) {
+                    $row = $Q_id->fetch();
+                    $return .= $row['value'] . ' (id ' . $row['id'] . ')';
+                }
+				else {
+                    $return .= 'id ' . $filter[1];
+                }
 			}
-			else
-				$return .= 'id '.$filter[1];
+			else {
+                $return .= 'id ' . $filter[1];
+            }
 		}
 		else {
 			$return .= $filter[1];

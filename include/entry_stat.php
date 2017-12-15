@@ -52,8 +52,10 @@ if(!isset($noprint))
 	echo '<br>'.chr(10).chr(10);
 }
 
-$Q           = mysql_query($SQL);
-$Q_datanova  = mysql_query($SQL_datanova);
+$Q           = db()->prepare($SQL);
+$Q->execute();
+$Q_datanova  = db()->prepare($SQL_datanova);
+$Q_datanova->execute();
 
 // Municipal
 // Bookingtype
@@ -89,7 +91,7 @@ foreach($filters as $filter) {
 }
 if($tamed_datanova)
 {
-	$municipals[-1] = 'Løst besøkende';
+	$municipals[-1] = 'Lï¿½st besï¿½kende';
 }
 
 /*
@@ -100,13 +102,14 @@ if($tamed_datanova)
  * p = people, total
  * e = entries
  */
-while($tamed_booking && $R = mysql_fetch_assoc($Q))
+while($tamed_booking && $R = $Q->fetch(PDO::FETCH_ASSOC))
 {
 	$entry = getEntryParseDatabaseArray($R);
 	
 	/* Municipals */
-	if($entry['customer_municipal_num'] == '')
-		$entry['customer_municipal_num'] = 0;
+	if($entry['customer_municipal_num'] == '') {
+        $entry['customer_municipal_num'] = 0;
+    }
 	
 	if(!isset($municipals2[$entry['customer_municipal_num']]))
 	{
@@ -142,8 +145,9 @@ while($tamed_booking && $R = mysql_fetch_assoc($Q))
 			$entry_type = getEntryType($entry['entry_type_id']);
 			$entrytypes[$entry['entry_type_id']]['Name'] = $entry_type['entry_type_name'];
 		}
-		else
-			$entrytypes[$entry['entry_type_id']]['Name'] = '';
+		else {
+            $entrytypes[$entry['entry_type_id']]['Name'] = '';
+        }
 	}
 	else
 	{
@@ -253,7 +257,7 @@ while($tamed_booking && $R = mysql_fetch_assoc($Q))
  * p = people, total
  * e = entries
  */
-while($tamed_datanova && $R = mysql_fetch_assoc($Q_datanova))
+while($tamed_datanova && $R = $Q_datanova->fetch(PDO::FETCH_ASSOC))
 {
 	$entry = array(
 			'num_person_child' => $R['antall_barn'],
@@ -301,9 +305,11 @@ while($tamed_datanova && $R = mysql_fetch_assoc($Q_datanova))
 		
 		if(substr($entry['entry_type_id'], 0, 2) == 'dn')
 		{
-			$Q_typer = mysql_query("select * from `import_dn_kategori` where `kat_id` = '".((int)$entry['dn_kat_id'])."' limit 1");
+			$Q_typer = db()->prepare('select * from `import_dn_kategori` where `kat_id` = :kat_id limit 1');
+            $Q_typer->bindValue(':kat_id',  $entry['dn_kat_id'], PDO::PARAM_INT);
+            $Q_typer->execute();
 			$entry_type_name = 'Kasse - ukjent';
-			while($R_type = mysql_fetch_assoc($Q_typer))
+			while($R_type = $Q_typer->fetch())
 			{
 				$entry_type_name = 'Kasse - '. $R_type['kat_navn'];
 			}
@@ -312,12 +318,13 @@ while($tamed_datanova && $R = mysql_fetch_assoc($Q_datanova))
 		{
 			
 			//if($entry['entry_type_id'] == -1)
-			//	$entry_type_name = 'Løst besøkende';
+			//	$entry_type_name = 'Lï¿½st besï¿½kende';
 			$entry_type = getEntryType($entry['entry_type_id']);
 			$entry_type_name = $entry_type['entry_type_name'];
 		}
-		else
-			$entry_type_name = '';
+		else {
+            $entry_type_name = '';
+        }
 		
 		$entrytypes[$entry['entry_type_id']]['Name'] = $entry_type_name;
 	}
@@ -525,8 +532,8 @@ foreach($stats_month as $id => $val)
 				'p' => 0,
 				'e' => 0
 			);
-			$stats_month[$last]['Name'] = __(date('F', getTimeFromYYYYMM($last)).' '.
-				date('Y', getTimeFromYYYYMM($last)));
+			$stats_month[$last]['Name'] = __(date('F', getTimeFromYYYYMM($last))).' '.
+				date('Y', getTimeFromYYYYMM($last));
 		}
 	}
 	$last = $id;

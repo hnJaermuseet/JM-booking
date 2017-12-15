@@ -74,10 +74,11 @@ function getAllRoomsForAreas (array $areas) {
     foreach($areas as $area) {
         $area_id_queries[] = 'area_id = \''.$area['area_id'].'\'';
     }
-    $Q_room = mysql_query('select id as room_id, room_name, area_id from `mrbs_room` where ('.implode(' OR ', $area_id_queries).') AND hidden = \'false\'');
-    if(mysql_num_rows($Q_room))
+    $Q_room = db()->prepare('select id as room_id, room_name, area_id from `mrbs_room` where ('.implode(' OR ', $area_id_queries).') AND hidden = \'false\'');
+    $Q_room->execute();
+    if($Q_room->rowCount() > 0)
     {
-        while ($R_room = mysql_fetch_assoc($Q_room)) {
+        while ($R_room = $Q_room->fetch()) {
             $all_rooms[$R_room['room_id']] = $R_room;
         }
     }
@@ -186,9 +187,10 @@ function roomList(array $areas, $areaUrlString, array $rooms, $roomUrlString, $h
             <span style="text-decoration: underline"><?=__("Areas") ?></span><br>
             <?php
 
-            $res = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
-            if (mysql_num_rows($res)) {
-                while($row = mysql_fetch_assoc($res))
+            $res = db()->prepare('select id as area_id, area_name from mrbs_area order by area_name');
+            $res->execute();
+            if ($res->rowCount() > 0) {
+                while($row = $res->fetch())
                 {
                     $area_name = htmlspecialchars($row['area_name']);
                     $area_selected = (array_key_exists($row['area_id'], $areas));
@@ -222,13 +224,36 @@ function roomList(array $areas, $areaUrlString, array $rooms, $roomUrlString, $h
             <?php printRoomSelector(0, __('Whole area')) ?>
             <?php
 
+            /*
+            $area_ids = array();
+            foreach($areas as $area) {
+                $area_ids[] = $area['area_id'];
+            }
+            if (count($area_ids) > 0) {
+                $marks = str_repeat("?,", count($area_ids) - 1) . '?';
+                $Q_room = db()->prepare('SELECT id, room_name FROM mrbs_room WHERE area_id IN (' . $marks . ') AND hidden=\'false\' ORDER BY room_name');
+                $Q_room->execute($area_ids);
+            }
+            else {
+                $Q_room = db()->prepare('SELECT id, room_name FROM mrbs_room WHERE hidden=\'false\' ORDER BY room_name');
+                $Q_room->execute();
+            }
+            $i = 0;
+            while($R_room = $Q_room->fetch())
+            */
             $i = 1;
             $area_ids = array();
             foreach($areas as $area) {
                 $area_ids[] = 'area_id = \''.$area['area_id'].'\'';
             }
-            $Q_room = mysql_query('SELECT id, room_name FROM mrbs_room WHERE ('.implode(' OR ', $area_ids).') AND hidden=\'false\' ORDER BY room_name');
-            while($R_room = mysql_fetch_assoc($Q_room))
+            if (count($area_ids)) {
+                $Q_room = db()->prepare('SELECT id, room_name FROM mrbs_room WHERE (' . implode(' OR ', $area_ids) . ') AND hidden=\'false\' ORDER BY room_name');
+            }
+            else {
+                $Q_room = db()->prepare('SELECT id, room_name FROM mrbs_room WHERE hidden=\'false\' ORDER BY room_name');
+            }
+            $Q_room->execute();
+            while($R_room = $Q_room->fetch())
             {
                 if ($i>0 && $i%6==0) {
                     echo "</td><td width=200><br>";

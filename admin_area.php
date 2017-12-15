@@ -38,10 +38,15 @@ if(isset($_GET['editor']))
 	}
 	
 	$id = 0;
-	if(isset($_GET['id']) && is_numeric($_GET['id']))
-		$id = (int)$_GET['id'];
-	if(isset($_POST['id']) && is_numeric($_POST['id']))
-		$id = (int)$_POST['id'];
+	if(isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $id = (int)$_GET['id'];
+    }
+	if(isset($_POST['id']) && is_numeric($_POST['id'])) {
+        $id = (int)$_POST['id'];
+    }
+    if (isset($_POST['importdatanova_shop_id']) && $_POST['importdatanova_shop_id'] == '') {
+        $_POST['importdatanova_shop_id'] = '0';
+    }
 	
 	if($id <= 0)
 	{
@@ -63,9 +68,11 @@ if(isset($_GET['editor']))
 	
 	$editor->makeNewField('area_group', 'Standard brukergruppe', 'select');
 	$editor->addChoice('area_group', 0, 'Ingen');
-	$Q_groups = mysql_query("select group_id, group_name from `groups` order by `group_name`");
-	while($R = mysql_fetch_assoc($Q_groups))
-		$editor->addChoice('area_group', $R['group_id'], $R['group_name']);
+	$Q_groups = db()->prepare("select group_id, group_name from `groups` order by `group_name`");
+	$Q_groups->execute();
+	while($R = $Q_groups->fetch()) {
+        $editor->addChoice('area_group', $R['group_id'], $R['group_name']);
+    }
 	
 	
 	$editor->makeNewField('importdatanova_shop_id', _h('Datanova import').' - '._h('Shop id'), 'text');
@@ -106,19 +113,22 @@ else
 	include "include/admin_middel.php";
 	
 	echo '<h2>'.__('Area').'</h2>'.chr(10).chr(10);
-	$QUERY = mysql_query("select * from `mrbs_area` order by area_name");
+	$QUERY = db()->prepare("select * from `mrbs_area` order by area_name");
+	$QUERY->execute();
 	
-	if($login['user_access_areaadmin'])
-		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.iconHTML('house_add').' '.__('New area').'</a><br><br>'.chr(10);
+	if($login['user_access_areaadmin']) {
+        echo '<a href="' . $_SERVER['PHP_SELF'] . '?editor=1">' . iconHTML('house_add') . ' ' . __('New area') . '</a><br><br>' . chr(10);
+    }
 	
 	echo '<table class="prettytable">'.chr(10).chr(10);
 	echo '	<tr>'.chr(10);
 	echo '		<th><b>'.__('ID').'</b></th>'.chr(10);
 	echo '		<th><b>'.__('Area').'</b></th>'.chr(10);
-	if($login['user_access_areaadmin'])
-		echo '		<th><b>'.__('Options').'</b></th>'.chr(10);
+	if($login['user_access_areaadmin']) {
+        echo '		<th><b>' . __('Options') . '</b></th>' . chr(10);
+    }
 	echo '	</tr>'.chr(10).chr(10);
-	while($ROW = mysql_fetch_assoc($QUERY))
+	while($ROW = $QUERY->fetch())
 	{
 		echo '	<tr>'.chr(10);
 		echo '		<td><b>'.$ROW['id'].'</b></td>'.chr(10);
@@ -134,5 +144,3 @@ else
 		echo '	</tr>'.chr(10).chr(10);
 	}
 }
-
-?>

@@ -79,6 +79,3 @@ echo '<a href="entry_list.php?listtype=deleted"';
 echo '>Slettede bookinger</a> -:- ';
 
 echo '<hr>'.chr(10);
-
-	
-?>

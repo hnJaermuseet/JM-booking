@@ -230,18 +230,19 @@ function attSearch ()
 	<i>Klikk p&aring; et vedlegg for &aring; velge dette.</i>
 <?php
 /* Getting the attachments */
-$Q_att = mysql_query("
+$Q_att = db()->prepare("
 	SELECT att.att_id
 	FROM `entry_confirm_attachment` att 
 	LEFT JOIN `entry_confirm_usedatt` used 
 	ON att.att_id = used.att_id  
 	GROUP BY att.att_id
-	ORDER BY used.timeused, att.att_uploadtime desc LIMIT 10");
-if(mysql_num_rows($Q_att))
+	DESC LIMIT 10");
+$Q_att->execute();
+if($Q_att->rowCount() > 0)
 {
 	echo '<h2 style="font-weight: bold; font-size: 14px; padding: 5px; margin-bottom: 0">10 sist brukte vedlegg:</h2>';
 	echo '	<ul style="padding-left: 0px; margin-top: 0px; list-style-image:none; list-style-position:outside; list-style-type:none;">';
-	while($R_att = mysql_fetch_assoc($Q_att))
+	while($R_att = $Q_att->fetch())
 	{
 		$att = getAttachment($R_att['att_id']);
 		if(count($att))
@@ -251,15 +252,16 @@ if(mysql_num_rows($Q_att))
 	}
 	echo '	</ul>';
 }
-$Q_att = mysql_query("
+$Q_att = db()->prepare("
 	SELECT att.att_id
 	FROM `entry_confirm_attachment` att
 	ORDER BY att.att_uploadtime desc LIMIT 10");
-if(mysql_num_rows($Q_att))
+$Q_att->execute();
+if($Q_att->rowCount() > 0)
 {
 	echo '<h2 style="font-weight: bold; font-size: 14px; padding: 5px; margin-bottom: 0">10 sist opplastet vedlegg:</h2>';
 	echo '	<ul style="padding-left: 0px; margin-top: 0px; list-style-image:none; list-style-position:outside; list-style-type:none;">';
-	while($R_att = mysql_fetch_assoc($Q_att))
+	while($R_att = $Q_att->fetch())
 	{
 		$att = getAttachment($R_att['att_id']);
 		if(count($att))

@@ -30,7 +30,8 @@ filterMakeAlternatives();
 
 print_header($day, $month, $year, $area);
 
-$Q = mysql_query("SELECT customer_id FROM `customer` WHERE `slettet` = '0' ORDER BY customer_name");
+$Q = db()->prepare("SELECT customer_id FROM `customer` WHERE `slettet` = '0' ORDER BY customer_name");
+$Q->execute();
 echo '<h1>'.__('Customers').'</h1>'.chr(10);
 
 echo '- '.iconHTML('group_add').' <a href="customer_edit.php?returnToCustomerView=1">'.__('Create new customer').'</a><br><br>'.chr(10);
@@ -40,7 +41,7 @@ echo '<table>'.chr(10);
 //echo '		<td><b>'._('Customer').'</b></td>'.chr(10);
 //echo '		<td>&nbsp;</td>'.chr(10);
 //echo '	</tr>'.chr(10).chr(10);
-while($R = mysql_fetch_assoc($Q))
+while($R = $Q->fetch())
 {
 	$customer = getCustomer($R['customer_id']);
 	if(count($customer))

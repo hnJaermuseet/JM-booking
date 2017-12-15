@@ -73,10 +73,12 @@ if(isset($_GET['editor']))
 	$editor->setDBFieldID('id');
 	$editor->showID (TRUE);
 	
-	$editor->makeNewField('room_name', __('Area name'), 'text');
+	$editor->makeNewField('room_name', __('Room name'), 'text');
 	$editor->makeNewField('area_id', __('Area belonging'), 'select', array('defaultValue' => $area['area_id']));
-	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
-	while($R_area = mysql_fetch_assoc($Q_area))
+    $editor->makeNewField('comment', __('Comment'), 'text');
+	$Q_area = db()->prepare("select id as area_id, area_name from `mrbs_area` order by `area_name`");
+	$Q_area->execute();
+	while($R_area = $Q_area->fetch())
 		$editor->addChoice('area_id', $R_area['area_id'], $R_area['area_name']);
 	
 	$editor->getDB();
@@ -110,7 +112,8 @@ else
 	include "include/admin_middel.php";
 	
 	echo '<h2>'.__('Rooms for').' '.$area['area_name'].'</h2>'.chr(10).chr(10);
-	$QUERY = mysql_query("select * from `mrbs_room` where area_id = '".$area['area_id']."' order by room_name");
+	$QUERY = db()->prepare("select * from `mrbs_room` where area_id = '".$area['area_id']."' order by room_name");
+	$QUERY->execute();
 	
 	if($login['user_access_areaadmin'])
 		echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor=1">'.__('New room').'</a><br><br>'.chr(10);
@@ -123,22 +126,21 @@ else
 	if($login['user_access_areaadmin'])
 		echo '		<th>'.__('Options').'</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
-	while($ROW = mysql_fetch_assoc($QUERY))
+	while($ROW = $QUERY->fetch())
 	{
 		echo '	<tr>'.chr(10);
 		echo '		<td><b>'.$ROW['id'].'</b></td>'.chr(10);
 		echo '		<td>'.$ROW['room_name'].'</td>'.chr(10);
 		echo '		<td>';
-		$Q_area = mysql_query("select * from `mrbs_area` where id = '".$ROW['area_id']."'");
-		if(!mysql_num_rows($Q_area))
+		$Q_area = db()->prepare("select * from `mrbs_area` where id = '".$ROW['area_id']."'");
+		$Q_area->execute();
+		if($Q_area->rowCount() <= 0)
 			echo '<i>'.__('Not found').'</i>';
 		else
-			echo mysql_result($Q_area, 0, 'area_name');
+			echo $Q_area->fetch()['area_name'];
 		echo '</td>'.chr(10);
 		if($login['user_access_areaadmin'])
 			echo '		<td><a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;editor=1&amp;id='.$ROW['id'].'">'.__('Edit').'</td>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
 	}
 }
-
-?>

@@ -437,7 +437,7 @@ class editor {
 				foreach($this->db_field_id as $pk) {
 					$where[$pk] = '`'.$pk.'` = \''.$this->id[$pk].'\'';
 				}
-				$QUERY = mysql_query("
+				$QUERY = db()->prepare("
 					SELECT * 
 					FROM
 						`".$this->db_table."`
@@ -446,29 +446,35 @@ class editor {
 			}
 			else
 			{
-				$QUERY = mysql_query("
+				$QUERY = db()->prepare("
 					SELECT *
 					FROM
 						`".$this->db_table."`
 					WHERE
-						`".$this->db_field_id."` = '".$this->id."'");
+						`".$this->db_field_id."` = :id");
+                $QUERY->bindValue(':id', $this->id, PDO::PARAM_INT);
 			}
-			if(mysql_num_rows($QUERY))
+            $QUERY->execute();
+			if($QUERY->rowCount() > 0)
 			{
+                $row = $QUERY->fetch();
 				foreach ($this->vars as $var)
 				{
 					if(!$var['noDB'])
 					{
-						if($var['type'] == 'checkbox')
-							$this->vars[$var['var']]['value_array'] = splittIDs(mysql_result($QUERY, 0, $var['var']));
-						else
-							$this->vars[$var['var']]['value'] = mysql_result($QUERY, 0, $var['var']);
+
+						if($var['type'] == 'checkbox') {
+                            $this->vars[$var['var']]['value_array'] = splittIDs($row[$var['var']]);
+                        }
+						else {
+                            $this->vars[$var['var']]['value'] = $row[$var['var']];
+                        }
 					}
 				}
 			}
 			else
 			{
-				echo mysql_error();
+				echo implode(', ', db()->errorInfo());
 				return false;
 			}
 			return TRUE;
@@ -703,12 +709,14 @@ class editor {
 	}
 	
 	function error () {
-		return mysql_error();
+		return implode(', ', db()->errorInfo());
 	}
 	
 	function performDBquery ()
 	{
 		/* Making MySQL query */
+        $enumColumn = array();
+        $enumColumn['user_invoice_setready'] = 'user_invoice_setready';
 		
 		// Getting fields and values
 		$fields = array();
@@ -716,16 +724,25 @@ class editor {
 		{
 			if($var['DBQueryPerform'])
 			{
-				if($var['type'] == 'checkbox') // Splittalize?
-					$fields[$var['var']] = splittalize($var['value_array']);
-				else
-					$fields[$var['var']] = $var['value'];
-			}
+				if($var['type'] == 'checkbox') {
+                    // Splittalize?
+                    $fields[$var['var']] = splittalize($var['value_array']);
+                }
+				else {
+                    $fields[$var['var']] = $var['value'];
+                }
+
+                if(isset($enumColumn[$var['var']])) {
+                    $fields[$var['var']] = $var['value'] ? '1' : '0';
+                }
+            }
 		}
-		if($this->db_field_edit != '')
-			$fields[$this->db_field_edit]		= time();
-		if($this->db_field_edit_by != '')
-			$fields[$this->db_field_edit_by]	= $this->db_field_edit_by_value;
+		if($this->db_field_edit != '') {
+            $fields[$this->db_field_edit] = time();
+        }
+		if($this->db_field_edit_by != '') {
+            $fields[$this->db_field_edit_by] = $this->db_field_edit_by_value;
+        }
 		
 		// Edit or add?
 		$SQL = '';
@@ -736,9 +753,15 @@ class editor {
 			$i = 0;
 			foreach ($fields as $field => $value) {
 				$i++;
-				$SQL .= "`$field` = '".$value."'";
-				if($i < count($fields))
-					$SQL .= ', ';
+                $fieldContent = ':'.$field;
+                if(isset($enumColumn[$field])) {
+                    $fieldContent = "'$value'";
+                }
+				$SQL .= "`$field` = $fieldContent";
+				if($i < count($fields)) {
+                    $SQL .= ', ';
+                }
+                $SQL .= chr(10);
 			}
 			
 			if(is_array($this->id))
@@ -748,20 +771,13 @@ class editor {
 				foreach($this->db_field_id as $pk) {
 					$where[$pk] = '`'.$pk.'` = \''.$this->id[$pk].'\'';
 				}
-				$SQL .= ' WHERE '.implode(' AND ', $where);
+				$SQL .= ' WHERE '.implode(' AND ', $where) . chr(10);
 			}
 			else
 			{	
-				$SQL .= " WHERE `".$this->db_field_id."` = '".$this->id."'";
+				$SQL .= " WHERE `".$this->db_field_id."` = '".$this->id."'\n";
 			}
 			$SQL .= " LIMIT 1 ;";
-			
-			/* Running MySQL query */
-			mysql_query($SQL);
-			
-			if(mysql_errno()) {
-				return false;
-			}
 		}
 		else
 		{
@@ -778,24 +794,51 @@ class editor {
 			$i = 0;
 			foreach ($fields as $field => $value) {
 				$i++;
-				$SQL .= "'$value'";
+                $fieldContent = ':'.$field;
+                if(isset($enumColumn[$field])) {
+                    $fieldContent = "'$value'";
+                }
+				$SQL .= "$fieldContent";
 				if($i < count($fields))
 					$SQL .= ',';
 			}
 			$SQL .= ');';
-			
-			/* Running MySQL query */
-			mysql_query($SQL);
-			
-			if(mysql_errno()) {
-				return false;
-			}
-			
-			$this->id = mysql_insert_id();
 		}
+
+        /* Running MySQL query */
+
+        $Q = db()->prepare($SQL);
+        foreach ($fields as $field => $value) {
+            if ($field == 'user_invoice_setready') {
+                continue;
+            }
+            switch($this->vars[$field]['type']) {
+                case 'text':
+                case 'select':
+                case 'textarea':
+                case 'hidden':
+                    $Q->bindValue(':' . $field, $value, PDO::PARAM_STR);
+                    break;
+                case 'boolean':
+                    $value = '' . ($value ? '1' : '0');
+                    $Q->bindValue(':' . $field, $value, PDO::PARAM_STR);
+                    break;
+                default:
+                    throw new Exception('Unknown field type: ' . $this->vars[$field]['type']);
+            }
+        }                 /*
+        echo '<pre>';
+        var_dump($fields);
+        var_dump($Q);   */
+        if(!$Q->execute()) {
+            return false;
+        }
+
+        if($this->id == '') {
+            $this->id = db()->lastInsertId();
+
+        }
 		
 		return TRUE;
 	}
 }
-
-?>

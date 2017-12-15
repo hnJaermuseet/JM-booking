@@ -30,7 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	Admin-includes
 */
 
-include_once("glob_inc.inc.php");
+include_once(__DIR__ . '/../glob_inc.inc.php');
 
-if(!isset($user_level))
-	$user_level = 2; // Require userlevel 2 by default
+if(!isset($user_level)) {
+    // -> Require userlevel 2 by default
+    $user_level = 2;
+}

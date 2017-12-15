@@ -38,17 +38,19 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	$gid = $_GET['gid'];
 	
 	// Checking if it exists
-	$Q_group = mysql_query("select * from `groups` where group_id = '$gid'");
-	if(!mysql_num_rows($Q_group))
+	$Q_group = db()->prepare("select * from `groups` where group_id = '$gid'");
+	$Q_group->execute();
+	if($Q_group->rowCount() <= 0)
 	{
 		echo __("Group not found");
 		exit();
 	}
-	
-	$group_name = mysql_result($Q_group, 0, 'group_name');
+
+    $row = $Q_group->fetch();
+	$group_name = $row['group_name'];
 	
 	// Splitting the users
-	$gusers = splittIDs(mysql_result($Q_group, 0, 'user_ids'));
+	$gusers = splittIDs($row['user_ids']);
 	$gusers1 = array();
 	$gusers2 = '';
 	foreach ($gusers as $user_id)
@@ -85,7 +87,10 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 			exit();
 		}
 		
-		mysql_query("UPDATE `groups` SET `user_ids` = '".$gusers2."' WHERE `group_id` = '$gid' LIMIT 1 ;");
+		$Q = db()->prepare("UPDATE `groups` SET `user_ids` = :user_ids WHERE `group_id` = :gid LIMIT 1 ;");
+        $Q->bindValue(':gid', $gid, PDO::PARAM_INT);
+        $Q->bindValue(':user_ids', $gusers2, PDO::PARAM_STR);
+        $Q->execute();
 		header("Location: admin_group.php?gid=$gid");
 		exit();
 	}
@@ -101,7 +106,10 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 		
 		$user_id = $_GET['group_del_user'];
 		$gusers2 = str_replace(';'.$user_id.';', '', $gusers2);
-		mysql_query("UPDATE `groups` SET `user_ids` = '".$gusers2."' WHERE `group_id` = '$gid' LIMIT 1 ;");
+		$Q = db()->prepare("UPDATE `groups` SET `user_ids` = :user_ids WHERE `group_id` = :gid LIMIT 1 ;");
+        $Q->bindValue(':gid', $gid, PDO::PARAM_INT);
+        $Q->bindValue(':user_ids', $gusers2, PDO::PARAM_STR);
+        $Q->execute();
 		header("Location: admin_group.php?gid=$gid");
 		exit();
 	}
@@ -128,13 +136,10 @@ if(isset($_GET['gid']) && is_numeric($_GET['gid'])) // Display of a singel one
 	echo '<br><br>'.chr(10);
 	echo '<b>'.__('Users').'</b><br>'.chr(10);
 	
-	$Q_users = mysql_query("
-		SELECT user_id, user_name
-		FROM `users`
-		WHERE `deactivated` = false
-		ORDER BY user_name");
+	$Q_users = db()->prepare("SELECT user_id, user_name FROM `users` WHERE `deactivated` = false ORDER BY user_name");
+	$Q_users->execute();
 	$all_users = array();
-	while($R_user = mysql_fetch_assoc($Q_users))
+	while($R_user = $Q_users->fetch())
 	{
 		$all_users[$R_user['user_id']] = $R_user['user_name'];
 	}
@@ -182,7 +187,9 @@ elseif(isset($_POST['add']))
 	
 	// Checking input
 	$add = slashes(htmlspecialchars(strip_tags($_POST['add']),ENT_QUOTES));
-	mysql_query("INSERT INTO `groups` ( `group_id` , `user_ids` , `group_name` ) VALUES ('', '', '".$add."');");
+	$Q = db()->prepare("INSERT INTO `groups` ( `group_id` , `user_ids` , `group_name` ) VALUES (null, '', :group_name);");
+    $Q->bindValue(':group_name', $add, PDO::PARAM_STR);
+    $Q->execute();
 	header("Location: admin_group.php");
 	exit();
 }
@@ -205,12 +212,13 @@ else
 	
 	// List of groups
 	echo '<b>'.__('List of usergroups').'</b><br>'.chr(10);
-	$Q_groups = mysql_query("select * from `groups` order by 'group_name'");
-	if(!mysql_num_rows($Q_groups))
+	$Q_groups = db()->prepare("select * from `groups` order by 'group_name'");
+	$Q_groups->execute();
+	if($Q_groups->rowCount() <= 0)
 		echo __('No groups found.');
 	else
 	{
-		while($R_group = mysql_fetch_assoc($Q_groups))
+		while($R_group = $Q_groups->fetch())
 		{
 			
 			echo '- <a href="admin_group.php?gid='.$R_group['group_id'].'">'.$R_group['group_name'].'</a> ('.count(splittIDs($R_group['user_ids'])).' '.__('users').')<br>'.chr(10);

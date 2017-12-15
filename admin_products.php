@@ -65,10 +65,12 @@ if(isset($_GET['editor']))
 	$editor->makeNewField('product_desc', 'Beskrivelse', 'textarea');
 	$editor->makeNewField('area_id', __('Area belonging'), 'select',
 		array('defaultValue' => $area));
-	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
+	$Q_area = db()->prepare("select id as area_id, area_name from `mrbs_area` order by `area_name`");
+	$Q_area->execute();
 	$editor->addChoice('area_id', 0, 'Alle anlegg');
-	while($R_area = mysql_fetch_assoc($Q_area))
-		$editor->addChoice('area_id', $R_area['area_id'], $R_area['area_name']);
+	while($R_area = $Q_area->fetch()) {
+        $editor->addChoice('area_id', $R_area['area_id'], $R_area['area_name']);
+    }
 	
 	$editor->getDB();
 	
@@ -106,7 +108,8 @@ else
 	include "include/admin_middel.php";
 	
 	echo '<h2>Produktregister</h2>'.chr(10).chr(10);
-	$Q_products = mysql_query("select * from `products` order by area_id,product_name");
+	$Q_products = db()->prepare("select * from `products` order by area_id,product_name");
+	$Q_products->execute();
 	
 	if($login['user_access_productsadmin'])
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.
@@ -124,7 +127,7 @@ else
 	echo '		<th>Beskrivelse</th>'.chr(10);
 	echo '		<th>'.__('Options').'</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
-	while($R_product = mysql_fetch_assoc($Q_products))
+	while($R_product = $Q_products->fetch())
 	{
 		echo '	<tr>'.chr(10);
 		
@@ -135,11 +138,13 @@ else
 		}
 		else
 		{
-			$Q_area = mysql_query("select * from `mrbs_area` where id = '".$R_product['area_id']."'");
-			if(!mysql_num_rows($Q_area))
+			$Q_area = db()->prepare("select * from `mrbs_area` where id = :area_id");
+            $Q_area->bindValue(':area_id', $R_product['area_id'], PDO::PARAM_INT);
+			$Q_area->execute();
+			if($Q_area->rowCount() <= 0)
 				echo '<i>'.__('Not found').'</i>';
 			else
-				echo iconHTML('house').' '.mysql_result($Q_area, 0, 'area_name');
+				echo iconHTML('house').' '.$Q_area->fetch()['area_name'];
 			echo '</td>'.chr(10);
 		}
 		

@@ -66,35 +66,29 @@ if($action == 'kat_list')
 		echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=editor_kat">'.
 			'Ny kategori</a><br />'.chr(10);
 	
-	$QUERY = mysql_query('select * from `import_dn_kategori` '.
-		//"where area_id = '".$area['area_id']."' ".
-		'order by kat_navn');
+	$QUERY = db()->prepare('select * from `import_dn_kategori` order by kat_navn');
+    $QUERY->execute();
 	$kategorier = array();
-	if(mysql_num_rows($QUERY))
+	if($QUERY->rowCount() > 0)
 	{
 		echo '<table class="prettytable">'.chr(10).chr(10);
 		echo '	<tr>'.chr(10);
 		echo '		<th>'.__('ID').'</th>'.chr(10);
 		echo '		<th>Kategorinavn</th>'.chr(10);
 		//echo '		<th>'._('Area').'</th>'.chr(10);
-		if($login['user_access_importdn'])
-			echo '		<th>'.__('Options').'</th>'.chr(10);
+		if($login['user_access_importdn']) {
+            echo '		<th>' . __('Options') . '</th>' . chr(10);
+        }
 		echo '	</tr>'.chr(10).chr(10);
-		while($ROW = mysql_fetch_assoc($QUERY))
+		while($ROW = $QUERY->fetch())
 		{
 			$kategorier[$ROW['kat_id']] = $ROW['kat_navn'];
 			echo '	<tr>'.chr(10);
 			echo '		<td><b>'.$ROW['kat_id'].'</b></td>'.chr(10);
 			echo '		<td>'.$ROW['kat_navn'].'</td>'.chr(10);
-			//echo '		<td>';
-			//$Q_area = mysql_query("select * from `mrbs_area` where id = '".$ROW['area_id']."'");
-			//if(!mysql_num_rows($Q_area))
-			//	echo '<i>'._('Not found').'</i>';
-			//else
-			//	echo mysql_result($Q_area, 0, 'area_name');
-			//echo '</td>'.chr(10);
-			if($login['user_access_importdn'])
-				echo '		<td><a href="'.$_SERVER['PHP_SELF'].'?action=editor_kat&amp;id='.$ROW['kat_id'].'">'.__('Edit').'</td>'.chr(10);
+			if($login['user_access_importdn']) {
+                echo '		<td><a href="' . $_SERVER['PHP_SELF'] . '?action=editor_kat&amp;id=' . $ROW['kat_id'] . '">' . __('Edit') . '</td>' . chr(10);
+            }
 			echo '	</tr>'.chr(10).chr(10);
 		}
 		echo '</table>';
@@ -136,13 +130,6 @@ elseif($action == 'editor_kat')
 	
 	$editor->makeNewField('kat_navn', 'Navn p&aring; kategori', 'text');
 	
-	/*
-	$editor->makeNewField('area_id', _('Area belonging'), 'select', array('defaultValue' => $area['area_id']));
-	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
-	while($R_area = mysql_fetch_assoc($Q_area))
-		$editor->addChoice('area_id', $R_area['area_id'], $R_area['area_name']);
-	*/
-	
 	if(!$editor->getDB()) {
 		echo 'Finner ikke det du &oslash;nsker &aring; endre.';
 		exit();
@@ -160,8 +147,7 @@ elseif($action == 'editor_kat')
 			}
 			else
 			{
-				echo 'Error occured while performing query on database:<br>'.chr(10),
-				//echo '<b>Error:</b> '.$editor->error();
+				echo 'Error occured while performing query on database:<br>'.chr(10);
 				exit();
 			}
 		}
@@ -180,32 +166,39 @@ elseif($action == 'notimported_list')
 	{
 		echo '<h2>Ikke-importerte varer fra '.$area['area_name'].' (butikknr '.$area['importdatanova_shop_id'].')</h2>'.chr(10);
 		$redirect = 'notimported';
-		$Q_notimported = mysql_query("select * from `import_dn_tall_ikkeimportert` where shop_id = '".$area['importdatanova_shop_id']."' order by `vare_nr`");
+		$Q_notimported = db()->prepare("select * from `import_dn_tall_ikkeimportert` where shop_id = :shop_id order by `vare_nr`");
+        $Q_notimported->bindValue(':shop_id', $area['importdatanova_shop_id'], PDO::PARAM_INT);
+		$Q_notimported->execute();
 	}
 	else
 	{
 		echo '<h2>Ikke-importerte varer fra alle butikker</h2>'.chr(10);
 		$redirect = 'notimported_all';
-		$Q_notimported = mysql_query("select * from `import_dn_tall_ikkeimportert` order by `vare_nr`");
+		$Q_notimported = db()->prepare("select * from `import_dn_tall_ikkeimportert` order by `vare_nr`");
+		$Q_notimported->execute();
 	}
 	
 	echo '- <a href="'.$_SERVER['PHP_SELF'].'">Tilbake</a><br /><br />'.chr(10);
 	
-	$Q_areas_with_shop = mysql_query("select id as area_id, area_name, importdatanova_shop_id from `mrbs_area` where importdatanova_shop_id != 0");
+	$Q_areas_with_shop = db()->prepare("select id as area_id, area_name, importdatanova_shop_id from `mrbs_area` where importdatanova_shop_id != 0");
+	$Q_areas_with_shop->execute();
+
 	$areas = array();
-	while($R_area = mysql_fetch_assoc($Q_areas_with_shop))
+	while($R_area = $Q_areas_with_shop->fetch())
 	{
 		$areas[$R_area['importdatanova_shop_id']] = $R_area['area_id'];
-		if(!$area_okey || $R_area['area_id'] == $area['area_id'])
-			echo 'Butikknr '.$R_area['importdatanova_shop_id'].' = '.$R_area['area_name'].'<br />';
+		if(!$area_okey || $R_area['area_id'] == $area['area_id']) {
+            echo 'Butikknr ' . $R_area['importdatanova_shop_id'] . ' = ' . $R_area['area_name'] . '<br />';
+        }
 	}
 	
-	$Q_varer = mysql_query("select varereg.*, kat.kat_navn as kat_navn
+	$Q_varer = db()->prepare("select varereg.*, kat.kat_navn as kat_navn
 	from import_dn_vareregister varereg left join import_dn_kategori kat
 	on varereg.kat_id = kat.kat_id
 	");
+    $Q_varer->execute();
 	$areavarer = array(); // "area_id"_"vare_nr" => array()
-	while($R_vare = mysql_fetch_assoc($Q_varer))
+	while($R_vare = $Q_varer->fetch())
 	{
 		$areavarer[$R_vare['area_id'].'_'.$R_vare['vare_nr']] = $R_vare;
 	}
@@ -223,7 +216,7 @@ elseif($action == 'notimported_list')
 		'<th>Antall bes&oslash;kende</th>'.
 		'<th>Valg for &aring; legge inn varenr</th>'.
 		'</tr>'.chr(10);
-	while($vare = mysql_fetch_assoc($Q_notimported))
+	while($vare = $Q_notimported->fetch())
 	{
 		if(!isset($areas[$vare['shop_id']]))
 		{
@@ -371,9 +364,10 @@ elseif($action == 'editor_varereg' && $area_okey)
 		array('defaultValue' => $vare_navn));
 
 	$editor->makeNewField('kat_id', 'Import-kategori', 'select', array('defaultValue' => 0));
-	$Q_area = mysql_query("select kat_id, kat_navn from `import_dn_kategori` order by `kat_navn`");
+	$Q_area = db()->prepare("select kat_id, kat_navn from `import_dn_kategori` order by `kat_navn`");
+	$Q_area->execute();
 	$editor->addChoice('kat_id', 0, 'Ignorer (varen f&aring;r ikke advarsel lenger)');
-	while($R_area = mysql_fetch_assoc($Q_area))
+	while($R_area = $Q_area->fetch())
 		$editor->addChoice('kat_id', $R_area['kat_id'], $R_area['kat_navn']);
 	
 	$editor->makeNewField('barn', 'Barn/Voksen', 'select', array('defaultValue' => 0));
@@ -439,16 +433,20 @@ elseif($action == 'varereg_list' && $area_okey)
 		echo '- <a href="'.$_SERVER['PHP_SELF'].'?area_id='.$area['area_id'].'&amp;action=editor_varereg">'.
 			'Ny vare</a><br /><br />'.chr(10);
 	
-	$QUERY = mysql_query('select * from `import_dn_kategori` '.
-		'order by kat_navn');
+	$QUERY = db()->prepare('select * from `import_dn_kategori` order by kat_navn');
+    $QUERY->execute();
 	$kategorier = array();
-	while($ROW = mysql_fetch_assoc($QUERY))
+	while($ROW = $QUERY->fetch())
 	{
 		$kategorier[$ROW['kat_id']] = $ROW['kat_navn'];
 	}
 	
-	$QUERY = mysql_query("select * from `import_dn_vareregister` where area_id = '".$area['area_id']."' order by vare_nr");
-	if(mysql_num_rows($QUERY))
+	$QUERY = db()->prepare("select * from `import_dn_vareregister` where area_id = :area_id order by vare_nr");
+    $QUERY->bindValue(':area_id', $area['area_id'], PDO::PARAM_INT);
+    $QUERY->execute();
+
+	$QUERY->execute();
+	if($QUERY->rowCount() > 0)
 	{
 		echo '<table class="prettytable">'.chr(10).chr(10);
 		echo '	<tr>'.chr(10);
@@ -460,18 +458,20 @@ elseif($action == 'varereg_list' && $area_okey)
 		if($login['user_access_importdn'])
 			echo '		<th>'.__('Options').'</th>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
-		while($ROW = mysql_fetch_assoc($QUERY))
+		while($ROW = $QUERY->fetch())
 		{
 			echo '	<tr>'.chr(10);
 			echo '		<td><b>'.$ROW['vare_nr'].'</b></td>'.chr(10);
 			echo '		<td>'.$ROW['navn'].'</td>'.chr(10);
 			
 			echo '		<td>';
-			$Q_area = mysql_query("select * from `mrbs_area` where id = '".$ROW['area_id']."'");
-			if(!mysql_num_rows($Q_area))
+			$Q_area = db()->prepare("select * from `mrbs_area` where id = :area_id");
+            $Q_area->bindValue(':area_id', $ROW['area_id'], PDO::PARAM_INT);
+			$Q_area->execute();
+			if($Q_area->rowCount() <= 0)
 				echo '<i>'.__('Not found').'</i>';
 			else
-				echo mysql_result($Q_area, 0, 'area_name');
+				echo $Q_area->fetch()['area_name'];
 			echo '</td>'.chr(10);
 			
 			if(isset($kategorier[$ROW['kat_id']]))
@@ -506,9 +506,11 @@ else
 	echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=kat_list">Kategori-oversikt</a> (felles kategorier for hele J&aerlig;rmuseet)<br />';
 	echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=notimported_list">Alle ikke-importerte varenr</a><br />';
 	
-	$Q_areas_with_shop = mysql_query("select id as area_id, area_name, importdatanova_shop_id, importdatanova_alert_email from `mrbs_area` where importdatanova_shop_id != 0");
+	$Q_areas_with_shop = db()->prepare("select id as area_id, area_name, importdatanova_shop_id, importdatanova_alert_email from `mrbs_area` where importdatanova_shop_id != 0");
+
+	$Q_areas_with_shop->execute();
 	$areas = array();
-	while($R_area = mysql_fetch_assoc($Q_areas_with_shop))
+	while($R_area = $Q_areas_with_shop->fetch())
 	{
 		$areas[$R_area['importdatanova_shop_id']] = $R_area;
 	}
@@ -528,10 +530,15 @@ else
 			$area_name = '<i>Ikke valgt</i>';
 		}
 		
-		$Q_notimported = mysql_query("select * from `import_dn_tall_ikkeimportert` where shop_id = '".$shop_id."'");
-		$Q_imported = mysql_query("select * from `import_dn_tall` where shop_id = '".$shop_id."'");
+		$Q_notimported = db()->prepare("select * from `import_dn_tall_ikkeimportert` where shop_id = :shop_id");
+        $Q_notimported->bindValue(':shop_id', $shop_id, PDO::PARAM_INT);
+
+		$Q_notimported->execute();
+		$Q_imported = db()->prepare("select * from `import_dn_tall` where shop_id = :shop_id");
+        $Q_imported->bindValue(':shop_id', $shop_id, PDO::PARAM_INT);
+		$Q_imported->execute();
 		$visits = 0; $visit_first = null; $visit_last = null; $days = array();
-		while($R = mysql_fetch_assoc($Q_imported)) {
+		while($R = $Q_imported->fetch()) {
 			$visits += (int)($R['antall_barn'] + $R['antall_voksne']);
 			if(is_null($visit_last) || $R['dag'] > $visit_last)
 				$visit_last = $R['dag'];
@@ -553,7 +560,7 @@ else
 			'		<td>'.$shop_id.'</td>'.chr(10).
 			'		<td>'.$shop_name.'</td>'.chr(10).
 			'		<td>'.$area_name.'</td>'.chr(10).
-			'		<td><a href="'.$_SERVER['PHP_SELF'].'?'.$area_id.'&amp;action=notimported_list">'.mysql_num_rows($Q_notimported).'</td>'.chr(10).
+			'		<td><a href="'.$_SERVER['PHP_SELF'].'?'.$area_id.'&amp;action=notimported_list">'.($Q_notimported->rowCount()).'</td>'.chr(10).
 			'		<td style="text-align: right;">'.$visits.'</td>'.chr(10).
 			'		<td style="text-align: right;">'.count($days).'</td>'.chr(10).
 			'		<td>'.$visit_first.'</td>'.chr(10).
@@ -574,8 +581,9 @@ else
 		'		<th colspan="2">F&oslash;rste / siste tall</th>'.chr(10).
 		'		<th></th>'.chr(10).
 		'	</tr>'.chr(10).chr(10);
-	$Q_shops = mysql_query("select * from `import_dn_shops`");
-	while($R = mysql_fetch_assoc($Q_shops))
+	$Q_shops = db()->prepare("select * from `import_dn_shops`");
+	$Q_shops->execute();
+	while($R = $Q_shops->fetch())
 	{
 		printout_shop ($R['shop_id'], $R['shop_name']);
 	}

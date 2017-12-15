@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	Administration of users
 */
 
-require "libs/editor.class.php";
+require __DIR__ . '/libs/editor.class.php';
 $section = 'users';
 
 include "include/admin_top.php";
@@ -87,9 +87,11 @@ if(isset($_GET['editor']))
 	$editor->makeNewField('user_position', 'Stilling', 'text');
 	
 	$editor->makeNewField('user_area_default', __('Default area'), 'select');
-	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
-	while($R_area = mysql_fetch_assoc($Q_area))
-		$editor->addChoice('user_area_default', $R_area['area_id'], $R_area['area_name']);
+	$Q_area = db()->prepare("select id as area_id, area_name from `mrbs_area` order by `area_name`");
+    $Q_area->execute();
+	while($R_area = $Q_area->fetch()) {
+        $editor->addChoice('user_area_default', $R_area['area_id'], $R_area['area_name']);
+    }
 	
 	$editor->makeNewField('user_ews_sync', _h('Syncronize with Exchange'), 'boolean');
 	$editor->makeNewField('user_ews_sync_email', _h('Main Exchange e-mail'), 'text');
@@ -119,9 +121,10 @@ if(isset($_GET['editor']))
 	
 	if($login['user_access_useredit'])
 	{
-		$Q_groups = mysql_query("select * from `groups` order by group_name");
+		$Q_groups = db()->prepare('select * from `groups` order by group_name');
+        $Q_groups->execute();
 		$first = true;
-		while($R_group = mysql_fetch_assoc($Q_groups))
+		while($R_group = $Q_groups->fetch())
 		{
 			$editor->makeNewField('group_'.$R_group['group_id'], 
 				$R_group['group_name'], 'boolean', 
@@ -139,8 +142,7 @@ if(isset($_GET['editor']))
 			
 			// Adding value
 			$gusers = splittIDs($R_group['user_ids']);
-			$editor->vars['group_'.$R_group['group_id']]['value']
-				= in_array($id,$gusers);
+			$editor->vars['group_'.$R_group['group_id']]['value'] = in_array($id,$gusers);
 		}
 	}
 	
@@ -149,9 +151,10 @@ if(isset($_GET['editor']))
 	
 	// TODO: Implement
 	$editor->makeNewField('user_areas', 'Tilgang til', 'checkbox', array('defaultValue' => -1));
-	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
+	$Q_area = db()->prepare("select id as area_id, area_name from `mrbs_area` order by `area_name`");
+    $Q_area->execute();
 	$editor->addChoice('user_areas', -1, _('All areas'));
-	while($R_area = mysql_fetch_assoc($Q_area))
+	while($R_area = $Q_area->fetch())
 		$editor->addChoice('user_areas', $R_area['area_id'], $R_area['area_name']);
 	*/
 	
@@ -164,9 +167,10 @@ if(isset($_GET['editor']))
 			if($editor->performDBquery())
 			{
 				// Edit of groups
-				$Q_groups = mysql_query("select * from `groups` order by group_name");
+				$Q_groups = db()->prepare("select * from `groups` order by group_name");
+				$Q_groups->execute();
 				$first = true;
-				while($R_group = mysql_fetch_assoc($Q_groups))
+				while($R_group = $Q_groups->fetch())
 				{
 					$gusers = splittIDs($R_group['user_ids']); // Users in group
 					if(
@@ -176,8 +180,9 @@ if(isset($_GET['editor']))
 					{
 						// Update
 						$gusers_new = $R_group['user_ids'].';'.$id.';';
-						mysql_query("UPDATE `groups` SET `user_ids` = '".$gusers_new."' 
+						$Q = db()->prepare("UPDATE `groups` SET `user_ids` = '".$gusers_new."'
 							WHERE `group_id` = '".$R_group['group_id']."' LIMIT 1 ;");
+                        $Q->execute();
 					}
 					elseif(
 						!$editor->vars['group_'.$R_group['group_id']]['value'] && // Don't want to be in group 
@@ -186,8 +191,9 @@ if(isset($_GET['editor']))
 					{
 						// Update
 						$gusers_new = str_replace(';'.$id.';', '', $R_group['user_ids']);
-						mysql_query("UPDATE `groups` SET `user_ids` = '".$gusers_new."' 
+						$Q = db()->prepare("UPDATE `groups` SET `user_ids` = '".$gusers_new."'
 							WHERE `group_id` = '".$R_group['group_id']."' LIMIT 1 ;");
+                        $Q->execute();
 					}
 				}
 				
@@ -218,8 +224,9 @@ else
 	
 	echo '<h1>'.__('Users').'</h1>';
 	// Add
-	if($login['user_access_useredit'])
-		echo iconHTML('user_add').' <a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.__('New user').'</a><br>'.chr(10);
+	if($login['user_access_useredit']) {
+        echo iconHTML('user_add') . ' <a href="' . $_SERVER['PHP_SELF'] . '?editor=1">' . __('New user') . '</a><br>' . chr(10);
+    }
 	
 	echo iconHTML('phone').' <a href="telefonliste.php">Telefonliste</a><br><br>'.chr(10);
 	
@@ -257,8 +264,9 @@ else
 	';
 	// List of users
 	echo '<h2>'.__('List of users').'</h2>'.chr(10);
-	$Q_users = mysql_query("select user_id from `users` order by `user_name`");
-	if(!mysql_num_rows($Q_users))
+	$Q_users = db()->prepare("select user_id from `users` order by `user_name`");
+	$Q_users->execute();
+	if($Q_users->rowCount() <= 0)
 		echo __('No users found.');
 	else
 	{
@@ -285,7 +293,7 @@ else
 		echo '		<th>Synk</th>'.chr(10);
 		echo '		<th>Ekstern tilgang</th>'.chr(10);
 		echo '	</tr>'.chr(10).chr(10);
-		while($R_user = mysql_fetch_assoc($Q_users))
+		while($R_user = $Q_users->fetch())
 		{
 			$user = getUser($R_user['user_id'], true);
 			echo '	<tr>'.chr(10);
@@ -441,8 +449,9 @@ else
 			echo '		<td class="rightsHover" title="'.$rights['external'].'">';
 			try
 			{
-				if($user['user_password_complex'] != '1')
-					throw new Exception('');
+				if($user['user_password_complex'] != '1') {
+                    throw new Exception('');
+                }
 				
 				loginPWcheckAge($user);
 				

@@ -61,7 +61,7 @@ if(isset($_GET['editor']))
 	
 	$editor->makeNewField('entry_type_name', __('Entrytype name'), 'text');
 	$editor->makeNewField('entry_type_name_short', __('Short entrytype name'), 'text');
-	$editor->makeNewField('resourcenum_length', _h('Length of resource number').'<br />('._h('If zero, resource number will not be required').')', 'text');
+	$editor->makeNewField('resourcenum_length', __('Length of resource number').'<br />('.__('If zero, resource number will not be required').')', 'text');
     $editor->makeNewField('entry_type_inactive', _l('Inactive'), 'select');
     $editor->addChoice('entry_type_inactive', 0, _l('No'));
     $editor->addChoice('entry_type_inactive', 1, _l('Yes'));
@@ -129,18 +129,22 @@ elseif(isset($_GET['entry_type_id']) && isset($_GET['area_id']))
 		
 		foreach($att_deleted as $att)
 		{
-			mysql_query("
+			$Q = db()->prepare("
 			DELETE
 			FROM `entry_type_defaultattachment`
 			WHERE
-				entry_type_id = '".$entry_type['entry_type_id']."' AND 
-				area_id = '".$area['area_id']."' AND
-				att_id = '".$att['att_id']."';
+				entry_type_id = :entry_type_id AND
+				area_id = :area_id AND
+				att_id = :att_id;
 			");
+            $Q->bindValue(':entry_type_id', $entry_type['entry_type_id'], PDO::PARAM_INT);
+            $Q->bindValue(':area_id', $area['area_id'], PDO::PARAM_INT);
+            $Q->bindValue(':att_id', $att['att_id'], PDO::PARAM_INT);
+            $Q->execute();
 		}
 		foreach($att_new as $att)
 		{
-			mysql_query("
+			$Q = db()->prepare("
 			INSERT
 			INTO `entry_type_defaultattachment`
 			(
@@ -149,11 +153,15 @@ elseif(isset($_GET['entry_type_id']) && isset($_GET['area_id']))
 				`area_id`
 			)
 			VALUES (
-				'".$entry_type['entry_type_id']."',
-				'".$att['att_id']."',
-				'".$area['area_id']."'
+				:entry_type_id,
+				:att_id,
+				:area_id
 			);
 			");
+            $Q->bindValue(':entry_type_id', $entry_type['entry_type_id'], PDO::PARAM_INT);
+            $Q->bindValue(':area_id', $area['area_id'], PDO::PARAM_INT);
+            $Q->bindValue(':att_id', $att['att_id'], PDO::PARAM_INT);
+            $Q->execute();
 		}
 		$saved = true;
 		
@@ -202,7 +210,8 @@ else
 	echo '<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>'.chr(10);
 	echo '<script src="js/hide_unhide.js" type="text/javascript"></script>'.chr(10);
 	echo '<h2>Bookingtyper</h2>'.chr(10).chr(10);
-	$Q_programs = mysql_query("select * from `entry_type` order by entry_type_name");
+	$Q_programs = db()->prepare("select * from `entry_type` order by entry_type_name");
+	$Q_programs->execute();
 	
 	if($login['user_access_entrytypeadmin'])
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.
@@ -218,7 +227,7 @@ else
 	if($login['user_access_entrytypeadmin'])
 		echo '		<th>'.__('Options').'</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
-	while($ROW = mysql_fetch_assoc($Q_programs))
+	while($ROW = $Q_programs->fetch())
 	{
         echo '	<tr'.($ROW['entry_type_inactive']?' class="strike graytext"':'').'>'.chr(10);
 		echo '		<td><b>'.$ROW['entry_type_id'].'</b></td>'.chr(10);
@@ -234,8 +243,9 @@ else
 		echo '<a href="javascript:void();">Vis / ikke vis</a>'.
 			'</div>';
 		echo '<div class="showField" id="fieldId'.$ROW['entry_type_id'].'" style="display:none;">';
-		$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by area_name");
-		while($area = mysql_fetch_assoc($Q_area))
+		$Q_area = db()->prepare("select id as area_id, area_name from `mrbs_area` order by area_name");
+		$Q_area->execute();
+		while($area = $Q_area->fetch())
 		{
 			echo '<ul style="padding-left: 20px; "><li>';
 			echo '<b>'.$area['area_name'].'</b>';
@@ -245,20 +255,23 @@ else
 				iconHTML('page_white_stack_link','.png','height: 12px;').' '.
 				'Endre</a>)';
 			echo '<br><ul style="padding-left: 10px; ">';
-			$Q_att = mysql_query("
+			$Q_att = db()->prepare("
 			SELECT
 				a.att_filetype, a.att_filename_orig, a.att_filesize, a.att_id, e.area_id
 			FROM `entry_type_defaultattachment` e LEFT JOIN `entry_confirm_attachment` a 
 				ON e.att_id = a.att_id
 			WHERE
-				e.entry_type_id = '".$ROW['entry_type_id']."' AND
-				e.area_id = '".$area['area_id']."'
+				e.entry_type_id = :entry_type_id AND
+				e.area_id = :area_id
 			ORDER BY a.att_filename_orig");
-			if(!mysql_num_rows($Q_att))
+            $Q_att->bindValue(':entry_type_id', $ROW['entry_type_id'], PDO::PARAM_INT);
+            $Q_att->bindValue(':area_id', $area['area_id'], PDO::PARAM_INT);
+            $Q_att->execute();
+			if($Q_att->rowCount() <= 0)
 				echo '<li><i>Ingen vedlegg koblet til</i></li>';
 			else
 			{
-				while($att = mysql_fetch_assoc($Q_att)) {
+				while($att = $Q_att->fetch()) {
 					echo '<li><a href="admin_attachment.php?att_id='.$att['att_id'].'">'.
 						iconFiletype($att['att_filetype']).' '.$att['att_filename_orig'].
 						'</a>'.

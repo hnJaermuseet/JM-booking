@@ -63,8 +63,9 @@ if(isset($_GET['editor']))
 	$editor->makeNewField('program_desc', 'Beskrivelse', 'textarea');
 	$editor->makeNewField('area_id', __('Area belonging'), 'select',
 		array('defaultValue' => $area));
-	$Q_area = mysql_query("select id as area_id, area_name from `mrbs_area` order by `area_name`");
-	while($R_area = mysql_fetch_assoc($Q_area))
+	$Q_area = db()->prepare("select id as area_id, area_name from `mrbs_area` order by `area_name`");
+	$Q_area->execute();
+	while($R_area = $Q_area->fetch())
 		$editor->addChoice('area_id', $R_area['area_id'], $R_area['area_name']);
 	$editor->makeNewField('program_inactive', _l('Inactive'), 'select');
 		$editor->addChoice('program_inactive', 0, _l('No'));
@@ -130,18 +131,21 @@ elseif(isset($_GET['program_id']))
 		
 		foreach($att_deleted as $att)
 		{
-			mysql_query("
+			$Q = db()->prepare("
 			DELETE
 			FROM `programs_defaultattachment`
 			WHERE
-				program_id = '".$program['program_id']."' AND 
-				att_id = '".$att['att_id']."';
+				program_id = :program_id AND
+				att_id = :att_id;
 			");
-			echo mysql_error();
+            $Q->bindValue(':program_id', $program['program_id'], PDO::PARAM_INT);
+            $Q->bindValue(':att_id', $att['att_id'], PDO::PARAM_INT);
+            $Q->execute();
+			echo db()->errorInfo();
 		}
 		foreach($att_new as $att)
 		{
-			mysql_query("
+			$Q = db()->prepare("
 			INSERT
 			INTO `programs_defaultattachment`
 			(
@@ -149,10 +153,13 @@ elseif(isset($_GET['program_id']))
 				`att_id`
 			)
 			VALUES (
-				'".$program['program_id']."',
-				'".$att['att_id']."'
+				:program_id,
+				:att_id
 			);
 			");
+            $Q->bindValue(':program_id', $program['program_id'], PDO::PARAM_INT);
+            $Q->bindValue(':att_id', $att['att_id'], PDO::PARAM_INT);
+            $Q->execute();
 		}
 		$saved = true;
 		
@@ -197,7 +204,8 @@ else
 	include "include/admin_middel.php";
 	
 	echo '<h2>'.__('Fixed programs').'</h2>'.chr(10).chr(10);
-	$Q_programs = mysql_query("select * from `programs` order by program_name");
+	$Q_programs = db()->prepare("select * from `programs` order by program_name");
+	$Q_programs->execute();
 	
 	if($login['user_access_programadmin'])
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?editor=1">'.
@@ -212,7 +220,7 @@ else
 	echo '		<th>Vedlegg</th>'.chr(10);
 	echo '		<th>'.__('Options').'</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
-	while($R_program = mysql_fetch_assoc($Q_programs))
+	while($R_program = $Q_programs->fetch())
 	{
 		echo '	<tr'.($R_program['program_inactive']?' class="strike graytext"':'').'>'.chr(10);
 		echo '		<td><b>'.$R_program['program_id'].'</b></td>'.chr(10);
@@ -222,24 +230,27 @@ else
 		'</td>'.chr(10);
 		echo '		<td>'.nl2br($R_program['program_desc']).'</td>'.chr(10);
 		echo '		<td style="white-space: nowrap;">';
-		$Q_area = mysql_query("select * from `mrbs_area` where id = '".$R_program['area_id']."'");
-		if(!mysql_num_rows($Q_area))
+		$Q_area = db()->prepare("select * from `mrbs_area` where id = '".$R_program['area_id']."'");
+		$Q_area->execute();
+		if($Q_area->rowCount() <= 0)
 			echo '<i>'.__('Not found').'</i>';
 		else
-			echo iconHTML('house').' '.mysql_result($Q_area, 0, 'area_name');
+			echo iconHTML('house').' '.$Q_area->fetch()['area_name'];
 		echo '</td>'.chr(10);
 		
 		// Attachments
 		echo '		<td>';
-		$Q_att = mysql_query("
+		$Q_att = db()->prepare("
 			SELECT
 				a.att_filetype, a.att_filename_orig, a.att_filesize, a.att_id
 			FROM `programs_defaultattachment` p LEFT JOIN `entry_confirm_attachment` a 
 				ON p.att_id = a.att_id
 			WHERE
-				p.program_id = '".$R_program['program_id']."'
+				p.program_id = :program_id
 			ORDER BY a.att_filename_orig");
-		while($att = mysql_fetch_assoc($Q_att)) {
+        $Q_att->bindValue(':program_id', $R_program['program_id'], PDO::PARAM_INT);
+        $Q_att->execute();
+		while($att = $Q_att->fetch()) {
 			echo '<a href="admin_attachment.php?att_id='.$att['att_id'].'">'.
 				iconFiletype($att['att_filetype']).' '.$att['att_filename_orig'].
 				'</a>'.

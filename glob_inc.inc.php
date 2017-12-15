@@ -121,14 +121,41 @@ else
 // there seems to be no way to supress the automatic error message output and
 // still be able to access the error text.
 debugAddToLog(__FILE__, __LINE__, 'Connecting to database server');
-$db_c = mysql_connect($db_host, $db_login, $db_password);
 
-if (!$db_c || !mysql_select_db ($db_database)){
-	echo chr(10).'<p>'.chr(10).
-		__("FATAL ERROR: Couldn't connect to database OR could not access database.").chr(10);
-	echo '<br />'.mysql_error();
-	exit;
+if (PHP_MAJOR_VERSION == 5) {
+    $db_c = mysql_connect($db_host, $db_login, $db_password);
+
+    if (!$db_c || !mysql_select_db($db_database)) {
+        echo chr(10) . '<p>' . chr(10) .
+            "FATAL ERROR: Couldn't connect to database OR could not access database." . chr(10);
+        echo '<br />' . mysql_error();
+        exit;
+    }
 }
+
+
+/* ----------------------- MySQL + PDO ------------------------- */
+// Note: We always initalize a connection to the database. We will always need it to check something.
+
+$_mysql_pdo = null;
+/**
+ * @return PDO The current database connection.
+ */
+function db() {
+    global $_mysql_pdo;
+    global $db_host, $db_login, $db_password, $db_database;
+    if ($_mysql_pdo == null) {
+        // -> Not already created. Let's create.
+        $_mysql_pdo = new PDO(
+            'mysql:host=' . $db_host . ';dbname=' . $db_database,
+            $db_login,
+            $db_password
+        );
+        $_mysql_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+    return $_mysql_pdo;
+}
+
 
 #lang.inc is included in config.inc.php
 #also, all changeing code for language selection is at config.inc.php
@@ -219,22 +246,25 @@ if (
 */
 debugAddToLog(__FILE__, __LINE__, 'Checking login status');
 $login = array();
-if(isset($_SESSION['user_id']))
+if(isset($_SESSION['user_id'])) {
 	$login['user_id']	= $_SESSION['user_id'];
-else
+}
+else {
 	$login['user_id']	= '';
+}
 
-if(isset($_SESSION['user_password']))
+if(isset($_SESSION['user_password'])) {
 	$login['user_password']	= $_SESSION['user_password'];
-else
+}
+else {
 	$login['user_password']	= '';
-
+}
 
 // Earlier this was a setting that could be changed (MRBS etc)
 // JM-booking is not made for running as non-logged-in users
-if(!isset($require_login))
+if(!isset($require_login)) {
 	$require_login = true;
-
+}
 
 if($require_login && basename($_SERVER['PHP_SELF']) != 'login.php') {
 	if(!isLoggedIn())

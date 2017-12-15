@@ -45,15 +45,18 @@ if(isset($_GET['att_id']))
 			if(!count($conProgram))
 			{
 				include "include/admin_middel.php";
-				templateError('Fant ikke programmet du prøvde å koble til vedlegg nr '.$att['att_id']);
+				templateError('Fant ikke programmet du prï¿½vde ï¿½ koble til vedlegg nr '.$att['att_id']);
 				exit();
 			}
-			
-			mysql_query("
+
+            $Q = db()->prepare("
 				INSERT INTO `programs_defaultattachment`
 				(`program_id`, `att_id`) VALUES
-				('".$conProgram['program_id']."', '".$att['att_id']."');
+				(:program_id, :att_id);
 				");
+            $Q->bindValue(':program_id', $conProgram['program_id'], PDO::PARAM_INT);
+            $Q->bindValue(':att_id', $att['att_id'], PDO::PARAM_INT);
+            $Q->execute();
 			
 			if(isset($_GET['redirect']) && $_GET['redirect'] == 'program')
 				header('Location: admin_programs.php?program_id='.$conProgram['program_id']);
@@ -68,7 +71,7 @@ if(isset($_GET['att_id']))
 			if(!count($conEntryType))
 			{
 				include "include/admin_middel.php";
-				templateError('Fant ikke bookingtypen du prøvde å koble til vedlegg nr '.$att['att_id']);
+				templateError('Fant ikke bookingtypen du prï¿½vde ï¿½ koble til vedlegg nr '.$att['att_id']);
 				exit();
 			}
 			
@@ -76,28 +79,34 @@ if(isset($_GET['att_id']))
 			if(!count($conArea))
 			{
 				include "include/admin_middel.php";
-				templateError('Fant ikke anlegget du prøvde å koble til vedlegg nr '.$att['att_id']);
+				templateError('Fant ikke anlegget du prï¿½vde ï¿½ koble til vedlegg nr '.$att['att_id']);
 				exit();
 			}
-			
-			
-			mysql_query("
+
+
+            $Q = db()->prepare("
 				INSERT INTO `entry_type_defaultattachment`
 				(
 					`entry_type_id`, 
 					`area_id`, 
 					`att_id`
 				) VALUES (
-					'".$conEntryType['entry_type_id']."',
-					'".$conArea['area_id']."',
-					'".$att['att_id']."'
+					:entry_type_id,
+					:area_id,
+					:att_id
 				);
 				");
+            $Q->bindValue(':entry_type_id', $conEntryType['entry_type_id'], PDO::PARAM_INT);
+            $Q->bindValue(':area_id' ,$conArea['area_id'], PDO::PARAM_INT);
+            $Q->bindValue(':att_id', $att['att_id'], PDO::PARAM_INT);
+            $Q->execute();
 			
-			if(isset($_GET['redirect']) && $_GET['redirect'] == 'entry_type')
-				header('Location: admin_entry_type.php?entry_type_id='.$conEntryType['entry_type_id']);
-			else
-				header('Location: '.$_SERVER['PHP_SELF'].'?att_id='.$att['att_id']);
+			if(isset($_GET['redirect']) && $_GET['redirect'] == 'entry_type') {
+                header('Location: admin_entry_type.php?entry_type_id=' . $conEntryType['entry_type_id']);
+            }
+			else {
+                header('Location: ' . $_SERVER['PHP_SELF'] . '?att_id=' . $att['att_id']);
+            }
 			exit();
 		}
 		
@@ -105,30 +114,32 @@ if(isset($_GET['att_id']))
 		include "include/admin_middel.php";
 		
 		$entry_types = array();
-		$Q_entry_type = mysql_query("
+		$Q_entry_type = db()->prepare("
 			SELECT
 				entry_type.entry_type_id as id, 
 				entry_type.entry_type_name as name 
 			FROM `entry_type`
 			ORDER BY name");
-		echo mysql_error();
-		while($R = mysql_fetch_assoc($Q_entry_type)) {
+        $Q_entry_type->execute();
+		while($R = $Q_entry_type->fetch()) {
 			$entry_types[$R['id']] = $R['name'];
 		}
 		$programs = array();
-		$Q_programs = mysql_query("
+		$Q_programs = db()->prepare("
 			SELECT
 				programs.program_id as id, 
 				CONCAT(mrbs_area.area_name, ' - ', programs.program_name) as name 
 			FROM `programs` LEFT JOIN `mrbs_area` 
 				ON programs.area_id = mrbs_area.id
 			ORDER BY name");
-		while($R = mysql_fetch_assoc($Q_programs)) {
+        $Q_programs->execute();
+		while($R = $Q_programs->fetch()) {
 			$programs[$R['id']] = $R['name'];
 		}
 		$areas = array();
-		$Q_areas = mysql_query("SELECT id, area_name as name FROM `mrbs_area` ORDER BY name");
-		while($R = mysql_fetch_assoc($Q_areas)) {
+		$Q_areas = db()->prepare("SELECT id, area_name as name FROM `mrbs_area` ORDER BY name");
+        $Q_areas->execute();
+		while($R = $Q_areas->fetch()) {
 			$areas[$R['id']] = $R['name'];
 		}
 		
@@ -319,7 +330,7 @@ if(isset($_FILES['file']))
 					$att_filetype = $_FILES['file']['type'];
 				break;
 			default:
-				$feilmelding = 'Filtypen er ikke støttet.<br>';
+				$feilmelding = 'Filtypen er ikke stï¿½ttet.<br>';
 				$feilmelding .= 'Filtype: '.$_FILES['file']['type'];
 				break;
 		}
@@ -330,18 +341,17 @@ if(isset($_FILES['file']))
 			$att_uploadtime = time();
 			$att_filesize = $_FILES['file']['size'];
 			$att_filename_orig = str_replace(
-				array('å','Å', 'ø', 'Ø', 'æ', 'Æ'),
+				array('ï¿½','ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½'),
 				array('aa','AA', 'oe', 'OE', 'ae', 'AE'),
 				$_FILES['file']['name']);
 			$att_filename = date('Ymd_His').'_'.$att_filename_orig;
 			move_uploaded_file($_FILES['file']['tmp_name'], $entry_confirm_att_path.'/'.$att_filename);
 			
 			// Insert MySQL
-			mysql_query("
+			$Q = db()->prepare("
 				INSERT INTO `entry_confirm_attachment` 
 					( 
-						`att_id` , 
-						`att_filetype` , 
+						`att_filetype` ,
 						`att_filename` , 
 						`att_filename_orig` , 
 						`att_filesize` , 
@@ -349,17 +359,23 @@ if(isset($_FILES['file']))
 						`user_id`
 					) 
 					VALUES (
-						'', 
-						'".addslashes($att_filetype)."',
-						'".addslashes($att_filename)."',
-						'".addslashes($att_filename_orig)."',
-						'".addslashes($att_filesize)."',
-						'".$att_uploadtime."',
-						'".$user_id."'
+						:att_filetype,
+						:att_filename,
+						:att_filename_orig,
+						:att_filesize,
+						:att_uploadtime,
+						:user_id
 						)
 				;");
-			header("Location: admin_attachment.php?att_id=".mysql_insert_id());
-			exit();
+            $Q->bindValue(':att_filetype', $att_filetype, PDO::PARAM_STR);
+            $Q->bindValue(':att_filename', $att_filename, PDO::PARAM_STR);
+            $Q->bindValue(':att_filename_orig', $att_filename_orig, PDO::PARAM_STR);
+            $Q->bindValue(':att_filesize', $att_filesize, PDO::PARAM_STR);
+            $Q->bindValue(':att_uploadtime', $att_uploadtime, PDO::PARAM_INT);
+            $Q->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $Q->execute();
+            header("Location: admin_attachment.php?att_id=" . db()->lastInsertId());
+            exit();
 		}
 	}
 }
@@ -368,43 +384,49 @@ include "include/admin_middel.php";
 
 /* Getting the attachments */
 $attachments_lastused = array();
-$Q_att = mysql_query("
+$Q_att = db()->prepare("
 	SELECT att.att_id
 	FROM `entry_confirm_attachment` att 
 	LEFT JOIN `entry_confirm_usedatt` used 
 	ON att.att_id = used.att_id  
 	GROUP BY att.att_id
-	ORDER BY used.timeused, att.att_uploadtime desc LIMIT 10");
-while($R_att = mysql_fetch_assoc($Q_att))
+	ORDER BY att.att_id desc LIMIT 10");
+$Q_att->execute();
+while($R_att = $Q_att->fetch())
 {
 	$att = getAttachment($R_att['att_id'], true);
-	if(count($att))
-		$attachments_lastused[] = $att;
+	if(count($att)) {
+        $attachments_lastused[] = $att;
+    }
 }
 $attachments_lastupload = array();
-$Q_att = mysql_query("
+$Q_att = db()->prepare("
 	SELECT att.att_id
 	FROM `entry_confirm_attachment` att
 	ORDER BY att.att_uploadtime desc LIMIT 10");
-while($R_att = mysql_fetch_assoc($Q_att))
+$Q_att->execute();
+while($R_att = $Q_att->fetch())
 {
 	$att = getAttachment($R_att['att_id'], true);
-	if(count($att))
-		$attachments_lastupload[] = $att;
+	if(count($att)) {
+        $attachments_lastupload[] = $att;
+    }
 }
 
 if(isset($_GET['viewall']))
 {
 	$attachments = array();
-	$Q_att = mysql_query("
+	$Q_att = db()->prepare("
 		SELECT att.att_id
 		FROM `entry_confirm_attachment` att
 		ORDER BY att.att_filename_orig");
-	while($R_att = mysql_fetch_assoc($Q_att))
+    $Q_att->execute();
+	while($R_att = $Q_att->fetch())
 	{
 		$att = getAttachment($R_att['att_id'], true);
-		if(count($att))
-			$attachments[] = $att;
+		if(count($att)) {
+            $attachments[] = $att;
+        }
 		else
 		{
 			echo 'err';
@@ -429,5 +451,3 @@ else
 }
 $smarty->assign('entry_confirm_att_path', $entry_confirm_att_path);
 $smarty->display('admin-attachment-list.tpl');
-
-?>

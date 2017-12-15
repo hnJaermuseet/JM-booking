@@ -132,10 +132,11 @@ echo
 // Print all products
 echo 'Trykk p&aring; ett produkt for &aring; legge til kun det produktet. '.
 	'Bruk plusstegnet for &aring; legge til flere p&aring; likt.<br /><br />';
-$Q_prod = mysql_query("select * from `products` order by area_id, product_name");
+$Q_prod = db()->prepare("select * from `products` order by area_id, product_name");
+$Q_prod->execute();
 $last_area_id = -1;
 $open = false;
-while($R_prod = mysql_fetch_assoc($Q_prod))
+while($R_prod = $Q_prod->fetch())
 {
 	if($last_area_id != $R_prod['area_id'])
 	{
@@ -631,10 +632,12 @@ if($entry_fields['invoice_address_id']['value'] != '0')
 {
 	echo 'document.getElementById(\'invoice_address_id2\').value = \''.$entry_fields['invoice_address_id']['value'].'\';'.chr(10);
 	$entry_fields['invoice_address_id']['value'] = (int)$entry_fields['invoice_address_id']['value'];
-	$Q = mysql_query("select address_full from `customer_address` where address_id = '".$entry_fields['invoice_address_id']['value']."'");
-	if(mysql_num_rows($Q))
+	$Q = db()->prepare("select address_full from `customer_address` where address_id = :address_id");
+    $Q->bindValue(':address_id', $entry_fields['invoice_address_id']['value'], PDO::PARAM_INT);
+    $Q->execute();
+	if($Q->rowCount() > 0)
 	{
-		echo 'document.getElementById(\'invoice_address\').value = "'.str_replace(chr(10), '\n', mysql_result($Q, 0, 'address_full')).'";'.chr(10);
+		echo 'document.getElementById(\'invoice_address\').value = "'.str_replace(chr(10), '\n', $Q->fetch(['address_full'])).'";'.chr(10);
 	}
 }
 echo '</script>'.chr(10);

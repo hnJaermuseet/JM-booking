@@ -50,13 +50,17 @@ if(isset($_POST['WEBAUTH_USER']))
 		$pass	= getPasswordHash ($pass);
 		
 		// Checking against database
-		$Q_login = mysql_query("select user_id, deactivated, user_password_complex, user_password_lastchanged from `users` where user_name_short = '".$user."' and user_password = '".$pass."' limit 1");
-		if(mysql_num_rows($Q_login) > '0')
+		$Q_login = db()->prepare("select user_id, deactivated, user_password_complex, user_password_lastchanged from `users` where user_name_short = :user_name_short and user_password = :user_password limit 1");
+        $Q_login->bindValue(':user_name_short', $user, PDO::PARAM_STR);
+        $Q_login->bindValue(':user_password', $pass, PDO::PARAM_STR);
+        $Q_login->execute();
+		if($Q_login->rowCount() > 0)
 		{
+            $loginInfo = $Q_login->fetch();
 			if($is_external)
 			{
 				try {
-					$user_login = array('user_password_lastchanged' => mysql_result($Q_login, 0, 'user_password_lastchanged'));
+					$user_login = array('user_password_lastchanged' => $loginInfo['user_password_lastchanged']);
 					loginPWcheckAge($user_login);
 				} catch (Exception $e) {
 					$external_failed = true;
@@ -64,11 +68,11 @@ if(isset($_POST['WEBAUTH_USER']))
 				}
 			}
 			
-			if(mysql_result($Q_login,0,'deactivated'))
+			if($loginInfo['deactivated'])
 			{
 				$deactivated = true;
 			}
-			elseif($is_external && !mysql_result($Q_login, 0, 'user_password_complex'))
+			elseif($is_external && !$loginInfo['user_password_complex'])
 			{
 				$external_failed = true;
 				$complex_failed = true;
@@ -80,13 +84,15 @@ if(isset($_POST['WEBAUTH_USER']))
 		        $_SESSION['WEBAUTH_PW']=$pass;
 				
 				// New variabels (JM-booking)
-				$_SESSION['user_id']		= mysql_result($Q_login, 0, 'user_id');
+				$_SESSION['user_id']		= $loginInfo['user_id'];
 				$_SESSION['user_password']	= $pass;
 				
-				if(isset($_POST['redirect']))
-					header('Location: '.$_POST['redirect']);
-				else
-					header('Location: index.php');
+				if(isset($_POST['redirect'])) {
+                    header('Location: ' . $_POST['redirect']);
+                }
+				else {
+                    header('Location: index.php');
+                }
 				exit();
 			}
 		}
@@ -398,12 +404,12 @@ else
 			'</div></td></tr>'.chr(10).chr(10);
 		}
 		if($deactivated) {
-			echo '	<tr><td colspan="2" align="center"><div class="error">'.
+			echo '	<tr><td colspan="2" align="center"><div class="error error-1">'.
 			__('The account is disabled').
 			'</div></td></tr>'.chr(10).chr(10);
 		}
 		elseif($external_failed && $complex_failed) {
-			echo '	<tr><td colspan="2" align="center"><div class="error">'.
+			echo '	<tr><td colspan="2" align="center"><div class="error error-2">'.
 			_h('You do not have access to the system because your password is not complex enough for external login.').' '.
 			_h(
 				'Please get yourself a new password or use an internal computer instead. '.
@@ -412,7 +418,7 @@ else
 			'</div></td></tr>'.chr(10).chr(10);
 		}
 		elseif($external_failed && $age_failed) {
-			echo '	<tr><td colspan="2" align="center"><div class="error">'.
+			echo '	<tr><td colspan="2" align="center"><div class="error error-3">'.
 			_h('You do not have access to the system because your password is too old for external login.').' '.
 			_h(
 				'Please get yourself a new password the next time you are using an internal computer. '.
@@ -467,7 +473,7 @@ else
 		{
 			echo 
 				'			<a href="/wiki/" style="font-size: 28px">Wiki</a><br>'.chr(10).
-				'			Wiki for oppl&aerlig;ring og rutiner p&aring; Vitenfabrikken'.chr(10);
+				'			Wiki for oppl&aelig;ring og rutiner p&aring; Vitenfabrikken'.chr(10);
 		}
 	}
 	

@@ -8,10 +8,12 @@ require 'glob_inc.inc.php';
 
 filterMakeAlternatives();
 
-if(!isset($_GET['listtype']))
-	$listtype = '';
-else
-	$listtype = $_GET['listtype'];
+if(!isset($_GET['listtype'])) {
+    $listtype = '';
+}
+else {
+    $listtype = $_GET['listtype'];
+}
 $addAdfterSQL = '';
 $return_to = 'entry_list';
 $entry_list_ingress = '';
@@ -25,7 +27,7 @@ switch($listtype)
 		$filters = addFilter($filters, 'time_start', 'current', '>');
 		if($area != '')
 			$filters = addFilter($filters, 'area_id', $area);
-		$SQL = "select entry_id from `entry` where confirm_email = '0' and time_start > '".time()."' order by `time_start`";
+		$SQL = "select entry_id from `entry` where confirm_email = '0' and time_start > :time_start order by `time_start`";
 		//$SQL = "select entry_id from `entry` where confirm_email = '0' order by `time_start`";
 		break;
 
@@ -38,7 +40,7 @@ switch($listtype)
 		$filters = addFilter($filters, 'time_start', 'current', '>');
 		if($area != '')
 			$filters = addFilter($filters, 'area_id', $area);
-		//$SQL = "select entry_id from `entry` where user_assigned = ';0;' and user_assigned2 = '' and time_start > '".time()."' order by `time_start`";
+		//$SQL = "select entry_id from `entry` where user_assigned = ';0;' and user_assigned2 = '' and time_start > :time_start order by `time_start`";
 		//$SQL = "select entry_id from `entry` where user_assigned = ';0;' and user_assigned2 = '' order by `time_start`";
 		break;
 
@@ -50,7 +52,7 @@ switch($listtype)
 		if($area != '')
 			$filters = addFilter($filters, 'area_id', $area);
 		$addAdfterSQL = ' limit 100';
-		$SQL = "select entry_id from `entry` where time_start > '".time()."' order by `time_start` limit 100";
+		$SQL = "select entry_id from `entry` where time_start > :time_start order by `time_start` limit 100";
 		break;
 
 	case 'servering':
@@ -61,7 +63,7 @@ switch($listtype)
 		$filters = addFilter($filters, 'service_description', '_%');
 		if($area != '')
 			$filters = addFilter($filters, 'area_id', $area);
-		$SQL = "select entry_id from `entry` where time_start > '".time()."' order by `time_start` limit 100";
+		$SQL = "select entry_id from `entry` where time_start > :time_start order by `time_start` limit 100";
 		break;
 
 	case 'customer_list':
@@ -109,4 +111,6 @@ switch($listtype)
 $SQL = genSQLFromFilters($filters, '*');
 $SQL .= " order by `time_start`".$addAdfterSQL;
 
-$Q = mysql_query($SQL);
+$Q = db()->prepare($SQL);
+$Q->bindValue(':time_start', time(), PDO::PARAM_INT);
+$Q->execute();

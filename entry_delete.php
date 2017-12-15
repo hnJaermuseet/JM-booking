@@ -29,9 +29,10 @@ include_once('glob_inc.inc.php');
 
 
 // Check database tables
-$q = mysql_query('SHOW COLUMNS FROM entry');
+$q = db()->prepare('SHOW COLUMNS FROM entry');
+$q->execute();
 $table_orig = array();
-while($r = mysql_fetch_assoc($q))
+while($r = $q->fetch(PDO::FETCH_ASSOC))
 {
 	if($r['Field'] == 'entry_id')
 	{
@@ -39,9 +40,10 @@ while($r = mysql_fetch_assoc($q))
 	}
 	$table_orig[$r['Field']] = $r;
 }
-$q = mysql_query('SHOW COLUMNS FROM entry_deleted');
+$q = db()->prepare('SHOW COLUMNS FROM entry_deleted');
+$q->execute();
 $table_deleted = array();
-while($r = mysql_fetch_assoc($q))
+while($r = $q->fetch(PDO::FETCH_ASSOC))
 {
 	$table_deleted[$r['Field']] = $r;
 }
@@ -49,10 +51,12 @@ while($r = mysql_fetch_assoc($q))
 $error = array();
 foreach($table_orig as $key => $r)
 {
-	if(!isset($table_deleted[$key]))
-		$error[] = 'Table entry_deleted missing field '.$key;
-	elseif(implode($r) != implode($table_deleted[$key]))
-		$error[] = 'Field '.$key.' is not the same in the two tables';
+	if(!isset($table_deleted[$key])) {
+        $error[] = 'Table entry_deleted missing field ' . $key;
+    }
+	elseif(implode($r) != implode($table_deleted[$key])) {
+        $error[] = 'Field ' . $key . ' is not the same in the two tables.<br>'.chr(10) .  implode('<br>'.chr(10), $table_deleted[$key]) .' ----------<br>' . chr(10). implode('<br>'.chr(10), $r);
+    }
 	
 	unset($table_deleted[$key]);
 }
@@ -71,9 +75,11 @@ if(count($error))
 			'The two entry tables "entry" and "entry_delete" are not the same.'.chr(10).
 			'Following differences where found:'.chr(10).
 			chr(10).' - '.implode(chr(10).' - ', $error).chr(10));
-	echo 'Et problem oppsto. Utvikleren av systemet har glemt å fikse en ting. Si fra til systemansvarlig for bookingsystemet.<br /><br />';
-	echo 'Sletting vil ikke være tilgjengelig før dette er fikset.';
-	
+	echo 'Et problem oppsto. Utvikleren av systemet har glemt ï¿½ fikse en ting. Si fra til systemansvarlig for bookingsystemet.<br /><br />';
+	echo 'Sletting vil ikke vï¿½re tilgjengelig fï¿½r dette er fikset.';
+
+
+    var_dump($error);
 	exit;
 }
 
@@ -81,12 +87,15 @@ if(count($error))
 // Checking what we are doing
 $action_delete = !(isset($_GET['undelete']) && $_GET['undelete'] == '1');
 
-if(!isset($_GET['entry_id']))
-	$entry = array();
-elseif($action_delete)
-	$entry = getEntry($_GET['entry_id']);
-else
-	$entry = getEntryDeleted($_GET['entry_id']);
+if(!isset($_GET['entry_id'])) {
+    $entry = array();
+}
+elseif($action_delete) {
+    $entry = getEntry($_GET['entry_id']);
+}
+else {
+    $entry = getEntryDeleted($_GET['entry_id']);
+}
 
 if(!count($entry))
 {
@@ -159,15 +168,16 @@ else
 	$log_action2 = 'entry_undeleted';
 }
 
-mysql_query('insert into '.$to_table.' (select * from '.$from_table.' where `entry_id` = \''.$entry['entry_id'].'\' limit 1)');
-if(mysql_error())
+$q = db()->prepare('insert into '.$to_table.' (select * from '.$from_table.' where `entry_id` = :entry_id limit 1)');
+$q->bindValue(':entry_id', $entry['entry_id'], PDO::PARAM_INT);
+if(!$q->execute())
 {
 	emailSendAdmin ('Problems in entry_delete', 
 			'Mysql error on insert query:'.chr(10).
-			mysql_error().chr(10));
+            implode(', ', $q->errorInfo()).chr(10));
 	
 	echo 'En feil oppsto. Feilmelding er sendt til systemadministrator.<br />';
-	echo 'Sletting vil ikke være tilgjengelig før dette er fikset.';
+	echo 'Sletting vil ikke vï¿½re tilgjengelig fï¿½r dette er fikset.';
 	exit;
 }
 
@@ -196,38 +206,40 @@ newEntryLog($entry['entry_id'], 'edit', $log_action2, $entry['rev_num']+1, $log_
 
 
 // Verify that it is copied
-$q = mysql_query('select entry_id from '.$to_table.' where `entry_id` = \''.$entry['entry_id'].'\' limit 1');
-if(mysql_error())
+$q = db()->prepare('select entry_id from '.$to_table.' where `entry_id` = :entry_id limit 1');
+$q->bindValue(':entry_id', $entry['entry_id'], PDO::PARAM_INT);
+if(!$q->execute())
 {
 	emailSendAdmin ('Problems in entry_delete', 
 			'Mysql error on verify query:'.chr(10).
-			mysql_error().chr(10));
+            implode(', ', $q->errorInfo()).chr(10));
 	
 	echo 'En feil oppsto. Feilmelding er sendt til systemadministrator.<br />';
-	echo 'Sletting vil ikke være tilgjengelig før dette er fikset.';
+	echo 'Sletting vil ikke vï¿½re tilgjengelig fï¿½r dette er fikset.';
 	exit;
 }
 
-if(!mysql_num_rows($q))
+if($q->rowCount() <= 0)
 {
 	emailSendAdmin ('Problems in entry_delete', 
 			'Entry id '.$entry['entry_id'].' is not in '.$to_table.' after copying.'.chr(10));
 	
 	echo 'En feil oppsto. Feilmelding er sendt til systemadministrator.<br />';
-	echo 'Sletting vil ikke være tilgjengelig før dette er fikset.';
+	echo 'Sletting vil ikke vï¿½re tilgjengelig fï¿½r dette er fikset.';
 	exit;
 }
 
 // Deleting
-mysql_query('delete from '.$from_table.' where `entry_id` = \''.$entry['entry_id'].'\' limit 1');
-if(mysql_error())
+$q_delete = db()->prepare('delete from '.$from_table.' where `entry_id` = :entry_id limit 1');
+$q_delete->bindValue(':entry_id', $entry['entry_id'], PDO::PARAM_INT);
+if(!$q_delete->execute())
 {
 	emailSendAdmin ('Problems in entry_delete', 
 			'Mysql error on delete query:'.chr(10).
-			mysql_error().chr(10));
+			implode(', ', $q_delete->errorInfo()).chr(10));
 	
 	echo 'En feil oppsto. Feilmelding er sendt til systemadministrator.<br />';
-	echo 'Sletting vil ikke være tilgjengelig før dette er fikset.';
+	echo 'Sletting vil ikke vï¿½re tilgjengelig fï¿½r dette er fikset.';
 	exit;
 }
 
@@ -238,10 +250,12 @@ if(isset($_GET['alert']) && $_GET['alert'] == '1')
 	{
 		if($user_id != $login['user_id'])
 		{
-			if($action_delete)
-				emailSendEntryDeleted($entry, $user_id);
-			else
-				emailSendEntryUndeleted($entry, $user_id);
+			if($action_delete) {
+                emailSendEntryDeleted($entry, $user_id);
+            }
+			else {
+                emailSendEntryUndeleted($entry, $user_id);
+            }
 		}
 	}
 }
