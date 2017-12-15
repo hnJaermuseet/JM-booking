@@ -25,39 +25,35 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-function getRoomEventList(array $rooms, $start, $end) {
+function getRoomEventList(array $events_room, $start, $end) {
     $entries = array();
     $timed_entries = array();
-    foreach ($rooms as $room)
+    foreach ($events_room as $room_id => $entries)
     {
-        $events_room = checktime_Room ($start, $end, $room['area_id'], $room['room_id']);
-        if(isset($events_room[$room['room_id']]))
+        foreach ($entries as $entry_id)
         {
-            foreach ($events_room[$room['room_id']] as $entry_id)
+            $event = getEntry ($entry_id);
+            if(count($event))
             {
-                $event = getEntry ($entry_id);
-                if(count($event))
+                $a = '';
+                if($event['time_start'] < $start)
                 {
-                    $a = '';
-                    if($event['time_start'] < $start)
-                    {
-                        $a .= __('started').' '.date('H:i d-m-Y', $event['time_start']);
-                        $event['time_start'] = $start;
-                    }
-                    if($event['time_end'] > $end)
-                    {
-                        if($a != '') {
-                            $a .= ', ';
-                        }
-                        $a .= 'slutter '.date('H:i d-m-Y', $event['time_end']);
-                        $event['time_end'] = $end;
-                    }
-                    if($a != '') {
-                        $event['entry_name'] .= ' ('.$a.')';
-                    };
-                    $timed_entries[$event['time_start']][$event['entry_id']] = $event['entry_id'];
-                    $entries[$event['entry_id']] = $event;
+                    $a .= __('started').' '.date('H:i d-m-Y', $event['time_start']);
+                    $event['time_start'] = $start;
                 }
+                if($event['time_end'] > $end)
+                {
+                    if($a != '') {
+                        $a .= ', ';
+                    }
+                    $a .= 'slutter '.date('H:i d-m-Y', $event['time_end']);
+                    $event['time_end'] = $end;
+                }
+                if($a != '') {
+                    $event['entry_name'] .= ' ('.$a.')';
+                };
+                $timed_entries[$event['time_start']][$event['entry_id']] = $event['entry_id'];
+                $entries[$event['entry_id']] = $event;
             }
         }
     }

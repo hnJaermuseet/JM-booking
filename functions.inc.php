@@ -2044,6 +2044,15 @@ function readEntry ($entry_id, $rev_num)
  * @return array        $array[roomid][entryid] = entryid;
  */
 function checkTime_Room ($start, $end, $area_id, $room = 0) {
+    if (!is_array($area_id)) {
+        $area_id = array(array('area_id' => $area_id));
+    }
+    $area_query = array();
+    foreach($area_id as $area) {
+        $area_query[] = 'area_id = \'' . ((int)$area['area_id']) . '\'';
+    }
+    $area_query = '(' . implode(' OR ', $area_query) . ')';
+
 	if(is_array($room))
 	{
 		$whole_area = FALSE;
@@ -2064,8 +2073,7 @@ function checkTime_Room ($start, $end, $area_id, $room = 0) {
 			$room_query = '';
 			$room = array();
 			// Getting all rooms in area
-			$Q_rooms = db()->prepare("select id as room_id from `mrbs_room` where area_id = :area_id");
-            $Q_rooms->bindValue(':area_id', $area_id, PDO::PARAM_INT);
+			$Q_rooms = db()->prepare("select id as room_id from `mrbs_room` where $area_query");
             $Q_rooms->execute();
 			while($R_room = $Q_rooms->fetch()) {
 				$room[$R_room['room_id']] = $R_room['room_id'];
@@ -2082,14 +2090,6 @@ function checkTime_Room ($start, $end, $area_id, $room = 0) {
     }
 
 
-    if (!is_array($area_id)) {
-        $area_id = array(array('area_id' => $area_id));
-    }
-    $area_query = array();
-    foreach($area_id as $area) {
-        $area_query[] = 'area_id = \'' . ((int)$area['area_id']) . '\'';
-    }
-    $area_query = '(' . implode(' OR ', $area_query) . ')';
 
 	$sql = "select entry_id, room_id from `entry` where
 		(

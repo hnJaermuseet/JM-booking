@@ -210,7 +210,7 @@ if (!count($rooms_displayed)) {
 
     $start = mktime(0, 0, 0, $month, $day, $year);
     $end = mktime(23, 59, 59, $month, $day, $year);
-    $events = getRoomEventList($rooms_displayed, $start, $end);
+    $events = getRoomEventList($events_room, $start, $end);
     $entries = $events['allEntries'];
     $timed_entries = $events['timedEntries'];
 

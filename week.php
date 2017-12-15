@@ -163,7 +163,12 @@ foreach ($weekdays as $daynum => $weekday)
     }
     $start	= mktime(0, 0, 0, date('m', $weekday), date('d', $weekday), date('Y', $weekday));
     $end	= mktime(23, 59, 59, date('m', $weekday), date('d', $weekday), date('Y', $weekday));
-    $events = getRoomEventList($rooms, $start, $end);
+    $room_query = array();
+    foreach ($rooms as $R_room) {
+        $room_query[$R_room['room_id']] = $R_room['room_id'];
+    }
+    $events_room = checkTime_Room($start, $end, $areas, $room_query);
+    $events = getRoomEventList($events_room, $start, $end);
     ?>
 	<table width="100%" cellspacing="0" style="border-collapse: collapse;">
 	<tr>
