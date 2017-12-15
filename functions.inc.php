@@ -51,12 +51,9 @@ function print_header($day, $month, $year, $area){
 	if (empty($search_str))
 		$search_str = '';
 	
-	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-	"http://www.w3.org/TR/html4/loose.dtd">'.chr(10);
 	echo '<html>'.chr(10);
 	echo '<head>'.chr(10);
 	echo '	<title>JM-booking</title>'.chr(10);
-	echo '	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">'.chr(10);
     echo '  <link rel="SHORTCUT ICON" HREF="./favicon.ico">'.chr(10);
 	echo '	<link rel="stylesheet" type="text/css" href="css/jm-booking.css" />'.chr(10);
 	echo '	<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.7.2.custom.css" />'.chr(10);

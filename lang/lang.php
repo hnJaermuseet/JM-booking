@@ -15,8 +15,7 @@ function _l($text)
 	global $language;
 	
 	$langFunction = 'lang'.ucfirst($language); // function langNo()
-    // TODO: remove charset convertion when everything is UTF-8
-	return utf8_decode($langFunction($text));
+	return $langFunction($text);
 }
 
 function __($text) {
