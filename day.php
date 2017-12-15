@@ -93,21 +93,30 @@ if (!count($rooms_displayed)) {
     $room_time = array(); // Used to keep track of when an entry starts to display
     $room_time2 = array(); // Used to check if the entry is parallell to an other
     $room_time3 = array(); // Used to keep track of where to put <td> and at what colspan
+
+    if ($dayview == 1) {
+        $start = mktime(0, 0, 0, $month, $day, $year);
+        $end = mktime(23, 59, 59, $month, $day, $year);
+        $am7_tmp = $am7;
+        $pm7_tmp = $pm7;
+        $am7 = $start;
+        $pm7 = $end;
+        $am7 = $am7_tmp;
+        $pm7 = $pm7_tmp;
+    } else {
+        $start = $am7;
+        $end = $pm7;
+    }
+
+    $room_query = array();
     foreach ($rooms_displayed as $R_room) {
-        if ($dayview == 1) {
-            $start = mktime(0, 0, 0, $month, $day, $year);
-            $end = mktime(23, 59, 59, $month, $day, $year);
-            $am7_tmp = $am7;
-            $pm7_tmp = $pm7;
-            $am7 = $start;
-            $pm7 = $end;
-        } else {
-            $start = $am7;
-            $end = $pm7;
-        }
+        $room_query[$R_room['room_id']] = $R_room['room_id'];
+    }
+    $events_room = checktime_Room($start, $end, $areas, $room_query);
+    foreach ($rooms_displayed as $R_room) {
 
         /* ## Make map of time ## */
-        for ($t = $am7; $t <= $pm7; $t += $resolution) {
+        for ($t = $start; $t <= $end; $t += $resolution) {
             $room_time[$R_room['room_id']][$t] = array();
             $room_time2[$R_room['room_id']][$t] = array();
             $room_time3[$R_room['room_id']][$t] = array();
@@ -115,38 +124,21 @@ if (!count($rooms_displayed)) {
         $entries_room[$R_room['room_id']] = array();
         $room_max_col[$R_room['room_id']] = 1;
 
-        if ($dayview == 1) {
-            $am7 = $am7_tmp;
-            $pm7 = $pm7_tmp;
-        }
-
-        $events_room = checktime_Room($start, $end, $R_room['area_id'], $R_room['room_id']);
         if (isset($events_room[$R_room['room_id']])) {
             foreach ($events_room[$R_room['room_id']] as $entry_id) {
                 // Fixing time for this event
                 $event = getEntry($entry_id);
                 if (count($event)) {
-                    //echo '<b>'.date('H:i:s dmY',$event['time_start']).'</b> start<br>'.chr(10);
-                    //echo '<b>'.date('H:i:s dmY',$event['time_end']).'</b> end<br>'.chr(10);
-                    // Saving originals
-                    $event['time_start_real'] = $event['time_start'];
-                    $event['time_end_real'] = $event['time_end'];
-
                     if ($event['time_start'] < $start) {
+                        $event['entry_name'] .= ' (' . __('started') . ' ' . date('H:i d-m-Y', $event['time_start']) . ')';
                         $event['time_start'] = $start;
-                        $event['entry_name'] .= ' (' . __('started') . ' ' . date('H:i d-m-Y', $event['time_start_real']) . ')';
                     }
                     $event['time_start'] = round_t_down($event['time_start'], $resolution);
-                    //echo date('H:i:s dmY',$event['time_start']).' start before diff<br>'.chr(10);
                     $diff = $event['time_end'] - $event['time_start'];
-                    //echo $diff.' '.($diff/60).'<br>'.chr(10);
                     if ($diff < (60 * 30)) {
                         $event['time_end'] = round_t_up($event['time_end'], (60 * 15));
                     }
-                    //echo date('H:i:s dmY',$event['time_start']).' start last<br>'.chr(10);
                     $event['time_end'] = round_t_up($event['time_end'], $resolution);
-                    //echo date('H:i:s dmY',$event['time_end']).' end last<br>'.chr(10);
-                    //echo '<br><br>'.chr(10);
                     if ($end < $event['time_end']) {
                         $rowspan = (($end + $resolution - $event['time_start']) / $resolution);
                     } else {

@@ -2036,26 +2036,29 @@ function readEntry ($entry_id, $rev_num)
     $Q->execute();
 }
 
-function checkTime_Room ($start, $end, $area_id, $room = 0)
-{
-	/*
-		returns:
-		$array[roomid][entryid] = entryid;
-	*/
-	
+/**
+ * @param $start
+ * @param $end
+ * @param $area_id
+ * @param int $room
+ * @return array        $array[roomid][entryid] = entryid;
+ */
+function checkTime_Room ($start, $end, $area_id, $room = 0) {
 	if(is_array($room))
 	{
 		$whole_area = FALSE;
-		$room_query = " and (";
+        $room_query = array();
 		foreach ($room as $rid)
 		{
 			if($rid == '0' && count($room) == 1) {
                 $whole_area = TRUE;
             }
-			$room_query .= "room_id like '%;$rid;%' || ";
+			$room_query[] = "room_id LIKE '%;$rid;%'";
 		}
-		$room_query .= "room_id like '%;0;%')";
-		
+		$room_query[] = "room_id like '%;0;%'";
+
+        $room_query = ' AND (' . implode(' || ', $room_query) .')';
+
 		if($whole_area)
 		{
 			$room_query = '';
@@ -2077,16 +2080,25 @@ function checkTime_Room ($start, $end, $area_id, $room = 0)
 	else {
 		$room_query = '';
     }
-	
+
+
+    if (!is_array($area_id)) {
+        $area_id = array(array('area_id' => $area_id));
+    }
+    $area_query = array();
+    foreach($area_id as $area) {
+        $area_query[] = 'area_id = \'' . ((int)$area['area_id']) . '\'';
+    }
+    $area_query = '(' . implode(' OR ', $area_query) . ')';
+
 	$sql = "select entry_id, room_id from `entry` where
 		(
 			(time_start <= :time_start and time_end > :time_start) or
 			(time_start < :time_end and time_end >= :time_end) or
 			(time_start > :time_start and time_end < :time_end)
 		)
-		and area_id = :area_id".$room_query;
+		AND ".$area_query.$room_query;
 	$Q_checktime = db()->prepare($sql);
-    $Q_checktime->bindValue(':area_id', $area_id, PDO::PARAM_INT);
     $Q_checktime->bindValue(':time_start', $start, PDO::PARAM_INT);
     $Q_checktime->bindValue(':time_end', $end, PDO::PARAM_INT);
     $Q_checktime->execute();
@@ -2098,10 +2110,10 @@ function checkTime_Room ($start, $end, $area_id, $room = 0)
 		{
 			if(is_array($room))
 			{
-				$R_entry['room_id'] = splittIDs($R_entry['room_id']);
+				$entry_rooms = splittIDs($R_entry['room_id']);
 				foreach ($room as $rid)
 				{
-					if(in_array($rid, $R_entry['room_id'])) {
+					if(isset($entry_rooms['0']) || in_array($rid, $entry_rooms)) {
 						$return[$rid][$R_entry['entry_id']] = $R_entry['entry_id'];
                     }
 				}
