@@ -3,7 +3,7 @@
 /*
  * ## Default config ##
  *
- * Please but site spesific configs in "site.config.php" 
+ * Please but site spesific configs in "site.config.php"
  * in the same folder as this file.
  *
  */

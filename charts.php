@@ -199,7 +199,7 @@ function drawChart ($tittel, $what, $people=true, $childrenonly = false, $rotate
 		$Test = new pChart(700,230);
 	else
 		$Test = new pChart(700,330);
-	$Test->setFontProperties("Fonts/tahoma.ttf",8);
+	$Test->setFontProperties(__DIR__ . '/fonts/tahoma.ttf', 8);
 	
 	$Test->setGraphArea(70,30,680,200);
 	if(!$rotate)
@@ -220,7 +220,7 @@ function drawChart ($tittel, $what, $people=true, $childrenonly = false, $rotate
 	$Test->drawGrid(4,TRUE,230,230,230,50);
 	
 	// Draw the 0 line
-	$Test->setFontProperties("Fonts/tahoma.ttf",6);
+	$Test->setFontProperties(__DIR__ . '/fonts/tahoma.ttf', 6);
 	$Test->drawTreshold(0,143,55,72,TRUE,TRUE);
 	
 	// Draw the line graph
@@ -229,9 +229,9 @@ function drawChart ($tittel, $what, $people=true, $childrenonly = false, $rotate
 	$Test->drawBarGraph($dataset->GetData(),$dataset->GetDataDescription(),TRUE);  
 	
 	// Finish the graph
-	$Test->setFontProperties("Fonts/tahoma.ttf",8);
+	$Test->setFontProperties(__DIR__ . '/fonts/tahoma.ttf', 8);
 	$Test->drawLegend(75,35,$dataset->GetDataDescription(),255,255,255);
-	$Test->setFontProperties("Fonts/tahoma.ttf",10);
+	$Test->setFontProperties(__DIR__ . '/fonts/tahoma.ttf', 10);
 	$Test->drawTitle(60,22,$tittel,50,50,50,585);
 	
 	if($people && $childrenonly)
@@ -244,5 +244,3 @@ function drawChart ($tittel, $what, $people=true, $childrenonly = false, $rotate
 	$filename = $chart_path.'/'.$time.'-'.$what.'-'.$what2.'.png';
 	$Test->Render($filename);
 }
-
-?>

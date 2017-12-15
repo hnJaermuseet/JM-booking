@@ -2,10 +2,17 @@ FROM php:7.0.14-apache
 
 MAINTAINER Hallvard Nygård <hallvard.nygard@gmail.com>
 
-RUN apt-get update && apt-get install -y libcurl4-gnutls-dev
+RUN apt-get update && apt-get install -y \
+    libcurl4-gnutls-dev \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev
 
 RUN docker-php-ext-install curl
 RUN docker-php-ext-install pdo pdo_mysql mysqli
+
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-install gd
 
 RUN apt-get install -y git
 
