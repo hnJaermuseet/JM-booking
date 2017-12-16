@@ -2091,7 +2091,7 @@ function checkTime_Room ($start, $end, $area_id, $room = 0) {
 
 
 
-	$sql = "select entry_id, room_id from `entry` where
+	$sql = "select * from `entry` where
 		(
 			(time_start <= :time_start and time_end > :time_start) or
 			(time_start < :time_end and time_end >= :time_end) or
@@ -2108,18 +2108,19 @@ function checkTime_Room ($start, $end, $area_id, $room = 0) {
 	{
 		while ($R_entry = $Q_checktime->fetch())
 		{
+            $R_entry = getEntryParseDatabaseArray($R_entry);
 			if(is_array($room))
 			{
-				$entry_rooms = splittIDs($R_entry['room_id']);
+				$entry_rooms = $R_entry['room_id'];
 				foreach ($room as $rid)
 				{
 					if(isset($entry_rooms['0']) || in_array($rid, $entry_rooms)) {
-						$return[$rid][$R_entry['entry_id']] = $R_entry['entry_id'];
+						$return[$rid][$R_entry['entry_id']] = $R_entry;
                     }
 				}
 			}
 			else {
-				$return[$room][$R_entry['entry_id']] = $R_entry['entry_id'];
+				$return[$room][$R_entry['entry_id']] = $R_entry;
             }
 		}
 	}

@@ -157,9 +157,8 @@ for ($i = 1; $i < $numDays + 1; $i++)
 		$events_room = checktime_Room ($start, $end, $room3['area_id'], $room3['room_id']);
 		if(isset($events_room[$room_id]))
 		{
-			foreach ($events_room[$room_id] as $entry_id)
+			foreach ($events_room[$room_id] as $event)
 			{
-				$event = getEntry ($entry_id);
 				if(count($event))
 				{
 					/*

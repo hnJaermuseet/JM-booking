@@ -30,9 +30,8 @@ function getRoomEventList(array $events_room, $start, $end) {
     $timed_entries = array();
     foreach ($events_room as $room_id => $entries)
     {
-        foreach ($entries as $entry_id)
+        foreach ($entries as $event)
         {
-            $event = getEntry ($entry_id);
             if(count($event))
             {
                 $a = '';

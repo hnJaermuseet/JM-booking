@@ -125,9 +125,8 @@ if (!count($rooms_displayed)) {
         $room_max_col[$R_room['room_id']] = 1;
 
         if (isset($events_room[$R_room['room_id']])) {
-            foreach ($events_room[$R_room['room_id']] as $entry_id) {
+            foreach ($events_room[$R_room['room_id']] as $event) {
                 // Fixing time for this event
-                $event = getEntry($entry_id);
                 if (count($event)) {
                     if ($event['time_start'] < $start) {
                         $event['entry_name'] .= ' (' . __('started') . ' ' . date('H:i d-m-Y', $event['time_start']) . ')';
