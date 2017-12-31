@@ -62,7 +62,8 @@ if(isset($_POST['WEBAUTH_USER']))
 				try {
 					$user_login = array('user_password_lastchanged' => $loginInfo['user_password_lastchanged']);
 					loginPWcheckAge($user_login);
-				} catch (Exception $e) {
+				}
+                catch (Exception $e) {
 					$external_failed = true;
 					$age_failed = true;
 				}
@@ -98,7 +99,6 @@ if(isset($_POST['WEBAUTH_USER']))
 		}
 		else
 		{
-			
 		}
 	}
 }
@@ -111,21 +111,24 @@ if(isLoggedIn())
 }
 else
 {
-	if(isset($_POST['WEBAUTH_USER']))
-		$user = slashes(htmlspecialchars(strip_tags($_POST['WEBAUTH_USER']),ENT_QUOTES));
-	else
-		$user = '';
-	
-	
+	if(isset($_POST['WEBAUTH_USER'])) {
+        $user = slashes(htmlspecialchars(strip_tags($_POST['WEBAUTH_USER']), ENT_QUOTES));
+    }
+	else {
+        $user = '';
+    }
+
 	$forgot_pw_failed = false;
 	$forgot_pw_found = false;
 	$forgot_pw_keyfound = false;
 	$forgot_pw_keyokey = false;
 	$forgot_pw_user = '';
-	if(isset($_GET['forgot_pw_user']))
-		$forgot_pw_user = $_GET['forgot_pw_user'];
-	if(isset($_POST['forgot_pw_user']))
-		$forgot_pw_user = $_POST['forgot_pw_user'];
+	if(isset($_GET['forgot_pw_user'])) {
+        $forgot_pw_user = $_GET['forgot_pw_user'];
+    }
+	if(isset($_POST['forgot_pw_user'])) {
+        $forgot_pw_user = $_POST['forgot_pw_user'];
+    }
 	
 	if(isset($_GET['forgot_pw']) && $_GET['forgot_pw'] == '1' && $forgot_pw_user != '')
 	{

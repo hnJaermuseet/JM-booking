@@ -91,18 +91,24 @@ if(isset($_POST['password_new']))
 	{
 		$sql = 
 			'UPDATE `users` SET '.
-				'`user_password`              = \''.getPasswordHash($pw).'\', '.
-				'`user_password_1`            = \''.$user['user_password'].'\', '.
-				'`user_password_2`            = \''.$user['user_password_1'].'\', '.
-				'`user_password_3`            = \''.$user['user_password_2'].'\', '.
-				'`user_password_lastchanged`  = \''.time().'\', '.
-				'`user_password_complex`      = \''.!$failed.'\''.
-			' WHERE `user_id` = '.$user['user_id'].' LIMIT 1 ;';
-		mysql_query($sql);
-		if(mysql_error())
+				'`user_password`              = :user_password, '.
+				'`user_password_1`            = :user_password_1, '.
+				'`user_password_2`            = :user_password_2, '.
+				'`user_password_3`            = :user_password_3, '.
+				'`user_password_lastchanged`  = :user_password_lastchanged, '.
+				'`user_password_complex`      = :user_password_complex'.
+			' WHERE `user_id` = :user_id LIMIT 1 ;';
+		$Q = db()->prepare($sql);
+        $Q->bindValue(':user_password', getPasswordHash($pw));
+        $Q->bindValue(':user_password_1', $user['user_password']);
+        $Q->bindValue(':user_password_2', $user['user_password_1']);
+        $Q->bindValue(':user_password_3', $user['user_password_2']);
+        $Q->bindValue(':user_password_lastchanged', time());
+        $Q->bindValue(':user_password_complex', (!$failed) ? 1 : 0);
+        $Q->bindValue(':user_id', $user['user_id']);
+		if(!$Q->execute())
 		{
-			echo 'Error<br>';
-			echo mysql_error();
+			echo 'Error mysql<br>';
 			exit;
 		}
 		

@@ -29,16 +29,19 @@ include_once("glob_inc.inc.php");
 
 print_header($day, $month, $year, $area);
 
-$Q_users = mysql_query("select user_id from `users` where deactivated = 0 order by user_name");
+$Q_users = db()->prepare("select user_id from `users` where deactivated = 0 order by user_name");
+$Q_users->execute();
 echo '<h1>'.__('Users').'</h1>'.chr(10);
 
 if(!isset($_GET['gid']))
 {
-	$Q_groups = mysql_query("select * from `groups` order by `group_name`");
+	$Q_groups = db()->prepare("select * from `groups` order by `group_name`");
+    $Q_groups->execute();
 	echo '<b>Brukergrupper</b><br />';
 	echo '<ul>'.chr(10);
-	while($R = mysql_fetch_assoc($Q_groups))
-		echo '<li><a href="'.$_SERVER['PHP_SELF'].'?gid='.$R['group_id'].'">'.$R['group_name'].'</a></li>';
+	while($R = $Q_groups->fetch(PDO::FETCH_ASSOC)) {
+        echo '<li><a href="' . $_SERVER['PHP_SELF'] . '?gid=' . $R['group_id'] . '">' . $R['group_name'] . '</a></li>';
+    }
 	echo '</ul>'.chr(10);
 	
 	echo '<b>Alle brukere</b><br />';
@@ -48,7 +51,7 @@ if(!isset($_GET['gid']))
 	echo '		<th>Initialer</th>'.chr(10);
 	echo '		<th>Anlegg</th>'.chr(10);
 	echo '	</tr>'.chr(10).chr(10);
-	while($R_user = mysql_fetch_assoc($Q_users))
+	while($R_user = $Q_users->fetch(PDO::FETCH_ASSOC))
 	{
 		$user = getUser($R_user['user_id'], true);
 		echo '	<tr>'.chr(10);

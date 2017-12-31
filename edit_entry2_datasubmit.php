@@ -52,25 +52,31 @@ foreach ($entry_fields as $field)
 				else
 				{
 					// Checking against DB
-					$Q = mysql_query("select entry_type_id from `entry_type` where entry_type_id = '$entry_type_id'");
-					if(!mysql_num_rows($Q))
-						$form_errors[] = __('Can\'t find entrytype in database');
+					$Q = db()->prepare("select entry_type_id from `entry_type` where entry_type_id = :entry_type_id");
+                    $Q->bindValue(':entry_type_id', $entry_type_id, PDO::PARAM_INT);
+                    $Q->execute();
+					if($Q->rowCount() < 0) {
+                        $form_errors[] = __('Can\'t find entrytype in database');
+                    }
 				}
 			}
-			addValue($field['var'], $$field['var']);
+			addValue($field['var'], $entry_type_id);
 			break;
 		
 		case 'time_start':
 		case 'time_end':
-			if(isset($_POST[$field['var']]))
-			{
-				$$field['var'] = getDateFromPost($_POST[$field['var']]);
-				if($invalid_date)
-				{
-					$form_errors[] = __('Invalid date. Please check the format.');
-				}
-			}
-			addValue($field['var'], $$field['var']);
+            $date_value = getDateFromPost($_POST[$field['var']]);
+            if($date_value === false)
+            {
+                $form_errors[] = __('Invalid date. Please check the format.') . $field['var'];
+            }
+            if ($field['var'] == 'time_start') {
+                $time_start = $date_value;
+            }
+            else {
+                $time_end = $date_value;
+            }
+			addValue($field['var'], $date_value);
 			break;
 		
 		case 'area_id':
@@ -91,12 +97,15 @@ foreach ($entry_fields as $field)
 				else
 				{
 					$area_rooms[$area_id] = true;
-					$Q = mysql_query("select id as area_id from `mrbs_area` where id = '$area_id'");
-					if(!mysql_num_rows($Q))
-						$form_errors[] = __('Can\'t find area in database');
+					$Q = db()->prepare("select id as area_id from `mrbs_area` where id = :area_id");
+                    $Q->bindValue(':area_id', $area_id, PDO::PARAM_INT);
+                    $Q->execute();
+					if($Q->rowCount() < 0) {
+                        $form_errors[] = __('Can\'t find area in database');
+                    }
 				}
 			}
-			addValue($field['var'], $$field['var']);
+			addValue($field['var'], $area_id);
 			break;
 		
 		case 'room_id':
@@ -132,7 +141,7 @@ foreach ($entry_fields as $field)
 			if(!count($room_id))
 				$room_id = array(0 => 0);
 			
-			addValueArray($field['var'], $$field['var']);
+			addValueArray($field['var'], $room_id);
 			
 			break;
 		
@@ -155,31 +164,35 @@ foreach ($entry_fields as $field)
 					else
 					{
 						$uid = (int)$uid;
-						$Q = mysql_query("select user_id from `users` where user_id = '$uid'");
-						if(!mysql_num_rows($Q))
-							$form_errors[] = __('One of user you assigned is not found.')." ($uid)";
-						else
-							$user_assigned[$uid] = $uid;
+						$Q = db()->prepare("select user_id from `users` where user_id = :user_id");
+                        $Q->bindValue(':user_id', $uid, PDO::PARAM_INT);
+                        $Q->execute();
+						if($Q->rowCount() < 0) {
+                            $form_errors[] = __('One of user you assigned is not found.') . " ($uid)";
+                        }
+						else {
+                            $user_assigned[$uid] = $uid;
+                        }
 					}
 				}
 			}
 			
-			addValueArray($field['var'], $$field['var']);
+			addValueArray($field['var'], $user_assigned);
 			break;
 		
 		case 'customer_id':
 			if(!isset($_POST[$field['var']]))
-				$$field['var'] = 0;
+				$customer_id = 0;
 			else
-				$$field['var'] = (int)$_POST[$field['var']];
+				$customer_id = (int)$_POST[$field['var']];
 			
-			if($$field['var'] != 0)
+			if($customer_id != 0)
 			{
-				$customer = getCustomer($$field['var']);
+				$customer = getCustomer($customer_id);
 				if(!count($customer))
 				{
-					$form_errors[] = __("Can't find the customer you tried to select").' (id '.$$field['var'].')';
-					$$field['var'] = '';
+					$form_errors[] = __("Can't find the customer you tried to select").' (id '.$customer_id.')';
+					$customer_id = '';
 					$customer_name_ok = True; // Don't trigger the customer_name error
 				}
 				else
@@ -201,7 +214,7 @@ foreach ($entry_fields as $field)
 				$customer_name = '';
 				$customer_id = 0;
 			}
-			addValue($field['var'], $$field['var']);
+			addValue($field['var'], $customer_id);
 			addValue('customer_name', $customer_name);
 			break;
 		
@@ -209,9 +222,13 @@ foreach ($entry_fields as $field)
 			break;
 		
 		case 'customer_municipal':
+            if(!isset($customer_municipal))
+                $customer_municipal = ''; // Ignore if not set, municipal is received from municipals array
+            // Invoice_address is never to be set
+            break;
 		case 'invoice_address':
-			if(!isset($$field['var']))
-				$$field['var'] = ''; // Ignore if not set, municipal is recived from municipals array
+			if(!isset($invoice_address))
+				$invoice_address = ''; // Ignore if not set, municipal is received from municipals array
 				// Invoice_address is never to be set
 			break;
 		
@@ -227,7 +244,7 @@ foreach ($entry_fields as $field)
 				$customer_municipal		= '';
 			}
 			
-			addValue($field['var'], $$field['var']);
+			addValue($field['var'], $customer_municipal_num);
 			addValue('customer_municipal', $customer_municipal);
 			break;
 		
@@ -235,22 +252,26 @@ foreach ($entry_fields as $field)
 			if(!isset($_POST[$field['var']]) || !is_numeric($_POST[$field['var']]))
 			{
 				$form_errors[] = __('Fixed program is invalid.');
-				$$field['var'] = 0;
+				$program_id = 0;
 			}
 			elseif($_POST[$field['var']] == '0')
-				$$field['var'] = 0;
+				$program_id = 0;
 			else
 			{
 				// Checking against DB
-				$$field['var'] = (int)$_POST[$field['var']];
+				$program_id = (int)$_POST[$field['var']];
 				
-				$Q = mysql_query("select program_id,program_name from `programs` where program_id = '$program_id'");
-				if(!mysql_num_rows($Q))
-					$form_errors[] = __('Can\'t find the fixed program in database');
-				else
-					$program_name = mysql_result($Q,0,'program_name');
+				$Q = db()->prepare("select program_id,program_name from `programs` where program_id = :program_id");
+                $Q->bindValue(':program_id', $program_id, PDO::PARAM_INT);
+                $Q->execute();
+				if($Q->rowCount() < 0) {
+                    $form_errors[] = __('Can\'t find the fixed program in database');
+                }
+				else {
+                    $program_name = $Q->fetch()['program_name'];
+                }
 			}
-			addValue($field['var'], $$field['var']);
+			addValue($field['var'], $program_id);
 			break;
 		
 		case 'invoice_address_id':
@@ -259,23 +280,26 @@ foreach ($entry_fields as $field)
 				$_POST[$field['var']] == '' ||
 				$_POST[$field['var']] < 0)
 			{
-				$$field['var'] = 0;
+				$invoice_address_id = 0;
 			}
 			elseif(!is_numeric($_POST[$field['var']]))
 			{
 				$form_errors[] = __('Invoice address is invalid.');
-				$$field['var'] = 0;
+				$invoice_address_id = 0;
 			}
 			else
 			{
 				// Checking against DB
-				$$field['var'] = (int)$_POST[$field['var']];
+				$invoice_address_id = (int)$_POST[$field['var']];
 				
-				$Q = mysql_query("select address_id from `customer_address` where address_id = '$invoice_address_id'");
-				if(!mysql_num_rows($Q))
-					$form_errors[] = __('Can\'t find the invoice address in database');
+				$Q = db()->prepare("select address_id from `customer_address` where address_id = :address_id");
+                $Q->bindValue(':address_id', $invoice_address_id, PDO::PARAM_INT);
+                $Q->execute();
+				if($Q->rowCount() < 0) {
+                    $form_errors[] = __('Can\'t find the invoice address in database');
+                }
 			}
-			addValue($field['var'], $$field['var']);
+			addValue($field['var'], $invoice_address_id);
 			break;
 		
 		case 'invoice':
@@ -285,16 +309,16 @@ foreach ($entry_fields as $field)
 			// True or false
 			if(isset($_POST[$field['var']]) && $_POST[$field['var']] == '1')
 			{
-				$$field['var'] = TRUE;
+				${$field['var']} = TRUE;
 				addValue($field['var'], '1');
 			}
 			else
 			{
-				$$field['var'] = FALSE;
+				${$field['var']} = FALSE;
 				addValue($field['var'], '0');
 			}
 			
-			if($field['var'] == 'invoice' && $$field['var'])
+			if($field['var'] == 'invoice' && ${$field['var']})
 			{
 				if($entry_add)
 					$invoice_status = '1';
@@ -323,37 +347,40 @@ foreach ($entry_fields as $field)
 		case 'invoice_email':
 			// Text data is input. (can contain a lot of shit)
 			if(!isset($_POST[$field['var']]))
-				$$field['var'] = '';
+				${$field['var']} = '';
 			else
-				$$field['var'] = slashes(htmlspecialchars($_POST[$field['var']],ENT_QUOTES));
+				${$field['var']} = slashes(htmlspecialchars($_POST[$field['var']],ENT_QUOTES));
 			
-			addValue($field['var'], $$field['var']);
+			addValue($field['var'], ${$field['var']});
 			break;
 		
 		case 'num_person_child':
 		case 'num_person_adult':
-			if(!isset($_POST[$field['var']]))
+			if(!isset($_POST[$field['var']]) || $_POST[$field['var']] == '')
 			{
-				$$field['var'] = '';
+				${$field['var']} = '0';
 			}
 			elseif($_POST[$field['var']] != '' && !is_numeric($_POST[$field['var']]))
 			{
-				$$field['var'] = '';
-				if($field['var'] == 'num_person_child')
-					$form_errors[] = __('Number of children must be a number, if anything.');
-				elseif($field['var'] == 'num_person_adult')
-					$form_errors[] = __('Number of adults must be a number, if anything.');
+				${$field['var']} = '0';
+				if($field['var'] == 'num_person_child') {
+                    $form_errors[] = __('Number of children must be a number, if anything.');
+                }
+				elseif($field['var'] == 'num_person_adult') {
+                    $form_errors[] = __('Number of adults must be a number, if anything.');
+                }
 			}
-			else
-				$$field['var'] = $_POST[$field['var']];
+			else {
+                ${$field['var']} = $_POST[$field['var']];
+            }
 			
-			addValue($field['var'], $$field['var']);
+			addValue($field['var'], ${$field['var']});
 			break;
 		
 		case 'invoice_content':
 			// Getting invoice_content
 			
-			$$field['var'] = array();
+			$invoice_content = array();
 			$i = 0;
 			if(isset($_POST['rows']) && is_array($_POST['rows']))
 			{
@@ -405,22 +432,22 @@ foreach ($entry_fields as $field)
 					}
 					
 					$thisone['mva'] = ((float)$thisone['mva'])/100;
-					
-					${$field['var']}[$i] = $thisone;
+
+                    $invoice_content[$i] = $thisone;
 				}
 			}
-			
-			$$field['var'] = invoiceContentNumbers($$field['var']);
-			addValueArray($field['var'], $$field['var']);
+
+            $invoice_content = invoiceContentNumbers($invoice_content);
+			addValueArray($field['var'], $invoice_content);
 			break;
 
         case 'resourcenum':
 			if(isset($_POST[$field['var']]))
 			{
-				$$field['var'] = $_POST[$field['var']];
+                $resourcenum = $_POST[$field['var']];
 			}
 
-			addValue($field['var'], $$field['var']);
+			addValue($field['var'], $resourcenum);
             break;
 		
 		case 'empty':
@@ -630,8 +657,10 @@ if(!count($form_errors))
 			$entry['user_assigned2'] != $user_assigned2
 		)
 		{
-			$Q_user = mysql_query("select user_id from `users` where user_name = '".$user_assigned2."'");
-			if(mysql_num_rows($Q_user))
+			$Q_user = db()->prepare("select user_id from `users` where user_name = :user_name");
+            $Q_user->bindValue(':user_name', $user_assigned2);
+            $Q_user->execute();
+			if($Q_user->rowCount() > 0)
 			{
 				$warnings[] = 'Du skrev inn navnet til <b>'.$user_assigned2.'</b> i feltet for '.
 					'annen vert. Vedkommende <b>har bruker i bookingen</b> og det anbefales at du knytter '.
@@ -715,62 +744,114 @@ if(!count($form_errors))
 					`invoice_ref_your` ,
 					`invoice_address_id` ,
 					`invoice_content` ,
+					`invoice_exported_time` ,
 					`resourcenum`
 				)
 				VALUES (
 					NULL,
-					'$entry_name',
-					'$entry_title',
-					'0',
-					'$entry_type_id',
-					'$num_person_child',
-					'$num_person_adult',
-					'$num_person_count',
-					'$program_id',
-					'$program_description',
-					'$service_alco',
-					'$service_description',
-					'$comment',
-					'$infoscreen_txt',
-					'$rev_num',
-					'$time_start',
-					'$time_end',
-					'$time_day',
-					'$time_month',
-					'$time_year',
-					'$time_hour',
-					'$time_min',
-					'".time()."',
-					'".time()."',
-					'".splittalize($room_id)."',
-					'$area_id',
-					'".$login['user_id']."',
-					'".splittalize(array($login['user_id'] => $login['user_id']))."',
-					'".splittalize($user_assigned)."',
-					'$user_assigned2',
-					'".$login['user_id']."',
-					'$customer_id',
-					'$customer_name',
-					'$customer_municipal_num',
-					'$customer_municipal',
-					'$contact_person_name',
-					'$contact_person_phone',
-					'$contact_person_email',
-					'$invoice',
-					'$invoice_comment',
-					'$invoice_status',
-					'0',
-					'$invoice_electronic',
-					'$invoice_email',
-					'$invoice_internal_comment',
-					'$invoice_ref_your',
-					'$invoice_address_id',
-					'".serialize($invoice_content)."',
-					'$resourcenum'
+					:entry_name,
+					:entry_title,
+					:entry_confirm,
+					:entry_type_id,
+					:num_person_child,
+					:num_person_adult,
+					:num_person_count,
+					:program_id,
+					:program_description,
+					:service_alco,
+					:service_description,
+					:comment,
+					:infoscreen_txt,
+					:rev_num,
+					:time_start,
+					:time_end,
+					:time_day,
+					:time_month,
+					:time_year,
+					:time_hour,
+					:time_min,
+					:time_created,
+					:time_last_edit,
+				    :room_id,
+					:area_id,
+					:created_by,
+					:edit_by,
+					:user_assigned,
+					:user_assigned2,
+					:user_last_edit,
+					:customer_id,
+					:customer_name,
+					:customer_municipal_num,
+					:customer_municipal,
+					:contact_person_name,
+					:contact_person_phone,
+					:contact_person_email,
+					:invoice,
+					:invoice_comment,
+					:invoice_status,
+					:invoice_locked,
+					:invoice_electronic,
+					:invoice_email,
+					:invoice_internal_comment,
+					:invoice_ref_your,
+					:invoice_address_id,
+					:invoice_content,
+					:invoice_exported_time,
+					:resourcenum
 				);";
 			
-			mysql_query($SQL);
-			$entry_id = mysql_insert_id();
+			$Q_entry_create = db()->prepare($SQL);
+            $Q_entry_create->bindValue(':entry_name', $entry_name, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':entry_title', $entry_title, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':entry_confirm', 0, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':entry_type_id', $entry_type_id, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':num_person_child', $num_person_child, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':num_person_adult', $num_person_adult, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':num_person_count', $num_person_count, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':program_id', $program_id, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':program_description', $program_description, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':service_alco', $service_alco ? 1 : 0, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':service_description', $service_description, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':comment', $comment, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':infoscreen_txt', $infoscreen_txt, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':rev_num', $rev_num, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':time_start', $time_start, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':time_end', $time_end, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':time_day', $time_day, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':time_month', $time_month, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':time_year', $time_year, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':time_hour', $time_hour, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':time_min', $time_min, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':time_created', time(), PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':time_last_edit', time(), PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':room_id', splittalize($room_id), PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':area_id', $area_id, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':created_by', $login['user_id'], PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':edit_by', splittalize(array($login['user_id'] => $login['user_id'])), PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':user_assigned', splittalize($user_assigned), PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':user_assigned2', $user_assigned2, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':user_last_edit', $login['user_id']);
+            $Q_entry_create->bindValue(':customer_id', $customer_id, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':customer_name', $customer_name, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':customer_municipal_num', $customer_municipal_num, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':customer_municipal', $customer_municipal, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':contact_person_name', $contact_person_name, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':contact_person_phone', $contact_person_phone, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':contact_person_email', $contact_person_email, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':invoice', $invoice, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':invoice_comment', $invoice_comment, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':invoice_status', $invoice_status, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':invoice_locked', 0, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':invoice_electronic', $invoice_electronic, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':invoice_email', $invoice_email, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':invoice_internal_comment', $invoice_internal_comment, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':invoice_ref_your', $invoice_ref_your, PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':invoice_address_id', $invoice_address_id, PDO::PARAM_INT);
+            $Q_entry_create->bindValue(':invoice_content', serialize($invoice_content), PDO::PARAM_STR);
+            $Q_entry_create->bindValue(':invoice_exported_time', 0);
+            $Q_entry_create->bindValue(':resourcenum', $resourcenum);
+            $Q_entry_create->execute();
+			$entry_id = db()->lastInsertId();
 			
 			// # Log
 			$log_data = array();
@@ -964,8 +1045,9 @@ if(!count($form_errors))
 						$SQL .= ', '.chr(10);
 				}
 				$SQL .= " WHERE `entry`.`entry_id` =$entry_id LIMIT 1 ;";
-				
-				mysql_query($SQL);
+
+                $Q_entry_update = db()->prepare($SQL);
+                $Q_entry_update->execute();
 				
 				// # Log
 				

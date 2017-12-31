@@ -533,13 +533,12 @@ function getDateFromPost ($dateinput)
 		
 		The numbers can be any length.
 		*/
-	
 	if(isset($numbers[0]))
 		$hour = $numbers[0];
 	else
 	{
 		$invalid_date = true;
-		$hour = 0;
+        return false;
 	}
 	
 	if(isset($numbers[1]))
@@ -547,7 +546,7 @@ function getDateFromPost ($dateinput)
 	else
 	{
 		$invalid_date = true;
-		$min = 0;
+        return false;
 	}
 	
 	if(isset($numbers[2]))
@@ -555,7 +554,7 @@ function getDateFromPost ($dateinput)
 	else
 	{
 		$invalid_date = true;
-		$day = 1;
+        return false;
 	}
 	
 	if(isset($numbers[3]))
@@ -563,7 +562,7 @@ function getDateFromPost ($dateinput)
 	else
 	{
 		$invalid_date = true;
-		$month = 1;
+        return false;
 	}
 	
 	if(isset($numbers[4]))
@@ -571,67 +570,9 @@ function getDateFromPost ($dateinput)
 	else
 	{
 		$invalid_date = true;
-		$year = 1970;
+        return false;
 	}
-	
-	/* VERSION 1 OF getDateFromPost:
-	if (strpos($dateinput, ' ') === FALSE)
-		return -1;
-	else
-	{
-		$i = explode (' ', $dateinput);
-		if($i[0] == '' || $i[1] == '')
-			return -1;
-		else
-		{
-			// i[0] = H:i
-			// i[1] = d-m-y
-			if(strpos($i[0], ':') === FALSE)
-				return -1;
-			else
-			{
-				// We got the hour and minute
-				$i2 = explode (':', $i[0]);
-				$hour = $i2[0];
-				$min = $i2[1];
-				
-				$thisnumber = '';
-				$numbers = array();
-				for ($a = 0; $a < strlen($i[1]); $a++)
-				{
-					$thischar = substr ($i[1], $a, 1);
-					if (is_numeric($thischar) || $thischar == '0')
-					{
-						// Adding
-						$thisnumber = $thisnumber."$thischar";
-					}
-					else
-					{
-						// Next number
-						$numbers[] = $thisnumber;
-						$thisnumber = '';
-					}
-				}
-				$numbers[] = $thisnumber;
-				
-				if(isset($numbers[0]))
-					$day = $numbers[0];
-				else
-					$day = 1;
-				
-				if(isset($numbers[1]))
-					$month = $numbers[1];
-				else
-					$month = 1;
-				
-				if(isset($numbers[2]))
-					$year = $numbers[2];
-				else
-					$year = 1970;
-			}
-		}
-	}*/
-	
+
 	// We should have what we need
 	return mktime($hour, $min, 0, $month, $day, $year);
 }
