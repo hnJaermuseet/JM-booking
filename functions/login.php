@@ -166,9 +166,8 @@ function loginPWcheckExternal ($user, $password)
 	// http://technet.microsoft.com/en-us/library/cc786468%28WS.10%29.aspx
 	if($login_password_external_complex)
 	{
-		// TODO:
 		// Must not contain user_name
-		$names = preg_split(' ', $user['user_name']); // Do not parse for all the delimiters
+		$names = explode(' ', $user['user_name']); // Do not parse for all the delimiters
 		foreach($names as $name)
 		{
 			if(strlen($name) > 1 && strpos(strtolower($password), strtolower($name)) !== FALSE)
