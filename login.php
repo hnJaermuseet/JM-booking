@@ -68,7 +68,7 @@ if(isset($_POST['WEBAUTH_USER']))
 					$age_failed = true;
 				}
 			}
-			
+
 			if($loginInfo['deactivated'])
 			{
 				$deactivated = true;
@@ -134,17 +134,20 @@ else
 	{
 		// Forgot password
 		$user	= slashes(htmlspecialchars(strip_tags($forgot_pw_user),ENT_QUOTES)); // Username
-		$Q_login = mysql_query("
+		$Q_login = db()->prepare("
 			select user_id, deactivated, user_newpassword_key, user_newpassword_validto from `users` where 
 				deactivated = '0' and 
 				(
-					user_name_short = '".$user."' ||
-					user_email = '".$user."'
+					user_name_short = :username ||
+					user_email = :username
 				)
 				limit 1");
-		if(mysql_num_rows($Q_login) > 0)
+        $Q_login->bindValue(':username', $user);
+        $Q_login->execute();
+		if($Q_login->rowCount() > 0)
 		{
-			$user_id = mysql_result($Q_login, 0, 'user_id');
+            $row = $Q_login->fetch();
+			$user_id = $row['user_id'];
 			$forgot_pw_found = true;
 			
 			if(isset($_GET['key']))
@@ -155,8 +158,8 @@ else
 				$newpw_key = slashes(htmlspecialchars(strip_tags($_GET['key']),ENT_QUOTES));
 				if(!count($newpw_user)) { echo 'Systemfeil. Arg... Sorry :-('; exit; }
 				if(
-					$newpw_key == mysql_result($Q_login, 0, 'user_newpassword_key') &&
-					mysql_result($Q_login, 0, 'user_newpassword_validto') >= time()
+					$newpw_key == $row['user_newpassword_key'] &&
+					$row['user_newpassword_validto'] >= time()
 				)
 				{
 					$forgot_pw_keyokey = true;
@@ -166,12 +169,14 @@ else
 						// Extend life time of key
 						$valid_to = time()+ 60*15; // 15 min
 						
-						mysql_query("
-							update `users`
-							set 
-								user_newpassword_validto = '$valid_to'
-							where
-								user_id = '$user_id'");
+						db()
+                            ->prepare("
+                                update `users`
+                                set
+                                    user_newpassword_validto = '$valid_to'
+                                where
+                                    user_id = '$user_id'")
+                            ->execute();
 					}
 					else
 					{
@@ -203,14 +208,8 @@ else
 									'`user_newpassword_validto`   = \'\', '.
 									'`user_password_complex`      = \''.!$newpw_failed.'\''.
 								' WHERE `user_id` = '.$newpw_user['user_id'].' LIMIT 1 ;';
-							mysql_query($sql);
-							if(mysql_error())
-							{
-								echo 'Error<br>';
-								echo mysql_error();
-								exit;
-							}
-							
+							db()->prepare($sql)->execute();
+
 							header('Location: logout.php?newpw_ok=1');
 							exit;
 						}
@@ -223,13 +222,15 @@ else
 				$key = sha1(microtime(true).mt_rand(10000,90000));
 				$valid_to = time()+ 60*15; // 15 min
 				
-				mysql_query("
-					update `users`
-					set 
-						user_newpassword_key = '$key',
-						user_newpassword_validto = '$valid_to'
-					where
-						user_id = '$user_id'");
+				db()
+                    ->prepare("
+                        update `users`
+                        set
+                            user_newpassword_key = '$key',
+                            user_newpassword_validto = '$valid_to'
+                        where
+                            user_id = '$user_id'")
+                    ->execute();
 				
 				$smarty = new Smarty;
 				
