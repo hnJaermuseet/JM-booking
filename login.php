@@ -254,7 +254,7 @@ else
 	echo '<html>'.chr(10).'<head>'.chr(10).
 		'	<title>'.__('JM-booking').' - '.__('Log in').'</title>'.chr(10).
 		'	<link rel="stylesheet" href="css/jm-booking.css" type="text/css">'.chr(10).
-		'	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">'.chr(10).
+		'	<meta http-equiv="Content-Type" content="text/html; charset=utf8">'.chr(10).
 		'	<script type="text/javascript" src="js/browser_detection.js"></script>'.chr(10).
 		'</head>'.chr(10).
 		'<body>'.chr(10);
@@ -338,7 +338,7 @@ else
 			}
 			else
 			{
-				echo 'For ekstern p&aring;logging (ikke J&aerligmuseets maskiner),<br />'.
+				echo 'For ekstern p&aring;logging (ikke J&aelig;museets maskiner),<br />'.
 					's&aring; kreves det at passordet inneholder store og sm&aring; bokstaver samt tall.<br />';
 				echo '<form action="'.$_SERVER['PHP_SELF'].'?forgot_pw=1&amp;forgot_pw_user='.$user.'&amp;key='.$newpw_key.'" method="post">'.chr(10);
 				echo '<b>'._h('New password').':</b><br />'.chr(10);

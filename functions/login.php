@@ -168,7 +168,7 @@ function loginPWcheckExternal ($user, $password)
 	{
 		// TODO:
 		// Must not contain user_name
-		$names = split(' ', $user['user_name']); // Do not parse for all the delimiters
+		$names = preg_split(' ', $user['user_name']); // Do not parse for all the delimiters
 		foreach($names as $name)
 		{
 			if(strlen($name) > 1 && strpos(strtolower($password), strtolower($name)) !== FALSE)
