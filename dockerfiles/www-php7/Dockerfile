@@ -1,4 +1,4 @@
-FROM php:7.0.14-apache
+FROM php:7.2.1-apache
 
 MAINTAINER Hallvard Nygård <hallvard.nygard@gmail.com>
 
