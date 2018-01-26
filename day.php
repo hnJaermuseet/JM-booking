@@ -37,8 +37,9 @@ if (!isset($_GET['day']) or !isset($_GET['month']) or !isset($_GET['year'])) {
     $day = (int)$_GET['day'];
     $month = (int)$_GET['month'];
     $year = (int)$_GET['year'];
-    while (!checkdate($month, $day, $year))
+    while (!checkdate($month, $day, $year)) {
         $day--;
+    }
 }
 
 # print the page header

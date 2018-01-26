@@ -2020,8 +2020,9 @@ function checkTime_Room ($start, $end, $area_id, $room = 0) {
 				$room[$R_room['room_id']] = $R_room['room_id'];
             }
 		}
-		
-		$room[0] = 0; // Whole area means that the whole area is reserved!
+
+        // Whole area means that the whole area is reserved!
+		$room[0] = '0';
 	}
 	elseif($room != 0) {
 		$room_query = " and (room_id like '%;$room;%' || room_id like '%;0;%')"; // This room or the whole building
@@ -2047,7 +2048,7 @@ function checkTime_Room ($start, $end, $area_id, $room = 0) {
 	$return = array();
 	if($Q_checktime->rowCount() > 0)
 	{
-		while ($R_entry = $Q_checktime->fetch())
+		while ($R_entry = $Q_checktime->fetch(PDO::FETCH_ASSOC))
 		{
             $R_entry = getEntryParseDatabaseArray($R_entry);
 			if(is_array($room))
