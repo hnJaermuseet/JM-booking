@@ -457,7 +457,7 @@ function checkInvoicedata ($entry)
 	// Any invoice content?
 	if(!count($entry['invoice_content']))
 	{
-		$errors[] = 'Ingen fakturalinjer er lagt inn p&aring; bookingen. Det m&aring; v&aerlig;re fakturalinjer for at fakturering skal kunne finne sted.';
+		$errors[] = 'Ingen fakturalinjer er lagt inn p&aring; bookingen. Det m&aring; v&aelig;re fakturalinjer for at fakturering skal kunne finne sted.';
 	}
 	else
 	{
@@ -488,7 +488,7 @@ function checkInvoicedata ($entry)
 			// Checking amount
 			if($line['antall'] < 0)
 			{
-				$warnings[] = 'Fakturalinje nr '.$line_num.' har minus i antall. Pris per stykk kan v&aerlig;re minus.';
+				$warnings[] = 'Fakturalinje nr '.$line_num.' har minus i antall. Pris per stykk kan v&aelig;re minus.';
 			}
 			elseif($line['antall'] == 0)
 			{

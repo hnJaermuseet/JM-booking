@@ -57,7 +57,7 @@ if($action == 'kat_list')
 	
 	echo '<h1>Innstillinger for import fra kasseapparat</h1>'.chr(10).chr(10);
 	
-	echo '<h2>Kategorier (felles for hele J&aerlig;rmuseet)</h2>'.chr(10);
+	echo '<h2>Kategorier (felles for hele J&aelig;rmuseet)</h2>'.chr(10);
 	
 	echo '- <a href="'.$_SERVER['PHP_SELF'].'">Tilbake</a><br /><br />'.chr(10);
 	
@@ -503,7 +503,7 @@ else
 	
 	echo '<h1>Innstillinger for import fra kasseapparat</h1>'.chr(10).chr(10);
 	
-	echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=kat_list">Kategori-oversikt</a> (felles kategorier for hele J&aerlig;rmuseet)<br />';
+	echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=kat_list">Kategori-oversikt</a> (felles kategorier for hele J&aelig;rmuseet)<br />';
 	echo '- <a href="'.$_SERVER['PHP_SELF'].'?action=notimported_list">Alle ikke-importerte varenr</a><br />';
 	
 	$Q_areas_with_shop = db()->prepare("select id as area_id, area_name, importdatanova_shop_id, importdatanova_alert_email from `mrbs_area` where importdatanova_shop_id != 0");
