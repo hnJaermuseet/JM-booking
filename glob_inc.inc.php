@@ -147,7 +147,7 @@ function db() {
     if ($_mysql_pdo == null) {
         // -> Not already created. Let's create.
         $_mysql_pdo = new PDO(
-            'mysql:host=' . $db_host . ';dbname=' . $db_database,
+            'mysql:host=' . $db_host . ';dbname=' . $db_database . ';charset=utf8',
             $db_login,
             $db_password
         );
