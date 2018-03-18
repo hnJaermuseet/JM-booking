@@ -166,6 +166,8 @@ function langNo($text)
 			return 'Ja';
 		case 'No':
 			return 'Nei';
+        case 'Ok':
+            return 'Ok';
         case 'Groups':
             return 'Grupper';
 		/*

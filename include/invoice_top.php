@@ -314,7 +314,7 @@ function entrylist_invoice_tobemade ($SQL, $tamed_booking, $area_spesific = fals
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('m',$entry['time_start']).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			
