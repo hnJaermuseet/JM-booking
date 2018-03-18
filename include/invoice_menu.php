@@ -38,7 +38,9 @@ $filters = addFilter($filters, 'time_start', 'current', '>');
 if($area_spesific)
 	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
 $SQL = genSQLFromFilters($filters, 'entry_id');
-$num_invoice_soon = mysql_num_rows(mysql_query($SQL));
+$QUERY = db()->prepare($SQL);
+$QUERY->execute();
+$num_invoice_soon = $QUERY->rowCount();
 
 $filters = array();
 $filters = addFilter($filters, 'invoice', '1');
@@ -47,7 +49,9 @@ $filters = addFilter($filters, 'time_start', 'current', '<');
 if($area_spesific)
 	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
 $SQL = genSQLFromFilters($filters, 'entry_id');
-$num_invoice_tobemade = mysql_num_rows(mysql_query($SQL));
+$QUERY = db()->prepare($SQL);
+$QUERY->execute();
+$num_invoice_tobemade = $QUERY->rowCount();
 
 $filters = array();
 $filters = addFilter($filters, 'invoice', '1');
@@ -55,7 +59,9 @@ $filters = addFilter($filters, 'invoice_status', '2');
 if($area_spesific)
 	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
 $SQL = genSQLFromFilters($filters, 'entry_id');
-$num_invoice_tobemade_ready = mysql_num_rows(mysql_query($SQL));
+$QUERY = db()->prepare($SQL);
+$QUERY->execute();
+$num_invoice_tobemade_ready = $QUERY->rowCount();
 
 unset($SQL, $filters);
 

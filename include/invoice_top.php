@@ -67,14 +67,15 @@ else
 
 function entrylist_invoice_soon ($SQL, $tamed_booking)
 {
-	$Q = mysql_query($SQL.' order by `time_start`');
-	if(!$tamed_booking || !mysql_num_rows($Q))
+	$Q = db()->prepare($SQL.' order by `time_start`');
+    $Q->execute();
+	if(!$tamed_booking || $Q->rowCount() <= 0)
 	{
 		echo __('No entries found.');
 	}
 	else
 	{
-		echo '<font color="red">'.mysql_num_rows($Q).'</font> '.__('entries found.');
+		echo '<font color="red">'.$Q->rowCount().'</font> '.__('entries found.');
 		echo '<br>'.chr(10).chr(10);
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
@@ -84,7 +85,7 @@ function entrylist_invoice_soon ($SQL, $tamed_booking)
 		echo '  <td style="border: 1px solid black; text-align: right;"><b>Sum</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
 		$entry_ids = array();
-		while($R = mysql_fetch_assoc($Q))
+		while($R = $Q->fetch())
 		{
 			$entry = getEntry($R['entry_id']);
 			$entry_ids[] = $entry['entry_id'];
@@ -94,7 +95,7 @@ function entrylist_invoice_soon ($SQL, $tamed_booking)
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('m',$entry['time_start']).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			
@@ -149,14 +150,16 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 	global $area_spesific, $area_invoice;
 	global $invoice_sendto;
 	
-	$Q = mysql_query($SQL.' order by `time_start`');
-	if(!$tamed_booking || !mysql_num_rows($Q))
+	$Q = db()->prepare($SQL.' order by `time_start`');
+
+	$Q->execute();
+	if(!$tamed_booking || $Q->rowCount() <= 0)
 	{
 		echo __('No entries found.');
 	}
 	else
 	{
-		echo '<font color="red">'.mysql_num_rows($Q).'</font> '.__('entries found.');
+		echo '<font color="red">'.$Q->rowCount().'</font> '.__('entries found.');
 		echo '<br>'.chr(10).chr(10);
 		
 		echo '<form action="invoice_export.php" method="get" id="invoice_export">'.chr(10).chr(10);
@@ -179,7 +182,7 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 		echo '  <td style="border: 1px solid black;"><b>Satt faktureringsklar av</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
 		$entry_ids = array();
-		while($R = mysql_fetch_assoc($Q))
+		while($R = $Q->fetch())
 		{
 			$entry = getEntry($R['entry_id']);
 			$entry_ids[] = $entry['entry_id'];
@@ -199,7 +202,7 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('m',$entry['time_start']).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			
@@ -250,19 +253,23 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 			echo '</td>'.chr(10); 
 			
 			// Searching for who did set the entry ready for invoice
-			$Q_user = mysql_query("SELECT * FROM `entry_log`
+			$Q_user = db()->prepare("SELECT * FROM `entry_log`
 				WHERE `log_action` = 'edit' AND `log_action2` = 'invoice_readyfor' AND `entry_id` = '".$entry['entry_id']."'
 				ORDER BY `log_time` DESC LIMIT 1");
+            $Q_user->execute();
 			$user = array();
-			if(mysql_num_rows($Q_user))
-				$user = getUser(mysql_result($Q_user, '0', 'user_id'));
+			if($Q_user->rowCount() > 0) {
+                $entry_log_item = $Q_user->fetch();
+                $user = getUser($entry_log_item['user_id']);
+            }
 			echo '  <td style="border: 1px solid black;">';
 			if(count($user))
 				echo '<a href="user.php?user_id='.$user['user_id'].'">'.$user['user_name'].'</a>';
 			else
 				echo '&nbsp;';
-			if(mysql_num_rows($Q_user))
-				echo '<br />'.date('d.m.Y \k\l H:i', mysql_result($Q_user, '0', 'log_time'));
+			if($Q_user->rowCount() > 0) {
+                echo '<br />' . date('d.m.Y \k\l H:i', $entry_log_item['log_time']);
+            }
 			echo '</td>'.chr(10); 
 			
 			echo ' </tr>'.chr(10);
@@ -287,15 +294,16 @@ function entrylist_invoice_tobemade_ready ($SQL, $tamed_booking)
 
 function entrylist_invoice_tobemade ($SQL, $tamed_booking, $area_spesific = false)
 {
-	$Q = mysql_query($SQL.' order by `time_start`');
+	$Q = db()->prepare($SQL.' order by `time_start`');
+	$Q->execute();
 	
-	if(!$tamed_booking || !mysql_num_rows($Q))
+	if(!$tamed_booking || $Q->rowCount() <= 0)
 	{
 		echo __('No entries found.');
 	}
 	else
 	{
-		echo '<font color="red">'.mysql_num_rows($Q).'</font> '.__('entries found.');
+		echo '<font color="red">'.$Q->rowCount().'</font> '.__('entries found.');
 		echo '<br>'.chr(10).chr(10);
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
@@ -305,7 +313,7 @@ function entrylist_invoice_tobemade ($SQL, $tamed_booking, $area_spesific = fals
 		echo '  <td style="border: 1px solid black;"><b>Sum</b></td>'.chr(10);
 		echo '  <td style="border: 1px solid black;"><b>&nbsp;</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
-		while($R = mysql_fetch_assoc($Q))
+		while($R = $Q->fetch())
 		{
 			$entry = getEntry($R['entry_id']);
 			
@@ -386,14 +394,15 @@ function entrylist_invoice_tobemade ($SQL, $tamed_booking, $area_spesific = fals
 
 function entrylist_invoice_exported ($SQL, $tamed_booking)
 {
-	$Q = mysql_query($SQL.' order by `invoice_exported_time`');
-	if(!$tamed_booking || !mysql_num_rows($Q))
+	$Q = db()->prepare($SQL.' order by `invoice_exported_time`');
+	$Q->execute();
+	if(!$tamed_booking || $Q->rowCount() <= 0)
 	{
 		echo __('No entries found.');
 	}
 	else
 	{
-		echo '<font color="red">'.mysql_num_rows($Q).'</font> '.__('entries found.');
+		echo '<font color="red">'.$Q->rowCount().'</font> '.__('entries found.');
 		echo '<br>'.chr(10).chr(10);
 		echo '<table style="border-collapse: collapse;">'.chr(10);
 		echo ' <tr>'.chr(10);
@@ -403,7 +412,7 @@ function entrylist_invoice_exported ($SQL, $tamed_booking)
 		echo '  <td style="border: 1px solid black;"><b>'.__('Area').'</b></td>'.chr(10);
 		//echo '  <td style="border: 1px solid black;"><b>&nbsp;</b></td>'.chr(10);
 		echo ' </tr>'.chr(10);
-		while($R = mysql_fetch_assoc($Q))
+		while($R = $Q->fetch())
 		{
 			$entry = getEntry($R['entry_id']);
 			
@@ -415,7 +424,7 @@ function entrylist_invoice_exported ($SQL, $tamed_booking)
 			// Starts
 			echo '  <td style="border: 1px solid black;">';
 			echo '<a href="day.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('d',$entry['time_start']).'</a>-';
-			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.__(date('m',$entry['time_start'])).'</a>-';
+			echo '<a href="month.php?year='.date('Y', $entry['time_start']).'&amp;month='.date('m', $entry['time_start']).'&amp;day='.date('d', $entry['time_start']).'&amp;area='.$entry['area_id'].'">'.date('m',$entry['time_start']).'</a>-';
 			echo date('Y', $entry['time_start']);
 			echo '</td>'.chr(10);
 			

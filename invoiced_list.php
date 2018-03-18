@@ -32,11 +32,12 @@ require "include/invoice_menu.php";
 
 echo '<h1 style="margin-bottom: 0px;">Fakturagrunnlag</h1>';
 
-echo '<i>Følgende samle-PDFer med fakturagrunnlag er laget:</i>';
+echo '<i>Fï¿½lgende samle-PDFer med fakturagrunnlag er laget:</i>';
 
-$Q_invoiced = mysql_query("select * from `invoiced` order by `created` desc");
+$Q_invoiced = db()->prepare("select * from `invoiced` order by `created` desc");
+$Q_invoiced->execute();
 
-if(mysql_num_rows($Q_invoiced))
+if($Q_invoiced->rowCount() > 0)
 {
 	echo '<table class="prettytable">';
 	
@@ -47,15 +48,16 @@ if(mysql_num_rows($Q_invoiced))
 			'<th>Sendt til</th>'.
 		'</tr>'.chr(10);
 	
-	while($R_invoiced = mysql_fetch_assoc($Q_invoiced))
+	while($R_invoiced = $Q_invoiced->fetch(PDO::FETCH_ASSOC))
 	{
 		// Emails
 		$sendto = '';
 		if($R_invoiced['emailed'] == '1')
 		{
-			$Q_emails = mysql_query("select * from `invoiced_emails` where `invoiced_id` = '".$R_invoiced['invoiced_id']."'");
+			$Q_emails = db()->prepare("select * from `invoiced_emails` where `invoiced_id` = '".$R_invoiced['invoiced_id']."'");
+            $Q_emails->execute();
 			$sendto = array();
-			while($R_emails = mysql_fetch_assoc($Q_emails))
+			while($R_emails = $Q_emails->fetch(PDO::FETCH_ASSOC))
 			{
 				$sendto[] = $R_emails['email_addr'];
 			}
@@ -63,7 +65,7 @@ if(mysql_num_rows($Q_invoiced))
 		}
 		
 		// Entries
-		$Q_entries = mysql_query("
+		$Q_entries = db()->prepare("
 			SELECT entry . *
 				FROM 
 					`entry_invoiced`
@@ -74,8 +76,9 @@ if(mysql_num_rows($Q_invoiced))
 				WHERE
 					`entry_invoiced`.invoiced_id = '".$R_invoiced['invoiced_id']."';
 			");
+        $Q_entries->execute();
 		$entries = array();
-		while($R_entry = mysql_fetch_assoc($Q_entries))
+		while($R_entry = $Q_entries->fetch(PDO::FETCH_ASSOC))
 		{
 			$entries[] = '<a href="entry.php?entry_id='.$R_entry['entry_id'].'">'.
 				iconHTML('page_white_star').' ('.$R_entry['entry_id'].') '.$R_entry['entry_title'].'</a>';

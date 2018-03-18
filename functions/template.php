@@ -296,8 +296,9 @@ function templateAssignEntryChanges ($var, $entry, $rev_num, $remove_invoice = f
 	$rev_num = (int)$rev_num;
 	if(count($entry) && $rev_num > 0)
 	{
-		$Q_rev = mysql_query("select * from `entry_log` where `entry_id` = '".$entry['entry_id']."' and `rev_num` = '".$rev_num."' limit 1");
-		if(!mysql_num_rows($Q_rev))
+		$Q_rev = db()->prepare("select * from `entry_log` where `entry_id` = '".$entry['entry_id']."' and `rev_num` = '".$rev_num."' limit 1");
+		$Q_rev->execute();
+		if($Q_rev->rowCount() <= 0)
 		{
 			// Assigning all the var with zero value
 			$$var->assign('log_time', 0);
@@ -308,8 +309,8 @@ function templateAssignEntryChanges ($var, $entry, $rev_num, $remove_invoice = f
 		}
 		else
 		{
-			$thislog = mysql_fetch_assoc($Q_rev);
 			$thislog['log_data'] = unserialize($thislog['log_data']);
+			$thislog = $Q_rev->fetch();
 			$$var->assign('log_time', $thislog['log_time']);
 			$$var->assign('log_action_real', printEntryLog($thislog, false, true));
 			$$var->assign('log_user_id', $thislog['user_id']);
@@ -387,11 +388,12 @@ function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
 {
 	// do database call here to fetch your template,
 	// populating $tpl_source
-	$Q = mysql_query("select template
+	$Q = db()->prepare("select template
 		from template
 		where template_id='$tpl_name'");
-	if (mysql_num_rows($Q)) {
-		$tpl_source = htmlspecialchars_decode(mysql_result($Q, 0, 'template'), ENT_QUOTES);
+    $Q->execute();
+	if ($Q->rowCount() > 0) {
+		$tpl_source = htmlspecialchars_decode($Q->fetch()['template'], ENT_QUOTES);
 		return true;
 	} else {
 		return false;

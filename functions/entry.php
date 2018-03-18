@@ -40,7 +40,8 @@ function entrySetReady ($entry)
 	 * Set new rev_num, time of edit, etc
 	 */
 	$rev_num = $entry['rev_num']+1;
-	mysql_query("UPDATE `entry` SET `invoice_status` = '2', `user_last_edit` = '".$login['user_id']."', `time_last_edit` = '".time()."', `rev_num` = '$rev_num' WHERE `entry_id` = '".$entry['entry_id']."' LIMIT 1 ;");
+	$UPDATE = db()->prepare("UPDATE `entry` SET `invoice_status` = '2', `user_last_edit` = '".$login['user_id']."', `time_last_edit` = '".time()."', `rev_num` = '$rev_num' WHERE `entry_id` = '".$entry['entry_id']."' LIMIT 1 ;");
+    $UPDATE->execute();
 	
 	$log_data = array();
 	if(!newEntryLog($entry['entry_id'], 'edit', 'invoice_readyfor', $rev_num, $log_data))

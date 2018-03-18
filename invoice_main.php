@@ -38,10 +38,13 @@ $filters = addFilter($filters, 'invoice_status', '3');
 if($area_spesific)
 	$filters = addFilter($filters, 'area_id', $area_invoice['area_id']);
 $SQL = genSQLFromFilters($filters, 'entry_id');
-$num_invoice_exported = mysql_num_rows(mysql_query($SQL));
+$QUERY = db()->prepare($SQL);
+$QUERY->execute();
+$num_invoice_exported = $QUERY->rowCount();
 
 
-$Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
+$Q_area = db()->prepare("select id as area_id, area_name from mrbs_area order by area_name");
+$Q_area->execute();
 
 echo '<table class="prettytable">'.chr(10);
 echo '	<tr>'.chr(10);
@@ -51,7 +54,7 @@ echo '		<th>Ikke klargjort</th>'.chr(10);
 echo '		<th>Klar til fakturautsending</th>'.chr(10);
 echo '		<th>Sendt til regnskap</th>'.chr(10);
 echo '	</tr>'.chr(10).chr(10);
-while($R = mysql_fetch_assoc($Q_area))
+while($R = $Q_area->fetch(PDO::FETCH_ASSOC))
 {
 	$filters = array();
 	$filters = addFilter($filters, 'invoice', '1');
@@ -59,7 +62,9 @@ while($R = mysql_fetch_assoc($Q_area))
 	$filters = addFilter($filters, 'time_start', 'current', '>');
 	$filters = addFilter($filters, 'area_id', $R['area_id']);
 	$SQL = genSQLFromFilters($filters, 'entry_id');
-	$area_num_invoice_soon = mysql_num_rows(mysql_query($SQL));
+    $QUERY = db()->prepare($SQL);
+    $QUERY->execute();
+	$area_num_invoice_soon = $QUERY->rowCount();
 	
 	$filters = array();
 	$filters = addFilter($filters, 'invoice', '1');
@@ -67,21 +72,27 @@ while($R = mysql_fetch_assoc($Q_area))
 	$filters = addFilter($filters, 'time_start', 'current', '<');
 	$filters = addFilter($filters, 'area_id', $R['area_id']);
 	$SQL = genSQLFromFilters($filters, 'entry_id');
-	$area_num_invoice_tobemade = mysql_num_rows(mysql_query($SQL));
+    $QUERY = db()->prepare($SQL);
+    $QUERY->execute();
+	$area_num_invoice_tobemade = $QUERY->rowCount();
 	
 	$filters = array();
 	$filters = addFilter($filters, 'invoice', '1');
 	$filters = addFilter($filters, 'invoice_status', '2');
 	$filters = addFilter($filters, 'area_id', $R['area_id']);
 	$SQL = genSQLFromFilters($filters, 'entry_id');
-	$area_num_invoice_tobemade_ready = mysql_num_rows(mysql_query($SQL));
+    $QUERY = db()->prepare($SQL);
+    $QUERY->execute();
+	$area_num_invoice_tobemade_ready = $QUERY->rowCount();
 	
 	$filters = array();
 	$filters = addFilter($filters, 'invoice', '1');
 	$filters = addFilter($filters, 'invoice_status', '3');
 	$filters = addFilter($filters, 'area_id', $R['area_id']);
 	$SQL = genSQLFromFilters($filters, 'entry_id');
-	$area_num_invoice_exported = mysql_num_rows(mysql_query($SQL));
+    $QUERY = db()->prepare($SQL);
+    $QUERY->execute();
+	$area_num_invoice_exported = $QUERY->rowCount();
 	
 	unset($SQL, $filters);
 	

@@ -30,7 +30,7 @@ require "include/invoice_top.php";
 $section = 'soon';
 require "include/invoice_menu.php";
 
-echo '<h1 style="margin-bottom: 0px;">Bookinger som ikke er gjennomført enda, men som skal faktureres senere'.chr(10).chr(10);
+echo '<h1 style="margin-bottom: 0px;">Bookinger som ikke er gjennomf&oslash;rt enda, men som skal faktureres senere'.chr(10).chr(10);
 
 if(isset($_GET['filters']))
 {
@@ -60,12 +60,13 @@ else
 	echo '</h1>'.chr(10).chr(10);
 	
 	echo '<span class="hiddenprint">';
-	$Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
-	$num_area = mysql_num_rows($Q_area);
+	$Q_area = db()->prepare("select id as area_id, area_name from mrbs_area order by area_name");
+    $Q_area->execute();
+	$num_area = $Q_area->rowCount();
 	
 	$counter_area = 0;
 	echo '<span style="font-size: 0.8em;">Filtrer p&aring; anlegg: ';
-	while($R = mysql_fetch_assoc($Q_area))
+	while($R = $Q_area->fetch(PDO::FETCH_ASSOC))
 	{
 		$counter_area++;
 		if($area_spesific && $area_invoice['area_id'] == $R['area_id'])

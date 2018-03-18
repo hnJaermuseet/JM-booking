@@ -101,7 +101,7 @@ function exchangesync_getCalendarItems($cal, $from, $to, $user_ews_sync_mail)
 
 function exchangesync_getUsersEntriesInPeriod($user_id, $start, $end)
 {
-	$Q_next_entries = mysql_query("select entry_id, time_start, time_end, rev_num, entry_name
+	$Q_next_entries = db()->prepare("select entry_id, time_start, time_end, rev_num, entry_name
 		from `entry` where 
 		(
 			(time_start <= '$start' and time_end > '$start') or 
@@ -109,10 +109,11 @@ function exchangesync_getUsersEntriesInPeriod($user_id, $start, $end)
 			(time_start > '$start' and time_end < '$end')
 		)
 		and (`user_assigned` LIKE '%;".$user_id.";%')");
+    $Q_next_entries->execute();
 	
 	$entries = array();
 	checkMysqlErrorAndThrowException(__LINE__, __FILE__);
-	while($R_entry = mysql_fetch_assoc($Q_next_entries))
+	while($R_entry = $Q_next_entries->fetch(PDO::FETCH_ASSOC))
 	{
 		$entries[$R_entry['entry_id']]             = $R_entry;
 	}
@@ -122,7 +123,7 @@ function exchangesync_getUsersEntriesInPeriod($user_id, $start, $end)
 function exchangesync_getUsersSyncdata ($user_id, $start, $end)
 {
 	$sync = array();
-	$Q = mysql_query("select * from `entry_exchangesync` 
+	$Q = db()->prepare("select * from `entry_exchangesync`
 		WHERE
 				(
 				(sync_from <= '$start' and sync_to > '$start') or 
@@ -130,8 +131,8 @@ function exchangesync_getUsersSyncdata ($user_id, $start, $end)
 				(sync_from > '$start' and sync_to < '$end')
 			)
 			and `user_id` = '".$user_id."'");
-	checkMysqlErrorAndThrowException(__LINE__, __FILE__);
-	while($R_sync = mysql_fetch_assoc($Q))
+    $Q->execute();
+	while($R_sync = $Q->fetch(PDO::FETCH_ASSOC))
 	{
 		$sync[$R_sync['entry_id']] = $R_sync;
 	}

@@ -65,10 +65,10 @@ if(count($_GET['entry_id']) > 50)
 {
 	$section = 'tobemade_ready';
 	include "include/invoice_menu.php";
-	echo '<div class="error">Du forsøker å sende mer enn 50 bookinger til regnskap på likt. '.
-		'Dette blir sannsynligvis for mye for bookingsystemet (klarer ikke så mange i en PDF), så forsøket er blitt stoppet.<br /><br />'.
+	echo '<div class="error">Du forsÃ¸ker &aring; sende mer enn 50 bookinger til regnskap p&aring; likt. '.
+		'Dette blir sannsynligvis for mye for bookingsystemet (klarer ikke sÃ¥ mange i en PDF), sÃ¥ forsÃ¸ket er blitt stoppet.<br /><br />'.
 		
-		'Velg et mindre antall og forsøk igjen.</div>';
+		'Velg et mindre antall og fors&oslash;k igjen.</div>';
 	
 	exit;
 }
@@ -98,12 +98,13 @@ foreach($_GET['entry_id'] as $id)
 			$entry_errors = true;
 			
 			echo '<span class="hiddenprint">';
-			$Q_area = mysql_query("select id as area_id, area_name from mrbs_area order by area_name");
-			$num_area = mysql_num_rows($Q_area);
+			$Q_area = db()->prepare("select id as area_id, area_name from mrbs_area order by area_name");
+			$Q_area->execute();
+			$num_area = $Q_area->rowCount();
 			
 			$counter_area = 0;
 			echo '<span style="font-size: 0.8em;">Filtrer p&aring; anlegg: ';
-			while($R = mysql_fetch_assoc($Q_area))
+			while($R = $Q_area->fetch())
 			{
 				$counter_area++;
 				if($area_spesific && $area_invoice['area_id'] == $R['area_id'])
@@ -131,11 +132,11 @@ foreach($_GET['entry_id'] as $id)
 
 if($entry_errors)
 {
-	echo '<h1>Feilmeldingene over må rettes før det kan sendes til regnskap</h1>';
-	echo '<p style="font-size: 1.4em; margin: 10px;">'.iconHTML('arrow_right').' Endre bookingen(e) (trykk på bookingnr over)</p>';
-	echo '<p style="font-size: 1.4em; margin: 10px;">'.iconHTML('arrow_right').' <a href="'.$redirect.'">Gå tilbake til listen over faktureringsklare bookinger</a></p><br />';
+	echo '<h1>Feilmeldingene over m&aring; rettes f&aring;r det kan sendes til regnskap</h1>';
+	echo '<p style="font-size: 1.4em; margin: 10px;">'.iconHTML('arrow_right').' Endre bookingen(e) (trykk p&aring; bookingnr over)</p>';
+	echo '<p style="font-size: 1.4em; margin: 10px;">'.iconHTML('arrow_right').' <a href="'.$redirect.'">G&aring; tilbake til listen over faktureringsklare bookinger</a></p><br />';
 	
-	echo 'Du kan også sette den klar til fakturering, men det blir kanskje bare å skyve problemene videre på noen andre/utsette de<br />';
+	echo 'Du kan ogs&aring; sette den klar til fakturering, men det blir kanskje bare &aring; skyve problemene videre p&aring; noen andre/utsette de<br />';
 	echo '- <a href="'.$_SERVER['PHP_SELF'].'?'.implode('&amp;', $entry_ids_url).'&amp;ignore_errors=1">Sett til status "sendt til regnskap"</a><br>';
 }
 
@@ -146,8 +147,8 @@ if(!$entry_errors)
 		header('Location: '.$redirect);
 		exit;
 	}
-	
-	mysql_query("
+
+    $QUERY = db()->prepare("
 		INSERT INTO `invoiced` (
 				`invoiced_id` ,
 				`created` ,
@@ -162,7 +163,8 @@ if(!$entry_errors)
 				'0', 
 				''
 			);");
-	$invoiced_id = mysql_insert_id();
+    $QUERY->execute();
+	$invoiced_id = db()->lastInsertId();
 	
 	if($invoiced_id <= 0)
 	{
@@ -181,10 +183,11 @@ if(!$entry_errors)
 		$rev_num = $entry['rev_num']+1;
 		
 		// Add to entry_invoiced
-		mysql_query("INSERT INTO `entry_invoiced` (`entry_id` , `invoiced_id`) VALUES ('".$entry['entry_id']."', '".$invoiced_id."');");
+        $QUERY = db()->prepare("INSERT INTO `entry_invoiced` (`entry_id` , `invoiced_id`) VALUES ('".$entry['entry_id']."', '".$invoiced_id."');");
+        $QUERY->execute();
 		
 		// Updating invoice status
-		mysql_query(
+        $QUERY = db()->prepare(
 			"UPDATE `entry` ".
 				"SET ".
 					"`invoice_status` = '3', ".
@@ -193,6 +196,7 @@ if(!$entry_errors)
 					"`rev_num` = '$rev_num', ".
 					"`invoice_exported_time` = '".time()."' ".
 				" WHERE `entry_id` = '".$entry['entry_id']."' LIMIT 1 ;");
+        $QUERY->execute();
 		
 		$log_data = array();
 		if(!newEntryLog($entry['entry_id'], 'edit', 'invoice_exported', $rev_num, $log_data))
@@ -226,13 +230,14 @@ if(!$entry_errors)
 	file_put_contents($invoice_location.$pdffile, $dompdf->output());
 	
 	// Update invoiced
-	mysql_query("UPDATE `invoiced` SET `pdf_name` = '".$pdffile."' WHERE `invoiced_id` = '".$invoiced_id."' LIMIT 1 ;");
+	$QUERY = db()->prepare("UPDATE `invoiced` SET `pdf_name` = '".$pdffile."' WHERE `invoiced_id` = '".$invoiced_id."' LIMIT 1 ;");
+	$QUERY->execute();
 	
 	
 	// Send PDF in emails
 	$subject = 'Fakturagrunnlag - '.date('d.m.Y', $from).' til '.date('d.m.Y', $to);
 	
-	$message_plain = 'Følgende '.count($entries).' booking'.$er.' (FROM_AREA) er med i vedlagt PDF-fil med fakturagrunnlag:'.chr(10).chr(10);
+	$message_plain = 'FÃ¥lgende '.count($entries).' booking'.$er.' (FROM_AREA) er med i vedlagt PDF-fil med fakturagrunnlag:'.chr(10).chr(10);
 	$areas_inpdf = array();
 	foreach($entries as $entry)
 	{
@@ -260,9 +265,11 @@ if(!$entry_errors)
 	foreach($invoice_sendto as $email)
 	{
 		emailSendInvoicePDF ($email, $invoice_location.$pdffile, $message_plain, $subject);
-		mysql_query("INSERT INTO `invoiced_emails` (`email_addr` , `invoiced_id`) VALUES ('".$email."', '".$invoiced_id."');");
+        $QUERY = db()->prepare("INSERT INTO `invoiced_emails` (`email_addr` , `invoiced_id`) VALUES ('".$email."', '".$invoiced_id."');");
+        $QUERY->execute();
 	}
-	mysql_query("UPDATE `invoiced` SET `emailed_time` = '".time()."', `emailed` = '1' WHERE `invoiced_id` = '".$invoiced_id."' LIMIT 1 ;");
+    $QUERY = db()->prepare("UPDATE `invoiced` SET `emailed_time` = '".time()."', `emailed` = '1' WHERE `invoiced_id` = '".$invoiced_id."' LIMIT 1 ;");
+    $QUERY->execute();
 	
 	
 	// Redirect back
