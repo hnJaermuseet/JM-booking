@@ -158,10 +158,11 @@ if(isset($_POST['confirm_tpl']))
 	}
 	
 	$rev_num = $entry['rev_num']+1;
-	mysql_query("UPDATE `entry` SET `confirm_email` = '1', `time_last_edit` = '".time()."', `rev_num` = '$rev_num' WHERE `entry_id` = '".$entry['entry_id']."' LIMIT 1 ;");
+	$Q_update = db()->prepare("UPDATE `entry` SET `confirm_email` = '1', `time_last_edit` = '".time()."', `rev_num` = '$rev_num' WHERE `entry_id` = '".$entry['entry_id']."' LIMIT 1 ;");
+    $Q_update->execute();
 	
 	// Insert to get confirmation ID
-	mysql_query("INSERT INTO `entry_confirm` (
+	$Q_insert = db()->prepare("INSERT INTO `entry_confirm` (
 				`confirm_id` ,
 				`entry_id` ,
 				`rev_num` ,
@@ -178,28 +179,37 @@ if(isset($_POST['confirm_tpl']))
 			)
 			VALUES (
 				NULL , 
-				'".$entry['entry_id']."', 
-				'".$rev_num."', 
-				'".$login['user_id']."', 
-				'".time()."', 
-				'".serialize($emails)."', 
-				'".slashes(htmlspecialchars($confirm_txt,ENT_QUOTES))."', 
-				'".slashes(htmlspecialchars($confirm_tpl,ENT_QUOTES))."', 
-				'".$confirm_pdf."',
-				'".slashes(htmlspecialchars($confirm_pdf_tpl,ENT_QUOTES))."', 
-				'".slashes(htmlspecialchars($confirm_pdf_txt,ENT_QUOTES))."', 
-				'".$confirm_pdffile."',
-				'".$confirm_comment."'
+				:entry_id,
+				:rev_num,
+				:user_id,
+				:time,
+				:emails,
+				:confirm_txt,
+				:confirm_tpl,
+				:confirm_pdf,
+				:confirm_pdf_tpl,
+				:confirm_pdf_txt,
+				:confirm_pdffile,
+				:confirm_comment
 			);");
-	
-	if(mysql_errno()) {
-		echo mysql_error();
-		exit();
-	}
-	
+    $Q_insert->bindValue(':entry_id', $entry['entry_id']);
+    $Q_insert->bindValue(':rev_num', $rev_num);
+    $Q_insert->bindValue(':user_id', $login['user_id']);
+    $Q_insert->bindValue(':time', time());
+    $Q_insert->bindValue(':emails', serialize($emails));
+    $Q_insert->bindValue(':confirm_txt', htmlspecialchars($confirm_txt,ENT_QUOTES));
+    $Q_insert->bindValue(':confirm_tpl', htmlspecialchars($confirm_tpl,ENT_QUOTES));
+    $Q_insert->bindValue(':confirm_pdf', $confirm_pdf);
+    $Q_insert->bindValue(':confirm_pdf_tpl', htmlspecialchars($confirm_pdf_tpl,ENT_QUOTES));
+    $Q_insert->bindValue(':confirm_pdf_txt', htmlspecialchars($confirm_pdf_txt,ENT_QUOTES));
+    $Q_insert->bindValue(':confirm_pdffile', $confirm_pdffile);
+    $Q_insert->bindValue(':confirm_comment', $confirm_comment);
+
+    $Q_insert->execute();
+
 	// Generating $log_data
 	$log_data = array();
-	$log_data['confirm_id'] = mysql_insert_id();
+	$log_data['confirm_id'] = db()->lastInsertId();
 	if($confirm_comment != '')
 		$log_data['confirm_comment'] = $confirm_comment;
 	$i = 0;
@@ -233,41 +243,20 @@ if(isset($_POST['confirm_tpl']))
 	// Log usage of attachments
 	foreach($attachments as $att)
 	{
-		mysql_query("
-		INSERT INTO `entry_confirm_usedatt` (
-			`confirm_id` ,
-			`att_id` ,
-			`timeused`
-		)
-		VALUES (
-			'".$log_data['confirm_id']."', 
-			'".$att['att_id']."', 
-			'".time()."'
-		);");
+		db()
+            ->prepare("
+            INSERT INTO `entry_confirm_usedatt` (
+                `confirm_id` ,
+                `att_id` ,
+                `timeused`
+            )
+            VALUES (
+                '".$log_data['confirm_id']."',
+                '".$att['att_id']."',
+                '".time()."'
+            );")
+            ->execute();
 	}
-	/*
-	if(isset($_POST['save_template']) && $_POST['save_template'] == '1')
-	{
-		// Saving template as $_POST['save_template_as']
-		$save_template_as = '';
-		if(isset($_POST['save_template_as'])) {
-			$save_template_as = slashes(htmlspecialchars(strip_tags($_POST['save_template_as']),ENT_QUOTES));
-		}
-		mysql_query("INSERT INTO `template` (
-				`template_id` ,
-				`template` ,
-				`template_name` ,
-				`template_type`,
-				`template_time_last_edit`
-			)
-			VALUES (
-				NULL , 
-				'".slashes(htmlspecialchars($confirm_tpl,ENT_QUOTES))."', 
-				'$save_template_as', 
-				'confirm',
-				'".time()."'
-			);");
-	}*/
 	
 	header('Location: entry.php?entry_id='.$entry['entry_id']);
 	exit();
@@ -288,15 +277,16 @@ echo '<script src="js/entry-confirm.js" type="text/javascript"></script>'.chr(10
 echo '<h2>'._h('Choose template').'</h2>'.chr(10);
 echo '<div style="margin-left: 20px;">';
 echo _h('Choose already save template:').'<br>';
-$Q_template = mysql_query("select template_id, template_name from `template` 
+$Q_template = db()->prepare("select template_id, template_name from `template`
 	WHERE template_type = 'confirm'
 	ORDER BY `template_name` desc");
-if(mysql_num_rows($Q_template))
+$Q_template->execute();
+if($Q_template->rowCount() > 0)
 {
 	echo '<select onchange="useTemplate(this.options[this.selectedIndex].value);" '.
 		'class="chooseTemplate noTemplate" validate="required:true">'.chr(10);
 	echo '<option value="0">'.__('Non selected').'</option>'.chr(10);
-	while ($R_tpl = mysql_fetch_assoc($Q_template))
+	while ($R_tpl = $Q_template->fetch(PDO::FETCH_ASSOC))
 	{
 		echo '<option value="'.$R_tpl['template_id'].'">'.$R_tpl['template_name'].'</option>'.chr(10);
 	}
@@ -404,7 +394,7 @@ WHERE
 		e.entry_type_id = '".$entry['entry_type_id']."'
 ;
 		";
-$Q_att = mysql_query("
+$Q_att = db()->prepare("
 SELECT
 	a.att_id, a.att_filename_orig
 FROM
@@ -414,13 +404,14 @@ WHERE
 	p.program_id = '".$entry['program_id']."'
 ;
 		");
+$Q_att->execute();
 $atts = array();
-while($att = mysql_fetch_assoc($Q_att))
+while($att = $Q_att->fetch(PDO::FETCH_ASSOC))
 {
 	if(!isset($atts[$att['att_id']]))
 		$atts[$att['att_id']] = $att['att_filename_orig'];
 }
-$Q_att = mysql_query("
+$Q_att = db()->prepare("
 SELECT	a.att_id, a.att_filename_orig
 FROM	`entry_confirm_attachment` a, `entry_type_defaultattachment` e
 WHERE
@@ -429,7 +420,8 @@ WHERE
 	e.area_id = '".$entry['area_id']."'
 ;
 		");
-while($att = mysql_fetch_assoc($Q_att))
+$Q_att->execute();
+while($att = $Q_att->fetch(PDO::FETCH_ASSOC))
 {
 	if(!isset($atts[$att['att_id']]))
 		$atts[$att['att_id']] = $att['att_filename_orig'];
@@ -487,4 +479,3 @@ echo '<input type="submit" value="'.__('Send confirmation').'" style="font-size:
 echo '</form>'.chr(10);
 
 require "include/attachmentSelector.php";
-?>
